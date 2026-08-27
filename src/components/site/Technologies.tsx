@@ -1,6 +1,6 @@
 import { NeumorphicCard } from "@/components/nm";
 
-// 100% Reliable, Standalone Vector SVGs for all 16 Technologies matching the screenshot exactly
+// 100% Reliable, Standalone Vector SVGs for all 16 Technologies
 const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
   WordPress: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,43 +151,45 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  "Meta Ads": ({ className = "h-10 w-10" }) => (
+  HTML5: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#0081FB" />
+      <rect width="128" height="128" rx="28" fill="#E34F26" />
+      <path d="M28 24L36 104L64 112L92 104L100 24H28ZM82.5 42H45.5L47 56H81L79 78L64 82L49 78L48 68H38L40 86L64 92.5L88 86L91.5 42H82.5Z" fill="white" />
+    </svg>
+  ),
+
+  CSS3: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#1572B6" />
+      <path d="M28 24L36 104L64 112L92 104L100 24H28ZM82.5 42H45.5L47 56H81L79 78L64 82L49 78L48 68H38L40 86L64 92.5L88 86L91.5 42H82.5Z" fill="white" />
+    </svg>
+  ),
+
+  JavaScript: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#F7DF1E" />
       <path
-        d="M64 64C56 50 48 42 38 42C27 42 20 51 20 64C20 77 27 86 38 86C48 86 56 78 64 64ZM64 64C72 50 80 42 90 42C101 42 108 51 108 64C108 77 101 86 90 86C80 86 72 78 64 64Z"
-        stroke="white"
-        strokeWidth="10"
-        strokeLinecap="round"
-        fill="none"
+        d="M38 92L47 86.5C49 90.5 52.5 93 57 93C62 93 65.5 90 65.5 85V48H77V85C77 96 70 102 57 102C48 102 41 98 38 92ZM84 92L93 86.5C96 91 100 93.5 106 93.5C112 93.5 116 90.5 116 86C116 81.5 113 79.5 104 75.5C92 70.5 85 65.5 85 55C85 45 93 37.5 104 37.5C112 37.5 118 40.5 122 47L113 52.5C111 48.5 108 46.5 104 46.5C99.5 46.5 96.5 49 96.5 53C96.5 57 99 58.5 107 62C120 67 127 72 127 84C127 94.5 119 102 106 102C97 102 89 98 84 92Z"
+        fill="#000000"
       />
     </svg>
   ),
 
-  "Google Ads": ({ className = "h-10 w-10" }) => (
+  PHP: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#F8F9FA" />
-      <path d="M42 28L24 64L38 92L56 56L42 28Z" fill="#FBBC04" />
-      <path d="M86 28L68 64L82 92L100 56L86 28Z" fill="#4285F4" />
-      <circle cx="48" cy="80" r="14" fill="#34A853" />
-    </svg>
-  ),
-
-  "Tag Manager": ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#246FDB" />
-      <path d="M64 24L98 58L64 92L30 58L64 24Z" fill="white" />
-      <circle cx="64" cy="58" r="14" fill="#246FDB" />
-      <circle cx="64" cy="94" r="8" fill="#8AB4F8" />
-    </svg>
-  ),
-
-  Analytics: ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#F9AB00" />
-      <rect x="76" y="32" width="18" height="64" rx="9" fill="white" />
-      <rect x="52" y="52" width="18" height="44" rx="9" fill="white" fillOpacity="0.85" />
-      <circle cx="37" cy="87" r="9" fill="white" fillOpacity="0.7" />
+      <rect width="128" height="128" rx="28" fill="#777BB4" />
+      <ellipse cx="64" cy="64" rx="52" ry="34" fill="#4F5B93" />
+      <text
+        x="64"
+        y="75"
+        fontFamily="'Funnel Display', sans-serif"
+        fontSize="34"
+        fontWeight="900"
+        textAnchor="middle"
+        fill="white"
+      >
+        php
+      </text>
     </svg>
   ),
 };
@@ -207,10 +209,10 @@ const TECHNOLOGIES_LIST = [
   "Figma",
   "Photoshop",
   "Illustrator",
-  "Meta Ads",
-  "Google Ads",
-  "Tag Manager",
-  "Analytics",
+  "HTML5",
+  "CSS3",
+  "JavaScript",
+  "PHP",
 ];
 
 export function Technologies() {
