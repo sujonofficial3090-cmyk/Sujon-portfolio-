@@ -1,28 +1,62 @@
-import { Menu, X, Sun, Moon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Menu, X, Sun, Moon, Palette, Check } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-import logoMark from "@/assets/logo-mark.png";
 import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#portfolio" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#home" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Projects", href: "/#portfolio" },
+  { label: "Reviews", href: "/#reviews" },
+  { label: "Contact", href: "/#contact" },
+];
+
+const COLOR_MOODS = [
+  { id: "gold", label: "Gold", hex: "#F5B700" },
+  { id: "orange", label: "Orange", hex: "#F97316" },
+  { id: "blue", label: "Blue", hex: "#2563EB" },
+  { id: "purple", label: "Purple", hex: "#7C3AED" },
+  { id: "teal", label: "Teal", hex: "#0D9488" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("#home");
+  const [active, setActive] = useState("/#home");
   const [dark, setDark] = useState(false);
+  const [accent, setAccent] = useState("gold");
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const paletteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
+    const isDark = document.documentElement.classList.contains("dark");
+    setDark(isDark);
+
+    const currentAccent =
+      document.documentElement.getAttribute("data-accent") ||
+      localStorage.getItem("accentColor") ||
+      "gold";
+    setAccent(currentAccent);
+    document.documentElement.setAttribute("data-accent", currentAccent);
+
+    function handleClickOutside(e: MouseEvent) {
+      if (paletteRef.current && !paletteRef.current.contains(e.target as Node)) {
+        setPaletteOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Instant mood selection without transition delay
+  const selectAccent = (colorId: string) => {
+    setAccent(colorId);
+    document.documentElement.setAttribute("data-accent", colorId);
+    localStorage.setItem("accentColor", colorId);
+  };
+
+  // Instant Light/Dark toggle without any transition animation
   const toggleTheme = () => {
     if (document.documentElement.classList.contains("dark")) {
       document.documentElement.classList.remove("dark");
@@ -31,8 +65,6 @@ export function Header() {
     } else {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
-      setDark(false);
-      // Wait, we need to set state to true, let's make sure it's correct
       setDark(true);
     }
   };
@@ -41,60 +73,167 @@ export function Header() {
     <header className="sticky top-3 z-50">
       <NeumorphicCard depth="md" radius="lg" className="px-4 py-3 sm:px-5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
-          <a href="#home" className="flex min-w-0 items-center gap-2">
-            <img
-              src={logoMark}
-              alt="SUJON logo"
-              width={40}
-              height={40}
-              className="h-9 w-9 shrink-0 object-contain"
-            />
-            <span className="truncate text-[15px] font-extrabold tracking-wider uppercase text-foreground">
+          {/* Pure Typographic Logo — SUJON Only */}
+          <a href="/#home" className="flex min-w-0 items-center">
+            <span className="text-brand-gradient text-[24px] sm:text-[27px] font-extrabold tracking-[0.14em] uppercase transition-colors">
               SUJON
             </span>
           </a>
 
+          {/* Desktop Navigation: Real Neumorphic Buttons with Funnel Display 16px/20px, 600 weight, rgb(255,96,0) */}
           <nav className="hidden justify-center lg:flex">
-            <ul className="flex items-center gap-2">
-              {NAV.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={() => setActive(item.href)}
-                    className={cn(
-                      "rounded-[8px] px-4 py-2 text-[10px] font-semibold tracking-[0.12em] uppercase transition-all duration-300",
-                      active === item.href
-                        ? "nm-inset text-brand-deep"
-                        : "text-muted-foreground hover:text-brand-deep",
-                    )}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+            <ul className="flex items-center gap-3">
+              {NAV.map((item) => {
+                const isActive = active === item.href;
+                return (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      onClick={() => setActive(item.href)}
+                      className={cn(
+                        "inline-flex items-center justify-center rounded-[10px] px-[18px] py-[10px] uppercase tracking-wider transition-all duration-200",
+                        isActive
+                          ? "nm-inset font-bold shadow-[var(--shadow-nm-inset)] scale-[0.98]"
+                          : "nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 font-semibold",
+                      )}
+                      style={{
+                        fontFamily: '"Funnel Display", sans-serif',
+                        fontStyle: "normal",
+                        fontWeight: 600,
+                        fontSize: "16px",
+                        lineHeight: "20px",
+                        color: "rgb(255, 96, 0)",
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
-          <div className="flex items-center justify-end gap-2">
+          {/* Header Action Controls */}
+          <div className="flex items-center justify-end gap-2.5">
             <NeumorphicLinkButton
-              href="#contact"
+              href="/#contact"
               tone="brand"
               size="sm"
-              className="hidden sm:inline-flex"
+              className="hidden sm:inline-flex font-bold"
             >
               Get a Quote
             </NeumorphicLinkButton>
-            
-            {/* Theme Toggle */}
+
+            {/* Theme & Color Mood Trigger */}
+            <div className="relative" ref={paletteRef}>
+              <button
+                type="button"
+                onClick={() => setPaletteOpen((v) => !v)}
+                aria-label="Theme and color palette"
+                aria-expanded={paletteOpen}
+                className={cn(
+                  "nm-raised-sm nm-interactive flex h-10 items-center gap-1.5 rounded-[10px] px-3 text-foreground/80",
+                  paletteOpen && "nm-inset text-brand-deep",
+                )}
+              >
+                <Palette className="h-4 w-4 text-brand-deep" />
+                <span
+                  className="h-3 w-3 rounded-full shrink-0 shadow-xs border border-white/40 dark:border-black/40"
+                  style={{
+                    backgroundColor:
+                      COLOR_MOODS.find((c) => c.id === accent)?.hex || "#F5B700",
+                  }}
+                />
+              </button>
+
+              {/* 5-Color Mood + Light/Dark Neumorphic Popover */}
+              {paletteOpen && (
+                <div className="absolute right-0 top-12 z-50 w-72 rounded-[16px] bg-surface p-4 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-[var(--shadow-nm-hover)]">
+                  {/* Header */}
+                  <div className="flex items-center justify-between border-b border-border pb-2.5">
+                    <span className="text-[12px] font-extrabold uppercase tracking-wider text-foreground">
+                      Color Mood
+                    </span>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-deep">
+                      {COLOR_MOODS.find((c) => c.id === accent)?.label}
+                    </span>
+                  </div>
+
+                  {/* Exactly 5 Color Options */}
+                  <div className="mt-3.5 flex items-center justify-between gap-2">
+                    {COLOR_MOODS.map((c) => {
+                      const isSelected = accent === c.id;
+                      return (
+                        <button
+                          key={c.id}
+                          type="button"
+                          onClick={() => selectAccent(c.id)}
+                          title={`${c.label} Mood`}
+                          aria-label={`Select ${c.label} color mood`}
+                          className={cn(
+                            "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-200",
+                            isSelected
+                              ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
+                              : "nm-raised-sm hover:scale-105",
+                          )}
+                        >
+                          <span
+                            className="h-6 w-6 rounded-full shrink-0 shadow-inner flex items-center justify-center"
+                            style={{ backgroundColor: c.hex }}
+                          >
+                            {isSelected && (
+                              <Check className="h-3.5 w-3.5 stroke-[3px] text-white drop-shadow-xs" />
+                            )}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Surface Mode Toggle (Light / Dark) */}
+                  <div className="mt-4 border-t border-border pt-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-semibold text-muted-foreground">
+                        Surface Mode
+                      </span>
+                      <button
+                        type="button"
+                        onClick={toggleTheme}
+                        className="nm-raised-sm nm-interactive flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase text-foreground/80"
+                      >
+                        {dark ? (
+                          <>
+                            <Sun className="h-3.5 w-3.5 text-brand-deep" />
+                            <span>Light</span>
+                          </>
+                        ) : (
+                          <>
+                            <Moon className="h-3.5 w-3.5 text-brand-deep" />
+                            <span>Dark</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Direct Quick Light/Dark Instant Toggle */}
             <button
               type="button"
               onClick={toggleTheme}
-              aria-label="Toggle theme"
+              aria-label="Toggle light or dark theme"
               className="nm-raised-sm nm-interactive grid h-10 w-10 shrink-0 place-items-center rounded-[10px] text-foreground/75"
             >
-              {dark ? <Sun className="h-4 w-4 text-brand-deep" /> : <Moon className="h-4 w-4 text-brand-deep" />}
+              {dark ? (
+                <Sun className="h-4 w-4 text-brand-deep" />
+              ) : (
+                <Moon className="h-4 w-4 text-brand-deep" />
+              )}
             </button>
 
+            {/* Mobile Menu Hamburger */}
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}
@@ -107,33 +246,50 @@ export function Header() {
           </div>
         </div>
 
+        {/* Mobile Navigation Dropdown with Real Neumorphic Buttons */}
         <div
           className={cn(
-            "grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 lg:hidden",
+            "grid overflow-hidden transition-[grid-template-rows,opacity] duration-250 lg:hidden",
             open ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
           )}
         >
           <div className="min-h-0">
-            <ul className="nm-inset flex flex-col gap-1 rounded-[12px] p-2">
-              {NAV.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={() => {
-                      setActive(item.href);
-                      setOpen(false);
-                    }}
-                    className="nm-raised-sm block rounded-[8px] px-4 py-2.5 text-[11px] font-semibold tracking-[0.12em] uppercase text-foreground/75"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-              <li className="sm:hidden">
+            <ul className="nm-inset flex flex-col gap-2.5 rounded-[14px] p-3">
+              {NAV.map((item) => {
+                const isActive = active === item.href;
+                return (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      onClick={() => {
+                        setActive(item.href);
+                        setOpen(false);
+                      }}
+                      className={cn(
+                        "block text-center rounded-[10px] px-4 py-3 uppercase tracking-wider transition-all duration-200",
+                        isActive
+                          ? "nm-inset font-bold shadow-[var(--shadow-nm-inset)]"
+                          : "nm-raised-sm font-semibold",
+                      )}
+                      style={{
+                        fontFamily: '"Funnel Display", sans-serif',
+                        fontStyle: "normal",
+                        fontWeight: 600,
+                        fontSize: "16px",
+                        lineHeight: "20px",
+                        color: "rgb(255, 96, 0)",
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
+              <li className="sm:hidden mt-1">
                 <a
-                  href="#contact"
+                  href="/#contact"
                   onClick={() => setOpen(false)}
-                  className="nm-raised-sm text-brand-deep block rounded-[8px] px-4 py-2.5 text-[11px] font-semibold tracking-[0.12em] uppercase"
+                  className="nm-raised text-brand-deep block text-center rounded-[10px] px-4 py-3 text-[14px] font-bold tracking-[0.12em] uppercase"
                 >
                   Get a Quote
                 </a>

@@ -34,6 +34,8 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+import { ScrollButton } from "@/components/site/ScrollButton";
+
 function WhatsAppFloat() {
   return (
     <a
@@ -72,6 +74,7 @@ function Index() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <ScrollButton />
     </div>
   );
 }

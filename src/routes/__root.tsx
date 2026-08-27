@@ -89,9 +89,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "alternate icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
@@ -118,15 +119,21 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   useEffect(() => {
+    // Theme surface: default Light mode
+    const storedTheme = localStorage.getItem("theme");
     const isDark =
-      localStorage.getItem("theme") === "dark" ||
-      (!localStorage.getItem("theme") &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches);
+      storedTheme === "dark" ||
+      (!storedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
     if (isDark) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
+
+    // Color mood accent: default Gold
+    const storedAccent = localStorage.getItem("accentColor") || "gold";
+    document.documentElement.setAttribute("data-accent", storedAccent);
   }, []);
 
   return (

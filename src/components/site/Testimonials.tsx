@@ -49,36 +49,42 @@ const REVIEWS = [
 export function Testimonials() {
   return (
     <section id="reviews" className="scroll-mt-28">
-      <NeumorphicCard depth="md" radius="lg" className="p-4 sm:p-5">
-        <h2 className="text-brand-gradient mb-6 text-center text-[clamp(1.4rem,4vw,2rem)] font-extrabold tracking-tight">
-          What Our Clients Say
-        </h2>
-        <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
+        <div className="mb-8 text-center">
+          <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
+            What Our Clients Say
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
+            Trusted feedback from businesses and partners worldwide.
+          </p>
+        </div>
+
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {REVIEWS.map((r) => (
             <NeumorphicCard
               key={r.name + r.site}
               depth="sm"
               radius="md"
               interactive
-              className="flex flex-col items-center px-5 py-7 text-center"
+              className="flex flex-col items-center px-6 py-7 text-center"
             >
-              <span className="nm-inset text-brand-deep grid h-11 w-11 place-items-center rounded-full text-[11px] font-extrabold tracking-[0.08em]">
+              <span className="nm-inset text-brand-deep grid h-12 w-12 place-items-center rounded-full text-[13px] font-extrabold tracking-[0.08em]">
                 {r.initials}
               </span>
 
               {/* 5-Star Rating */}
-              <div className="mt-4 flex items-center gap-0.5 text-amber-500 dark:text-amber-400">
+              <div className="mt-4 flex items-center gap-1 text-amber-500 dark:text-amber-400">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                  <Star key={i} className="h-4 w-4 fill-current" />
                 ))}
               </div>
 
-              <p className="mt-4 grow text-[11.5px] leading-[1.85] text-muted-foreground">
+              <p className="mt-4 grow text-[14px] sm:text-[15px] font-normal leading-[1.75] text-muted-foreground">
                 "{r.body}"
               </p>
-              <p className="text-brand-deep mt-4 text-[12px] font-bold">{r.name}</p>
-              <p className="mt-0.5 text-[9.5px] font-medium text-foreground/75">{r.company}</p>
-              <p className="mt-0.5 text-[9.5px] text-muted-foreground/80 hover:text-brand transition-colors">
+              <p className="text-brand-deep mt-5 text-[15px] font-extrabold">{r.name}</p>
+              <p className="mt-0.5 text-[12px] font-bold text-foreground/75">{r.company}</p>
+              <p className="mt-1 text-[11px] font-semibold text-muted-foreground/80 hover:text-brand transition-colors">
                 <a href={`https://${r.site}`} target="_blank" rel="noopener noreferrer">
                   {r.site}
                 </a>

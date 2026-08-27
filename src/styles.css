@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * SUJON Portfolio — soft neumorphic design system.
- * Background and surfaces share the same warm light-grey tone so that depth
- * comes purely from paired highlight/shadow, never from color contrast.
+ * SUJON Portfolio — Soft Neumorphic / Embossed Design System
+ * 5-Color Accent Mood System + Instant Light & Dark Modes
+ * Typography: Poppins for Body (16px), Funnel Display for Headings & Menu
  */
 
 @theme inline {
@@ -35,48 +35,41 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-brand: var(--brand);
   --color-brand-deep: var(--brand-deep);
+  --color-brand-light: var(--brand-light);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --font-sans: "Plus Jakarta Sans", "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Plus Jakarta Sans", "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Poppins", "Funnel Display", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Funnel Display", "Poppins", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.75rem;
 
+  /* Surfaces */
   --background: oklch(0.955 0.004 285);
-  --foreground: oklch(0.315 0.008 285);
+  --foreground: rgb(24, 24, 27);
   --surface: oklch(0.963 0.003 285);
 
   --card: oklch(0.963 0.003 285);
-  --card-foreground: oklch(0.315 0.008 285);
+  --card-foreground: rgb(24, 24, 27);
   --popover: oklch(0.963 0.003 285);
-  --popover-foreground: oklch(0.315 0.008 285);
-
-  /* brand: warm golden yellow + orange */
-  --primary: oklch(0.822 0.166 82.5);
-  --primary-foreground: oklch(0.28 0.01 285);
-  --brand: oklch(0.822 0.166 82.5);
-  --brand-deep: oklch(0.742 0.176 55);
+  --popover-foreground: rgb(24, 24, 27);
 
   --secondary: oklch(0.94 0.004 285);
-  --secondary-foreground: oklch(0.315 0.008 285);
+  --secondary-foreground: rgb(24, 24, 27);
   --muted: oklch(0.94 0.004 285);
-  --muted-foreground: oklch(0.545 0.008 285);
-  --accent: oklch(0.822 0.166 82.5);
-  --accent-foreground: oklch(0.28 0.01 285);
+  --muted-foreground: oklch(0.44 0.008 285);
 
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.915 0.004 285);
   --input: oklch(0.915 0.004 285);
-  --ring: oklch(0.822 0.166 82.5);
 
-  /* neumorphic shadow system — light source: top-left */
+  /* Neumorphic shadow system — light source: top-left */
   --nm-light: 255 255 255;
   --nm-dark: 186 184 192;
 
@@ -94,32 +87,103 @@
     inset 5px 5px 10px rgb(var(--nm-dark) / 0.38), inset -4px -4px 8px rgb(var(--nm-light) / 0.9);
 }
 
-/* Dark mode: identical layout & depth language, darker soft surface. */
-.dark {
+/* ==========================================================================
+   5 COLOR ACCENT MOODS — LIGHT MODE
+   ========================================================================== */
+
+/* Color 1: Gold / Yellow (#F5B700) - Default */
+:root,
+[data-accent="gold"],
+html[data-accent="gold"] {
+  --brand: #F5B700;
+  --brand-deep: #D99B00;
+  --brand-light: #FEF3C7;
+  --brand-rgb: 245, 183, 0;
+  --primary: #F5B700;
+  --primary-foreground: rgb(16, 16, 16);
+  --accent: #F5B700;
+  --accent-foreground: rgb(16, 16, 16);
+  --ring: #F5B700;
+}
+
+/* Color 2: Orange (#F97316) */
+[data-accent="orange"],
+html[data-accent="orange"] {
+  --brand: #F97316;
+  --brand-deep: #EA580C;
+  --brand-light: #FFEDD5;
+  --brand-rgb: 249, 115, 22;
+  --primary: #F97316;
+  --primary-foreground: rgb(16, 16, 16);
+  --accent: #F97316;
+  --accent-foreground: rgb(16, 16, 16);
+  --ring: #F97316;
+}
+
+/* Color 3: Blue (#2563EB) */
+[data-accent="blue"],
+html[data-accent="blue"] {
+  --brand: #2563EB;
+  --brand-deep: #1D4ED8;
+  --brand-light: #DBEAFE;
+  --brand-rgb: 37, 99, 235;
+  --primary: #2563EB;
+  --primary-foreground: #ffffff;
+  --accent: #2563EB;
+  --accent-foreground: #ffffff;
+  --ring: #2563EB;
+}
+
+/* Color 4: Purple (#7C3AED) */
+[data-accent="purple"],
+html[data-accent="purple"] {
+  --brand: #7C3AED;
+  --brand-deep: #6D28D9;
+  --brand-light: #EDE9FE;
+  --brand-rgb: 124, 58, 237;
+  --primary: #7C3AED;
+  --primary-foreground: #ffffff;
+  --accent: #7C3AED;
+  --accent-foreground: #ffffff;
+  --ring: #7C3AED;
+}
+
+/* Color 5: Teal (#0D9488) */
+[data-accent="teal"],
+html[data-accent="teal"] {
+  --brand: #0D9488;
+  --brand-deep: #0F766E;
+  --brand-light: #CCFBF1;
+  --brand-rgb: 13, 148, 136;
+  --primary: #0D9488;
+  --primary-foreground: #ffffff;
+  --accent: #0D9488;
+  --accent-foreground: #ffffff;
+  --ring: #0D9488;
+}
+
+/* ==========================================================================
+   DARK MODE SURFACES & ACCENTS
+   ========================================================================== */
+
+.dark,
+html.dark {
   --background: oklch(0.228 0.008 285);
-  --foreground: oklch(0.915 0.004 285);
+  --foreground: oklch(0.935 0.004 285);
   --surface: oklch(0.248 0.008 285);
 
   --card: oklch(0.248 0.008 285);
-  --card-foreground: oklch(0.915 0.004 285);
+  --card-foreground: oklch(0.935 0.004 285);
   --popover: oklch(0.248 0.008 285);
-  --popover-foreground: oklch(0.915 0.004 285);
-
-  --primary: oklch(0.828 0.166 82.5);
-  --primary-foreground: oklch(0.24 0.01 285);
-  --brand: oklch(0.848 0.156 84);
-  --brand-deep: oklch(0.808 0.162 66);
+  --popover-foreground: oklch(0.935 0.004 285);
 
   --secondary: oklch(0.278 0.008 285);
-  --secondary-foreground: oklch(0.915 0.004 285);
+  --secondary-foreground: oklch(0.935 0.004 285);
   --muted: oklch(0.278 0.008 285);
-  --muted-foreground: oklch(0.665 0.008 285);
-  --accent: oklch(0.828 0.166 82.5);
-  --accent-foreground: oklch(0.24 0.01 285);
+  --muted-foreground: oklch(0.72 0.008 285);
 
   --border: oklch(0.308 0.008 285);
   --input: oklch(0.308 0.008 285);
-  --ring: oklch(0.828 0.166 82.5);
 
   /* Dark neumorphic — deeper contrast for raised 3D effect */
   --nm-light: 80 78 92;
@@ -138,6 +202,72 @@
   --shadow-nm-inset-deep:
     inset 5px 5px 12px rgb(var(--nm-dark) / 0.88), inset -4px -4px 8px rgb(var(--nm-light) / 0.5);
 }
+
+/* Dark mode 5-color accent moods */
+.dark,
+html.dark[data-accent="gold"],
+.dark[data-accent="gold"] {
+  --brand: #FBBF24;
+  --brand-deep: #F5B700;
+  --brand-light: rgba(251, 191, 36, 0.15);
+  --primary: #FBBF24;
+  --primary-foreground: oklch(0.22 0.01 285);
+  --accent: #FBBF24;
+  --accent-foreground: oklch(0.22 0.01 285);
+  --ring: #FBBF24;
+}
+
+html.dark[data-accent="orange"],
+.dark[data-accent="orange"] {
+  --brand: #FB923C;
+  --brand-deep: #F97316;
+  --brand-light: rgba(251, 146, 60, 0.15);
+  --primary: #FB923C;
+  --primary-foreground: oklch(0.22 0.01 285);
+  --accent: #FB923C;
+  --accent-foreground: oklch(0.22 0.01 285);
+  --ring: #FB923C;
+}
+
+html.dark[data-accent="blue"],
+.dark[data-accent="blue"] {
+  --brand: #60A5FA;
+  --brand-deep: #3B82F6;
+  --brand-light: rgba(96, 165, 250, 0.15);
+  --primary: #60A5FA;
+  --primary-foreground: #ffffff;
+  --accent: #60A5FA;
+  --accent-foreground: #ffffff;
+  --ring: #60A5FA;
+}
+
+html.dark[data-accent="purple"],
+.dark[data-accent="purple"] {
+  --brand: #A78BFA;
+  --brand-deep: #8B5CF6;
+  --brand-light: rgba(167, 139, 250, 0.15);
+  --primary: #A78BFA;
+  --primary-foreground: #ffffff;
+  --accent: #A78BFA;
+  --accent-foreground: #ffffff;
+  --ring: #A78BFA;
+}
+
+html.dark[data-accent="teal"],
+.dark[data-accent="teal"] {
+  --brand: #2DD4BF;
+  --brand-deep: #14B8A6;
+  --brand-light: rgba(45, 212, 191, 0.15);
+  --primary: #2DD4BF;
+  --primary-foreground: oklch(0.22 0.01 285);
+  --accent: #2DD4BF;
+  --accent-foreground: oklch(0.22 0.01 285);
+  --ring: #2DD4BF;
+}
+
+/* ==========================================================================
+   NEUMORPHIC UTILITIES
+   ========================================================================== */
 
 @utility nm-raised {
   background-color: var(--surface);
@@ -166,8 +296,8 @@
 
 @utility nm-interactive {
   transition:
-    box-shadow 0.28s ease,
-    transform 0.28s ease;
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
   &:hover {
     box-shadow: var(--shadow-nm-hover);
     transform: translateY(-2px);
@@ -178,16 +308,59 @@
   }
 }
 
+/* Safe text gradient with vertical padding & inline-block to prevent clipping */
 @utility text-brand-gradient {
   background-image: linear-gradient(
-    100deg,
+    135deg,
     var(--brand-deep) 0%,
-    var(--brand) 35%,
+    var(--brand) 45%,
     var(--brand-deep) 100%
   );
   background-clip: text;
+  -webkit-background-clip: text;
   color: transparent;
+  display: inline-block;
+  padding-bottom: 0.14em;
+  line-height: 1.18;
 }
+
+/* ==========================================================================
+   EXACT MENU NAVIGATION BUTTON SPECIFICATION
+   ========================================================================== */
+
+.nav-menu-btn {
+  font-family: "Funnel Display", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgb(255, 96, 0);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-nm-sm);
+  border-radius: 10px;
+  padding: 12px 18px;
+  transition: box-shadow 0.22s ease, transform 0.22s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.nav-menu-btn:hover {
+  box-shadow: var(--shadow-nm-hover);
+  transform: translateY(-2px);
+}
+
+.nav-menu-btn:active,
+.nav-menu-btn.active {
+  box-shadow: var(--shadow-nm-inset);
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   BASE STYLES & TYPOGRAPHY
+   ========================================================================== */
 
 @layer base {
   * {
@@ -196,15 +369,34 @@
 
   html {
     scroll-behavior: smooth;
+    font-family: "Poppins", "Funnel Display", sans-serif;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-sans);
-    font-size: 15px;
-    line-height: 1.7;
+    font-family: "Poppins", "Funnel Display", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Funnel Display", "Poppins", sans-serif;
+  }
+}
+
+/* Hero large display heading */
+.hero-title-display {
+  font-family: "Funnel Display", sans-serif;
+  font-weight: 800;
+  line-height: 96px;
+}
+
+@media (max-width: 1024px) {
+  .hero-title-display {
+    line-height: 1.15;
   }
 }

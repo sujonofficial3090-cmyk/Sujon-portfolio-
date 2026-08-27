@@ -10,93 +10,79 @@ import { NeumorphicCard } from "@/components/nm";
 
 const SERVICES = [
   {
-    title: "WordPress Development",
+    title: "Bespoke Web Design",
     img: svc1,
-    description: "Custom-built, high-performing WordPress websites tailored to your business needs.",
   },
   {
-    title: "Elementor Development",
+    title: "Web Development",
     img: svc2,
-    description: "Pixel-perfect, drag-and-drop page builder designs for flexible & beautiful layouts.",
   },
   {
-    title: "WooCommerce Development",
+    title: "eCommerce Development",
     img: svc3,
-    description: "Feature-rich eCommerce storefronts optimized for high conversions and user experience.",
   },
   {
-    title: "Custom WordPress Website",
+    title: "App Development",
     img: svc4,
-    description: "Unique custom WordPress themes developed from scratch — no page-builder bloat.",
   },
   {
-    title: "WordPress Website Redesign",
+    title: "Speed Optimization",
     img: svc5,
-    description: "Transform your outdated website into a modern, sleek, and highly engaging platform.",
   },
   {
-    title: "WordPress Speed Optimization",
+    title: "SEO/AEO/GEO",
     img: svc6,
-    description: "Boost page load times, GTmetrix scores, and Core Web Vitals for better SEO rankings.",
   },
   {
-    title: "WordPress Maintenance",
+    title: "Complete Marketing",
     img: svc7,
-    description: "Regular security checks, plugin updates, and backups to keep your site safe 24/7.",
   },
   {
-    title: "Landing Page Development",
+    title: "Company Branding",
     img: svc8,
-    description: "High-converting, responsive landing pages built specifically for leads and sales.",
   },
 ];
 
 export function Services() {
   return (
     <section id="services" className="scroll-mt-28">
-      <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-7">
+      <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
         {/* Section Header */}
-        <div className="mb-7 text-center">
-          <h2 className="text-brand-gradient text-[clamp(1.5rem,4vw,2.2rem)] font-extrabold tracking-tight">
+        <div className="mb-8 text-center">
+          <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             Explore Our Services
           </h2>
-          <p className="mx-auto mt-2 max-w-xl text-[14px] text-muted-foreground leading-[1.65]">
+          <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium text-muted-foreground leading-[1.65]">
             Professional WordPress solutions designed to help businesses build a stronger online presence.
           </p>
         </div>
 
-        {/* 4×2 Grid — equal heights via grid-rows */}
-        <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
+        {/* 4x2 Responsive Grid matching the exact reference screenshot */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {SERVICES.map((s) => (
             <NeumorphicCard
               key={s.title}
               depth="sm"
-              radius="md"
+              radius="lg"
               interactive
-              className="flex h-full flex-col items-center px-4 pb-6 pt-7 text-center"
+              className="flex min-h-[220px] flex-col items-center justify-between px-5 py-7 text-center group transition-transform duration-300 hover:-translate-y-1"
             >
-              {/* Icon area — fixed height container so all cards are consistent */}
-              <div className="flex h-[110px] w-full flex-shrink-0 items-center justify-center sm:h-[130px]">
+              {/* Large 3D Illustration sitting cleanly directly on the card surface matching screenshot */}
+              <div className="flex flex-1 items-center justify-center w-full py-2">
                 <img
                   src={s.img}
-                  alt=""
-                  aria-hidden="true"
+                  alt={s.title}
                   loading="lazy"
-                  width={512}
-                  height={512}
-                  className="h-[100px] w-auto max-w-[90%] object-contain sm:h-[120px]"
+                  width={180}
+                  height={180}
+                  className="h-[115px] sm:h-[130px] w-auto max-w-[88%] object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
-              {/* Title */}
-              <h3 className="mt-4 text-[13px] font-bold leading-snug tracking-tight text-foreground">
+              {/* Service Title matching screenshot typography & positioning */}
+              <h3 className="mt-4 text-[15px] sm:text-[16px] font-extrabold leading-snug tracking-tight text-foreground">
                 {s.title}
               </h3>
-
-              {/* Description — flex-grow so all cards end at same bottom */}
-              <p className="mt-2.5 grow text-[12px] leading-[1.65] text-muted-foreground">
-                {s.description}
-              </p>
             </NeumorphicCard>
           ))}
         </div>

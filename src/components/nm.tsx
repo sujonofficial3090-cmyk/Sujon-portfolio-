@@ -43,17 +43,17 @@ export function NeumorphicCard({
 }
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-[10px] bg-surface font-semibold uppercase tracking-[0.08em] transition-[box-shadow,transform,color] duration-300 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+  "inline-flex items-center justify-center gap-2 rounded-[10px] bg-surface font-extrabold uppercase tracking-[0.08em] transition-[box-shadow,transform,color] duration-300 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
   {
     variants: {
       tone: {
         default: "text-foreground/80 hover:text-brand-deep",
-        brand: "text-brand-deep",
+        brand: "text-brand-deep border border-brand/20 dark:border-brand/30",
       },
       size: {
-        sm: "px-4 py-2 text-[10px]",
-        md: "px-6 py-2.5 text-[11px]",
-        lg: "px-8 py-3.5 text-xs",
+        sm: "px-4 py-2 text-[11px]",
+        md: "px-6 py-2.5 text-[12px]",
+        lg: "px-8 py-3.5 text-[13px]",
       },
     },
     defaultVariants: { tone: "default", size: "md" },

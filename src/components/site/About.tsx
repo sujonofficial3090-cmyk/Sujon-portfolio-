@@ -1,12 +1,11 @@
-import portrait from "@/assets/portrait.png";
 import { NeumorphicCard } from "@/components/nm";
 
 const SKILLS = [
   "WordPress Development",
   "Elementor & Elementor Pro",
   "WooCommerce",
-  "Custom WordPress Website",
-  "Responsive Design",
+  "Custom WordPress Websites",
+  "Responsive Web Design",
   "WordPress Speed Optimization",
   "Website Redesign",
   "WordPress Maintenance",
@@ -15,29 +14,32 @@ const SKILLS = [
 export function About() {
   return (
     <section id="about" className="scroll-mt-28">
-      <div className="grid gap-5 lg:grid-cols-[1.55fr_1fr]">
-        <NeumorphicCard depth="md" radius="lg" className="px-5 py-8 sm:px-9 sm:py-10">
-          <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight">
+      <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+        <NeumorphicCard depth="md" radius="lg" className="px-6 py-8 sm:px-10 sm:py-10">
+          <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             Who am I?
           </h2>
 
-          <div className="mt-5 space-y-4 text-[12.5px] leading-[1.85] text-muted-foreground">
+          <div className="mt-5 space-y-4 text-[15px] sm:text-[16px] font-medium leading-[1.75] text-foreground/85 dark:text-foreground/85">
             <p>
-              I'm <span className="text-brand-deep font-semibold">Sujon</span>, a passionate WordPress Developer focused on building beautiful, responsive and high-performing websites. I work with WordPress, Elementor, WooCommerce and custom website development to create professional digital experiences for businesses and clients.
+              I'm <span className="text-brand-deep font-extrabold">Sujon</span>, a passionate WordPress Developer focused on building beautiful, responsive and high-performing websites. I work with WordPress, Elementor, WooCommerce and custom website development to create professional digital experiences for businesses and clients worldwide.
             </p>
             <p>
               Over the years, I've helped numerous clients establish a stronger digital presence through robust, scalable, and conversion-focused digital experiences that accelerate business growth and create lasting online impact.
             </p>
           </div>
 
-          <div className="mt-6 border-t border-border pt-5">
-            <h3 className="text-[13px] font-bold text-foreground mb-3.5 uppercase tracking-wider">
+          <div className="mt-8 border-t border-border pt-6">
+            <h3 className="text-[14px] sm:text-[15px] font-extrabold text-foreground mb-4 uppercase tracking-wider">
               Skills Highlight
             </h3>
-            <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {SKILLS.map((skill) => (
-                <li key={skill} className="flex items-center gap-2.5 text-[12px] text-muted-foreground">
-                  <span className="nm-raised-sm flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] text-brand-deep font-extrabold">
+                <li
+                  key={skill}
+                  className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-foreground/80"
+                >
+                  <span className="nm-raised-sm flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] text-brand-deep font-extrabold">
                     ✓
                   </span>
                   <span>{skill}</span>
@@ -59,7 +61,7 @@ export function About() {
             loading="lazy"
             width={900}
             height={1200}
-            className="relative z-10 max-h-[430px] w-auto object-contain"
+            className="relative z-10 max-h-[440px] w-auto object-contain"
           />
         </NeumorphicCard>
       </div>
