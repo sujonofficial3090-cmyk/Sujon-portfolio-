@@ -1,8 +1,8 @@
 import { NeumorphicCard } from "@/components/nm";
 
-// 100% Reliable Standalone Vector SVGs for every technology with crisp clean rendering
+// 100% Reliable, Standalone Vector SVGs for all 16 Technologies matching the screenshot exactly
 const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
-  WordPress: ({ className = "h-[60px] w-[60px]" }) => (
+  WordPress: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="64" cy="64" r="60" fill="#21759B" />
       <path
@@ -14,7 +14,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  WooCommerce: ({ className = "h-[60px] w-[60px]" }) => (
+  WooCommerce: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#96588A" />
       <path
@@ -36,7 +36,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Elementor: ({ className = "h-[60px] w-[60px]" }) => (
+  Elementor: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#92003B" />
       <path d="M40 38H52V90H40V38Z" fill="white" />
@@ -46,118 +46,14 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Photoshop: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#001E36" />
-      <path
-        d="M34 34H61C71.5 34 79 39.5 79 49.5C79 59.5 71.5 65 61 65H47V94H34V34ZM47 54.5H59.5C64.5 54.5 67.5 52.5 67.5 49.5C67.5 46.5 64.5 44.5 59.5 44.5H47V54.5ZM81.5 82C84.8 84.2 89.5 85.5 94.5 85.5C100.5 85.5 103 83 103 79.5C103 71.5 83.5 73.5 83.5 59.5C83.5 52 89.5 47 100.5 47C105 47 109 48.2 111 49.5L108 58C106 57 103 56 100 56C95.5 56 93.5 58 93.5 60.5C93.5 68 113.5 66 113.5 80C113.5 88 107 94 94.5 94C89 94 84.5 92.5 81.5 90L81.5 82Z"
-        fill="#31A8FF"
-      />
-    </svg>
-  ),
-
-  Illustrator: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#330000" />
-      <path
-        d="M28 94L52 34H65L89 94H75.5L70 79H47L41.5 94H28ZM50.8 69H66.2L58.5 47.5L50.8 69ZM96 43H108V54H96V43ZM96 61H108V94H96V61Z"
-        fill="#FF9A00"
-      />
-    </svg>
-  ),
-
-  PHP: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#777BB4" />
-      <ellipse cx="64" cy="64" rx="52" ry="34" fill="#4F5B93" />
-      <text
-        x="64"
-        y="75"
-        fontFamily="'Funnel Display', sans-serif"
-        fontSize="34"
-        fontWeight="900"
-        textAnchor="middle"
-        fill="white"
-      >
-        php
-      </text>
-    </svg>
-  ),
-
-  JavaScript: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#F7DF1E" />
-      <path
-        d="M38 92L47 86.5C49 90.5 52.5 93 57 93C62 93 65.5 90 65.5 85V48H77V85C77 96 70 102 57 102C48 102 41 98 38 92ZM84 92L93 86.5C96 91 100 93.5 106 93.5C112 93.5 116 90.5 116 86C116 81.5 113 79.5 104 75.5C92 70.5 85 65.5 85 55C85 45 93 37.5 104 37.5C112 37.5 118 40.5 122 47L113 52.5C111 48.5 108 46.5 104 46.5C99.5 46.5 96.5 49 96.5 53C96.5 57 99 58.5 107 62C120 67 127 72 127 84C127 94.5 119 102 106 102C97 102 89 98 84 92Z"
-        fill="#000000"
-      />
-    </svg>
-  ),
-
-  HTML5: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#E34F26" />
-      <path d="M28 24L36 104L64 112L92 104L100 24H28ZM82.5 42H45.5L47 56H81L79 78L64 82L49 78L48 68H38L40 86L64 92.5L88 86L91.5 42H82.5Z" fill="white" />
-    </svg>
-  ),
-
-  CSS3: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#1572B6" />
-      <path d="M28 24L36 104L64 112L92 104L100 24H28ZM82.5 42H45.5L47 56H81L79 78L64 82L49 78L48 68H38L40 86L64 92.5L88 86L91.5 42H82.5Z" fill="white" />
-    </svg>
-  ),
-
-  MySQL: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#00758F" />
-      <path
-        d="M64 30C46 30 32 40 32 54C32 68 46 78 64 78C82 78 96 68 96 54C96 40 82 30 64 30ZM44 86C48 94 55 98 64 98C73 98 80 94 84 86L94 92C88 102 77 108 64 108C51 108 40 102 34 92L44 86Z"
-        fill="#F29111"
-      />
-      <text
-        x="64"
-        y="60"
-        fontFamily="'Funnel Display', sans-serif"
-        fontSize="18"
-        fontWeight="800"
-        textAnchor="middle"
-        fill="white"
-      >
-        SQL
-      </text>
-    </svg>
-  ),
-
-  Git: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#F05032" />
-      <path
-        d="M93.8 58.2L69.8 34.2C68.6 33 67 32.4 65.4 32.4C63.8 32.4 62.2 33 61 34.2L52.8 42.4L63.2 52.8C65.2 52.2 67.4 52.6 69 54.2C70.6 55.8 71 58 70.4 60L80.6 70.2C82.6 69.6 84.8 70 86.4 71.6C88.8 74 88.8 77.8 86.4 80.2C84 82.6 80.2 82.6 77.8 80.2C76 78.4 75.6 75.8 76.6 73.6L67 64V80.4C67.6 81 68 81.8 68 82.8C68 85.2 66 87.2 63.6 87.2C61.2 87.2 59.2 85.2 59.2 82.8C59.2 81 60.2 79.4 61.6 78.6V62.4C60.2 61.6 59.2 60 59.2 58.2C59.2 56.4 60.2 54.8 61.6 54L51.4 43.8L34.2 61C33 62.2 32.4 63.8 32.4 65.4C32.4 67 33 68.6 34.2 69.8L58.2 93.8C59.4 95 61 95.6 62.6 95.6C64.2 95.6 65.8 95 67 93.8L93.8 67C95 65.8 95.6 64.2 95.6 62.6C95.6 61 95 59.4 93.8 58.2Z"
-        fill="white"
-      />
-    </svg>
-  ),
-
-  Figma: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#1E1E1E" />
-      <path d="M44 34H64V54H44C38.48 54 34 49.52 34 44C34 38.48 38.48 34 44 34Z" fill="#F24E1E" />
-      <path d="M64 34H84C89.52 34 94 38.48 94 44C94 49.52 89.52 54 84 54H64V34Z" fill="#FF7262" />
-      <path d="M44 54H64V74H44C38.48 74 34 69.52 34 64C34 58.48 38.48 54 44 54Z" fill="#A259FF" />
-      <circle cx="84" cy="64" r="10" fill="#1ABCFE" />
-      <path d="M44 74H64V94C64 99.52 59.52 104 54 104C48.48 104 44 99.52 44 94V74Z" fill="#0ACF83" />
-    </svg>
-  ),
-
-  Wix: ({ className = "h-[60px] w-[60px]" }) => (
+  Wix: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#0C6EFC" />
       <text
         x="64"
         y="78"
         fontFamily="'Funnel Display', sans-serif"
-        fontSize="40"
+        fontSize="38"
         fontWeight="900"
         textAnchor="middle"
         fill="white"
@@ -168,7 +64,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Webflow: ({ className = "h-[60px] w-[60px]" }) => (
+  Webflow: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#146EF5" />
       <path
@@ -178,7 +74,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Laravel: ({ className = "h-[60px] w-[60px]" }) => (
+  Laravel: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#FF2D20" />
       <path
@@ -188,17 +84,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  React: ({ className = "h-[60px] w-[60px]" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#20232A" />
-      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" />
-      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" transform="rotate(60 64 64)" />
-      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" transform="rotate(120 64 64)" />
-      <circle cx="64" cy="64" r="8" fill="#61DAFB" />
-    </svg>
-  ),
-
-  "Node.js": ({ className = "h-[60px] w-[60px]" }) => (
+  "Node.js": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#333333" />
       <path d="M64 26L98 46V84L64 104L30 84V46L64 26Z" fill="#5FA04E" />
@@ -216,68 +102,149 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  "Next.js": ({ className = "h-[60px] w-[60px]" }) => (
+  "Next.js": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#000000" />
       <circle cx="64" cy="64" r="42" fill="black" stroke="white" strokeWidth="4" />
       <path d="M48 44V84H56V58L84 94H92V44H84V70L56 44H48Z" fill="white" />
     </svg>
   ),
+
+  React: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#20232A" />
+      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" />
+      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" transform="rotate(60 64 64)" />
+      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" transform="rotate(120 64 64)" />
+      <circle cx="64" cy="64" r="8" fill="#61DAFB" />
+    </svg>
+  ),
+
+  Figma: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#1E1E1E" />
+      <path d="M44 34H64V54H44C38.48 54 34 49.52 34 44C34 38.48 38.48 34 44 34Z" fill="#F24E1E" />
+      <path d="M64 34H84C89.52 34 94 38.48 94 44C94 49.52 89.52 54 84 54H64V34Z" fill="#FF7262" />
+      <path d="M44 54H64V74H44C38.48 74 34 69.52 34 64C34 58.48 38.48 54 44 54Z" fill="#A259FF" />
+      <circle cx="84" cy="64" r="10" fill="#1ABCFE" />
+      <path d="M44 74H64V94C64 99.52 59.52 104 54 104C48.48 104 44 99.52 44 94V74Z" fill="#0ACF83" />
+    </svg>
+  ),
+
+  Photoshop: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#001E36" />
+      <path
+        d="M34 34H61C71.5 34 79 39.5 79 49.5C79 59.5 71.5 65 61 65H47V94H34V34ZM47 54.5H59.5C64.5 54.5 67.5 52.5 67.5 49.5C67.5 46.5 64.5 44.5 59.5 44.5H47V54.5ZM81.5 82C84.8 84.2 89.5 85.5 94.5 85.5C100.5 85.5 103 83 103 79.5C103 71.5 83.5 73.5 83.5 59.5C83.5 52 89.5 47 100.5 47C105 47 109 48.2 111 49.5L108 58C106 57 103 56 100 56C95.5 56 93.5 58 93.5 60.5C93.5 68 113.5 66 113.5 80C113.5 88 107 94 94.5 94C89 94 84.5 92.5 81.5 90L81.5 82Z"
+        fill="#31A8FF"
+      />
+    </svg>
+  ),
+
+  Illustrator: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#330000" />
+      <path
+        d="M28 94L52 34H65L89 94H75.5L70 79H47L41.5 94H28ZM50.8 69H66.2L58.5 47.5L50.8 69ZM96 43H108V54H96V43ZM96 61H108V94H96V61Z"
+        fill="#FF9A00"
+      />
+    </svg>
+  ),
+
+  "Meta Ads": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#0081FB" />
+      <path
+        d="M64 64C56 50 48 42 38 42C27 42 20 51 20 64C20 77 27 86 38 86C48 86 56 78 64 64ZM64 64C72 50 80 42 90 42C101 42 108 51 108 64C108 77 101 86 90 86C80 86 72 78 64 64Z"
+        stroke="white"
+        strokeWidth="10"
+        strokeLinecap="round"
+        fill="none"
+      />
+    </svg>
+  ),
+
+  "Google Ads": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#F8F9FA" />
+      <path d="M42 28L24 64L38 92L56 56L42 28Z" fill="#FBBC04" />
+      <path d="M86 28L68 64L82 92L100 56L86 28Z" fill="#4285F4" />
+      <circle cx="48" cy="80" r="14" fill="#34A853" />
+    </svg>
+  ),
+
+  "Tag Manager": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#246FDB" />
+      <path d="M64 24L98 58L64 92L30 58L64 24Z" fill="white" />
+      <circle cx="64" cy="58" r="14" fill="#246FDB" />
+      <circle cx="64" cy="94" r="8" fill="#8AB4F8" />
+    </svg>
+  ),
+
+  Analytics: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#F9AB00" />
+      <rect x="76" y="32" width="18" height="64" rx="9" fill="white" />
+      <rect x="52" y="52" width="18" height="44" rx="9" fill="white" fillOpacity="0.85" />
+      <circle cx="37" cy="87" r="9" fill="white" fillOpacity="0.7" />
+    </svg>
+  ),
 };
 
-const TECH_NAMES = [
+const TECHNOLOGIES_LIST = [
+  // Row 1
   "WordPress",
   "WooCommerce",
   "Elementor",
-  "Photoshop",
-  "Illustrator",
-  "PHP",
-  "JavaScript",
-  "HTML5",
-  "CSS3",
-  "MySQL",
-  "Git",
-  "Figma",
   "Wix",
   "Webflow",
   "Laravel",
-  "React",
   "Node.js",
   "Next.js",
+  // Row 2
+  "React",
+  "Figma",
+  "Photoshop",
+  "Illustrator",
+  "Meta Ads",
+  "Google Ads",
+  "Tag Manager",
+  "Analytics",
 ];
 
 export function Technologies() {
   return (
     <section aria-label="Technologies I work with" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
+        {/* Clean Header matching screenshot */}
         <div className="mb-8 text-center">
-          <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
+          <h2 className="text-brand-gradient text-[clamp(1.7rem,4vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             Technologies I Work With
           </h2>
-          <p className="mx-auto mt-2 max-w-xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
-            Tools, frameworks, and CMS platforms I use to build world-class digital products.
-          </p>
         </div>
 
-        {/* Responsive Grid: EXACTLY 3 items per row on mobile, 4 on sm, 6 on md/lg */}
-        <div className="grid grid-cols-3 gap-3.5 sm:gap-4 md:grid-cols-6 lg:grid-cols-6">
-          {TECH_NAMES.map((name) => {
+        {/* 8 Columns x 2 Rows Grid matching screenshot exactly */}
+        <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-4 md:grid-cols-8 sm:gap-4">
+          {TECHNOLOGIES_LIST.map((name) => {
             const IconComponent = ICONS[name];
             return (
               <NeumorphicCard
                 key={name}
                 depth="sm"
-                radius="md"
+                radius="lg"
                 interactive
-                className="flex flex-col items-center justify-center gap-3.5 px-2 py-5 text-center group transition-transform duration-300 hover:-translate-y-1"
+                className="flex flex-col items-center justify-center p-3.5 sm:p-4 text-center group transition-transform duration-300 hover:-translate-y-1"
               >
-                {/* Clean, Large Icon without Heavy Murky Dark Shadow Container */}
-                <div className="flex h-[64px] w-[64px] items-center justify-center shrink-0">
+                {/* Soft Neumorphic Inset Square Pill Container matching Screenshot */}
+                <div className="nm-inset flex h-[62px] w-[62px] sm:h-[68px] sm:w-[68px] shrink-0 items-center justify-center rounded-[14px] sm:rounded-[16px] p-2.5 mb-2.5 transition-transform duration-300 group-hover:scale-105">
                   {IconComponent && (
-                    <IconComponent className="h-[58px] w-[58px] sm:h-[62px] sm:w-[62px] object-contain transition-transform duration-300 group-hover:scale-108" />
+                    <IconComponent className="h-[40px] w-[40px] sm:h-[44px] sm:w-[44px] object-contain drop-shadow-xs" />
                   )}
                 </div>
-                <span className="text-center text-[12px] sm:text-[13px] font-bold leading-tight tracking-tight text-foreground/90 line-clamp-1">
+
+                {/* Technology Name */}
+                <span className="text-center text-[12px] sm:text-[13px] font-semibold leading-tight tracking-tight text-foreground/90 line-clamp-1">
                   {name}
                 </span>
               </NeumorphicCard>
