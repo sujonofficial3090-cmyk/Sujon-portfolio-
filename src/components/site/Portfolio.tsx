@@ -46,10 +46,8 @@ export function Portfolio() {
                     <img
                       src={item.img}
                       alt={item.title}
-                      loading="lazy"
-                      width={900}
-                      height={1200}
-                      className="w-full object-cover object-top will-change-transform"
+                      loading="eager"
+                      className="w-full object-cover object-top will-change-transform image-render-crisp"
                       style={{
                         transform: isMobileActive
                           ? "translateY(calc(-100% + 230px))"
@@ -57,6 +55,7 @@ export function Portfolio() {
                         transition: isMobileActive
                           ? "transform 5s ease-in-out"
                           : "transform 1.2s ease-in-out",
+                        imageRendering: "auto",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translateY(calc(-100% + 230px))";

@@ -105,9 +105,9 @@ function ProjectDetail() {
               <img
                 src={project.img}
                 alt={`${project.title} Real Website Preview`}
-                width={1600}
-                height={2400}
+                loading="eager"
                 className="w-full h-auto object-cover object-top rounded-[10px]"
+                style={{ imageRendering: "auto" }}
               />
             </div>
           </NeumorphicCard>

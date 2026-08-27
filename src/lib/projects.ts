@@ -25,7 +25,7 @@ export const PROJECTS: Project[] = [
     excerpt:
       "A premium real estate listing portal featuring advanced property search filters, agent directory, interactive galleries, and lead inquiry automation.",
     image: tommysListing,
-    liveUrl: "https://tommys.co.",
+    liveUrl: "https://www.tommys.co.nz/",
     overview:
       "Tommy's Real Estate is a leading property listing platform designed to showcase residential and commercial properties with rich multimedia, advanced parameter-based filtering, and instant inquiry workflows.",
     challenge:

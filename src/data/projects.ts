@@ -43,7 +43,7 @@ export const PROJECTS: Project[] = [
     ],
     techStack: ["WordPress", "Elementor", "Custom Post Types", "PHP", "CSS3", "JavaScript"],
     screenshots: [tommysListing, pf3, office],
-    liveUrl: "https://tommys.co."
+    liveUrl: "https://www.tommys.co.nz/"
   },
   {
     id: "woocommerce-store",
