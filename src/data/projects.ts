@@ -7,6 +7,7 @@ import blog3 from "@/assets/blog-3.jpg";
 import blog4 from "@/assets/blog-4.jpg";
 import office from "@/assets/office.jpg";
 import tommysListing from "@/assets/tommys-listing.png";
+import applianceWorld from "@/assets/appliance-world.png";
 
 export interface Project {
   id: string;
@@ -24,6 +25,27 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
+  {
+    id: "appliance-world",
+    title: "Appliance World — WooCommerce E-Commerce Store",
+    category: "WooCommerce & E-Commerce",
+    description: "An eCommerce WooCommerce website built for Appliance World, featuring a structured product catalog, product categories, pricing, shopping functionality, and a streamlined online shopping experience for home appliances and electronics.",
+    img: applianceWorld,
+    overview: "Appliance World LTD is a leading online store for electronics and home appliances based in Uganda. The platform provides a modern online shopping experience featuring real-time product search, categorized browsing (ACs, TVs, Washers & Dryers, Refrigerators, Microwaves, Audio), regional currency pricing (UGX), product quick-views, and streamlined shopping cart management.",
+    challenge: "Showcasing a large inventory of electronics and home appliances with detailed technical specifications, variable pricing, high-resolution imagery, and quick-view popups while maintaining fast loading speeds and effortless mobile purchasing flows.",
+    solution: "Developed a high-performance WordPress & WooCommerce storefront with customized product templates, categorized brand showcases (LG, Panasonic, etc.), interactive category navigation cards, instant search indexing, and a frictionless cart and checkout flow.",
+    features: [
+      "Structured product catalog & categorized browsing (ACs, TVs, Refrigerators, Audio)",
+      "Real-time product pricing (UGX) & instant stock status indicators",
+      "WooCommerce Quick View & detailed product specifications",
+      "Interactive shopping cart, mini-cart drawer & secure checkout",
+      "Multi-branch store location directory & customer service contact integration",
+      "100% responsive eCommerce design optimized for mobile & desktop shoppers"
+    ],
+    techStack: ["WordPress", "WooCommerce", "Woo QuickView", "PHP", "CSS3", "JavaScript"],
+    screenshots: [applianceWorld, pf2, office],
+    liveUrl: "https://applianceworld.co.ug/"
+  },
   {
     id: "tommys-real-estate",
     title: "Tommy's Real Estate",
@@ -44,26 +66,6 @@ export const PROJECTS: Project[] = [
     techStack: ["WordPress", "Elementor", "Custom Post Types", "PHP", "CSS3", "JavaScript"],
     screenshots: [tommysListing, pf3, office],
     liveUrl: "https://www.tommys.co.nz/"
-  },
-  {
-    id: "woocommerce-store",
-    title: "WooCommerce Store",
-    category: "eCommerce Store",
-    description: "An elegant, high-conversion online store developed on WooCommerce with custom checkout flows and advanced product filtering.",
-    img: pf2,
-    overview: "An online fashion brand required a scalable eCommerce store capable of showcasing thousands of clothing items while keeping the checkout process quick and frictionless.",
-    challenge: "Existing storefronts often struggle with load times when handling large catalogs, leading to cart abandonment. The brand also needed custom product filtering based on size, color, and fit.",
-    solution: "Leveraged WooCommerce with Elementor Pro, setting up a fast AJAX-based product search and custom filter system. Configured high-performance hosting integration and page caching.",
-    features: [
-      "AJAX search and live filters",
-      "One-page optimized checkout",
-      "Multi-currency & localization support",
-      "Automated inventory alert system",
-      "Sales dashboard analytics integration"
-    ],
-    techStack: ["WordPress", "WooCommerce", "Elementor Pro", "Stripe Payment Gateway", "WP Rocket"],
-    screenshots: [pf2, blog2, blog3],
-    liveUrl: "https://sujonmia.github.io/woocommerce-store"
   },
   {
     id: "business-website",

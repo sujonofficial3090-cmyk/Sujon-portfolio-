@@ -2,6 +2,7 @@ import pf1 from "@/assets/pf-1.jpg";
 import pf2 from "@/assets/pf-2.jpg";
 import pf3 from "@/assets/pf-3.jpg";
 import tommysListing from "@/assets/tommys-listing.png";
+import applianceWorld from "@/assets/appliance-world.png";
 
 export type Project = {
   slug: string;
@@ -18,6 +19,30 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
+  {
+    slug: "appliance-world",
+    title: "Appliance World — WooCommerce E-Commerce Store",
+    category: "WooCommerce & E-Commerce",
+    excerpt:
+      "An eCommerce WooCommerce website built for Appliance World, featuring a structured product catalog, product categories, pricing, shopping functionality, and a streamlined online shopping experience for home appliances and electronics.",
+    image: applianceWorld,
+    liveUrl: "https://applianceworld.co.ug/",
+    overview:
+      "Appliance World LTD is a leading online store for electronics and home appliances based in Uganda. The platform provides a modern online shopping experience featuring real-time product search, categorized browsing (ACs, TVs, Washers & Dryers, Refrigerators, Microwaves, Audio), regional currency pricing (UGX), product quick-views, and streamlined shopping cart management.",
+    challenge:
+      "Showcasing a large inventory of electronics and home appliances with detailed technical specifications, variable pricing, high-resolution imagery, and quick-view popups while maintaining fast loading speeds and effortless mobile purchasing flows.",
+    solution:
+      "Developed a high-performance WordPress & WooCommerce storefront with customized product templates, categorized brand showcases (LG, Panasonic, etc.), interactive category navigation cards, instant search indexing, and a frictionless cart and checkout flow.",
+    features: [
+      "Structured product catalog & categorized browsing (ACs, TVs, Refrigerators, Audio)",
+      "Real-time product pricing (UGX) & instant stock status indicators",
+      "WooCommerce Quick View & detailed product specifications",
+      "Interactive shopping cart, mini-cart drawer & secure checkout",
+      "Multi-branch store location directory & customer service contact integration",
+      "100% responsive eCommerce design optimized for mobile & desktop shoppers",
+    ],
+    stack: ["WordPress", "WooCommerce", "Woo QuickView", "PHP", "CSS3", "JavaScript"],
+  },
   {
     slug: "tommys-real-estate",
     title: "Tommy's Real Estate Listing",
