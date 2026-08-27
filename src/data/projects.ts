@@ -6,6 +6,7 @@ import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
 import blog4 from "@/assets/blog-4.jpg";
 import office from "@/assets/office.jpg";
+import tommysListing from "@/assets/tommys-listing.png";
 
 export interface Project {
   id: string;
@@ -24,24 +25,25 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    id: "business-website",
-    title: "Business Website",
-    category: "Corporate Website",
-    description: "A professional corporate website built using WordPress and Elementor for a consulting firm to capture leads and showcase services.",
-    img: pf1,
-    overview: "This project involved creating a high-performance corporate presence for a financial consulting firm. The main objective was to establish trust, clearly present their advisory services, and drive inbound consulting leads.",
-    challenge: "The client's previous website was slow, failed to rank on search engines, and had a complex contact flow that resulted in high bounce rates and zero conversions.",
-    solution: "I designed and developed a modern, custom WordPress theme using Elementor. I optimized the layout for speed and search engine visibility while streamlining the call-to-action paths into an intuitive intake form.",
+    id: "tommys-real-estate",
+    title: "Tommy's Real Estate Listing",
+    category: "Property Listing & Real Estate",
+    description: "A premium real estate listing portal featuring advanced property search filters, agent directory, interactive galleries, and lead inquiry automation.",
+    img: tommysListing,
+    overview: "Tommy's Real Estate is a leading property listing platform designed to showcase residential and commercial properties with rich multimedia, advanced parameter-based filtering, and instant inquiry workflows.",
+    challenge: "Handling large catalogs of property listings with high-resolution photography, instant filter queries (by location, price range, bedrooms), and ensuring seamless mobile responsiveness.",
+    solution: "Engineered a custom WordPress listing architecture utilizing Custom Post Types and ACF Pro, paired with AJAX facet filtering and optimized WebP media delivery for lightning-fast speeds.",
     features: [
-      "Custom responsive layout",
-      "Interactive consultation scheduler",
-      "Dynamic team member showcase",
-      "SEO optimized layout & schema markup",
-      "Fully integrated contact forms"
+      "Advanced property search with multi-parameter filter",
+      "High-resolution interactive property gallery and virtual tour",
+      "Agent profile directory and direct contact triggers",
+      "Dynamic listing status badges (For Sale, Under Offer, Sold)",
+      "Fully responsive layout optimized for mobile property seekers",
+      "SEO schema markup tailored for real estate listings"
     ],
-    techStack: ["WordPress", "Elementor Pro", "Google Analytics", "Yoast SEO", "CSS3"],
-    screenshots: [pf1, office, blog1],
-    liveUrl: "https://sujonmia.github.io/business-website"
+    techStack: ["WordPress", "Elementor Pro", "Custom Post Types", "ACF Pro", "AJAX Filtering", "PHP", "CSS3"],
+    screenshots: [tommysListing, pf3, office],
+    liveUrl: "https://tommys.co."
   },
   {
     id: "woocommerce-store",
@@ -64,24 +66,24 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://sujonmia.github.io/woocommerce-store"
   },
   {
-    id: "real-estate",
-    title: "Real Estate Website",
-    category: "Listing & Booking",
-    description: "A premium real estate listing portal with advanced search, interactive map integration, and agent contact dashboards.",
-    img: pf3,
-    overview: "A boutique real estate agency needed a system to display available residential and commercial properties. Clients needed to search by map, price range, and amenities.",
-    challenge: "Synchronizing daily listing feeds from external MLS databases and ensuring map search loaded smoothly on mobile viewports.",
-    solution: "Designed a clean directory structure with a dedicated property custom post type. Integrated Google Maps API with responsive grid layouts.",
+    id: "business-website",
+    title: "Business Website",
+    category: "Corporate Website",
+    description: "A professional corporate website built using WordPress and Elementor for a consulting firm to capture leads and showcase services.",
+    img: pf1,
+    overview: "This project involved creating a high-performance corporate presence for a financial consulting firm. The main objective was to establish trust, clearly present their advisory services, and drive inbound consulting leads.",
+    challenge: "The client's previous website was slow, failed to rank on search engines, and had a complex contact flow that resulted in high bounce rates and zero conversions.",
+    solution: "I designed and developed a modern, custom WordPress theme using Elementor. I optimized the layout for speed and search engine visibility while streamlining the call-to-action paths into an intuitive intake form.",
     features: [
-      "Advanced custom property query",
-      "Google Maps integration",
-      "Agent direct WhatsApp communication",
-      "Virtual tour media integration",
-      "Saved searches & user alerts"
+      "Custom responsive layout",
+      "Interactive consultation scheduler",
+      "Dynamic team member showcase",
+      "SEO optimized layout & schema markup",
+      "Fully integrated contact forms"
     ],
-    techStack: ["WordPress", "Elementor", "Custom Post Types", "Google Maps API", "ACF Pro"],
-    screenshots: [pf3, office, blog4],
-    liveUrl: "https://sujonmia.github.io/real-estate"
+    techStack: ["WordPress", "Elementor Pro", "Yoast SEO", "CSS3"],
+    screenshots: [pf1, office, blog1],
+    liveUrl: "https://sujonmia.github.io/business-website"
   },
   {
     id: "car-rental",

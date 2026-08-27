@@ -1,6 +1,7 @@
 import pf1 from "@/assets/pf-1.jpg";
 import pf2 from "@/assets/pf-2.jpg";
 import pf3 from "@/assets/pf-3.jpg";
+import tommysListing from "@/assets/tommys-listing.png";
 
 export type Project = {
   slug: string;
@@ -17,6 +18,30 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
+  {
+    slug: "tommys-real-estate",
+    title: "Tommy's Real Estate Listing",
+    category: "Property Listing & Real Estate",
+    excerpt:
+      "A premium real estate listing portal featuring advanced property search filters, agent directory, interactive galleries, and lead inquiry automation.",
+    image: tommysListing,
+    liveUrl: "https://tommys.co.",
+    overview:
+      "Tommy's Real Estate is a leading property listing platform designed to showcase residential and commercial properties with rich multimedia, advanced parameter-based filtering, and instant inquiry workflows.",
+    challenge:
+      "Handling large catalogs of property listings with high-resolution photography, instant filter queries (by location, price range, bedrooms), and ensuring seamless mobile responsiveness.",
+    solution:
+      "Engineered a custom WordPress listing architecture utilizing Custom Post Types and ACF Pro, paired with AJAX facet filtering and optimized WebP media delivery for lightning-fast speeds.",
+    features: [
+      "Advanced property search with multi-parameter filter",
+      "High-resolution interactive property gallery and virtual tour",
+      "Agent profile directory and direct contact triggers",
+      "Dynamic listing status badges (For Sale, Under Offer, Sold)",
+      "Fully responsive layout optimized for mobile property seekers",
+      "SEO schema markup tailored for real estate listings",
+    ],
+    stack: ["WordPress", "Elementor Pro", "Custom Post Types", "ACF Pro", "AJAX Filtering", "PHP", "CSS3"],
+  },
   {
     slug: "aurora-fashion-store",
     title: "Aurora Fashion Store",
