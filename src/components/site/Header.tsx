@@ -70,19 +70,19 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-3 z-50">
-      <NeumorphicCard depth="md" radius="lg" className="px-4 py-3 sm:px-5">
+    <header className="sticky top-3.5 z-50">
+      <NeumorphicCard depth="md" radius="lg" className="px-5 py-4 sm:px-8 sm:py-5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
           {/* Pure Typographic Logo — SUJON Only */}
           <a href="/#home" className="flex min-w-0 items-center">
-            <span className="text-brand-gradient text-[24px] sm:text-[27px] font-extrabold tracking-[0.14em] uppercase transition-colors">
+            <span className="text-brand-gradient text-[24px] sm:text-[28px] font-extrabold tracking-[0.14em] uppercase transition-colors">
               SUJON
             </span>
           </a>
 
           {/* Desktop Navigation: Real Neumorphic Buttons with Funnel Display 16px/20px, 600 weight, rgb(255,96,0) */}
           <nav className="hidden justify-center lg:flex">
-            <ul className="flex items-center gap-3">
+            <ul className="flex items-center gap-3.5">
               {NAV.map((item) => {
                 const isActive = active === item.href;
                 return (
@@ -114,7 +114,7 @@ export function Header() {
           </nav>
 
           {/* Header Action Controls */}
-          <div className="flex items-center justify-end gap-2.5">
+          <div className="flex items-center justify-end gap-3">
             {/* Get a Quote Button Styled like Menu Item but slightly larger in size */}
             <a
               href="/#contact"
