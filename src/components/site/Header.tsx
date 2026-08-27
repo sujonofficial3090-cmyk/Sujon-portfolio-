@@ -153,76 +153,84 @@ export function Header() {
                 />
               </button>
 
-              {/* 5-Color Mood + Light/Dark Neumorphic Popover (100% Mobile Responsive) */}
+              {/* 5-Color Mood + Light/Dark Neumorphic Popover (100% Perfectly Centered on Mobile) */}
               {paletteOpen && (
-                <div className="absolute right-0 top-12 z-50 w-[min(calc(100vw-36px),290px)] rounded-[16px] bg-surface p-4 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-[var(--shadow-nm-hover)]">
-                  {/* Header */}
-                  <div className="flex items-center justify-between border-b border-border pb-2.5">
-                    <span className="text-[12px] font-extrabold uppercase tracking-wider text-foreground">
-                      Color Mood
-                    </span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-deep">
-                      {COLOR_MOODS.find((c) => c.id === accent)?.label}
-                    </span>
-                  </div>
+                <>
+                  {/* Backdrop for Mobile */}
+                  <div
+                    onClick={() => setPaletteOpen(false)}
+                    className="fixed inset-0 z-40 bg-black/25 backdrop-blur-[1px] sm:hidden"
+                  />
 
-                  {/* Exactly 5 Color Options */}
-                  <div className="mt-3.5 flex items-center justify-between gap-1.5 sm:gap-2">
-                    {COLOR_MOODS.map((c) => {
-                      const isSelected = accent === c.id;
-                      return (
-                        <button
-                          key={c.id}
-                          type="button"
-                          onClick={() => selectAccent(c.id)}
-                          title={`${c.label} Mood`}
-                          aria-label={`Select ${c.label} color mood`}
-                          className={cn(
-                            "relative flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-200",
-                            isSelected
-                              ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
-                              : "nm-raised-sm hover:scale-105",
-                          )}
-                        >
-                          <span
-                            className="h-5 w-5 sm:h-6 sm:w-6 rounded-full shrink-0 shadow-inner flex items-center justify-center"
-                            style={{ backgroundColor: c.hex }}
-                          >
-                            {isSelected && (
-                              <Check className="h-3.5 w-3.5 stroke-[3px] text-white drop-shadow-xs" />
-                            )}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Surface Mode Toggle (Light / Dark) */}
-                  <div className="mt-4 border-t border-border pt-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-semibold text-muted-foreground">
-                        Surface Mode
+                  <div className="fixed left-1/2 -translate-x-1/2 top-[72px] z-50 w-[min(calc(100vw-32px),300px)] rounded-[18px] bg-surface p-4 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-[var(--shadow-nm-hover)] sm:absolute sm:left-auto sm:right-0 sm:top-12 sm:translate-x-0 sm:w-72">
+                    {/* Header */}
+                    <div className="flex items-center justify-between border-b border-border pb-2.5">
+                      <span className="text-[12px] font-extrabold uppercase tracking-wider text-foreground">
+                        Color Mood
                       </span>
-                      <button
-                        type="button"
-                        onClick={toggleTheme}
-                        className="nm-raised-sm nm-interactive flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase text-foreground/80"
-                      >
-                        {dark ? (
-                          <>
-                            <Sun className="h-3.5 w-3.5 text-brand-deep" />
-                            <span>Light</span>
-                          </>
-                        ) : (
-                          <>
-                            <Moon className="h-3.5 w-3.5 text-brand-deep" />
-                            <span>Dark</span>
-                          </>
-                        )}
-                      </button>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-brand-deep">
+                        {COLOR_MOODS.find((c) => c.id === accent)?.label}
+                      </span>
+                    </div>
+
+                    {/* Exactly 5 Color Options */}
+                    <div className="mt-3.5 flex items-center justify-between gap-1.5 sm:gap-2">
+                      {COLOR_MOODS.map((c) => {
+                        const isSelected = accent === c.id;
+                        return (
+                          <button
+                            key={c.id}
+                            type="button"
+                            onClick={() => selectAccent(c.id)}
+                            title={`${c.label} Mood`}
+                            aria-label={`Select ${c.label} color mood`}
+                            className={cn(
+                              "relative flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-200",
+                              isSelected
+                                ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
+                                : "nm-raised-sm hover:scale-105",
+                            )}
+                          >
+                            <span
+                              className="h-5 w-5 sm:h-6 sm:w-6 rounded-full shrink-0 shadow-inner flex items-center justify-center"
+                              style={{ backgroundColor: c.hex }}
+                            >
+                              {isSelected && (
+                                <Check className="h-3.5 w-3.5 stroke-[3px] text-white drop-shadow-xs" />
+                              )}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Surface Mode Toggle (Light / Dark) */}
+                    <div className="mt-4 border-t border-border pt-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-semibold text-muted-foreground">
+                          Surface Mode
+                        </span>
+                        <button
+                          type="button"
+                          onClick={toggleTheme}
+                          className="nm-raised-sm nm-interactive flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase text-foreground/80"
+                        >
+                          {dark ? (
+                            <>
+                              <Sun className="h-3.5 w-3.5 text-brand-deep" />
+                              <span>Light</span>
+                            </>
+                          ) : (
+                            <>
+                              <Moon className="h-3.5 w-3.5 text-brand-deep" />
+                              <span>Dark</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </>
               )}
             </div>
 
@@ -358,7 +366,7 @@ export function Header() {
                           style={{ backgroundColor: c.hex }}
                         >
                           {isSelected && (
-                            <Check className="h-3 w-3 stroke-[3px] text-white drop-shadow-xs" />
+                            <Check className="h-3.5 w-3.5 stroke-[3px] text-white drop-shadow-xs" />
                           )}
                         </span>
                       </button>
