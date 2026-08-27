@@ -46,6 +46,26 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://tommys.co."
   },
   {
+    id: "business-website",
+    title: "Business Website",
+    category: "Corporate Website",
+    description: "A professional corporate website built using WordPress and Elementor for a consulting firm to capture leads and showcase services.",
+    img: pf1,
+    overview: "This project involved creating a high-performance corporate presence for a financial consulting firm. The main objective was to establish trust, clearly present their advisory services, and drive inbound consulting leads.",
+    challenge: "The client's previous website was slow, failed to rank on search engines, and had a complex contact flow that resulted in high bounce rates and zero conversions.",
+    solution: "I designed and developed a modern, custom WordPress theme using Elementor. I optimized the layout for speed and search engine visibility while streamlining the call-to-action paths into an intuitive intake form.",
+    features: [
+      "Custom responsive layout",
+      "Interactive consultation scheduler",
+      "Dynamic team member showcase",
+      "SEO optimized layout & schema markup",
+      "Fully integrated contact forms"
+    ],
+    techStack: ["WordPress", "Elementor Pro", "Google Analytics", "Yoast SEO", "CSS3"],
+    screenshots: [pf1, office, blog1],
+    liveUrl: "https://sujonmia.github.io/business-website"
+  },
+  {
     id: "woocommerce-store",
     title: "WooCommerce Store",
     category: "eCommerce Store",
@@ -64,26 +84,6 @@ export const PROJECTS: Project[] = [
     techStack: ["WordPress", "WooCommerce", "Elementor Pro", "Stripe Payment Gateway", "WP Rocket"],
     screenshots: [pf2, blog2, blog3],
     liveUrl: "https://sujonmia.github.io/woocommerce-store"
-  },
-  {
-    id: "business-website",
-    title: "Business Website",
-    category: "Corporate Website",
-    description: "A professional corporate website built using WordPress and Elementor for a consulting firm to capture leads and showcase services.",
-    img: pf1,
-    overview: "This project involved creating a high-performance corporate presence for a financial consulting firm. The main objective was to establish trust, clearly present their advisory services, and drive inbound consulting leads.",
-    challenge: "The client's previous website was slow, failed to rank on search engines, and had a complex contact flow that resulted in high bounce rates and zero conversions.",
-    solution: "I designed and developed a modern, custom WordPress theme using Elementor. I optimized the layout for speed and search engine visibility while streamlining the call-to-action paths into an intuitive intake form.",
-    features: [
-      "Custom responsive layout",
-      "Interactive consultation scheduler",
-      "Dynamic team member showcase",
-      "SEO optimized layout & schema markup",
-      "Fully integrated contact forms"
-    ],
-    techStack: ["WordPress", "Elementor Pro", "Yoast SEO", "CSS3"],
-    screenshots: [pf1, office, blog1],
-    liveUrl: "https://sujonmia.github.io/business-website"
   },
   {
     id: "car-rental",
