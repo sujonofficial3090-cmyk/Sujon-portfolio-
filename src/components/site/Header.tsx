@@ -1,7 +1,7 @@
 import { Menu, X, Sun, Moon, Palette, Check } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
+import { NeumorphicCard } from "@/components/nm";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -115,14 +115,21 @@ export function Header() {
 
           {/* Header Action Controls */}
           <div className="flex items-center justify-end gap-2.5">
-            <NeumorphicLinkButton
+            {/* Get a Quote Button Styled like Menu Item but slightly larger in size */}
+            <a
               href="/#contact"
-              tone="brand"
-              size="sm"
-              className="hidden sm:inline-flex font-bold"
+              className="hidden sm:inline-flex items-center justify-center rounded-[11px] px-[22px] py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-bold"
+              style={{
+                fontFamily: '"Funnel Display", sans-serif',
+                fontStyle: "normal",
+                fontWeight: 700,
+                fontSize: "16px",
+                lineHeight: "20px",
+                color: "rgb(255, 96, 0)",
+              }}
             >
               Get a Quote
-            </NeumorphicLinkButton>
+            </a>
 
             {/* Theme & Color Mood Trigger */}
             <div className="relative" ref={paletteRef}>
@@ -285,11 +292,19 @@ export function Header() {
                   </li>
                 );
               })}
-              <li className="sm:hidden mt-1">
+              <li className="sm:hidden mt-1.5">
                 <a
                   href="/#contact"
                   onClick={() => setOpen(false)}
-                  className="nm-raised text-brand-deep block text-center rounded-[10px] px-4 py-3 text-[14px] font-bold tracking-[0.12em] uppercase"
+                  className="nm-raised-sm hover:nm-interactive active:nm-inset block text-center rounded-[11px] px-5 py-3.5 uppercase tracking-wider transition-all duration-200 font-bold"
+                  style={{
+                    fontFamily: '"Funnel Display", sans-serif',
+                    fontStyle: "normal",
+                    fontWeight: 700,
+                    fontSize: "16px",
+                    lineHeight: "20px",
+                    color: "rgb(255, 96, 0)",
+                  }}
                 >
                   Get a Quote
                 </a>
