@@ -71,20 +71,20 @@
 
   /* Neumorphic shadow system — light source: top-left */
   --nm-light: 255 255 255;
-  --nm-dark: 186 184 192;
+  --nm-dark: 180 178 188;
 
   --shadow-nm-sm:
-    -3px -3px 7px rgb(var(--nm-light) / 0.85), 3px 3px 7px rgb(var(--nm-dark) / 0.32);
+    -4px -4px 9px rgb(var(--nm-light) / 0.95), 4px 4px 9px rgb(var(--nm-dark) / 0.38);
   --shadow-nm:
-    -5px -5px 11px rgb(var(--nm-light) / 0.9), 5px 5px 11px rgb(var(--nm-dark) / 0.35);
+    -6px -6px 14px rgb(var(--nm-light) / 0.95), 6px 6px 14px rgb(var(--nm-dark) / 0.42);
   --shadow-nm-lg:
-    -8px -8px 18px rgb(var(--nm-light) / 0.9), 8px 8px 18px rgb(var(--nm-dark) / 0.38);
+    -9px -9px 22px rgb(var(--nm-light) / 0.95), 9px 9px 22px rgb(var(--nm-dark) / 0.45);
   --shadow-nm-hover:
-    -9px -9px 20px rgb(var(--nm-light) / 0.95), 9px 9px 20px rgb(var(--nm-dark) / 0.42);
+    -11px -11px 24px rgb(var(--nm-light) / 1), 11px 11px 24px rgb(var(--nm-dark) / 0.48);
   --shadow-nm-inset:
-    inset 3px 3px 6px rgb(var(--nm-dark) / 0.3), inset -3px -3px 6px rgb(var(--nm-light) / 0.85);
+    inset 4px 4px 8px rgb(var(--nm-dark) / 0.38), inset -4px -4px 8px rgb(var(--nm-light) / 0.95);
   --shadow-nm-inset-deep:
-    inset 5px 5px 10px rgb(var(--nm-dark) / 0.38), inset -4px -4px 8px rgb(var(--nm-light) / 0.9);
+    inset 6px 6px 14px rgb(var(--nm-dark) / 0.45), inset -5px -5px 10px rgb(var(--nm-light) / 1);
 }
 
 /* ==========================================================================
@@ -185,22 +185,22 @@ html.dark {
   --border: oklch(0.308 0.008 285);
   --input: oklch(0.308 0.008 285);
 
-  /* Dark neumorphic — deeper contrast for raised 3D effect */
-  --nm-light: 80 78 92;
-  --nm-dark: 10 9 14;
+  /* Dark neumorphic — deep contrast matching the reference screenshot */
+  --nm-light: 72 70 82;
+  --nm-dark: 8 7 12;
 
   --shadow-nm-sm:
-    -3px -3px 7px rgb(var(--nm-light) / 0.48), 3px 3px 7px rgb(var(--nm-dark) / 0.72);
+    -3px -3px 8px rgb(var(--nm-light) / 0.45), 4px 4px 9px rgb(var(--nm-dark) / 0.85);
   --shadow-nm:
-    -5px -5px 12px rgb(var(--nm-light) / 0.52), 5px 5px 12px rgb(var(--nm-dark) / 0.78);
+    -5px -5px 14px rgb(var(--nm-light) / 0.48), 6px 6px 15px rgb(var(--nm-dark) / 0.9);
   --shadow-nm-lg:
-    -8px -8px 20px rgb(var(--nm-light) / 0.52), 8px 8px 20px rgb(var(--nm-dark) / 0.82);
+    -8px -8px 22px rgb(var(--nm-light) / 0.5), 9px 9px 24px rgb(var(--nm-dark) / 0.95);
   --shadow-nm-hover:
-    -10px -10px 24px rgb(var(--nm-light) / 0.58), 10px 10px 24px rgb(var(--nm-dark) / 0.88);
+    -10px -10px 26px rgb(var(--nm-light) / 0.58), 11px 11px 26px rgb(var(--nm-dark) / 0.98);
   --shadow-nm-inset:
-    inset 3px 3px 8px rgb(var(--nm-dark) / 0.8), inset -3px -3px 6px rgb(var(--nm-light) / 0.45);
+    inset 4px 4px 9px rgb(var(--nm-dark) / 0.95), inset -3px -3px 8px rgb(var(--nm-light) / 0.38);
   --shadow-nm-inset-deep:
-    inset 5px 5px 12px rgb(var(--nm-dark) / 0.88), inset -4px -4px 8px rgb(var(--nm-light) / 0.5);
+    inset 6px 6px 16px rgb(var(--nm-dark) / 1), inset -5px -5px 10px rgb(var(--nm-light) / 0.45);
 }
 
 /* Dark mode 5-color accent moods */
