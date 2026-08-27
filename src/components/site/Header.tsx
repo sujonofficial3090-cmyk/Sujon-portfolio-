@@ -153,9 +153,9 @@ export function Header() {
                 />
               </button>
 
-              {/* 5-Color Mood + Light/Dark Neumorphic Popover */}
+              {/* 5-Color Mood + Light/Dark Neumorphic Popover (100% Mobile Responsive) */}
               {paletteOpen && (
-                <div className="absolute right-0 top-12 z-50 w-72 rounded-[16px] bg-surface p-4 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-[var(--shadow-nm-hover)]">
+                <div className="absolute right-0 top-12 z-50 w-[min(calc(100vw-36px),290px)] rounded-[16px] bg-surface p-4 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-[var(--shadow-nm-hover)]">
                   {/* Header */}
                   <div className="flex items-center justify-between border-b border-border pb-2.5">
                     <span className="text-[12px] font-extrabold uppercase tracking-wider text-foreground">
@@ -167,7 +167,7 @@ export function Header() {
                   </div>
 
                   {/* Exactly 5 Color Options */}
-                  <div className="mt-3.5 flex items-center justify-between gap-2">
+                  <div className="mt-3.5 flex items-center justify-between gap-1.5 sm:gap-2">
                     {COLOR_MOODS.map((c) => {
                       const isSelected = accent === c.id;
                       return (
@@ -178,14 +178,14 @@ export function Header() {
                           title={`${c.label} Mood`}
                           aria-label={`Select ${c.label} color mood`}
                           className={cn(
-                            "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-200",
+                            "relative flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-200",
                             isSelected
                               ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
                               : "nm-raised-sm hover:scale-105",
                           )}
                         >
                           <span
-                            className="h-6 w-6 rounded-full shrink-0 shadow-inner flex items-center justify-center"
+                            className="h-5 w-5 sm:h-6 sm:w-6 rounded-full shrink-0 shadow-inner flex items-center justify-center"
                             style={{ backgroundColor: c.hex }}
                           >
                             {isSelected && (
@@ -253,7 +253,7 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation Dropdown with Real Neumorphic Buttons */}
+        {/* Mobile Navigation Dropdown with Real Neumorphic Buttons & Built-in 5-Color Mood Bar */}
         <div
           className={cn(
             "grid overflow-hidden transition-[grid-template-rows,opacity] duration-250 lg:hidden",
@@ -292,7 +292,9 @@ export function Header() {
                   </li>
                 );
               })}
-              <li className="sm:hidden mt-1.5">
+
+              {/* Mobile Get a Quote button */}
+              <li className="sm:hidden mt-1">
                 <a
                   href="/#contact"
                   onClick={() => setOpen(false)}
@@ -308,6 +310,61 @@ export function Header() {
                 >
                   Get a Quote
                 </a>
+              </li>
+
+              {/* Mobile 5-Color Moods & Mode Selector */}
+              <li className="mt-2 border-t border-border/60 pt-3 px-2">
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground/80">
+                    Color Mood: <span className="text-brand-deep">{COLOR_MOODS.find((c) => c.id === accent)?.label}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={toggleTheme}
+                    className="nm-raised-sm nm-interactive flex items-center gap-1.5 rounded-[8px] px-2.5 py-1 text-[11px] font-bold tracking-wider uppercase text-foreground/80"
+                  >
+                    {dark ? (
+                      <>
+                        <Sun className="h-3.5 w-3.5 text-brand-deep" />
+                        <span>Light</span>
+                      </>
+                    ) : (
+                      <>
+                        <Moon className="h-3.5 w-3.5 text-brand-deep" />
+                        <span>Dark</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+                <div className="flex items-center justify-between gap-1">
+                  {COLOR_MOODS.map((c) => {
+                    const isSelected = accent === c.id;
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        onClick={() => selectAccent(c.id)}
+                        title={`${c.label} Mood`}
+                        aria-label={`Select ${c.label} color mood`}
+                        className={cn(
+                          "relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform duration-200",
+                          isSelected
+                            ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
+                            : "nm-raised-sm hover:scale-105",
+                        )}
+                      >
+                        <span
+                          className="h-5 w-5 rounded-full shrink-0 shadow-inner flex items-center justify-center"
+                          style={{ backgroundColor: c.hex }}
+                        >
+                          {isSelected && (
+                            <Check className="h-3 w-3 stroke-[3px] text-white drop-shadow-xs" />
+                          )}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </li>
             </ul>
           </div>
