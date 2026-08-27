@@ -61,7 +61,7 @@ export function Hero() {
             <div className="from-brand/20 pointer-events-none absolute inset-0 bg-gradient-to-br to-transparent" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-surface to-transparent" />
             <img
-              src={portrait}
+              src='https://i.ibb.co.com/jkG56Fxt/00-1.jpg'
               alt="Sujon — Professional WordPress Developer"
               loading="eager"
               width={900}
