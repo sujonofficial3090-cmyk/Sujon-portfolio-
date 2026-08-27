@@ -10,7 +10,7 @@ export const Route = createFileRoute("/projects/$projectId")({
     const project = PROJECTS.find((p) => p.id === params.projectId);
     return {
       meta: [
-        { title: project ? `${project.title} — SUJON Portfolio` : "Project Not Found" },
+        { title: project ? `${project.title} — WordPress Developer Portfolio` : "Project Not Found" },
         {
           name: "description",
           content: project ? project.description : "Project details page.",
@@ -40,7 +40,7 @@ function ProjectDetail() {
     );
   }
 
-  const technologies = project.techStack || project.tags || [];
+  const technologies = project.techStack || [];
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1500px] flex-col gap-6 px-3 pb-10 pt-3 sm:px-5 sm:gap-8">
@@ -70,19 +70,44 @@ function ProjectDetail() {
             <p className="mt-4 max-w-4xl text-[15px] sm:text-[16px] font-medium leading-[1.75] text-foreground/85 dark:text-foreground/85">
               {project.description}
             </p>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center gap-2 rounded-[10px] px-6 py-3.5 text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all duration-300 hover:shadow-[var(--shadow-nm-hover)] hover:-translate-y-0.5 active:nm-inset"
+              >
+                View Live Website <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
           </NeumorphicCard>
         </section>
 
-        {/* Large Mockup Image inside 1500px container */}
-        <section aria-label="Project mockup">
-          <NeumorphicCard depth="md" radius="lg" className="overflow-hidden p-3 sm:p-4">
-            <div className="nm-inset overflow-hidden rounded-[14px]">
+        {/* Large Mockup Image container with subtle auto-scroll preview */}
+        <section aria-label="Project visual showcase">
+          <NeumorphicCard depth="md" radius="lg" className="overflow-hidden p-3 sm:p-5">
+            <div className="flex items-center justify-between mb-3 px-1">
+              <span className="text-[12px] font-extrabold uppercase tracking-wider text-muted-foreground">
+                Website Full Preview
+              </span>
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[12px] font-bold text-brand-deep hover:underline flex items-center gap-1"
+              >
+                Open Live Site <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
+
+            <div className="nm-inset overflow-hidden rounded-[14px] max-h-[680px] overflow-y-auto bg-background/50 p-1">
               <img
                 src={project.img}
-                alt={`${project.title} Featured Mockup`}
+                alt={`${project.title} Real Website Preview`}
                 width={1600}
-                height={900}
-                className="w-full object-cover object-top max-h-[520px] sm:max-h-[640px]"
+                height={2400}
+                className="w-full h-auto object-cover object-top rounded-[10px]"
               />
             </div>
           </NeumorphicCard>
@@ -149,12 +174,8 @@ function ProjectDetail() {
                   <span className="text-muted-foreground">Sujon</span>
                 </div>
                 <div className="flex justify-between border-b border-border pb-3">
-                  <span className="text-foreground/90 font-bold">Timeline</span>
-                  <span className="text-muted-foreground">2 Weeks</span>
-                </div>
-                <div className="flex justify-between border-b border-border pb-3">
-                  <span className="text-foreground/90 font-bold">Client Rating</span>
-                  <span className="text-brand-deep font-extrabold">5.0 / 5.0 ★★★★★</span>
+                  <span className="text-foreground/90 font-bold">Live Status</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">Active Live Website</span>
                 </div>
               </div>
 
@@ -181,7 +202,7 @@ function ProjectDetail() {
                   rel="noopener noreferrer"
                   className="nm-raised-sm nm-interactive flex items-center justify-center gap-2 rounded-[10px] w-full py-3.5 text-[12px] font-extrabold tracking-[0.1em] uppercase text-brand-deep"
                 >
-                  Visit Live Website <ExternalLink className="h-4 w-4" />
+                  View Live Website <ExternalLink className="h-4 w-4" />
                 </a>
 
                 <NeumorphicLinkButton href="/#contact" tone="brand" size="md" className="w-full font-extrabold text-[12px]">
@@ -190,14 +211,14 @@ function ProjectDetail() {
               </div>
             </NeumorphicCard>
 
-            {/* WordPress Developer Guarantee */}
+            {/* Quality Guarantee */}
             <NeumorphicCard depth="sm" radius="md" className="p-5 text-center">
               <span className="nm-inset text-brand-deep mx-auto grid h-12 w-12 place-items-center rounded-full text-[16px] font-extrabold">
                 ✓
               </span>
               <h3 className="mt-3 text-[15px] font-extrabold text-foreground">100% Quality Guaranteed</h3>
               <p className="mt-1 text-[13px] font-normal leading-[1.6] text-muted-foreground">
-                Speed-optimized, cross-device tested and fully editable in Elementor / WordPress block editor.
+                Speed-optimized, cross-device tested and fully manageable in WordPress.
               </p>
             </NeumorphicCard>
           </div>

@@ -26,44 +26,24 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: "tommys-real-estate",
-    title: "Tommy's Real Estate Listing",
-    category: "Property Listing & Real Estate",
-    description: "A premium real estate listing portal featuring advanced property search filters, agent directory, interactive galleries, and lead inquiry automation.",
+    title: "Tommy's Real Estate",
+    category: "Real Estate & Property Listing",
+    description: "A modern real estate listing website for Wellington's market leader featuring property search filters, featured property showcases, agent directories, and client inquiry forms.",
     img: tommysListing,
-    overview: "Tommy's Real Estate is a leading property listing platform designed to showcase residential and commercial properties with rich multimedia, advanced parameter-based filtering, and instant inquiry workflows.",
-    challenge: "Handling large catalogs of property listings with high-resolution photography, instant filter queries (by location, price range, bedrooms), and ensuring seamless mobile responsiveness.",
-    solution: "Engineered a custom WordPress listing architecture utilizing Custom Post Types and ACF Pro, paired with AJAX facet filtering and optimized WebP media delivery for lightning-fast speeds.",
+    overview: "Tommy's Real Estate is a leading property agency website based in Wellington. The platform is designed to showcase residential and commercial property listings with multi-parameter search, featured property showcases, agent profile directories, and instant lead inquiry forms.",
+    challenge: "Presenting high-resolution property photography, diverse property categories (For Sale, Featured Properties, Property Management), and multi-criteria search filters (Location, Price, Bedrooms) while ensuring fast load times and clean responsiveness on all devices.",
+    solution: "Developed a structured WordPress real estate solution with custom post types for property listings, dynamic filter queries, responsive layout grids, and direct call-to-actions for property inquiries and agent contact.",
     features: [
-      "Advanced property search with multi-parameter filter",
-      "High-resolution interactive property gallery and virtual tour",
-      "Agent profile directory and direct contact triggers",
-      "Dynamic listing status badges (For Sale, Under Offer, Sold)",
-      "Fully responsive layout optimized for mobile property seekers",
-      "SEO schema markup tailored for real estate listings"
+      "Multi-parameter property search (Location, Price Range, Bedrooms)",
+      "Featured property showcase with dynamic listing status badges",
+      "Agent directory with direct contact and consultation booking",
+      "Interactive property galleries and full-width media presentation",
+      "Newsletter subscription for new listing alerts",
+      "100% responsive design optimized for mobile, tablet, and desktop"
     ],
-    techStack: ["WordPress", "Elementor Pro", "Custom Post Types", "ACF Pro", "AJAX Filtering", "PHP", "CSS3"],
+    techStack: ["WordPress", "Elementor", "Custom Post Types", "PHP", "CSS3", "JavaScript"],
     screenshots: [tommysListing, pf3, office],
     liveUrl: "https://tommys.co."
-  },
-  {
-    id: "business-website",
-    title: "Business Website",
-    category: "Corporate Website",
-    description: "A professional corporate website built using WordPress and Elementor for a consulting firm to capture leads and showcase services.",
-    img: pf1,
-    overview: "This project involved creating a high-performance corporate presence for a financial consulting firm. The main objective was to establish trust, clearly present their advisory services, and drive inbound consulting leads.",
-    challenge: "The client's previous website was slow, failed to rank on search engines, and had a complex contact flow that resulted in high bounce rates and zero conversions.",
-    solution: "I designed and developed a modern, custom WordPress theme using Elementor. I optimized the layout for speed and search engine visibility while streamlining the call-to-action paths into an intuitive intake form.",
-    features: [
-      "Custom responsive layout",
-      "Interactive consultation scheduler",
-      "Dynamic team member showcase",
-      "SEO optimized layout & schema markup",
-      "Fully integrated contact forms"
-    ],
-    techStack: ["WordPress", "Elementor Pro", "Google Analytics", "Yoast SEO", "CSS3"],
-    screenshots: [pf1, office, blog1],
-    liveUrl: "https://sujonmia.github.io/business-website"
   },
   {
     id: "woocommerce-store",
@@ -84,6 +64,26 @@ export const PROJECTS: Project[] = [
     techStack: ["WordPress", "WooCommerce", "Elementor Pro", "Stripe Payment Gateway", "WP Rocket"],
     screenshots: [pf2, blog2, blog3],
     liveUrl: "https://sujonmia.github.io/woocommerce-store"
+  },
+  {
+    id: "business-website",
+    title: "Business Website",
+    category: "Corporate Website",
+    description: "A professional corporate website built using WordPress and Elementor for a consulting firm to capture leads and showcase services.",
+    img: pf1,
+    overview: "This project involved creating a high-performance corporate presence for a financial consulting firm. The main objective was to establish trust, clearly present their advisory services, and drive inbound consulting leads.",
+    challenge: "The client's previous website was slow, failed to rank on search engines, and had a complex contact flow that resulted in high bounce rates and zero conversions.",
+    solution: "I designed and developed a modern, custom WordPress theme using Elementor. I optimized the layout for speed and search engine visibility while streamlining the call-to-action paths into an intuitive intake form.",
+    features: [
+      "Custom responsive layout",
+      "Interactive consultation scheduler",
+      "Dynamic team member showcase",
+      "SEO optimized layout & schema markup",
+      "Fully integrated contact forms"
+    ],
+    techStack: ["WordPress", "Elementor Pro", "Yoast SEO", "CSS3"],
+    screenshots: [pf1, office, blog1],
+    liveUrl: "https://sujonmia.github.io/business-website"
   },
   {
     id: "car-rental",
