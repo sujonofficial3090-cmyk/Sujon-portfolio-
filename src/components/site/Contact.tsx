@@ -1,7 +1,7 @@
 import { type FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { MapPin, Phone, Mail, CheckCircle2 } from "lucide-react";
-import { NeumorphicButton, NeumorphicCard } from "@/components/nm";
+import { NeumorphicCard } from "@/components/nm";
 
 const fieldClass =
   "nm-inset w-full rounded-[10px] px-4 py-3.5 text-[15px] font-medium text-foreground placeholder:text-muted-foreground/70 outline-none focus:shadow-[var(--shadow-nm-inset-deep)] transition-shadow";
@@ -76,7 +76,7 @@ export function Contact() {
 
     try {
       // Primary Delivery to sujonmia3090@gmail.com via FormSubmit AJAX API
-      const res = await fetch("https://formsubmit.co/ajax/sujonmia3090@gmail.com", {
+      await fetch("https://formsubmit.co/ajax/sujonmia3090@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -207,7 +207,15 @@ export function Contact() {
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
-                className="nm-raised-sm hover:nm-interactive mt-6 rounded-[10px] px-6 py-2.5 text-[12px] font-extrabold tracking-wider uppercase text-brand-deep"
+                className="inline-flex items-center justify-center rounded-[11px] px-6 py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-bold mt-6"
+                style={{
+                  fontFamily: '"Funnel Display", sans-serif',
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                  lineHeight: "20px",
+                  color: "rgb(255, 96, 0)",
+                }}
               >
                 Send Another Message
               </button>
@@ -325,15 +333,21 @@ export function Contact() {
                 />
               </div>
               <div className="sm:col-span-2">
-                <NeumorphicButton
+                <button
                   type="submit"
-                  tone="brand"
-                  size="md"
                   disabled={sending}
-                  className="w-full font-extrabold text-[13px] py-3.5"
+                  className="w-full inline-flex items-center justify-center rounded-[11px] px-6 py-[13px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-bold disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{
+                    fontFamily: '"Funnel Display", sans-serif',
+                    fontStyle: "normal",
+                    fontWeight: 700,
+                    fontSize: "15px",
+                    lineHeight: "20px",
+                    color: "rgb(255, 96, 0)",
+                  }}
                 >
                   {sending ? "SENDING TO SUJON..." : "SUBMIT REQUEST"}
-                </NeumorphicButton>
+                </button>
               </div>
             </form>
           )}
