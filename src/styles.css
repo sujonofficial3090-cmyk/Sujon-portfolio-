@@ -1,0 +1,210 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * SUJON Portfolio — soft neumorphic design system.
+ * Background and surfaces share the same warm light-grey tone so that depth
+ * comes purely from paired highlight/shadow, never from color contrast.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --font-sans: "Plus Jakarta Sans", "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.955 0.004 285);
+  --foreground: oklch(0.315 0.008 285);
+  --surface: oklch(0.963 0.003 285);
+
+  --card: oklch(0.963 0.003 285);
+  --card-foreground: oklch(0.315 0.008 285);
+  --popover: oklch(0.963 0.003 285);
+  --popover-foreground: oklch(0.315 0.008 285);
+
+  /* brand: warm golden yellow + orange */
+  --primary: oklch(0.822 0.166 82.5);
+  --primary-foreground: oklch(0.28 0.01 285);
+  --brand: oklch(0.822 0.166 82.5);
+  --brand-deep: oklch(0.742 0.176 55);
+
+  --secondary: oklch(0.94 0.004 285);
+  --secondary-foreground: oklch(0.315 0.008 285);
+  --muted: oklch(0.94 0.004 285);
+  --muted-foreground: oklch(0.545 0.008 285);
+  --accent: oklch(0.822 0.166 82.5);
+  --accent-foreground: oklch(0.28 0.01 285);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.915 0.004 285);
+  --input: oklch(0.915 0.004 285);
+  --ring: oklch(0.822 0.166 82.5);
+
+  /* neumorphic shadow system — light source: top-left */
+  --nm-light: 255 255 255;
+  --nm-dark: 186 184 192;
+
+  --shadow-nm-sm:
+    -3px -3px 7px rgb(var(--nm-light) / 0.85), 3px 3px 7px rgb(var(--nm-dark) / 0.32);
+  --shadow-nm:
+    -5px -5px 11px rgb(var(--nm-light) / 0.9), 5px 5px 11px rgb(var(--nm-dark) / 0.35);
+  --shadow-nm-lg:
+    -8px -8px 18px rgb(var(--nm-light) / 0.9), 8px 8px 18px rgb(var(--nm-dark) / 0.38);
+  --shadow-nm-hover:
+    -9px -9px 20px rgb(var(--nm-light) / 0.95), 9px 9px 20px rgb(var(--nm-dark) / 0.42);
+  --shadow-nm-inset:
+    inset 3px 3px 6px rgb(var(--nm-dark) / 0.3), inset -3px -3px 6px rgb(var(--nm-light) / 0.85);
+  --shadow-nm-inset-deep:
+    inset 5px 5px 10px rgb(var(--nm-dark) / 0.38), inset -4px -4px 8px rgb(var(--nm-light) / 0.9);
+}
+
+/* Dark mode: identical layout & depth language, darker soft surface. */
+.dark {
+  --background: oklch(0.228 0.008 285);
+  --foreground: oklch(0.915 0.004 285);
+  --surface: oklch(0.248 0.008 285);
+
+  --card: oklch(0.248 0.008 285);
+  --card-foreground: oklch(0.915 0.004 285);
+  --popover: oklch(0.248 0.008 285);
+  --popover-foreground: oklch(0.915 0.004 285);
+
+  --primary: oklch(0.828 0.166 82.5);
+  --primary-foreground: oklch(0.24 0.01 285);
+  --brand: oklch(0.848 0.156 84);
+  --brand-deep: oklch(0.808 0.162 66);
+
+  --secondary: oklch(0.278 0.008 285);
+  --secondary-foreground: oklch(0.915 0.004 285);
+  --muted: oklch(0.278 0.008 285);
+  --muted-foreground: oklch(0.665 0.008 285);
+  --accent: oklch(0.828 0.166 82.5);
+  --accent-foreground: oklch(0.24 0.01 285);
+
+  --border: oklch(0.308 0.008 285);
+  --input: oklch(0.308 0.008 285);
+  --ring: oklch(0.828 0.166 82.5);
+
+  /* Dark neumorphic — deeper contrast for raised 3D effect */
+  --nm-light: 80 78 92;
+  --nm-dark: 10 9 14;
+
+  --shadow-nm-sm:
+    -3px -3px 7px rgb(var(--nm-light) / 0.48), 3px 3px 7px rgb(var(--nm-dark) / 0.72);
+  --shadow-nm:
+    -5px -5px 12px rgb(var(--nm-light) / 0.52), 5px 5px 12px rgb(var(--nm-dark) / 0.78);
+  --shadow-nm-lg:
+    -8px -8px 20px rgb(var(--nm-light) / 0.52), 8px 8px 20px rgb(var(--nm-dark) / 0.82);
+  --shadow-nm-hover:
+    -10px -10px 24px rgb(var(--nm-light) / 0.58), 10px 10px 24px rgb(var(--nm-dark) / 0.88);
+  --shadow-nm-inset:
+    inset 3px 3px 8px rgb(var(--nm-dark) / 0.8), inset -3px -3px 6px rgb(var(--nm-light) / 0.45);
+  --shadow-nm-inset-deep:
+    inset 5px 5px 12px rgb(var(--nm-dark) / 0.88), inset -4px -4px 8px rgb(var(--nm-light) / 0.5);
+}
+
+@utility nm-raised {
+  background-color: var(--surface);
+  box-shadow: var(--shadow-nm);
+}
+
+@utility nm-raised-sm {
+  background-color: var(--surface);
+  box-shadow: var(--shadow-nm-sm);
+}
+
+@utility nm-raised-lg {
+  background-color: var(--surface);
+  box-shadow: var(--shadow-nm-lg);
+}
+
+@utility nm-inset {
+  background-color: var(--surface);
+  box-shadow: var(--shadow-nm-inset);
+}
+
+@utility nm-inset-deep {
+  background-color: var(--surface);
+  box-shadow: var(--shadow-nm-inset-deep);
+}
+
+@utility nm-interactive {
+  transition:
+    box-shadow 0.28s ease,
+    transform 0.28s ease;
+  &:hover {
+    box-shadow: var(--shadow-nm-hover);
+    transform: translateY(-2px);
+  }
+  &:active {
+    box-shadow: var(--shadow-nm-inset);
+    transform: translateY(0);
+  }
+}
+
+@utility text-brand-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--brand-deep) 0%,
+    var(--brand) 35%,
+    var(--brand-deep) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
