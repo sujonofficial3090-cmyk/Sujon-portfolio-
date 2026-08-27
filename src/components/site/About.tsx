@@ -54,7 +54,7 @@ export function About() {
         >
           <div className="from-brand/25 pointer-events-none absolute inset-x-6 bottom-0 h-2/3 rounded-t-[80px] bg-gradient-to-t to-transparent" />
           <img
-            src={portrait}
+            src='https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png'
             alt="Sujon, Professional WordPress Developer"
             loading="lazy"
             width={900}
