@@ -18,7 +18,7 @@ export function Portfolio() {
         radius="lg"
         className="from-brand/25 via-brand/10 bg-gradient-to-b to-transparent p-5 sm:p-8"
       >
-        <div className="mb-8 text-center">
+        <div className="mb-8 text-center reveal-on-scroll">
           <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             Recent Projects
           </h2>
@@ -28,13 +28,13 @@ export function Portfolio() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {PROJECTS.map((item) => {
+          {PROJECTS.map((item, idx) => {
             const isMobileActive = activeMobileId === item.id;
             const projectUrl = `/projects/${item.id}`;
             return (
               <figure
                 key={item.id}
-                className="group nm-raised-sm flex flex-col justify-between overflow-hidden rounded-[16px] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-nm-hover)]"
+                className={`group nm-raised-sm flex flex-col justify-between overflow-hidden rounded-[16px] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-nm-hover)] reveal-on-scroll stagger-${(idx % 3) + 1}`}
               >
                 <div>
                   {/* Browser Mockup Frame with Overflow Hidden & Auto-Scroll */}

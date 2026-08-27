@@ -10,12 +10,12 @@ const STATS = [
 export function Stats() {
   return (
     <section aria-label="Company statistics" className="scroll-mt-28">
-      <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-7">
+      <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-7 reveal-on-scroll">
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-          {STATS.map((s) => (
+          {STATS.map((s, idx) => (
             <div
               key={s.value}
-              className="nm-inset flex min-h-[140px] sm:min-h-[160px] flex-col items-center justify-center rounded-[18px] sm:rounded-[20px] p-5 sm:p-7 text-center transition-transform duration-300 hover:scale-[1.02]"
+              className={`nm-inset flex min-h-[140px] sm:min-h-[160px] flex-col items-center justify-center rounded-[18px] sm:rounded-[20px] p-5 sm:p-7 text-center transition-transform duration-300 hover:scale-[1.02] reveal-on-scroll stagger-${idx + 1}`}
             >
               <div className="text-brand-gradient text-[clamp(2.2rem,4.8vw,3.2rem)] font-extrabold tracking-tight leading-none pb-1">
                 {s.value}

@@ -130,7 +130,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="scroll-mt-28">
-      <NeumorphicCard depth="md" radius="lg" className="mb-6 p-5 text-center sm:p-8">
+      <NeumorphicCard depth="md" radius="lg" className="mb-6 p-5 text-center sm:p-8 reveal-on-scroll">
         <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
           Let's Build Your WordPress Website
         </h2>
@@ -141,7 +141,7 @@ export function Contact() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* LEFT — Embedded Map of Banasree, Dhaka + Direct Contact Info inside Neumorphic Container */}
-        <NeumorphicCard depth="md" radius="lg" className="flex flex-col overflow-hidden p-4 sm:p-5">
+        <NeumorphicCard depth="md" radius="lg" className="flex flex-col overflow-hidden p-4 sm:p-5 reveal-on-scroll stagger-1">
           {/* Map Header */}
           <div className="mb-3.5 flex items-center justify-between px-1">
             <div className="flex items-center gap-2">
@@ -192,7 +192,7 @@ export function Contact() {
         </NeumorphicCard>
 
         {/* RIGHT — Contact Request Form */}
-        <NeumorphicCard depth="md" radius="lg" className="px-5 py-7 sm:px-8 sm:py-8">
+        <NeumorphicCard depth="md" radius="lg" className="px-5 py-7 sm:px-8 sm:py-8 reveal-on-scroll stagger-2">
           <h2 className="sr-only">Request a quote</h2>
 
           {submitted ? (

@@ -6,7 +6,7 @@ export function Blog() {
   return (
     <section aria-label="Latest articles" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
-        <div className="mb-8 text-center">
+        <div className="mb-8 text-center reveal-on-scroll">
           <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             Latest from the Blog
           </h2>
@@ -16,13 +16,13 @@ export function Blog() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {BLOG_POSTS.map((p) => {
+          {BLOG_POSTS.map((p, idx) => {
             const blogUrl = `/blog/${p.slug}`;
             return (
               <a
                 key={p.id}
                 href={blogUrl}
-                className="block group"
+                className={`block group reveal-on-scroll stagger-${(idx % 4) + 1}`}
               >
                 <NeumorphicCard
                   depth="sm"

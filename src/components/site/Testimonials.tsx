@@ -50,7 +50,7 @@ export function Testimonials() {
   return (
     <section id="reviews" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
-        <div className="mb-8 text-center">
+        <div className="mb-8 text-center reveal-on-scroll">
           <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             What Our Clients Say
           </h2>
@@ -60,13 +60,13 @@ export function Testimonials() {
         </div>
 
         <div className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {REVIEWS.map((r) => (
+          {REVIEWS.map((r, idx) => (
             <NeumorphicCard
               key={r.name + r.site}
               depth="sm"
               radius="md"
               interactive
-              className="flex flex-col items-center px-6 py-7 text-center"
+              className={`flex flex-col items-center px-6 py-7 text-center reveal-on-scroll stagger-${(idx % 3) + 1}`}
             >
               <span className="nm-inset text-brand-deep grid h-12 w-12 place-items-center rounded-full text-[13px] font-extrabold tracking-[0.08em]">
                 {r.initials}

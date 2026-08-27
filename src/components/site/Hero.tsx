@@ -8,14 +8,14 @@ export function Hero() {
           {/* LEFT — Text content & CTA */}
           <div className="flex flex-col justify-center px-5 py-10 sm:px-10 sm:py-14 lg:py-16 lg:pl-14">
             {/* Badge */}
-            <div className="mb-5">
+            <div className="mb-5 hero-animate-1">
               <span className="nm-inset text-brand-deep inline-block rounded-[8px] px-4 py-1.5 text-[11px] font-extrabold tracking-[0.2em] uppercase">
                 WORDPRESS DEVELOPER
               </span>
             </div>
 
             {/* Main heading: Funnel Display, Weight 800, Desktop Line-height 96px */}
-            <h1 className="text-[clamp(2.1rem,5vw,3.8rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15] lg:leading-[96px]">
+            <h1 className="hero-animate-1 text-[clamp(2.1rem,5vw,3.8rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15] lg:leading-[96px]">
               I Build{" "}
               <span className="text-brand-gradient pb-1 inline-block">Modern &amp; High-Performance</span>
               <br />
@@ -23,14 +23,14 @@ export function Hero() {
             </h1>
 
             {/* Body text: 16px Poppins font */}
-            <p className="mt-6 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.8] text-foreground/85 dark:text-foreground/85">
+            <p className="hero-animate-2 mt-6 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.8] text-foreground/85 dark:text-foreground/85">
               I'm <strong className="text-brand-deep font-extrabold">Sujon</strong>, a professional WordPress Developer specializing in
               responsive, fast, modern and conversion-focused WordPress websites for businesses,
               startups and personal brands worldwide.
             </p>
 
             {/* CTA Buttons — STRICTLY SIDE BY SIDE ON MOBILE (1 ROW) & INLINE ON DESKTOP */}
-            <div className="mt-8 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">
+            <div className="hero-animate-3 mt-8 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">
               <NeumorphicLinkButton
                 href="/#contact"
                 tone="brand"
@@ -49,7 +49,7 @@ export function Hero() {
             </div>
 
             {/* Mobile/Tablet Centered Photo Integration */}
-            <div className="relative mt-10 flex lg:hidden w-full items-end justify-center overflow-hidden pt-6">
+            <div className="hero-animate-4 relative mt-10 flex lg:hidden w-full items-end justify-center overflow-hidden pt-6">
               {/* Soft Ambient Radial Light */}
               <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 w-[240px] h-[240px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-2xl" />
               {/* Neumorphic Arch Backdrop */}
@@ -68,7 +68,7 @@ export function Hero() {
           </div>
 
           {/* RIGHT — Desktop Personal Photo with Seamless Neumorphic Arch & Lighting */}
-          <div className="relative hidden lg:flex h-full min-h-[520px] w-[360px] xl:w-[440px] items-end justify-center overflow-hidden">
+          <div className="hero-animate-4 relative hidden lg:flex h-full min-h-[520px] w-[360px] xl:w-[440px] items-end justify-center overflow-hidden">
             {/* Soft Ambient Radial Glow behind the silhouette */}
             <div className="pointer-events-none absolute top-6 left-1/2 -translate-x-1/2 w-[320px] h-[320px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
             

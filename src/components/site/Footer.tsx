@@ -30,7 +30,7 @@ const SOCIALS = [
 export function Footer() {
   return (
     <footer className="w-full">
-      <NeumorphicCard depth="md" radius="lg" className="px-6 py-10 sm:px-10 sm:py-12">
+      <NeumorphicCard depth="md" radius="lg" className="px-6 py-10 sm:px-10 sm:py-12 reveal-on-scroll">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.2fr_1.2fr]">
           <div className="flex flex-col gap-4">
             {/* Pure SUJON typographic wordmark */}

@@ -56,45 +56,43 @@ export function Services() {
     <section id="services" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
         {/* Section Header */}
-        <div className="mb-8 text-center">
+        <div className="mb-8 text-center reveal-on-scroll">
           <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             Explore Our Services
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium text-muted-foreground leading-[1.65]">
-            Professional WordPress solutions designed to help businesses build a stronger online presence.
+          <p className="mx-auto mt-2 max-w-xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
+            Specialized WordPress, WooCommerce, and front-end development solutions crafted to scale your business.
           </p>
         </div>
 
-        {/* 4x2 Grid with Large, Box-Sized Service Images */}
+        {/* 4x2 Grid with Large, Box-Sized Service Images & Staggered Reveal */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((s) => (
+          {SERVICES.map((s, idx) => (
             <NeumorphicCard
               key={s.title}
               depth="sm"
               radius="lg"
               interactive
-              className="flex flex-col items-center justify-between text-center px-5 py-7 sm:px-6 sm:py-8 group transition-transform duration-300 hover:-translate-y-1"
+              className={`flex flex-col items-center justify-between text-center px-5 py-7 sm:px-6 sm:py-8 group transition-transform duration-300 hover:-translate-y-1 reveal-on-scroll stagger-${(idx % 4) + 1}`}
             >
               {/* Large, Box-Proportioned 3D Service Image */}
-              <div className="flex h-[130px] sm:h-[145px] md:h-[150px] items-center justify-center w-full mb-4">
+              <div className="flex h-[130px] sm:h-[145px] md:h-[150px] items-center justify-center w-full mb-3">
                 <img
                   src={s.img}
                   alt={s.title}
                   loading="lazy"
-                  width={220}
-                  height={220}
-                  className="h-[120px] sm:h-[135px] md:h-[140px] w-auto max-w-[92%] object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+                  width={240}
+                  height={240}
+                  className="max-h-full max-w-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_8px_18px_rgba(0,0,0,0.4)] transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
-              <div>
-                {/* Service Title */}
-                <h3 className="text-[15px] sm:text-[16px] font-extrabold leading-snug tracking-tight text-foreground">
+              {/* Title & Description */}
+              <div className="flex flex-col items-center w-full mt-auto">
+                <h3 className="text-[17px] sm:text-[18px] font-extrabold text-foreground leading-[1.3] mb-2 tracking-tight group-hover:text-brand-deep transition-colors">
                   {s.title}
                 </h3>
-
-                {/* Service Description */}
-                <p className="mt-2.5 text-[13px] sm:text-[13.5px] font-normal leading-[1.65] text-muted-foreground">
+                <p className="text-[13.5px] sm:text-[14px] leading-[1.6] text-muted-foreground font-medium">
                   {s.desc}
                 </p>
               </div>

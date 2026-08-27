@@ -15,7 +15,7 @@ export function About() {
   return (
     <section id="about" className="scroll-mt-28">
       <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-        <NeumorphicCard depth="md" radius="lg" className="px-6 py-8 sm:px-10 sm:py-10">
+        <NeumorphicCard depth="md" radius="lg" className="px-6 py-8 sm:px-10 sm:py-10 reveal-on-scroll stagger-1">
           <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             Who am I?
           </h2>
@@ -52,7 +52,7 @@ export function About() {
         <NeumorphicCard
           depth="md"
           radius="lg"
-          className="relative flex items-end justify-center overflow-hidden px-4 pt-8"
+          className="relative flex items-end justify-center overflow-hidden px-4 pt-8 reveal-on-scroll stagger-2"
         >
           <div className="from-brand/25 pointer-events-none absolute inset-x-6 bottom-0 h-2/3 rounded-t-[80px] bg-gradient-to-t to-transparent" />
           <img

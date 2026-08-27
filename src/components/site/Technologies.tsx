@@ -220,7 +220,7 @@ export function Technologies() {
     <section aria-label="Technologies I work with" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
         {/* Clean Header matching screenshot */}
-        <div className="mb-8 text-center">
+        <div className="mb-8 text-center reveal-on-scroll">
           <h2 className="text-brand-gradient text-[clamp(1.7rem,4vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
             Technologies I Work With
           </h2>
@@ -228,7 +228,7 @@ export function Technologies() {
 
         {/* 8 Columns x 2 Rows Grid matching screenshot exactly */}
         <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-4 md:grid-cols-8 sm:gap-4">
-          {TECHNOLOGIES_LIST.map((name) => {
+          {TECHNOLOGIES_LIST.map((name, idx) => {
             const IconComponent = ICONS[name];
             return (
               <NeumorphicCard
@@ -236,7 +236,7 @@ export function Technologies() {
                 depth="sm"
                 radius="lg"
                 interactive
-                className="flex flex-col items-center justify-center p-3.5 sm:p-4 text-center group transition-transform duration-300 hover:-translate-y-1"
+                className={`flex flex-col items-center justify-center p-3.5 sm:p-4 text-center group transition-transform duration-300 hover:-translate-y-1 reveal-on-scroll stagger-${(idx % 8) + 1}`}
               >
                 {/* Soft Neumorphic Inset Square Pill Container matching Screenshot */}
                 <div className="nm-inset flex h-[62px] w-[62px] sm:h-[68px] sm:w-[68px] shrink-0 items-center justify-center rounded-[14px] sm:rounded-[16px] p-2.5 mb-2.5 transition-transform duration-300 group-hover:scale-105">
