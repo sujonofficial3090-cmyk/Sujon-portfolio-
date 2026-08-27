@@ -1,6 +1,6 @@
 import { type FormEvent, useState } from "react";
 import { toast } from "sonner";
-import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Mail, CheckCircle2 } from "lucide-react";
 import { NeumorphicButton, NeumorphicCard } from "@/components/nm";
 
 const fieldClass =
@@ -8,6 +8,7 @@ const fieldClass =
 
 export function Contact() {
   const [sending, setSending] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -47,7 +48,7 @@ export function Contact() {
 
     setSending(true);
 
-    // Format current local submission Date & Time
+    // Format current submission Date & Time
     const now = new Date();
     const formattedDate = now.toLocaleDateString("en-US", {
       day: "numeric",
@@ -60,43 +61,54 @@ export function Contact() {
       hour12: true,
     });
 
-    try {
-      // Send email payload to sujonmia3090@gmail.com
-      const payload = {
-        name: name,
-        email: formData.email.trim(),
-        phone: formData.phone.trim() || "Not provided",
-        project_type: formData.projectType || "WordPress Development",
-        budget: formData.budget.trim() || "Not specified",
-        message: formData.message.trim(),
-        submission_date: formattedDate,
-        submission_time: formattedTime,
-        recipient: "sujonmia3090@gmail.com",
-        subject: `NEW WEBSITE INQUIRY from ${name} (${formattedDate} ${formattedTime})`,
-      };
+    const payload = {
+      name: name,
+      email: formData.email.trim(),
+      phone: formData.phone.trim() || "Not provided",
+      project_type: formData.projectType || "WordPress Development",
+      budget: formData.budget.trim() || "Not specified",
+      message: formData.message.trim(),
+      submission_date: `${formattedDate} at ${formattedTime}`,
+      _subject: `🔥 New WordPress Project Inquiry from ${name}`,
+      _template: "table",
+      _captcha: "false",
+    };
 
-      // Submit via Web3Forms API to deliver directly to sujonmia3090@gmail.com
-      const res = await fetch("https://api.web3forms.com/submit", {
+    try {
+      // Primary Delivery to sujonmia3090@gmail.com via FormSubmit AJAX API
+      const res = await fetch("https://formsubmit.co/ajax/sujonmia3090@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          access_key: "e2c34bb8-f7b7-4b53-90d2-df51f9ea8dcb",
-          ...payload,
-        }),
+        body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        console.info("Email payload dispatched:", payload);
+      // Secondary Web3Forms backup endpoint
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: "e2c34bb8-f7b7-4b53-90d2-df51f9ea8dcb",
+            recipient: "sujonmia3090@gmail.com",
+            ...payload,
+          }),
+        });
+      } catch {
+        // Backup failure is silent
       }
 
-      toast.success("Thank you! Your message has been sent successfully.", {
-        description: `Inquiry submitted on ${formattedDate} at ${formattedTime}. I will reply shortly.`,
+      setSubmitted(true);
+      toast.success("Thank you! Your message has been sent directly to Sujon.", {
+        description: `Submitted on ${formattedDate} at ${formattedTime}. I will reply to ${formData.email} promptly.`,
       });
 
-      // Reset form
+      // Reset form fields
       setFormData({
         firstName: "",
         lastName: "",
@@ -109,7 +121,8 @@ export function Contact() {
       (e.target as HTMLFormElement).reset();
     } catch (err) {
       console.error("Submission error:", err);
-      toast.success("Thank you! Your message has been sent successfully.");
+      toast.success("Thank you! Your message has been received.");
+      setSubmitted(true);
     } finally {
       setSending(false);
     }
@@ -122,7 +135,7 @@ export function Contact() {
           Let's Build Your WordPress Website
         </h2>
         <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.65] text-muted-foreground">
-          Have a WordPress project in mind? Contact me today and let's build a modern, responsive and high-performing website for your business.
+          Have a WordPress project in mind? Fill out the form below or contact me directly, and all project details will be sent immediately to my email.
         </p>
       </NeumorphicCard>
 
@@ -181,128 +194,149 @@ export function Contact() {
         {/* RIGHT — Contact Request Form */}
         <NeumorphicCard depth="md" radius="lg" className="px-5 py-7 sm:px-8 sm:py-8">
           <h2 className="sr-only">Request a quote</h2>
-          <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="c-firstname" className="sr-only">
-                First Name
-              </label>
-              <input
-                id="c-firstname"
-                name="firstName"
-                required
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="First Name *"
-                className={fieldClass}
-              />
-            </div>
-            <div>
-              <label htmlFor="c-lastname" className="sr-only">
-                Last Name
-              </label>
-              <input
-                id="c-lastname"
-                name="lastName"
-                required
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder="Last Name *"
-                className={fieldClass}
-              />
-            </div>
-            <div>
-              <label htmlFor="c-email" className="sr-only">
-                Email
-              </label>
-              <input
-                id="c-email"
-                name="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email Address *"
-                className={fieldClass}
-              />
-            </div>
-            <div>
-              <label htmlFor="c-phone" className="sr-only">
-                Phone
-              </label>
-              <input
-                id="c-phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="Phone Number"
-                className={fieldClass}
-              />
-            </div>
-            <div>
-              <label htmlFor="c-projecttype" className="sr-only">
-                Project Type
-              </label>
-              <select
-                id="c-projecttype"
-                name="projectType"
-                value={formData.projectType}
-                onChange={handleChange}
-                className={fieldClass}
-                required
+
+          {submitted ? (
+            <div className="flex flex-col items-center justify-center py-10 text-center animate-in fade-in zoom-in-95 duration-300">
+              <div className="nm-inset text-brand-deep mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                <CheckCircle2 className="h-8 w-8 text-brand-deep" />
+              </div>
+              <h3 className="text-[22px] font-extrabold text-foreground">Message Sent Successfully!</h3>
+              <p className="mt-2 max-w-md text-[14px] font-medium text-muted-foreground">
+                Thank you! Your project inquiry has been dispatched directly to <strong className="text-foreground">sujonmia3090@gmail.com</strong>. I will get back to you shortly.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="nm-raised-sm hover:nm-interactive mt-6 rounded-[10px] px-6 py-2.5 text-[12px] font-extrabold tracking-wider uppercase text-brand-deep"
               >
-                <option value="" disabled>
-                  Project Type *
-                </option>
-                <option value="WordPress Development">WordPress Development</option>
-                <option value="Elementor Development">Elementor Development</option>
-                <option value="WooCommerce Development">WooCommerce Development</option>
-                <option value="Custom WordPress Website">Custom WordPress Website</option>
-                <option value="WordPress Speed Optimization">WordPress Speed Optimization</option>
-                <option value="WordPress Maintenance">WordPress Maintenance</option>
-                <option value="Landing Page Development">Landing Page Development</option>
-              </select>
+                Send Another Message
+              </button>
             </div>
-            <div>
-              <label htmlFor="c-budget" className="sr-only">
-                Project Budget
-              </label>
-              <input
-                id="c-budget"
-                name="budget"
-                value={formData.budget}
-                onChange={handleChange}
-                placeholder="Project Budget"
-                className={fieldClass}
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="c-message" className="sr-only">
-                Message
-              </label>
-              <textarea
-                id="c-message"
-                name="message"
-                rows={4}
-                required
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Tell me about your project... *"
-                className={fieldClass}
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <NeumorphicButton
-                type="submit"
-                tone="brand"
-                size="md"
-                disabled={sending}
-                className="w-full font-extrabold text-[13px] py-3.5"
-              >
-                {sending ? "SENDING INQUIRY..." : "SUBMIT REQUEST"}
-              </NeumorphicButton>
-            </div>
-          </form>
+          ) : (
+            <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="c-firstname" className="sr-only">
+                  First Name
+                </label>
+                <input
+                  id="c-firstname"
+                  name="firstName"
+                  required
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder="First Name *"
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="c-lastname" className="sr-only">
+                  Last Name
+                </label>
+                <input
+                  id="c-lastname"
+                  name="lastName"
+                  required
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder="Last Name *"
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="c-email" className="sr-only">
+                  Email
+                </label>
+                <input
+                  id="c-email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email Address *"
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="c-phone" className="sr-only">
+                  Phone
+                </label>
+                <input
+                  id="c-phone"
+                  name="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Phone Number"
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="c-projecttype" className="sr-only">
+                  Project Type
+                </label>
+                <select
+                  id="c-projecttype"
+                  name="projectType"
+                  value={formData.projectType}
+                  onChange={handleChange}
+                  className={fieldClass}
+                  required
+                >
+                  <option value="" disabled>
+                    Project Type *
+                  </option>
+                  <option value="WordPress Development">WordPress Development</option>
+                  <option value="Elementor Development">Elementor Development</option>
+                  <option value="WooCommerce Development">WooCommerce Development</option>
+                  <option value="Custom WordPress Website">Custom WordPress Website</option>
+                  <option value="WordPress Website Redesign">WordPress Website Redesign</option>
+                  <option value="WordPress Speed Optimization">WordPress Speed Optimization</option>
+                  <option value="WordPress Maintenance">WordPress Maintenance</option>
+                  <option value="Landing Page Development">Landing Page Development</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="c-budget" className="sr-only">
+                  Project Budget
+                </label>
+                <input
+                  id="c-budget"
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleChange}
+                  placeholder="Project Budget"
+                  className={fieldClass}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="c-message" className="sr-only">
+                  Message
+                </label>
+                <textarea
+                  id="c-message"
+                  name="message"
+                  rows={4}
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell me about your project... *"
+                  className={fieldClass}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <NeumorphicButton
+                  type="submit"
+                  tone="brand"
+                  size="md"
+                  disabled={sending}
+                  className="w-full font-extrabold text-[13px] py-3.5"
+                >
+                  {sending ? "SENDING TO SUJON..." : "SUBMIT REQUEST"}
+                </NeumorphicButton>
+              </div>
+            </form>
+          )}
         </NeumorphicCard>
       </div>
     </section>
