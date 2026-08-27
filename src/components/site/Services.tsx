@@ -65,7 +65,7 @@ export function Services() {
           </p>
         </div>
 
-        {/* 4x2 Grid Exactly Matching the User Screenshot */}
+        {/* 4x2 Grid with Large, Box-Sized Service Images */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s) => (
             <NeumorphicCard
@@ -73,29 +73,31 @@ export function Services() {
               depth="sm"
               radius="lg"
               interactive
-              className="flex flex-col items-center text-center px-5 py-7 sm:px-6 sm:py-8 group transition-transform duration-300 hover:-translate-y-1"
+              className="flex flex-col items-center justify-between text-center px-5 py-7 sm:px-6 sm:py-8 group transition-transform duration-300 hover:-translate-y-1"
             >
-              {/* Clean Direct 3D Visual with Natural Proportions matching Screenshot */}
-              <div className="flex h-[80px] sm:h-[88px] items-center justify-center w-full mb-3">
+              {/* Large, Box-Proportioned 3D Service Image */}
+              <div className="flex h-[130px] sm:h-[145px] md:h-[150px] items-center justify-center w-full mb-4">
                 <img
                   src={s.img}
                   alt={s.title}
                   loading="lazy"
-                  width={160}
-                  height={160}
-                  className="h-[72px] sm:h-[80px] w-auto max-w-[85%] object-contain drop-shadow-xs transition-transform duration-300 group-hover:scale-105"
+                  width={220}
+                  height={220}
+                  className="h-[120px] sm:h-[135px] md:h-[140px] w-auto max-w-[92%] object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
-              {/* Service Title */}
-              <h3 className="text-[15px] sm:text-[16px] font-extrabold leading-snug tracking-tight text-foreground">
-                {s.title}
-              </h3>
+              <div>
+                {/* Service Title */}
+                <h3 className="text-[15px] sm:text-[16px] font-extrabold leading-snug tracking-tight text-foreground">
+                  {s.title}
+                </h3>
 
-              {/* Service Description */}
-              <p className="mt-2.5 text-[13px] sm:text-[13.5px] font-normal leading-[1.65] text-muted-foreground">
-                {s.desc}
-              </p>
+                {/* Service Description */}
+                <p className="mt-2.5 text-[13px] sm:text-[13.5px] font-normal leading-[1.65] text-muted-foreground">
+                  {s.desc}
+                </p>
+              </div>
             </NeumorphicCard>
           ))}
         </div>
