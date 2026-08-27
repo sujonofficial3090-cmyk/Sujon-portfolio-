@@ -10,35 +10,43 @@ import { NeumorphicCard } from "@/components/nm";
 
 const SERVICES = [
   {
-    title: "Bespoke Web Design",
+    title: "WordPress Development",
+    desc: "Custom-built, high-performing WordPress websites tailored to your business needs.",
     img: svc1,
   },
   {
-    title: "Web Development",
+    title: "Elementor Development",
+    desc: "Pixel-perfect, drag-and-drop page builder designs for flexible & beautiful layouts.",
     img: svc2,
   },
   {
-    title: "eCommerce Development",
+    title: "WooCommerce Development",
+    desc: "Feature-rich eCommerce storefronts optimized for high conversions and user experience.",
     img: svc3,
   },
   {
-    title: "App Development",
+    title: "Custom WordPress Website",
+    desc: "Unique custom WordPress themes developed from scratch — no page-builder bloat.",
     img: svc4,
   },
   {
-    title: "Speed Optimization",
+    title: "WordPress Website Redesign",
+    desc: "Transform your outdated website into a modern, sleek, and highly engaging platform.",
     img: svc5,
   },
   {
-    title: "SEO/AEO/GEO",
+    title: "WordPress Speed Optimization",
+    desc: "Boost page load times, GTmetrix scores, and Core Web Vitals for better SEO rankings.",
     img: svc6,
   },
   {
-    title: "Complete Marketing",
+    title: "WordPress Maintenance",
+    desc: "Regular security checks, plugin updates, and backups to keep your site safe 24/7.",
     img: svc7,
   },
   {
-    title: "Company Branding",
+    title: "Landing Page Development",
+    desc: "High-converting, responsive landing pages built specifically for leads and sales.",
     img: svc8,
   },
 ];
@@ -57,32 +65,37 @@ export function Services() {
           </p>
         </div>
 
-        {/* 4x2 Responsive Grid matching the exact reference screenshot */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {/* 4x2 Grid Exactly Matching the User Screenshot */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s) => (
             <NeumorphicCard
               key={s.title}
               depth="sm"
               radius="lg"
               interactive
-              className="flex min-h-[220px] flex-col items-center justify-between px-5 py-7 text-center group transition-transform duration-300 hover:-translate-y-1"
+              className="flex flex-col items-center text-center px-5 py-7 sm:px-6 sm:py-8 group transition-transform duration-300 hover:-translate-y-1"
             >
-              {/* Large 3D Illustration sitting cleanly directly on the card surface matching screenshot */}
-              <div className="flex flex-1 items-center justify-center w-full py-2">
+              {/* Clean Direct 3D Visual with Natural Proportions matching Screenshot */}
+              <div className="flex h-[80px] sm:h-[88px] items-center justify-center w-full mb-3">
                 <img
                   src={s.img}
                   alt={s.title}
                   loading="lazy"
-                  width={180}
-                  height={180}
-                  className="h-[115px] sm:h-[130px] w-auto max-w-[88%] object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105"
+                  width={160}
+                  height={160}
+                  className="h-[72px] sm:h-[80px] w-auto max-w-[85%] object-contain drop-shadow-xs transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
-              {/* Service Title matching screenshot typography & positioning */}
-              <h3 className="mt-4 text-[15px] sm:text-[16px] font-extrabold leading-snug tracking-tight text-foreground">
+              {/* Service Title */}
+              <h3 className="text-[15px] sm:text-[16px] font-extrabold leading-snug tracking-tight text-foreground">
                 {s.title}
               </h3>
+
+              {/* Service Description */}
+              <p className="mt-2.5 text-[13px] sm:text-[13.5px] font-normal leading-[1.65] text-muted-foreground">
+                {s.desc}
+              </p>
             </NeumorphicCard>
           ))}
         </div>

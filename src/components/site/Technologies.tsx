@@ -1,8 +1,8 @@
 import { NeumorphicCard } from "@/components/nm";
 
-// 100% Reliable Standalone Vector SVGs for every technology
+// 100% Reliable Standalone Vector SVGs for every technology with crisp clean rendering
 const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
-  WordPress: ({ className = "h-[56px] w-[56px]" }) => (
+  WordPress: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="64" cy="64" r="60" fill="#21759B" />
       <path
@@ -14,7 +14,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  WooCommerce: ({ className = "h-[56px] w-[56px]" }) => (
+  WooCommerce: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#96588A" />
       <path
@@ -36,7 +36,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Elementor: ({ className = "h-[56px] w-[56px]" }) => (
+  Elementor: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#92003B" />
       <path d="M40 38H52V90H40V38Z" fill="white" />
@@ -46,7 +46,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Photoshop: ({ className = "h-[56px] w-[56px]" }) => (
+  Photoshop: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#001E36" />
       <path
@@ -56,7 +56,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Illustrator: ({ className = "h-[56px] w-[56px]" }) => (
+  Illustrator: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#330000" />
       <path
@@ -66,7 +66,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  PHP: ({ className = "h-[56px] w-[56px]" }) => (
+  PHP: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#777BB4" />
       <ellipse cx="64" cy="64" rx="52" ry="34" fill="#4F5B93" />
@@ -84,7 +84,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  JavaScript: ({ className = "h-[56px] w-[56px]" }) => (
+  JavaScript: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#F7DF1E" />
       <path
@@ -94,21 +94,21 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  HTML5: ({ className = "h-[56px] w-[56px]" }) => (
+  HTML5: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#E34F26" />
       <path d="M28 24L36 104L64 112L92 104L100 24H28ZM82.5 42H45.5L47 56H81L79 78L64 82L49 78L48 68H38L40 86L64 92.5L88 86L91.5 42H82.5Z" fill="white" />
     </svg>
   ),
 
-  CSS3: ({ className = "h-[56px] w-[56px]" }) => (
+  CSS3: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#1572B6" />
       <path d="M28 24L36 104L64 112L92 104L100 24H28ZM82.5 42H45.5L47 56H81L79 78L64 82L49 78L48 68H38L40 86L64 92.5L88 86L91.5 42H82.5Z" fill="white" />
     </svg>
   ),
 
-  MySQL: ({ className = "h-[56px] w-[56px]" }) => (
+  MySQL: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#00758F" />
       <path
@@ -129,7 +129,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Git: ({ className = "h-[56px] w-[56px]" }) => (
+  Git: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#F05032" />
       <path
@@ -139,7 +139,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Figma: ({ className = "h-[56px] w-[56px]" }) => (
+  Figma: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#1E1E1E" />
       <path d="M44 34H64V54H44C38.48 54 34 49.52 34 44C34 38.48 38.48 34 44 34Z" fill="#F24E1E" />
@@ -150,7 +150,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Wix: ({ className = "h-[56px] w-[56px]" }) => (
+  Wix: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#0C6EFC" />
       <text
@@ -168,7 +168,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Webflow: ({ className = "h-[56px] w-[56px]" }) => (
+  Webflow: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#146EF5" />
       <path
@@ -178,7 +178,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  Laravel: ({ className = "h-[56px] w-[56px]" }) => (
+  Laravel: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#FF2D20" />
       <path
@@ -188,7 +188,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  React: ({ className = "h-[56px] w-[56px]" }) => (
+  React: ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#20232A" />
       <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" />
@@ -198,7 +198,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  "Node.js": ({ className = "h-[56px] w-[56px]" }) => (
+  "Node.js": ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#333333" />
       <path d="M64 26L98 46V84L64 104L30 84V46L64 26Z" fill="#5FA04E" />
@@ -216,7 +216,7 @@ const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
     </svg>
   ),
 
-  "Next.js": ({ className = "h-[56px] w-[56px]" }) => (
+  "Next.js": ({ className = "h-[60px] w-[60px]" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#000000" />
       <circle cx="64" cy="64" r="42" fill="black" stroke="white" strokeWidth="4" />
@@ -269,14 +269,14 @@ export function Technologies() {
                 depth="sm"
                 radius="md"
                 interactive
-                className="flex flex-col items-center justify-center gap-3 px-2 py-4 text-center group"
+                className="flex flex-col items-center justify-center gap-3.5 px-2 py-5 text-center group transition-transform duration-300 hover:-translate-y-1"
               >
-                {/* Restored Soft Neumorphic Raised Pill Container around large logo */}
-                <span className="nm-raised-sm flex h-[74px] w-[74px] sm:h-[80px] sm:w-[80px] shrink-0 items-center justify-center rounded-[18px] p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-[var(--shadow-nm-hover)] border border-white/50 dark:border-white/10">
+                {/* Clean, Large Icon without Heavy Murky Dark Shadow Container */}
+                <div className="flex h-[64px] w-[64px] items-center justify-center shrink-0">
                   {IconComponent && (
-                    <IconComponent className="h-[54px] w-[54px] sm:h-[60px] sm:w-[60px] object-contain drop-shadow-xs transition-transform duration-300 group-hover:scale-105" />
+                    <IconComponent className="h-[58px] w-[58px] sm:h-[62px] sm:w-[62px] object-contain transition-transform duration-300 group-hover:scale-108" />
                   )}
-                </span>
+                </div>
                 <span className="text-center text-[12px] sm:text-[13px] font-bold leading-tight tracking-tight text-foreground/90 line-clamp-1">
                   {name}
                 </span>

@@ -17,7 +17,7 @@ export function Hero() {
             {/* Main heading: Funnel Display, Weight 800, Desktop Line-height 96px */}
             <h1 className="text-[clamp(2.1rem,5vw,3.8rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15] lg:leading-[96px]">
               I Build{" "}
-              <span className="text-brand-gradient pb-1">Modern &amp; High-Performance</span>
+              <span className="text-brand-gradient pb-1 inline-block">Modern &amp; High-Performance</span>
               <br />
               WordPress Websites
             </h1>
@@ -47,21 +47,46 @@ export function Hero() {
                 VIEW PROJECTS
               </NeumorphicLinkButton>
             </div>
+
+            {/* Mobile/Tablet Centered Photo Integration */}
+            <div className="relative mt-10 flex lg:hidden w-full items-end justify-center overflow-hidden pt-6">
+              {/* Soft Ambient Radial Light */}
+              <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 w-[240px] h-[240px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-2xl" />
+              {/* Neumorphic Arch Backdrop */}
+              <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[240px] sm:w-[280px] h-[300px] sm:h-[340px] rounded-t-[120px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/50 dark:border-white/10 nm-raised-sm opacity-85" />
+              <img
+                src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
+                alt="Sujon — Professional WordPress Developer"
+                loading="eager"
+                width={700}
+                height={950}
+                className="relative z-10 max-h-[380px] w-auto object-contain object-bottom drop-shadow-[0_10px_20px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_12px_24px_rgba(0,0,0,0.45)]"
+              />
+              {/* Bottom Surface Fade */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-16 bg-gradient-to-t from-surface via-surface/70 to-transparent" />
+            </div>
           </div>
 
-          {/* RIGHT — Personal photo */}
+          {/* RIGHT — Desktop Personal Photo with Seamless Neumorphic Arch & Lighting */}
           <div className="relative hidden lg:flex h-full min-h-[520px] w-[360px] xl:w-[440px] items-end justify-center overflow-hidden">
-            {/* Gradient overlay */}
-            <div className="from-brand/20 pointer-events-none absolute inset-0 bg-gradient-to-br to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-surface to-transparent" />
+            {/* Soft Ambient Radial Glow behind the silhouette */}
+            <div className="pointer-events-none absolute top-6 left-1/2 -translate-x-1/2 w-[320px] h-[320px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
+            
+            {/* Elegant Neumorphic Arch Backdrop */}
+            <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[280px] xl:w-[340px] h-[430px] xl:h-[480px] rounded-t-[140px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/60 dark:border-white/10 nm-raised-sm opacity-85" />
+
+            {/* Natural Personal Photo */}
             <img
-              src='https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png'
+              src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
               alt="Sujon — Professional WordPress Developer"
               loading="eager"
               width={900}
               height={1200}
-              className="relative z-10 h-full max-h-[550px] w-auto object-contain object-bottom"
+              className="relative z-10 h-full max-h-[540px] w-auto object-contain object-bottom drop-shadow-[0_12px_28px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
             />
+
+            {/* Seamless Bottom Gradient Fade into Card Surface */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-20 bg-gradient-to-t from-surface via-surface/70 to-transparent" />
           </div>
         </div>
       </NeumorphicCard>
