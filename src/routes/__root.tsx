@@ -13,6 +13,7 @@ import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { useScrollReveal } from "../lib/useScrollReveal";
+import { useLenisSmoothScroll } from "../lib/useLenisSmoothScroll";
 
 function NotFoundComponent() {
   return (
@@ -118,6 +119,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useLenisSmoothScroll();
   useScrollReveal();
 
   useEffect(() => {

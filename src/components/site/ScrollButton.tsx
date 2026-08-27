@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type Lenis from "lenis";
 
 export function ScrollButton() {
   const [scrolled, setScrolled] = useState(false);
@@ -19,14 +20,28 @@ export function ScrollButton() {
   }, []);
 
   const handleClick = () => {
+    const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
+
     if (scrolled) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } else {
       const servicesSection = document.getElementById("services");
       if (servicesSection) {
-        servicesSection.scrollIntoView({ behavior: "smooth" });
+        if (lenis) {
+          lenis.scrollTo(servicesSection, { offset: -25, duration: 1.2 });
+        } else {
+          servicesSection.scrollIntoView({ behavior: "smooth" });
+        }
       } else {
-        window.scrollBy({ top: window.innerHeight * 0.85, behavior: "smooth" });
+        if (lenis) {
+          lenis.scrollTo(window.innerHeight * 0.85, { duration: 1.2 });
+        } else {
+          window.scrollBy({ top: window.innerHeight * 0.85, behavior: "smooth" });
+        }
       }
     }
   };
