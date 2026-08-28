@@ -32,12 +32,14 @@ export function Hero() {
             {/* CTA Buttons — STRICTLY SIDE BY SIDE ON MOBILE (1 ROW) & INLINE ON DESKTOP */}
             <div className="hero-animate-3 mt-8 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">
               <NeumorphicLinkButton
-                href="/#contact"
+                href="/SUJON.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 tone="brand"
                 size="lg"
                 className="w-full sm:w-auto justify-center font-extrabold text-[11.5px] sm:text-[13px] px-2 py-3.5 sm:px-6 sm:py-3.5 whitespace-nowrap text-center"
               >
-                GET A QUOTE
+                DOWNLOAD CV
               </NeumorphicLinkButton>
               <NeumorphicLinkButton
                 href="/#portfolio"

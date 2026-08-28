@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { useScrollReveal } from "../lib/useScrollReveal";
 import { useLenisSmoothScroll } from "../lib/useLenisSmoothScroll";
+import { useContentProtection } from "../lib/useContentProtection";
 
 function NotFoundComponent() {
   return (
@@ -121,6 +122,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useLenisSmoothScroll();
   useScrollReveal();
+  useContentProtection();
 
   useEffect(() => {
     // Theme surface: default Light mode
