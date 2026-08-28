@@ -53,16 +53,16 @@ export function Hero() {
             {/* Mobile/Tablet Centered Photo Integration */}
             <div className="hero-animate-4 relative mt-10 flex lg:hidden w-full items-end justify-center overflow-hidden pt-6">
               {/* Soft Ambient Radial Light */}
-              <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 w-[240px] h-[240px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-2xl" />
+              <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 w-[280px] h-[280px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-2xl" />
               {/* Neumorphic Arch Backdrop */}
-              <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[240px] sm:w-[280px] h-[300px] sm:h-[340px] rounded-t-[120px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/50 dark:border-white/10 nm-raised-sm opacity-85" />
+              <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[280px] sm:w-[320px] h-[340px] sm:h-[400px] rounded-t-[140px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/50 dark:border-white/10 nm-raised-sm opacity-85" />
               <img
                 src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
                 alt="Sujon — Professional WordPress Developer"
                 loading="eager"
                 width={700}
                 height={950}
-                className="relative z-10 max-h-[380px] w-auto object-contain object-bottom drop-shadow-[0_10px_20px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_12px_24px_rgba(0,0,0,0.45)]"
+                className="relative z-10 max-h-[420px] sm:max-h-[480px] w-auto object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.14)] dark:drop-shadow-[0_14px_28px_rgba(0,0,0,0.5)]"
               />
               {/* Bottom Surface Fade */}
               <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-16 bg-gradient-to-t from-surface via-surface/70 to-transparent" />
@@ -70,12 +70,12 @@ export function Hero() {
           </div>
 
           {/* RIGHT — Desktop Personal Photo with Seamless Neumorphic Arch & Lighting */}
-          <div className="hero-animate-4 relative hidden lg:flex h-full min-h-[520px] w-[360px] xl:w-[440px] items-end justify-center overflow-hidden">
+          <div className="hero-animate-4 relative hidden lg:flex h-full min-h-[560px] w-[400px] xl:w-[480px] items-end justify-center overflow-hidden">
             {/* Soft Ambient Radial Glow behind the silhouette */}
-            <div className="pointer-events-none absolute top-6 left-1/2 -translate-x-1/2 w-[320px] h-[320px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
+            <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 w-[360px] h-[360px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
             
             {/* Elegant Neumorphic Arch Backdrop */}
-            <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[280px] xl:w-[340px] h-[430px] xl:h-[480px] rounded-t-[140px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/60 dark:border-white/10 nm-raised-sm opacity-85" />
+            <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[320px] xl:w-[380px] h-[480px] xl:h-[540px] rounded-t-[160px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/60 dark:border-white/10 nm-raised-sm opacity-85" />
 
             {/* Natural Personal Photo */}
             <img
@@ -84,7 +84,7 @@ export function Hero() {
               loading="eager"
               width={900}
               height={1200}
-              className="relative z-10 h-full max-h-[540px] w-auto object-contain object-bottom drop-shadow-[0_12px_28px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
+              className="relative z-10 h-full max-h-[580px] xl:max-h-[620px] w-auto object-contain object-bottom drop-shadow-[0_14px_32px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_16px_34px_rgba(0,0,0,0.5)] transition-transform duration-500 hover:scale-[1.02]"
             />
 
             {/* Seamless Bottom Gradient Fade into Card Surface */}
