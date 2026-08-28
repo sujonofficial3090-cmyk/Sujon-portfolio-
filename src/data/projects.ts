@@ -8,6 +8,11 @@ import blog4 from "@/assets/blog-4.jpg";
 import office from "@/assets/office.jpg";
 import tommysListing from "@/assets/tommys-listing.png";
 import applianceWorld from "@/assets/appliance-world.png";
+import digitalDropify from "@/assets/digital-dropify.png";
+import caterPsychiatry from "@/assets/cater-psychiatry.png";
+import dieselRepair from "@/assets/diesel-repair.png";
+import finseo from "@/assets/finseo.png";
+import moritzDunkel from "@/assets/moritz-dunkel.png";
 
 export interface Project {
   id: string;
@@ -68,123 +73,108 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://www.tommys.co.nz/"
   },
   {
-    id: "business-website",
-    title: "Business Website",
-    category: "Corporate Website",
-    description: "A professional corporate website built using WordPress and Elementor for a consulting firm to capture leads and showcase services.",
-    img: pf1,
-    overview: "This project involved creating a high-performance corporate presence for a financial consulting firm. The main objective was to establish trust, clearly present their advisory services, and drive inbound consulting leads.",
-    challenge: "The client's previous website was slow, failed to rank on search engines, and had a complex contact flow that resulted in high bounce rates and zero conversions.",
-    solution: "I designed and developed a modern, custom WordPress theme using Elementor. I optimized the layout for speed and search engine visibility while streamlining the call-to-action paths into an intuitive intake form.",
+    id: "digital-dropify",
+    title: "Digital Dropify — High-Converting Landing Page",
+    category: "Landing Page & Funnel Design",
+    description: "A conversion-optimized digital products landing page built for Digital Dropify, featuring 1,000+ digital products catalog showcase, profit breakdowns, faceless video vaults, and seamless checkout funnels.",
+    img: digitalDropify,
+    overview: "Digital Dropify is a high-converting digital eCommerce landing page engineered to sell turn-key digital products, PLR/MRR eBooks, Notion templates, and 10,000+ viral faceless video reels. The landing page is crafted with modern dark-mode glassmorphic aesthetics, psychological conversion triggers, interactive product vaults, and seamless checkout funnel integration to maximize digital sales.",
+    challenge: "Structuring an extensive collection of 1,000+ digital products, video vaults, and PLR resources into an engaging, single-page sales funnel that educates visitors, establishes authority, overcomes objections, and converts cold ad traffic with zero friction and rapid loading speeds.",
+    solution: "Designed and developed a conversion-focused landing page with modern dark UI styling, interactive product preview cards, video mockup showcases, multi-tier pricing/bundle comparisons, live social proof badges, and instant CTA buttons linked to high-converting checkout flows.",
     features: [
-      "Custom responsive layout",
-      "Interactive consultation scheduler",
-      "Dynamic team member showcase",
-      "SEO optimized layout & schema markup",
-      "Fully integrated contact forms"
+      "High-converting dark aesthetic landing page with animated visual badges",
+      "1,000+ digital product library catalog & category breakdown showcase",
+      "10,000+ Faceless viral video vault showcase & mockup preview cards",
+      "PLR & MRR rebrandable license explanation & profit breakdown section",
+      "Dynamic conversion triggers: social proof logos, earnings proof & FAQ accordion",
+      "100% responsive, mobile-first design optimized for ad campaign traffic"
     ],
-    techStack: ["WordPress", "Elementor Pro", "Yoast SEO", "CSS3"],
-    screenshots: [pf1, office, blog1],
-    liveUrl: "https://sujonmia.github.io/business-website"
+    techStack: ["WordPress", "Elementor Pro", "Landing Page Funnel", "Stripe Checkout", "CSS3 Animations", "Responsive Design"],
+    screenshots: [digitalDropify, pf1, office],
+    liveUrl: "https://digitaldropify.com/"
   },
   {
-    id: "car-rental",
-    title: "Car Rental Website",
-    category: "Booking System",
-    description: "A fully functional car rental platform featuring real-time vehicle booking, dynamic pricing, and driver verification.",
-    img: blog1,
-    overview: "A regional vehicle rental company required an online system to replace manual bookings. Customers needed to check car availability, calculate rental costs, and upload documents.",
-    challenge: "Creating a reliable booking calendar logic that prevents double bookings and applies dynamic pricing based on peak seasons and weekend rates.",
-    solution: "Implemented WooCommerce Bookings with custom fields. Designed a clean, neumorphic scheduling dashboard for effortless booking management.",
+    id: "cater-psychiatry",
+    title: "Cater Psychiatry — Healthcare & Telepsychiatry Services",
+    category: "Healthcare & Medical Services",
+    description: "A premium medical practice website built for Cater Psychiatry (Dr. Sammy Khader, MD) in St. Charles, IL, featuring adult psychiatric care, telepsychiatry scheduling, insurance/pricing transparency, and HIPAA-compliant patient intake.",
+    img: caterPsychiatry,
+    overview: "Cater Psychiatry provides personalized adult psychiatric care in Illinois, founded by Dr. Sammy Khader, MD. The platform is designed to provide thoughtful, personalized psychiatric treatment for ADHD, anxiety, depression, bipolar disorder, OCD, and insomnia, offering both in-person appointments in St. Charles and telepsychiatry across Illinois.",
+    challenge: "Designing a warm, high-trust healthcare portal that balances clinical authority with patient comfort, providing transparent self-pay and insurance pricing ($279 initial evaluation / $175 follow-up), interactive FAQ accordions, and frictionless consultation booking.",
+    solution: "Developed a high-performance WordPress & Elementor medical platform featuring doctor credentials, interactive symptom guides, patient testimonials, transparent pricing calculators, interactive clinic location mapping, and HIPAA-compliant appointment booking workflows.",
     features: [
-      "Dynamic pricing calculator",
-      "Real-time booking calendar",
-      "Driving license document uploader",
-      "Automatic customer reminder emails",
-      "Vehicle maintenance scheduling"
+      "Personalized psychiatric care & telepsychiatry booking throughout Illinois",
+      "Transparent pricing display ($279 Initial Evaluation / $175 Follow-up)",
+      "Comprehensive condition treatment guides (ADHD, Anxiety, Depression, OCD, Insomnia)",
+      "Verified patient experience reviews & FAQ accordion answering key concerns",
+      "Interactive St. Charles clinic location map & direct appointment scheduling",
+      "100% responsive, accessible healthcare design optimized for mobile & desktop"
     ],
-    techStack: ["WordPress", "WooCommerce Bookings", "Elementor Pro", "Mailchimp", "Bootstrap Grid"],
-    screenshots: [blog1, pf1, pf2],
-    liveUrl: "https://sujonmia.github.io/car-rental"
+    techStack: ["WordPress", "Elementor Pro", "Telehealth Booking", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    screenshots: [caterPsychiatry, pf2, office],
+    liveUrl: "https://caterpsychiatry.com/"
   },
   {
-    id: "corporate-website",
-    title: "Corporate Website",
-    category: "Business Presence",
-    description: "A secure, fast, and multi-language corporate site tailored for a global logistics and supply chain business.",
-    img: blog2,
-    overview: "This project delivered an online workspace for a global logistics provider, highlighting global shipping routes, tracking systems, and port details.",
-    challenge: "Managing complex translations across 5 languages while maintaining identical performance standards and design aesthetics.",
-    solution: "Built using WordPress Multisite and WPML, complete with optimized server-side translation caches and minimal plugin dependencies.",
+    id: "diesel-repair",
+    title: "205 Diesel Repair — Automotive & Truck Repair Services",
+    category: "Automotive & Fleet Services",
+    description: "A heavy-duty automotive and diesel truck repair service website built for 205 Diesel Repair in Rockwall, TX, featuring semi-truck repairs, A/C & brake diagnostics, mobile roadside service booking, and Google review highlights.",
+    img: dieselRepair,
+    overview: "205 Diesel Repair is a premier automotive and commercial truck repair facility located in Rockwall, Texas. The website is engineered to attract fleet managers, semi-truck drivers, and local vehicle owners with detailed service catalogs (Truck A/C, Brakes, Heavy Equipment, Diesel Pickup & Semi-Truck Repair), customer review showcases, and streamlined appointment scheduling.",
+    challenge: "Organizing diverse mechanical services (heavy machinery, semi-trucks, pickup diesels, paint & bodywork) into an intuitive, conversion-focused mobile interface with emergency dispatch call buttons and interactive shop location mapping.",
+    solution: "Developed a high-performance WordPress & Elementor service storefront with prominent emergency call triggers, structured repair service cards, embedded Google Maps, 5-star customer testimonial carousels, and an instant quote request intake form.",
     features: [
-      "Multi-language switcher (WPML)",
-      "Interactive global shipping map",
-      "Real-time package tracker mockup",
-      "Compliance document library",
-      "Secure client portal portal login"
+      "Comprehensive automotive & diesel truck repair showcase (Semi-Truck, Brakes, A/C, Paint & Body)",
+      "Instant emergency call-to-action & roadside service request triggers",
+      "Customer trust badges & 5-star verified Google Reviews integration",
+      "Interactive Google Maps location embed for easy garage navigation in Rockwall, TX",
+      "Custom service intake & quote estimation booking form",
+      "100% mobile-responsive layout optimized for truck drivers on the go"
     ],
-    techStack: ["WordPress", "WPML", "Elementor Pro", "Cloudflare Enterprise", "HTML5 & CSS3"],
-    screenshots: [blog2, office, pf3],
-    liveUrl: "https://sujonmia.github.io/corporate-website"
+    techStack: ["WordPress", "Elementor Pro", "Google Maps API", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    screenshots: [dieselRepair, pf1, office],
+    liveUrl: "https://205diesel.com/"
   },
   {
-    id: "portfolio-website",
-    title: "Portfolio Website",
-    category: "Personal Brand",
-    description: "A premium interactive portfolio website showcasing creative works with subtle neumorphic cards and smooth transitions.",
-    img: blog3,
-    overview: "A visual artist requested a gallery-first online archive to exhibit high-resolution digital illustrations and manage gallery inquiries.",
-    challenge: "Serving large media formats without sacrificing mobile page speeds, ensuring images remain crisp on Retina displays.",
-    solution: "Configured modern WebP image conversion and lazy loading protocols. Built custom lightboxes with zero layout shift.",
+    id: "finseo",
+    title: "Finseo — AI Search Visibility & SaaS Platform",
+    category: "AI SaaS / Business Website",
+    description: "Modern AI visibility SaaS platform website designed to help brands track, understand and improve how they appear across AI search and answer engines.",
+    img: finseo,
+    overview: "Finseo is a next-generation AI search optimization and visibility SaaS platform engineered to help brands and enterprises monitor, analyze, and optimize how their products and brand citations appear across generative AI engines such as ChatGPT, Claude, Perplexity, and Gemini.",
+    challenge: "Presenting sophisticated AI visibility analytics, prompt research tools, competitor benchmarking, and citation attribution pipelines within a sleek, high-trust SaaS interface designed for enterprise lead capture.",
+    solution: "Designed and built a modern, high-performance SaaS marketing website with interactive prompt demonstrations, multi-platform integration directories, clear product architecture, enterprise pricing tiers, and seamless live demo booking workflows.",
     features: [
-      "High-resolution media galleries",
-      "Fully responsive lightboxes",
-      "Interactive project timelines",
-      "Direct commission inquiry form",
-      "Smooth micro-interactions on hover"
+      "AI visibility & brand citation tracking across ChatGPT, Claude & Perplexity",
+      "Interactive prompt research simulator & brand mention intelligence cards",
+      "Comprehensive AI platforms integration directory (Shopify, WordPress, Webflow, HubSpot)",
+      "Instant enterprise demo booking & lead qualification funnel",
+      "Dark glassmorphic SaaS interface with high-contrast typography & subtle animations",
+      "100% responsive, high-performance layout optimized for enterprise desktop and mobile"
     ],
-    techStack: ["WordPress", "Elementor Pro", "WebP Converter", "ACF Pro", "JavaScript"],
-    screenshots: [blog3, pf2, blog1],
-    liveUrl: "https://sujonmia.github.io/portfolio-website"
+    techStack: ["WordPress", "Next.js / Headless", "Tailwind CSS", "Elementor Pro", "SaaS Analytics", "Responsive Design"],
+    screenshots: [finseo, pf1, office],
+    liveUrl: "https://www.finseo.ai/"
   },
   {
-    id: "landing-page",
-    title: "Landing Page",
-    category: "Marketing Campaign",
-    description: "A conversion-optimized SaaS product landing page focusing on customer lead capture, reviews, and dynamic pricing tables.",
-    img: blog4,
-    overview: "A product landing page designed to support a paid advertising campaign for a mobile productivity app, engineered to maximize conversion rates.",
-    challenge: "Optimizing code to ensure the landing page loaded in under 1 second to minimize ad click bounce rates.",
-    solution: "Developed with clean Tailwind classes and lightweight elements. Minified all stylesheets and eliminated heavy JS scripts.",
+    id: "moritz-dunkel",
+    title: "Moritz Dunkel — Agency & Design Portfolio Website",
+    category: "Portfolio Website",
+    description: "A high-end creative agency portfolio and brand identity website for Moritz Dunkel (Dunkel Design / DNKLDSN) in Cologne, Germany, featuring interactive case studies, design client testimonials, and strategy consultation bookings.",
+    img: moritzDunkel,
+    overview: "Moritz Dunkel (Dunkel Design / DNKLDSN) is a premier branding and web design agency based in Cologne, Germany. The website is engineered to showcase high-impact visual identities, psychology-driven web design, marketing strategies, and client success stories for entrepreneurs, service providers, and brands.",
+    challenge: "Structuring an extensive portfolio of design case studies, client reviews, FAQ accordions, and design packages into a bold, high-contrast visual layout that communicates creative excellence and drives high-value client project inquiries.",
+    solution: "Developed a modern, performance-optimized WordPress agency platform with dynamic typography, dark/light contrast aesthetics, interactive project galleries, verified client video/text testimonials, and seamless consultation intake flows.",
     features: [
-      "Sub-second load times",
-      "A/B tested CTA button placements",
-      "Interactive toggle pricing table",
-      "Embedded client video testimonials",
-      "Direct CRM automation pipeline"
+      "Bold, modern agency branding with dark & vibrant accent aesthetics",
+      "Interactive case study portfolio & client project breakdown",
+      "Client testimonials and 5-star Trustpilot review highlights",
+      "Interactive design & branding FAQ accordion",
+      "Direct strategy consultation intake & appointment calendar booking",
+      "100% responsive, high-performance design optimized across desktop and mobile"
     ],
-    techStack: ["WordPress", "Elementor", "Tailwind CSS", "HubSpot CRM Integration", "Autoptimize"],
-    screenshots: [blog4, pf1, pf3],
-    liveUrl: "https://sujonmia.github.io/landing-page"
-  },
-  {
-    id: "service-company",
-    title: "Service Company Website",
-    category: "Service Industry",
-    description: "A local services platform featuring local SEO optimization, service request quoting, and active review aggregation.",
-    img: office,
-    overview: "Created a local SEO-dominant website for a residential plumbing and HVAC company to rank in regional search queries.",
-    challenge: "Targeting specific regional keywords and service structures across multiple service locations without duplicate page penalties.",
-    solution: "Set up dynamic, geo-targeted landing templates utilizing ACF. Integrated active Google Reviews carousel to build local credibility.",
-    features: [
-      "Geo-targeted local service pages",
-      "Dynamic service request quote builder",
-      "Google Reviews real-time aggregator",
-      "Emergency call-to-actions",
-      "Service area coverage maps"
-    ],
-    techStack: ["WordPress", "Elementor", "Schema Pro", "Google My Business API", "RankMath Pro"],
-    screenshots: [office, pf2, blog2],
-    liveUrl: "https://sujonmia.github.io/service-company"
+    techStack: ["WordPress", "Elementor Pro", "ACF Pro", "PHP", "CSS3 Animations", "JavaScript", "Responsive Design"],
+    screenshots: [moritzDunkel, pf2, office],
+    liveUrl: "https://www.moritzdunkel.de/"
   }
 ];

@@ -1,7 +1,8 @@
+import type * as React from "react";
 import { NeumorphicCard } from "@/components/nm";
 
 // 100% Reliable, Standalone Vector SVGs for the 12 Core Technologies
-const ICONS: Record<string, (props: { className?: string }) => JSX.Element> = {
+const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> = {
   WordPress: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="64" cy="64" r="60" fill="#21759B" />

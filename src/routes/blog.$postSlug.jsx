@@ -121,12 +121,12 @@ function BlogDetail() {
       <main className="flex flex-col gap-6 sm:gap-8">
         {/* Navigation */}
         <div>
-          <Link
-            to="/"
+          <a
+            href="/#blog"
             className="nm-raised-sm hover:nm-inset inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-[0.08em] text-muted-foreground transition-all duration-300 hover:text-brand-deep"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back To Blog
-          </Link>
+          </a>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
@@ -193,9 +193,14 @@ function BlogDetail() {
                 5+ years building modern, fast and high-converting WordPress websites for businesses worldwide.
               </p>
               <div className="mt-6">
-                <NeumorphicLinkButton href="/#contact" tone="brand" size="sm" className="w-full font-extrabold">
+                <a
+                  href="https://wa.me/8801936711699"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="nm-raised-sm nm-interactive text-brand-deep flex items-center justify-center gap-2 rounded-[10px] w-full py-3 text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all duration-300 hover:shadow-[var(--shadow-nm-hover)] hover:-translate-y-0.5 active:nm-inset"
+                >
                   Hire Me
-                </NeumorphicLinkButton>
+                </a>
               </div>
             </NeumorphicCard>
 

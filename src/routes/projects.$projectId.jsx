@@ -50,12 +50,12 @@ function ProjectDetail() {
         {/* Back navigation & Basic details */}
         <section aria-label="Project intro">
           <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
-            <Link
-              to="/"
+            <a
+              href="/#portfolio"
               className="nm-raised-sm hover:nm-inset inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-[0.08em] text-muted-foreground transition-all duration-300 hover:text-brand-deep"
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Back To Projects
-            </Link>
+            </a>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <span className="nm-inset text-brand-deep rounded-[8px] px-3.5 py-1 text-[11px] font-extrabold tracking-[0.1em] uppercase">

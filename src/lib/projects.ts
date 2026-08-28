@@ -3,6 +3,11 @@ import pf2 from "@/assets/pf-2.jpg";
 import pf3 from "@/assets/pf-3.jpg";
 import tommysListing from "@/assets/tommys-listing.png";
 import applianceWorld from "@/assets/appliance-world.png";
+import digitalDropify from "@/assets/digital-dropify.png";
+import caterPsychiatry from "@/assets/cater-psychiatry.png";
+import dieselRepair from "@/assets/diesel-repair.png";
+import finseo from "@/assets/finseo.png";
+import moritzDunkel from "@/assets/moritz-dunkel.png";
 
 export type Project = {
   slug: string;
@@ -66,6 +71,126 @@ export const PROJECTS: Project[] = [
       "SEO schema markup tailored for real estate listings",
     ],
     stack: ["WordPress", "Elementor Pro", "Custom Post Types", "ACF Pro", "AJAX Filtering", "PHP", "CSS3"],
+  },
+  {
+    slug: "digital-dropify",
+    title: "Digital Dropify — High-Converting Landing Page",
+    category: "Landing Page & Funnel Design",
+    excerpt:
+      "A high-converting digital products landing page built for Digital Dropify, featuring 1,000+ digital products catalog showcase, profit breakdowns, faceless video vaults, and seamless checkout funnels.",
+    image: digitalDropify,
+    liveUrl: "https://digitaldropify.com/",
+    overview:
+      "Digital Dropify is a high-converting digital eCommerce landing page engineered to sell turn-key digital products, PLR/MRR eBooks, Notion templates, and 10,000+ viral faceless video reels. The landing page is crafted with modern dark-mode glassmorphic aesthetics, psychological conversion triggers, interactive product vaults, and seamless checkout funnel integration to maximize digital sales.",
+    challenge:
+      "Structuring an extensive collection of 1,000+ digital products, video vaults, and PLR resources into an engaging, single-page sales funnel that educates visitors, establishes authority, overcomes objections, and converts cold ad traffic with zero friction and rapid loading speeds.",
+    solution:
+      "Designed and developed a conversion-focused landing page with modern dark UI styling, interactive product preview cards, video mockup showcases, multi-tier pricing/bundle comparisons, live social proof badges, and instant CTA buttons linked to high-converting checkout flows.",
+    features: [
+      "High-converting dark aesthetic landing page with animated visual badges",
+      "1,000+ digital product library catalog & category breakdown showcase",
+      "10,000+ Faceless viral video vault showcase & mockup preview cards",
+      "PLR & MRR rebrandable license explanation & profit breakdown section",
+      "Dynamic conversion triggers: social proof logos, earnings proof & FAQ accordion",
+      "100% responsive, mobile-first design optimized for ad campaign traffic",
+    ],
+    stack: ["WordPress", "Elementor Pro", "Landing Page Funnel", "Stripe Checkout", "CSS3 Animations", "Responsive Design"],
+  },
+  {
+    slug: "cater-psychiatry",
+    title: "Cater Psychiatry — Healthcare & Telepsychiatry Services",
+    category: "Healthcare & Medical Services",
+    excerpt:
+      "A premium medical practice website built for Cater Psychiatry (Dr. Sammy Khader, MD) in St. Charles, IL, featuring adult psychiatric care, telepsychiatry scheduling, insurance/pricing transparency, and HIPAA-compliant patient intake.",
+    image: caterPsychiatry,
+    liveUrl: "https://caterpsychiatry.com/",
+    overview:
+      "Cater Psychiatry provides personalized adult psychiatric care in Illinois, founded by Dr. Sammy Khader, MD. The platform is designed to provide thoughtful, personalized psychiatric treatment for ADHD, anxiety, depression, bipolar disorder, OCD, and insomnia, offering both in-person appointments in St. Charles and telepsychiatry across Illinois.",
+    challenge:
+      "Designing a warm, high-trust healthcare portal that balances clinical authority with patient comfort, providing transparent self-pay and insurance pricing ($279 initial evaluation / $175 follow-up), interactive FAQ accordions, and frictionless consultation booking.",
+    solution:
+      "Developed a high-performance WordPress & Elementor medical platform featuring doctor credentials, interactive symptom guides, patient testimonials, transparent pricing calculators, interactive clinic location mapping, and HIPAA-compliant appointment booking workflows.",
+    features: [
+      "Personalized psychiatric care & telepsychiatry booking throughout Illinois",
+      "Transparent pricing display ($279 Initial Evaluation / $175 Follow-up)",
+      "Comprehensive condition treatment guides (ADHD, Anxiety, Depression, OCD, Insomnia)",
+      "Verified patient experience reviews & FAQ accordion answering key concerns",
+      "Interactive St. Charles clinic location map & direct appointment scheduling",
+      "100% responsive, accessible healthcare design optimized for mobile & desktop",
+    ],
+    stack: ["WordPress", "Elementor Pro", "Telehealth Booking", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+  },
+  {
+    slug: "diesel-repair",
+    title: "205 Diesel Repair — Automotive & Truck Repair Services",
+    category: "Automotive & Fleet Services",
+    excerpt:
+      "A heavy-duty automotive and diesel truck repair service website built for 205 Diesel Repair in Rockwall, TX, featuring semi-truck repairs, A/C & brake diagnostics, mobile roadside service booking, and Google review highlights.",
+    image: dieselRepair,
+    liveUrl: "https://205diesel.com/",
+    overview:
+      "205 Diesel Repair is a premier automotive and commercial truck repair facility located in Rockwall, Texas. The website is engineered to attract fleet managers, semi-truck drivers, and local vehicle owners with detailed service catalogs (Truck A/C, Brakes, Heavy Equipment, Diesel Pickup & Semi-Truck Repair), customer review showcases, and streamlined appointment scheduling.",
+    challenge:
+      "Organizing diverse mechanical services (heavy machinery, semi-trucks, pickup diesels, paint & bodywork) into an intuitive, conversion-focused mobile interface with emergency dispatch call buttons and interactive shop location mapping.",
+    solution:
+      "Developed a high-performance WordPress & Elementor service storefront with prominent emergency call triggers, structured repair service cards, embedded Google Maps, 5-star customer testimonial carousels, and an instant quote request intake form.",
+    features: [
+      "Comprehensive automotive & diesel truck repair showcase (Semi-Truck, Brakes, A/C, Paint & Body)",
+      "Instant emergency call-to-action & roadside service request triggers",
+      "Customer trust badges & 5-star verified Google Reviews integration",
+      "Interactive Google Maps location embed for easy garage navigation in Rockwall, TX",
+      "Custom service intake & quote estimation booking form",
+      "100% mobile-responsive layout optimized for truck drivers on the go",
+    ],
+    stack: ["WordPress", "Elementor Pro", "Google Maps API", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+  },
+  {
+    slug: "finseo",
+    title: "Finseo — AI Search Visibility & SaaS Platform",
+    category: "AI SaaS / Business Website",
+    excerpt:
+      "Modern AI visibility SaaS platform website designed to help brands track, understand and improve how they appear across AI search and answer engines.",
+    image: finseo,
+    liveUrl: "https://www.finseo.ai/",
+    overview:
+      "Finseo is a next-generation AI search optimization and visibility SaaS platform engineered to help brands and enterprises monitor, analyze, and optimize how their products and brand citations appear across generative AI engines including ChatGPT, Claude, Perplexity, and Gemini.",
+    challenge:
+      "Presenting sophisticated AI visibility tracking analytics, prompt research tools, competitor benchmarking, and citation attribution pipelines within a sleek, high-trust SaaS interface designed for enterprise lead capture.",
+    solution:
+      "Designed and built a modern, high-performance SaaS marketing website with interactive prompt demonstrations, multi-platform integration directories, clear product architecture, enterprise pricing tiers, and seamless live demo booking workflows.",
+    features: [
+      "AI visibility & brand citation tracking across ChatGPT, Claude & Perplexity",
+      "Interactive prompt research simulator & brand mention intelligence cards",
+      "Comprehensive AI platforms integration directory (Shopify, WordPress, Webflow, HubSpot)",
+      "Instant enterprise demo booking & lead qualification funnel",
+      "Dark glassmorphic SaaS interface with high-contrast typography & subtle animations",
+      "100% responsive, high-performance layout optimized for enterprise desktop and mobile",
+    ],
+    stack: ["WordPress", "Next.js / Headless", "Tailwind CSS", "Elementor Pro", "SaaS Analytics", "Responsive Design"],
+  },
+  {
+    slug: "moritz-dunkel",
+    title: "Moritz Dunkel — Agency & Design Portfolio Website",
+    category: "Portfolio Website",
+    excerpt:
+      "A high-end creative agency portfolio and brand identity website for Moritz Dunkel (Dunkel Design / DNKLDSN) in Cologne, Germany, featuring interactive case studies, design client testimonials, and strategy consultation bookings.",
+    image: moritzDunkel,
+    liveUrl: "https://www.moritzdunkel.de/",
+    overview:
+      "Moritz Dunkel (Dunkel Design / DNKLDSN) is a premier branding and web design agency based in Cologne, Germany. The website is engineered to showcase high-impact visual identities, psychology-driven web design, marketing strategies, and client success stories for entrepreneurs, service providers, and brands.",
+    challenge:
+      "Structuring an extensive portfolio of design case studies, client reviews, FAQ accordions, and design packages into a bold, high-contrast visual layout that communicates creative excellence and drives high-value client project inquiries.",
+    solution:
+      "Developed a modern, performance-optimized WordPress agency platform with dynamic typography, dark/light contrast aesthetics, interactive project galleries, verified client video/text testimonials, and seamless consultation intake flows.",
+    features: [
+      "Bold, modern agency branding with dark & vibrant accent aesthetics",
+      "Interactive case study portfolio & client project breakdown",
+      "Client testimonials and 5-star Trustpilot review highlights",
+      "Interactive design & branding FAQ accordion",
+      "Direct strategy consultation intake & appointment calendar booking",
+      "100% responsive, high-performance design optimized across desktop and mobile",
+    ],
+    stack: ["WordPress", "Elementor Pro", "ACF Pro", "PHP", "CSS3 Animations", "JavaScript", "Responsive Design"],
   },
   {
     slug: "aurora-fashion-store",
