@@ -1,13 +1,13 @@
 import pf1 from "@/assets/pf-1.jpg";
 import pf2 from "@/assets/pf-2.jpg";
 import pf3 from "@/assets/pf-3.jpg";
-import tommysListing from "@/assets/tommys-listing.png";
-import applianceWorld from "@/assets/appliance-world.png";
-import digitalDropify from "@/assets/digital-dropify.png";
-import caterPsychiatry from "@/assets/cater-psychiatry.png";
-import dieselRepair from "@/assets/diesel-repair.png";
-import finseo from "@/assets/finseo.png";
-import moritzDunkel from "@/assets/moritz-dunkel.png";
+import tommysListing from "@/assets/tommys-listing.webp";
+import applianceWorld from "@/assets/appliance-world.webp";
+import digitalDropify from "@/assets/digital-dropify.webp";
+import caterPsychiatry from "@/assets/cater-psychiatry.webp";
+import dieselRepair from "@/assets/diesel-repair.webp";
+import finseo from "@/assets/finseo.webp";
+import moritzDunkel from "@/assets/moritz-dunkel.webp";
 
 export type Project = {
   slug: string;

@@ -33,13 +33,14 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
             setCanScroll(true);
             setIsMobileActive((prev) => !prev);
           }}
-          className="relative h-[230px] sm:h-[240px] w-full overflow-hidden rounded-[12px] bg-muted/20 nm-inset cursor-pointer select-none"
+          className="relative h-[230px] sm:h-[240px] w-full overflow-hidden rounded-[12px] bg-muted/20 nm-inset cursor-pointer select-none [contain:paint]"
           title="Hover to preview full website"
         >
           <img
             src={item.img}
             alt={`${item.title} Full Screenshot Preview`}
-            loading="eager"
+            loading={idx < 2 ? "eager" : "lazy"}
+            decoding="async"
             draggable={false}
             onLoad={handleImageLoad}
             className="w-full h-auto block object-cover object-top pointer-events-none"
@@ -50,10 +51,9 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
               transition: isActive
                 ? "transform 8.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
                 : "transform 0.75s ease-out",
-              willChange: "transform",
+              willChange: isActive ? "transform" : "auto",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
-              imageRendering: "auto",
             }}
           />
 

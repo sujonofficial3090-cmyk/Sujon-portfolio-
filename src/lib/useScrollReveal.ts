@@ -38,19 +38,12 @@ export function useScrollReveal() {
     // Initial observation
     observeAll();
 
-    // Observe any dynamic additions
-    const mutationObserver = new MutationObserver(() => {
-      observeAll();
-    });
-
-    mutationObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+    // Check once after render transitions settle
+    const timer = setTimeout(observeAll, 300);
 
     return () => {
+      clearTimeout(timer);
       observer.disconnect();
-      mutationObserver.disconnect();
     };
   }, []);
 }
