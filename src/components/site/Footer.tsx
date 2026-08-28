@@ -1,4 +1,4 @@
-import { Facebook, Github, Instagram, Linkedin, MessageCircle, Mail, Phone } from "lucide-react";
+import { Facebook, Github, Instagram, MessageCircle, Mail, Phone, MapPin } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 
 const QUICK = [
@@ -20,10 +20,9 @@ const SERVICES = [
 ];
 
 const SOCIALS = [
-  { Icon: Linkedin, href: "https://linkedin.com/in/sujonmia", label: "LinkedIn" },
-  { Icon: Github, href: "https://github.com/sujonmia", label: "GitHub" },
-  { Icon: Facebook, href: "https://facebook.com/sujonmia", label: "Facebook" },
-  { Icon: Instagram, href: "https://instagram.com/sujonmia", label: "Instagram" },
+  { Icon: Github, href: "https://github.com/sujonofficial3090-cmyk", label: "GitHub" },
+  { Icon: Facebook, href: "https://www.facebook.com/share/1FDd7ycTcD/", label: "Facebook" },
+  { Icon: Instagram, href: "https://www.instagram.com/sujon_309?igsi=MXc3MWY0ODhnM2tyaA==", label: "Instagram" },
   { Icon: MessageCircle, href: "https://wa.me/8801936711699", label: "WhatsApp" },
 ];
 
@@ -83,6 +82,12 @@ export function Footer() {
             </h2>
             <ul className="mt-4 space-y-3.5 text-[14px] font-medium text-muted-foreground">
               <li className="flex items-start gap-2.5">
+                <MapPin className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
+                <span className="font-bold text-foreground/85">
+                  Rampura, Banasree, Dhaka
+                </span>
+              </li>
+              <li className="flex items-start gap-2.5">
                 <Phone className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
                 <a href="tel:01936711699" className="hover:text-brand-deep transition-colors font-bold">
                   01936711699
@@ -99,7 +104,14 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2.5">
                 <MessageCircle className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
-                <span className="font-bold text-foreground/85">@sujonmia</span>
+                <a
+                  href="https://wa.me/8801936711699"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-deep transition-colors font-bold"
+                >
+                  WhatsApp Chat
+                </a>
               </li>
             </ul>
           </div>
