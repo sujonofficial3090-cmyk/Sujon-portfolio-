@@ -1,75 +1,111 @@
+import { CheckCircle2, Award, Users, Target } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 
-const SKILLS = [
-  "WordPress Development",
-  "Elementor & Elementor Pro",
-  "WooCommerce",
-  "Custom WordPress Websites",
-  "Responsive Web Design",
-  "WordPress Speed Optimization",
-  "Website Redesign",
-  "WordPress Maintenance",
+const PILLARS = [
+  {
+    icon: Target,
+    title: "Conversion & Revenue Focused",
+    desc: "Every design decision, pixel, and line of code is engineered with one metric in mind: maximizing your business revenue.",
+  },
+  {
+    icon: Award,
+    title: "Zero Cookie-Cutter Templates",
+    desc: "We build bespoke, tailor-made digital architectures from the ground up to give your brand a distinct competitive advantage.",
+  },
+  {
+    icon: Users,
+    title: "Dedicated Senior Team",
+    desc: "Direct access to senior full-stack developers and UI/UX strategists without bureaucratic agency bloat.",
+  },
+  {
+    icon: CheckCircle2,
+    title: "Guaranteed Performance SLA",
+    desc: "Sub-second loading speeds, 99.9% uptime reliability, and continuous proactive security monitoring.",
+  },
 ];
 
 export function About() {
   return (
     <section id="about" className="scroll-mt-28">
-      <div className="grid gap-6 lg:grid-cols-[1.25fr_1fr]">
-        <NeumorphicCard depth="md" radius="lg" className="px-6 py-8 sm:px-10 sm:py-10 reveal-on-scroll stagger-1">
-          <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
-            Who am I?
-          </h2>
+      <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+        {/* LEFT — Agency Story */}
+        <NeumorphicCard depth="md" radius="lg" className="px-6 py-8 sm:px-10 sm:py-10 reveal-on-scroll stagger-1 flex flex-col justify-between">
+          <div>
+            <span className="nm-inset text-brand-deep rounded-[8px] px-3.5 py-1 text-[11px] font-extrabold tracking-[0.15em] uppercase inline-block mb-3">
+              ABOUT OUR AGENCY
+            </span>
+            <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal">
+              Architecting the Future of High-Growth Digital Brands
+            </h2>
 
-          <div className="mt-5 space-y-4 text-[15px] sm:text-[16px] font-medium leading-[1.75] text-foreground/85 dark:text-foreground/85">
-            <p>
-              I'm <span className="text-brand-deep font-extrabold">Sujon</span>, a passionate WordPress Developer focused on building beautiful, responsive and high-performing websites. I work with WordPress, Elementor, WooCommerce and custom website development to create professional digital experiences for businesses and clients worldwide.
-            </p>
-            <p>
-              Over the years, I've helped numerous clients establish a stronger digital presence through robust, scalable, and conversion-focused digital experiences that accelerate business growth and create lasting online impact.
-            </p>
+            <div className="mt-5 space-y-4 text-[15px] sm:text-[16px] font-medium leading-[1.75] text-foreground/85">
+              <p>
+                At <span className="text-brand-deep font-extrabold">Apex Digital</span>, we believe that an extraordinary website is not just a digital brochure — it is your most powerful sales asset, brand amplifier, and revenue engine.
+              </p>
+              <p>
+                We combine deep technical mastery (WordPress, React, Next.js, Headless CMS) with psychology-driven UI/UX design to build bespoke platforms that load in milliseconds, convert traffic into paying clients, and scale effortlessly.
+              </p>
+            </div>
           </div>
 
-          <div className="mt-8 border-t border-border pt-6">
-            <h3 className="text-[14px] sm:text-[15px] font-extrabold text-foreground mb-4 uppercase tracking-wider">
-              Skills Highlight
-            </h3>
-            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {SKILLS.map((skill) => (
-                <li
-                  key={skill}
-                  className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-foreground/80"
-                >
-                  <span className="nm-raised-sm flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] text-brand-deep font-extrabold">
-                    ✓
-                  </span>
-                  <span>{skill}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-8 border-t border-border pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div className="nm-inset p-3 rounded-[12px]">
+              <div className="text-[22px] font-extrabold text-brand-deep font-display">5+ Yrs</div>
+              <div className="text-[11px] font-bold text-muted-foreground">Industry Exp</div>
+            </div>
+            <div className="nm-inset p-3 rounded-[12px]">
+              <div className="text-[22px] font-extrabold text-brand-deep font-display">500+</div>
+              <div className="text-[11px] font-bold text-muted-foreground">Projects Done</div>
+            </div>
+            <div className="nm-inset p-3 rounded-[12px]">
+              <div className="text-[22px] font-extrabold text-brand-deep font-display">99.4%</div>
+              <div className="text-[11px] font-bold text-muted-foreground">Client Score</div>
+            </div>
+            <div className="nm-inset p-3 rounded-[12px]">
+              <div className="text-[22px] font-extrabold text-brand-deep font-display">24/7</div>
+              <div className="text-[11px] font-bold text-muted-foreground">Support SLA</div>
+            </div>
           </div>
         </NeumorphicCard>
 
+        {/* RIGHT — 4 Agency Core Pillars */}
         <NeumorphicCard
           depth="md"
           radius="lg"
-          className="relative flex min-h-[460px] lg:min-h-[520px] items-end justify-center overflow-hidden px-4 pt-8 reveal-on-scroll stagger-2"
+          className="p-6 sm:p-8 reveal-on-scroll stagger-2 flex flex-col justify-between"
         >
-          {/* Soft ambient lighting */}
-          <div className="pointer-events-none absolute top-8 left-1/2 -translate-x-1/2 w-[300px] h-[300px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
-          {/* Arch frame */}
-          <div className="pointer-events-none absolute inset-x-4 sm:inset-x-6 bottom-0 h-3/4 rounded-t-[120px] bg-gradient-to-t from-brand/20 via-surface/40 to-surface/10 border-t border-x border-white/50 dark:border-white/10 nm-raised-sm opacity-85" />
-          <img
-            src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
-            alt="Sujon, Professional WordPress Developer"
-            loading="lazy"
-            width={900}
-            height={1200}
-            className="relative z-10 max-h-[480px] lg:max-h-[540px] w-auto object-contain object-bottom drop-shadow-[0_14px_30px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_16px_32px_rgba(0,0,0,0.5)] transition-transform duration-500 hover:scale-[1.02]"
-          />
-          {/* Bottom subtle blend */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-14 bg-gradient-to-t from-surface via-surface/70 to-transparent" />
+          <div>
+            <h3 className="text-[17px] font-extrabold text-foreground mb-5 uppercase tracking-wider">
+              Our Core Agency Pillars
+            </h3>
+
+            <div className="space-y-4">
+              {PILLARS.map((p) => (
+                <div key={p.title} className="nm-raised-sm rounded-[14px] p-4 transition-all duration-300 hover:shadow-[var(--shadow-nm-hover)]">
+                  <div className="flex items-center gap-2.5 mb-1.5">
+                    <span className="nm-inset text-brand-deep flex h-7 w-7 items-center justify-center rounded-[8px]">
+                      <p.icon className="h-4 w-4" />
+                    </span>
+                    <h4 className="text-[15px] font-extrabold text-foreground">
+                      {p.title}
+                    </h4>
+                  </div>
+                  <p className="text-[13px] leading-[1.6] font-medium text-muted-foreground pl-9">
+                    {p.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 pt-4 border-t border-border/50 text-center">
+            <span className="text-[12px] font-bold text-muted-foreground">
+              Ready to transform your digital presence? <a href="/#contact" className="text-brand-deep font-extrabold hover:underline">Let's talk →</a>
+            </span>
+          </div>
         </NeumorphicCard>
       </div>
     </section>
   );
 }
+

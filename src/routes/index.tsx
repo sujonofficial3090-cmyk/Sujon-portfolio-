@@ -2,30 +2,32 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { About } from "@/components/site/About";
 import { Blog } from "@/components/site/Blog";
+import { ClientLogos } from "@/components/site/ClientLogos";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { Portfolio } from "@/components/site/Portfolio";
+import { Pricing } from "@/components/site/Pricing";
+import { Process } from "@/components/site/Process";
+import { ScrollButton } from "@/components/site/ScrollButton";
 import { Services } from "@/components/site/Services";
-import { Stats } from "@/components/site/Stats";
-import { Technologies } from "@/components/site/Technologies";
 import { Testimonials } from "@/components/site/Testimonials";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SUJON — Professional WordPress Developer" },
+      { title: "Apex Digital — Full-Service Digital Product & Web Agency" },
       {
         name: "description",
         content:
-          "Sujon is a professional WordPress Developer specializing in responsive, fast, modern and conversion-focused WordPress websites.",
+          "Apex Digital is a premier digital agency engineering high-converting web applications, bespoke eCommerce platforms, and revenue-scaling digital solutions.",
       },
-      { property: "og:title", content: "SUJON — Professional WordPress Developer" },
+      { property: "og:title", content: "Apex Digital — Full-Service Digital Product & Web Agency" },
       {
         property: "og:description",
         content:
-          "5+ Years Experience, 200+ Completed Projects, 150+ Happy Clients, 99% Client Satisfaction.",
+          "500+ Projects Delivered, $50M+ Client Revenue Generated, 99.4% Client Satisfaction.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -34,15 +36,13 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-import { ScrollButton } from "@/components/site/ScrollButton";
-
 function WhatsAppFloat() {
   return (
     <a
       href="https://wa.me/8801936711699"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat on WhatsApp"
+      aria-label="Chat with Apex Digital on WhatsApp"
       className="fixed left-4 bottom-6 z-50 nm-raised nm-interactive flex h-13 w-13 items-center justify-center rounded-full text-[#25D366] hover:text-[#1ebe57] transition-colors"
     >
       <svg
@@ -63,11 +63,12 @@ function Index() {
       <Header />
       <main className="flex flex-col gap-6 sm:gap-8">
         <Hero />
-        <Stats />
-        <About />
+        <ClientLogos />
         <Services />
-        <Technologies />
         <Portfolio />
+        <Process />
+        <Pricing />
+        <About />
         <Testimonials />
         <Blog />
         <Contact />
@@ -78,4 +79,5 @@ function Index() {
     </div>
   );
 }
+
 

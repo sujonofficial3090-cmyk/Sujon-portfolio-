@@ -6,9 +6,11 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { label: "Home", href: "/#home" },
-  { label: "About", href: "/#about" },
   { label: "Services", href: "/#services" },
-  { label: "Projects", href: "/#portfolio" },
+  { label: "Work", href: "/#portfolio" },
+  { label: "Process", href: "/#process" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "About", href: "/#about" },
   { label: "Reviews", href: "/#reviews" },
   { label: "Contact", href: "/#contact" },
 ];
@@ -73,10 +75,13 @@ export function Header() {
     <header className="sticky top-3.5 z-50">
       <NeumorphicCard depth="md" radius="lg" className="px-5 py-4 sm:px-8 sm:py-5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
-          {/* Pure Typographic Logo — SUJON Only */}
-          <a href="/#home" className="flex min-w-0 items-center">
-            <span className="text-brand-gradient text-[24px] sm:text-[28px] font-extrabold tracking-[0.14em] uppercase transition-colors">
-              SUJON
+          {/* Agency Typographic Logo */}
+          <a href="/#home" className="flex min-w-0 items-center gap-2">
+            <span className="nm-raised-sm flex h-8 w-8 items-center justify-center rounded-[8px] text-[15px] font-black text-brand-deep">
+              ▲
+            </span>
+            <span className="text-brand-gradient text-[20px] sm:text-[24px] font-extrabold tracking-[0.1em] uppercase transition-colors">
+              APEX DIGITAL
             </span>
           </a>
 
@@ -128,7 +133,7 @@ export function Header() {
                 color: "rgb(255, 96, 0)",
               }}
             >
-              Get a Quote
+              Book a Call
             </a>
 
             {/* Theme & Color Mood Trigger */}
