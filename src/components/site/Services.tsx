@@ -1,115 +1,105 @@
-import { Code, Layout, ShoppingBag, Gauge, Smartphone, ShieldCheck, ArrowUpRight } from "lucide-react";
+import svc1 from "@/assets/svc-1.png";
+import svc2 from "@/assets/svc-2.png";
+import svc3 from "@/assets/svc-3.png";
+import svc4 from "@/assets/svc-4.png";
+import svc5 from "@/assets/svc-5.png";
+import svc6 from "@/assets/svc-6.png";
+import svc7 from "@/assets/svc-7.png";
+import svc8 from "@/assets/svc-8.png";
 import { NeumorphicCard } from "@/components/nm";
 
 const SERVICES = [
   {
-    icon: Code,
-    title: "Custom Web & App Engineering",
-    desc: "Bespoke high-performance websites and web applications built with Next.js, React, and custom WordPress architecture engineered for speed and scale.",
-    features: ["Next.js & React Applications", "Custom WordPress Architecture", "Headless CMS Integrations", "Sub-second 95+ PageSpeed"],
-    badge: "Core Engineering",
+    title: "WordPress Development",
+    desc: "Custom-built, high-performing WordPress websites tailored to your business needs.",
+    img: svc1,
   },
   {
-    icon: Layout,
-    title: "UI/UX & Brand Identity Design",
-    desc: "Psychology-driven user interface and user experience design that captivates audiences, lowers bounce rates, and maximizes checkout conversions.",
-    features: ["Figma Design Systems", "Interactive Prototypes", "Visual Brand Guidelines", "Conversion-Focused UX"],
-    badge: "Creative Design",
+    title: "Elementor Development",
+    desc: "Pixel-perfect, drag-and-drop page builder designs for flexible & beautiful layouts.",
+    img: svc2,
   },
   {
-    icon: ShoppingBag,
-    title: "Enterprise E-Commerce Scaling",
-    desc: "High-volume online storefronts and custom eCommerce funnels built on Shopify Plus and WooCommerce designed to handle millions in revenue.",
-    features: ["Shopify Plus & WooCommerce", "One-Click Checkout Funnels", "Custom Subscription Systems", "ERP & Inventory Sync"],
-    badge: "E-Commerce",
+    title: "WooCommerce Development",
+    desc: "Feature-rich eCommerce storefronts optimized for high conversions and user experience.",
+    img: svc3,
   },
   {
-    icon: Gauge,
-    title: "Performance SEO & CRO Optimization",
-    desc: "Technical SEO, Core Web Vitals dominance, and conversion rate optimization (CRO) that turn casual visitors into loyal paying customers.",
-    features: ["Core Web Vitals Optimization", "AI Search & Schema Markup", "A/B Conversion Testing", "Technical SEO Audits"],
-    badge: "Growth & SEO",
+    title: "Custom WordPress Website",
+    desc: "Unique custom WordPress themes developed from scratch — no page-builder bloat.",
+    img: svc4,
   },
   {
-    icon: Smartphone,
-    title: "Mobile & Progressive Web Apps",
-    desc: "Seamless, native-like mobile experiences and Progressive Web Apps (PWA) that provide app-store quality speed and offline functionality.",
-    features: ["Progressive Web Apps (PWA)", "Cross-Browser Testing", "Mobile-First UX Optimization", "Push Notifications"],
-    badge: "Mobile Solutions",
+    title: "WordPress Website Redesign",
+    desc: "Transform your outdated website into a modern, sleek, and highly engaging platform.",
+    img: svc5,
   },
   {
-    icon: ShieldCheck,
-    title: "24/7 Cloud & Dedicated SLA Maintenance",
-    desc: "Proactive security monitoring, automated cloud backups, staging environment deployments, and guaranteed rapid response SLA support.",
-    features: ["24/7 Uptime & Security Monitoring", "Daily Automated Backups", "Core & Plugin Health Audits", "Dedicated Slack Channel"],
-    badge: "Ongoing Care",
+    title: "WordPress Speed Optimization",
+    desc: "Boost page load times, GTmetrix scores, and Core Web Vitals for better SEO rankings.",
+    img: svc6,
+  },
+  {
+    title: "WordPress Maintenance",
+    desc: "Regular security checks, plugin updates, and backups to keep your site safe 24/7.",
+    img: svc7,
+  },
+  {
+    title: "Landing Page Development",
+    desc: "High-converting, responsive landing pages built specifically for leads and sales.",
+    img: svc8,
   },
 ];
 
 export function Services() {
   return (
     <section id="services" className="scroll-mt-28">
-      <NeumorphicCard depth="md" radius="lg" className="p-6 sm:p-10">
+      <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
         {/* Section Header */}
-        <div className="mb-10 text-center reveal-on-scroll">
-          <span className="nm-inset text-brand-deep rounded-[8px] px-3.5 py-1 text-[11px] font-extrabold tracking-[0.15em] uppercase inline-block mb-3">
-            WHAT WE DO BEST
-          </span>
-          <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal">
-            Full-Spectrum Digital Solutions
+        <div className="mb-8 text-center reveal-on-scroll">
+          <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
+            Explore Our Services
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
-            We deliver enterprise-grade engineering, bespoke design, and revenue growth strategies tailored to your exact business goals.
+            Specialized WordPress, WooCommerce, and front-end development solutions crafted to scale your business.
           </p>
         </div>
 
-        {/* 3x2 Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 4x2 Grid with Large, Box-Sized Service Images & Staggered Reveal */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s, idx) => (
-            <div
+            <NeumorphicCard
               key={s.title}
-              className={`group nm-raised-sm relative flex flex-col justify-between rounded-[18px] p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow-nm-hover)] reveal-on-scroll stagger-${(idx % 3) + 1}`}
+              depth="sm"
+              radius="lg"
+              interactive
+              className={`flex flex-col items-center justify-between text-center px-5 py-7 sm:px-6 sm:py-8 group transition-transform duration-300 hover:-translate-y-1 reveal-on-scroll stagger-${(idx % 4) + 1}`}
             >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="nm-raised-sm flex h-12 w-12 items-center justify-center rounded-[12px] text-brand-deep group-hover:scale-110 transition-transform">
-                    <s.icon className="h-6 w-6" />
-                  </div>
-                  <span className="nm-inset text-muted-foreground rounded-[6px] px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider">
-                    {s.badge}
-                  </span>
-                </div>
+              {/* Large, Box-Proportioned 3D Service Image */}
+              <div className="flex h-[130px] sm:h-[145px] md:h-[150px] items-center justify-center w-full mb-3">
+                <img
+                  src={s.img}
+                  alt={s.title}
+                  loading="lazy"
+                  width={240}
+                  height={240}
+                  className="max-h-full max-w-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_8px_18px_rgba(0,0,0,0.4)] transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
 
-                <h3 className="text-[18px] sm:text-[19px] font-extrabold text-foreground tracking-tight mb-2 group-hover:text-brand-deep transition-colors">
+              {/* Title & Description */}
+              <div className="flex flex-col items-center w-full mt-auto">
+                <h3 className="text-[17px] sm:text-[18px] font-extrabold text-foreground leading-[1.3] mb-2 tracking-tight group-hover:text-brand-deep transition-colors">
                   {s.title}
                 </h3>
-                <p className="text-[14px] leading-[1.65] text-muted-foreground font-medium mb-5">
+                <p className="text-[13.5px] sm:text-[14px] leading-[1.6] text-muted-foreground font-medium">
                   {s.desc}
                 </p>
-
-                <ul className="space-y-2 border-t border-border/50 pt-4">
-                  {s.features.map((feat) => (
-                    <li key={feat} className="flex items-center gap-2 text-[13px] font-medium text-foreground/80">
-                      <span className="h-1.5 w-1.5 rounded-full bg-brand-deep shrink-0" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
-
-              <div className="mt-6 pt-4 border-t border-border/50">
-                <a
-                  href="/#contact"
-                  className="inline-flex items-center gap-1.5 text-[12px] font-extrabold uppercase text-brand-deep hover:underline"
-                >
-                  Request Proposal <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </div>
-            </div>
+            </NeumorphicCard>
           ))}
         </div>
       </NeumorphicCard>
     </section>
   );
 }
-

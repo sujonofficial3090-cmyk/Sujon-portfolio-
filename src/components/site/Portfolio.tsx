@@ -89,62 +89,25 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
   );
 }
 
-const CATEGORIES = [
-  "All",
-  "WooCommerce & E-Commerce",
-  "Landing Page & Funnel Design",
-  "AI SaaS / Business Website",
-  "Real Estate & Property Listing",
-  "Healthcare & Medical Services",
-  "Portfolio Website",
-];
-
 export function Portfolio() {
-  const [selectedCat, setSelectedCat] = useState("All");
-
-  const filteredProjects = selectedCat === "All"
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.category === selectedCat);
-
   return (
     <section id="portfolio" className="scroll-mt-28">
       <NeumorphicCard
         depth="md"
         radius="lg"
-        className="from-brand/25 via-brand/10 bg-gradient-to-b to-transparent p-6 sm:p-10"
+        className="from-brand/25 via-brand/10 bg-gradient-to-b to-transparent p-5 sm:p-8"
       >
-        <div className="mb-10 text-center reveal-on-scroll">
-          <span className="nm-inset text-brand-deep rounded-[8px] px-3.5 py-1 text-[11px] font-extrabold tracking-[0.15em] uppercase inline-block mb-3">
-            PROVEN TRACK RECORD
-          </span>
-          <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal">
-            Featured Agency Case Studies
+        <div className="mb-8 text-center reveal-on-scroll">
+          <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
+            Recent Projects
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
-            Explore our curated showcase of high-converting digital platforms, eCommerce engines, and custom web applications.
+            A curated showcase of recent high-converting WordPress & Web client projects. Hover over cards to preview full pages.
           </p>
-
-          {/* Interactive Category Filter Pills */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCat(cat)}
-                className={`rounded-[10px] px-4 py-2 text-[12px] font-extrabold tracking-wide uppercase transition-all duration-300 ${
-                  selectedCat === cat
-                    ? "nm-inset text-brand-deep font-black"
-                    : "nm-raised-sm text-foreground/80 hover:text-brand-deep hover:-translate-y-0.5"
-                }`}
-              >
-                {cat === "All" ? "⚡ All Case Studies" : cat}
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((item, idx) => (
+          {PROJECTS.map((item, idx) => (
             <ProjectCard key={item.id} item={item} idx={idx} />
           ))}
         </div>
@@ -152,5 +115,4 @@ export function Portfolio() {
     </section>
   );
 }
-
 

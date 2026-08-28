@@ -104,8 +104,8 @@ export function Contact() {
       }
 
       setSubmitted(true);
-      toast.success("Thank you! Your project proposal has been received.", {
-        description: `Submitted on ${formattedDate} at ${formattedTime}. Our team will review and reply to ${formData.email} within 24 hours.`,
+      toast.success("Thank you! Your message has been sent directly to Sujon.", {
+        description: `Submitted on ${formattedDate} at ${formattedTime}. I will reply to ${formData.email} promptly.`,
       });
 
       // Reset form fields
@@ -121,7 +121,7 @@ export function Contact() {
       (e.target as HTMLFormElement).reset();
     } catch (err) {
       console.error("Submission error:", err);
-      toast.success("Thank you! Your proposal request has been received.");
+      toast.success("Thank you! Your message has been received.");
       setSubmitted(true);
     } finally {
       setSending(false);
@@ -130,41 +130,38 @@ export function Contact() {
 
   return (
     <section id="contact" className="scroll-mt-28">
-      <NeumorphicCard depth="md" radius="lg" className="mb-6 p-6 text-center sm:p-10 reveal-on-scroll">
-        <span className="nm-inset text-brand-deep rounded-[8px] px-3.5 py-1 text-[11px] font-extrabold tracking-[0.15em] uppercase inline-block mb-3">
-          LET'S BUILD SOMETHING EXTRAORDINARY
-        </span>
-        <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal">
-          Start Your Project With Apex Digital
+      <NeumorphicCard depth="md" radius="lg" className="mb-6 p-5 text-center sm:p-8 reveal-on-scroll">
+        <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
+          Let's Build Your WordPress Website
         </h2>
-        <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
-          Tell us about your brand goals, timeline, and scope. Our lead digital architects will analyze your requirements and deliver a comprehensive proposal within 24 hours.
+        <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.65] text-muted-foreground">
+          Have a WordPress project in mind? Fill out the form below or contact me directly, and all project details will be sent immediately to my email.
         </p>
       </NeumorphicCard>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* LEFT — Agency Studio Location & Direct Channels */}
-        <NeumorphicCard depth="md" radius="lg" className="flex flex-col overflow-hidden p-4 sm:p-6 reveal-on-scroll stagger-1">
-          {/* Studio Header */}
-          <div className="mb-4 flex items-center justify-between px-1">
-            <div className="flex items-center gap-2.5">
-              <span className="nm-raised-sm text-brand-deep grid h-9 w-9 place-items-center rounded-[10px]">
+        {/* LEFT — Embedded Map of Banasree, Dhaka + Direct Contact Info inside Neumorphic Container */}
+        <NeumorphicCard depth="md" radius="lg" className="flex flex-col overflow-hidden p-4 sm:p-5 reveal-on-scroll stagger-1">
+          {/* Map Header */}
+          <div className="mb-3.5 flex items-center justify-between px-1">
+            <div className="flex items-center gap-2">
+              <span className="nm-raised-sm text-brand-deep grid h-8 w-8 place-items-center rounded-full">
                 <MapPin className="h-4 w-4" />
               </span>
               <div>
-                <h3 className="text-[16px] font-extrabold text-foreground">Apex Digital Studio</h3>
-                <p className="text-[12px] font-medium text-muted-foreground">Rampura, Banasree, Dhaka, BD</p>
+                <h3 className="text-[15px] font-extrabold text-foreground">Location</h3>
+                <p className="text-[12px] font-medium text-muted-foreground">Banasree, Dhaka, Bangladesh</p>
               </div>
             </div>
             <span className="nm-inset text-brand-deep rounded-[8px] px-3 py-1 text-[11px] font-extrabold tracking-wider uppercase">
-              Global HQ
+              Dhaka, BD
             </span>
           </div>
 
           {/* Interactive Google Map Frame with Neumorphic Inset */}
           <div className="nm-inset relative min-h-[290px] grow overflow-hidden rounded-[14px] shadow-inner">
             <iframe
-              title="Apex Digital Studio Location - Banasree, Dhaka"
+              title="Sujon WordPress Developer Location - Banasree, Dhaka"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14606.071649235882!2d90.42436735398284!3d23.764506509930773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7892dcf0001%3A0x853ad129be4da935!2sBanasree%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
               className="h-full min-h-[290px] w-full border-0"
               allowFullScreen={false}
@@ -173,8 +170,8 @@ export function Contact() {
             />
           </div>
 
-          {/* Quick Direct Channel Bar */}
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {/* Quick Contact Bar below Map */}
+          <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             <a
               href="https://wa.me/8801936711699"
               target="_blank"
@@ -182,7 +179,7 @@ export function Contact() {
               className="nm-raised-sm nm-interactive flex items-center gap-2.5 rounded-[10px] p-3 text-[13px] font-bold text-foreground hover:text-brand-deep transition-colors"
             >
               <Phone className="h-4 w-4 text-brand-deep shrink-0" />
-              <span>+880 1936-711699</span>
+              <span>01936711699</span>
             </a>
             <a
               href="mailto:sujonmia3090@gmail.com"
@@ -194,25 +191,33 @@ export function Contact() {
           </div>
         </NeumorphicCard>
 
-        {/* RIGHT — Agency Project Proposal Intake Form */}
-        <NeumorphicCard depth="md" radius="lg" className="px-6 py-8 sm:px-8 sm:py-8 reveal-on-scroll stagger-2">
-          <h2 className="sr-only">Request a Proposal</h2>
+        {/* RIGHT — Contact Request Form */}
+        <NeumorphicCard depth="md" radius="lg" className="px-5 py-7 sm:px-8 sm:py-8 reveal-on-scroll stagger-2">
+          <h2 className="sr-only">Request a quote</h2>
 
           {submitted ? (
             <div className="flex flex-col items-center justify-center py-10 text-center animate-in fade-in zoom-in-95 duration-300">
               <div className="nm-inset text-brand-deep mb-4 flex h-16 w-16 items-center justify-center rounded-full">
                 <CheckCircle2 className="h-8 w-8 text-brand-deep" />
               </div>
-              <h3 className="text-[22px] font-extrabold text-foreground">Proposal Request Dispatched!</h3>
+              <h3 className="text-[22px] font-extrabold text-foreground">Message Sent Successfully!</h3>
               <p className="mt-2 max-w-md text-[14px] font-medium text-muted-foreground">
-                Thank you! Your project details have been received by our lead strategists. We will analyze your specifications and reach out within 24 hours.
+                Thank you! Your project inquiry has been dispatched directly to <strong className="text-foreground">sujonmia3090@gmail.com</strong>. I will get back to you shortly.
               </p>
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
-                className="nm-raised-sm nm-interactive text-brand-deep font-extrabold text-[13px] uppercase tracking-wider rounded-[10px] px-6 py-3 mt-6 transition-all"
+                className="inline-flex items-center justify-center rounded-[11px] px-6 py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-bold mt-6"
+                style={{
+                  fontFamily: '"Funnel Display", sans-serif',
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                  lineHeight: "20px",
+                  color: "rgb(255, 96, 0)",
+                }}
               >
-                Submit Another Inquiry
+                Send Another Message
               </button>
             </div>
           ) : (
@@ -256,7 +261,7 @@ export function Contact() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Work Email Address *"
+                  placeholder="Email Address *"
                   className={fieldClass}
                 />
               </div>
@@ -270,13 +275,13 @@ export function Contact() {
                   type="tel"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="Phone / WhatsApp"
+                  placeholder="Phone Number"
                   className={fieldClass}
                 />
               </div>
               <div>
                 <label htmlFor="c-projecttype" className="sr-only">
-                  Service Needed
+                  Project Type
                 </label>
                 <select
                   id="c-projecttype"
@@ -287,39 +292,34 @@ export function Contact() {
                   required
                 >
                   <option value="" disabled>
-                    Service Needed *
+                    Project Type *
                   </option>
-                  <option value="Custom Web & App Engineering">Custom Web &amp; App Engineering</option>
-                  <option value="UI/UX & Brand Design">UI/UX &amp; Brand Design</option>
-                  <option value="Enterprise E-Commerce (Shopify / WooCommerce)">Enterprise E-Commerce (Shopify / WooCommerce)</option>
-                  <option value="Full Website Redesign">Full Website Redesign</option>
-                  <option value="Performance SEO & CRO Optimization">Performance SEO &amp; CRO Optimization</option>
-                  <option value="24/7 Dedicated Cloud SLA Maintenance">24/7 Dedicated Cloud SLA Maintenance</option>
+                  <option value="WordPress Development">WordPress Development</option>
+                  <option value="Elementor Development">Elementor Development</option>
+                  <option value="WooCommerce Development">WooCommerce Development</option>
+                  <option value="Custom WordPress Website">Custom WordPress Website</option>
+                  <option value="WordPress Website Redesign">WordPress Website Redesign</option>
+                  <option value="WordPress Speed Optimization">WordPress Speed Optimization</option>
+                  <option value="WordPress Maintenance">WordPress Maintenance</option>
+                  <option value="Landing Page Development">Landing Page Development</option>
                 </select>
               </div>
               <div>
                 <label htmlFor="c-budget" className="sr-only">
-                  Estimated Budget
+                  Project Budget
                 </label>
-                <select
+                <input
                   id="c-budget"
                   name="budget"
                   value={formData.budget}
                   onChange={handleChange}
+                  placeholder="Project Budget"
                   className={fieldClass}
-                >
-                  <option value="" disabled>
-                    Estimated Budget (USD)
-                  </option>
-                  <option value="$1,500 – $3,000">$1,500 – $3,000 (Launchpad)</option>
-                  <option value="$3,000 – $6,000">$3,000 – $6,000 (Growth)</option>
-                  <option value="$6,000 – $15,000">$6,000 – $15,000 (Enterprise)</option>
-                  <option value="$15,000+">$15,000+ (Custom Scope)</option>
-                </select>
+                />
               </div>
               <div className="sm:col-span-2">
                 <label htmlFor="c-message" className="sr-only">
-                  Project Scope & Goals
+                  Message
                 </label>
                 <textarea
                   id="c-message"
@@ -328,7 +328,7 @@ export function Contact() {
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell us about your project, target audience, and primary goals... *"
+                  placeholder="Tell me about your project... *"
                   className={fieldClass}
                 />
               </div>
@@ -336,9 +336,17 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={sending}
-                  className="nm-raised-sm nm-interactive text-brand-deep w-full py-4 rounded-[12px] font-extrabold text-[13px] uppercase tracking-wider transition-all duration-300 hover:shadow-[var(--shadow-nm-hover)] hover:-translate-y-0.5 active:nm-inset disabled:opacity-60"
+                  className="w-full inline-flex items-center justify-center rounded-[11px] px-6 py-[13px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-bold disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{
+                    fontFamily: '"Funnel Display", sans-serif',
+                    fontStyle: "normal",
+                    fontWeight: 700,
+                    fontSize: "15px",
+                    lineHeight: "20px",
+                    color: "rgb(255, 96, 0)",
+                  }}
                 >
-                  {sending ? "DISPATCHING PROPOSAL..." : "SUBMIT PROPOSAL REQUEST →"}
+                  {sending ? "SENDING TO SUJON..." : "SUBMIT REQUEST"}
                 </button>
               </div>
             </form>

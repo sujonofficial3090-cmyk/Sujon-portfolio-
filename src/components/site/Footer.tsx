@@ -3,22 +3,20 @@ import { NeumorphicCard } from "@/components/nm";
 
 const QUICK = [
   { label: "Home", href: "/#home" },
-  { label: "Services", href: "/#services" },
-  { label: "Case Studies", href: "/#portfolio" },
-  { label: "Process", href: "/#process" },
-  { label: "Pricing", href: "/#pricing" },
   { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Projects", href: "/#portfolio" },
   { label: "Reviews", href: "/#reviews" },
   { label: "Contact", href: "/#contact" },
 ];
 
 const SERVICES = [
-  "Custom Web & App Engineering",
-  "UI/UX & Brand Identity Design",
-  "Enterprise E-Commerce Scaling",
-  "Performance SEO & CRO",
-  "Mobile & Progressive Web Apps",
-  "24/7 Dedicated Cloud SLA",
+  "WordPress Development",
+  "Elementor Development",
+  "WooCommerce Development",
+  "Speed Optimization",
+  "WordPress Maintenance",
+  "Landing Page Development",
 ];
 
 const SOCIALS = [
@@ -34,25 +32,22 @@ export function Footer() {
       <NeumorphicCard depth="md" radius="lg" className="px-6 py-10 sm:px-10 sm:py-12 reveal-on-scroll">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.2fr_1.2fr]">
           <div className="flex flex-col gap-4">
-            {/* Agency Typographic Wordmark */}
+            {/* Pure SUJON typographic wordmark */}
             <div>
-              <a href="/#home" className="flex items-center gap-2">
-                <span className="nm-raised-sm flex h-8 w-8 items-center justify-center rounded-[8px] text-[15px] font-black text-brand-deep">
-                  ▲
-                </span>
-                <span className="text-brand-gradient text-[24px] font-extrabold tracking-[0.1em] uppercase leading-normal inline-block">
-                  APEX DIGITAL
+              <a href="/#home">
+                <span className="text-brand-gradient text-[28px] font-extrabold tracking-[0.14em] uppercase pb-1 leading-normal inline-block">
+                  SUJON
                 </span>
               </a>
             </div>
             <p className="text-[14px] sm:text-[15px] font-normal leading-[1.7] text-muted-foreground max-w-sm">
-              Full-service digital product, bespoke web engineering, and conversion design agency empowering modern businesses to scale revenue.
+              Professional WordPress Developer creating modern, responsive and high-quality WordPress websites for businesses and brands.
             </p>
           </div>
 
           <nav aria-label="Quick links">
             <h2 className="text-brand-deep text-[15px] font-extrabold uppercase tracking-wider">
-              Navigation
+              Quick Links
             </h2>
             <ul className="mt-4 space-y-2.5">
               {QUICK.map((q) => (
@@ -70,14 +65,12 @@ export function Footer() {
 
           <div>
             <h2 className="text-brand-deep text-[15px] font-extrabold uppercase tracking-wider">
-              Agency Solutions
+              Our Services
             </h2>
             <ul className="mt-4 space-y-2.5 text-[14px] font-medium text-muted-foreground">
               {SERVICES.map((s) => (
                 <li key={s} className="hover:text-brand-deep transition-colors">
-                  <a href="/#services" className="hover:text-brand-deep transition-colors">
-                    {s}
-                  </a>
+                  {s}
                 </li>
               ))}
             </ul>
@@ -97,7 +90,7 @@ export function Footer() {
               <li className="flex items-start gap-2.5">
                 <Phone className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
                 <a href="tel:01936711699" className="hover:text-brand-deep transition-colors font-bold">
-                  +880 1936-711699
+                  01936711699
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
@@ -117,7 +110,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-brand-deep transition-colors font-bold"
                 >
-                  WhatsApp Direct
+                  WhatsApp Chat
                 </a>
               </li>
             </ul>
@@ -126,7 +119,7 @@ export function Footer() {
 
         <div className="mt-10 grid grid-cols-1 items-center gap-4 border-t border-border pt-6 sm:grid-cols-2">
           <p className="text-[13px] font-medium text-muted-foreground text-center sm:text-left">
-            © 2026 <span className="text-brand-deep font-bold">Apex Digital Agency</span>. All Rights Reserved.
+            © 2026 <span className="text-brand-deep font-bold">Sujon</span>. All Rights Reserved.
           </p>
           <ul className="flex justify-center shrink-0 items-center gap-3.5 sm:justify-end">
             {SOCIALS.map((soc, i) => (
