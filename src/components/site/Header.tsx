@@ -234,6 +234,20 @@ export function Header() {
               )}
             </div>
 
+            {/* Direct Quick Light/Dark Instant Toggle */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label="Toggle light or dark theme"
+              className="nm-raised-sm nm-interactive grid h-10 w-10 shrink-0 place-items-center rounded-[10px] text-foreground/75"
+            >
+              {dark ? (
+                <Sun className="h-4 w-4 text-brand-deep" />
+              ) : (
+                <Moon className="h-4 w-4 text-brand-deep" />
+              )}
+            </button>
+
             {/* Mobile Menu Hamburger */}
             <button
               type="button"

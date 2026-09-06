@@ -6,9 +6,6 @@ import {
   Mail,
   Shield,
   Calendar,
-  ArrowLeft,
-  Sun,
-  Moon,
   Eye,
   EyeOff,
   Lock,
@@ -19,9 +16,10 @@ import {
 import { type FormEvent, useState, useEffect } from "react";
 import { toast } from "sonner";
 
-import logoMark from "@/assets/logo-mark.png";
 import { NeumorphicCard, NeumorphicButton } from "@/components/nm";
 import { useAuth } from "@/lib/auth";
+import { Header } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -36,71 +34,6 @@ export const Route = createFileRoute("/dashboard")({
 // ─── field class mirrors login.tsx ──────────────────────────────────────────
 const fieldClass =
   "nm-inset w-full rounded-[10px] px-4 py-3 text-[11.5px] text-foreground placeholder:text-muted-foreground/70 outline-none focus:shadow-[var(--shadow-nm-inset-deep)] transition-shadow bg-surface";
-
-// ─── Dashboard Header ────────────────────────────────────────────────────────
-function DashboardHeader({ onLogout }: { onLogout: () => void }) {
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-  }, []);
-
-  const toggleTheme = () => {
-    if (document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setDark(false);
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setDark(true);
-    }
-  };
-
-  return (
-    <header className="sticky top-3 z-50">
-      <NeumorphicCard depth="md" radius="lg" className="px-4 py-3 sm:px-5">
-        <div className="flex items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2">
-            <img src={logoMark} alt="SUJON logo" width={40} height={40} className="h-9 w-9 shrink-0 object-contain" />
-            <span className="truncate text-[15px] font-extrabold tracking-wider uppercase text-foreground">
-              SUJON
-            </span>
-          </a>
-
-          <div className="flex items-center gap-2">
-            <a
-              href="/"
-              className="hidden sm:inline-flex items-center gap-1.5 nm-raised-sm nm-interactive rounded-[10px] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground hover:text-brand-deep transition-colors"
-            >
-              <ArrowLeft className="h-3 w-3" />
-              Website
-            </a>
-
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="nm-raised-sm nm-interactive grid h-10 w-10 shrink-0 place-items-center rounded-[10px] text-foreground/75"
-            >
-              {dark ? <Sun className="h-4 w-4 text-brand-deep" /> : <Moon className="h-4 w-4 text-brand-deep" />}
-            </button>
-
-            <button
-              type="button"
-              onClick={onLogout}
-              aria-label="Logout"
-              className="nm-raised-sm nm-interactive inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground hover:text-destructive transition-colors"
-            >
-              <LogOut className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Logout</span>
-            </button>
-          </div>
-        </div>
-      </NeumorphicCard>
-    </header>
-  );
-}
 
 // ─── Profile Settings Panel ───────────────────────────────────────────────────
 function ProfileSettings() {
@@ -268,7 +201,7 @@ function DashboardPage() {
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1500px] flex-col gap-6 px-3 pb-10 pt-3 sm:px-5 sm:gap-8">
-      <DashboardHeader onLogout={handleLogout} />
+      <Header />
 
       <main className="flex flex-col gap-6 sm:gap-8">
         {/* Welcome Banner */}
@@ -431,6 +364,8 @@ function DashboardPage() {
         {/* Tab: Profile */}
         {activeTab === "profile" && <ProfileSettings />}
       </main>
+
+      <Footer />
     </div>
   );
 }

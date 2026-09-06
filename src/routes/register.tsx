@@ -1,11 +1,12 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Eye, EyeOff, Lock, Mail, User, UserPlus, ArrowLeft, Sun, Moon } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, User, UserPlus } from "lucide-react";
 import { type FormEvent, useState, useEffect } from "react";
 import { toast } from "sonner";
 
-import logoMark from "@/assets/logo-mark.png";
 import { NeumorphicCard, NeumorphicButton } from "@/components/nm";
 import { useAuth } from "@/lib/auth";
+import { Header } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/register")({
   head: () => ({
@@ -40,57 +41,6 @@ function passwordStrength(pwd: string): { score: number; label: string; color: s
     { label: "Strong", color: "bg-green-500" },
   ] as const;
   return { score, ...map[score] };
-}
-
-// ─── Mini auth header (same as login.tsx) ────────────────────────────────────
-function AuthHeader() {
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-  }, []);
-
-  const toggleTheme = () => {
-    if (document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setDark(false);
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setDark(true);
-    }
-  };
-
-  return (
-    <header className="sticky top-3 z-50">
-      <NeumorphicCard depth="md" radius="lg" className="px-4 py-3 sm:px-5">
-        <div className="flex items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2">
-            <img src={logoMark} alt="SUJON logo" width={40} height={40} className="h-9 w-9 shrink-0 object-contain" />
-            <span className="truncate text-[15px] font-extrabold tracking-wider uppercase text-foreground">SUJON</span>
-          </a>
-          <div className="flex items-center gap-2">
-            <a
-              href="/"
-              className="hidden sm:inline-flex items-center gap-1.5 nm-raised-sm nm-interactive rounded-[10px] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground hover:text-brand-deep transition-colors"
-            >
-              <ArrowLeft className="h-3 w-3" />
-              Back to Website
-            </a>
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="nm-raised-sm nm-interactive grid h-10 w-10 shrink-0 place-items-center rounded-[10px] text-foreground/75"
-            >
-              {dark ? <Sun className="h-4 w-4 text-brand-deep" /> : <Moon className="h-4 w-4 text-brand-deep" />}
-            </button>
-          </div>
-        </div>
-      </NeumorphicCard>
-    </header>
-  );
 }
 
 // ─── Register Page ────────────────────────────────────────────────────────────
@@ -161,7 +111,7 @@ function RegisterPage() {
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1500px] flex-col gap-6 px-3 pb-10 pt-3 sm:px-5 sm:gap-8">
-      <AuthHeader />
+      <Header />
 
       <main className="flex flex-1 items-center justify-center py-8">
         <div className="w-full max-w-md">
@@ -334,6 +284,8 @@ function RegisterPage() {
           </NeumorphicCard>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }
