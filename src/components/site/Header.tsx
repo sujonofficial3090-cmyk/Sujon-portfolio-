@@ -1,9 +1,8 @@
-import { Menu, X, Sun, Moon, Palette, Check, LogIn, UserPlus, LayoutDashboard, LogOut } from "lucide-react";
+import { Menu, X, Sun, Moon, Palette, Check } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { NeumorphicCard } from "@/components/nm";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/lib/auth";
 
 const NAV = [
   { label: "Home", href: "/#home" },
@@ -29,7 +28,6 @@ export function Header() {
   const [accent, setAccent] = useState("gold");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const paletteRef = useRef<HTMLDivElement>(null);
-  const { user, logout } = useAuth();
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -132,53 +130,6 @@ export function Header() {
             >
               Get a Quote
             </a>
-
-            {/* ── Auth buttons (desktop) — shown/hidden based on login state ── */}
-            {user ? (
-              <>
-                <a
-                  href="/dashboard"
-                  id="header-dashboard-link"
-                  className="hidden sm:inline-flex items-center gap-1.5 nm-raised-sm nm-interactive rounded-[10px] px-4 py-[10px] text-[13px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ color: "rgb(255, 96, 0)", fontFamily: '"Funnel Display", sans-serif' }}
-                >
-                  <LayoutDashboard className="h-4 w-4" />
-                  Dashboard
-                </a>
-                <button
-                  type="button"
-                  onClick={() => logout()}
-                  id="header-logout-btn"
-                  aria-label="Logout"
-                  className="hidden sm:inline-flex items-center gap-1.5 nm-raised-sm nm-interactive rounded-[10px] px-4 py-[10px] text-[13px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 text-foreground/70 hover:text-destructive"
-                  style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                >
-                  <LogOut className="h-4 w-4" />
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <a
-                  href="/login"
-                  id="header-login-link"
-                  className="hidden sm:inline-flex items-center gap-1.5 nm-raised-sm nm-interactive rounded-[10px] px-4 py-[10px] text-[13px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 text-foreground/70"
-                  style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                >
-                  <LogIn className="h-4 w-4" />
-                  Login
-                </a>
-                <a
-                  href="/register"
-                  id="header-register-link"
-                  className="hidden sm:inline-flex items-center gap-1.5 nm-raised-sm nm-interactive rounded-[10px] px-4 py-[10px] text-[13px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ color: "rgb(255, 96, 0)", fontFamily: '"Funnel Display", sans-serif' }}
-                >
-                  <UserPlus className="h-4 w-4" />
-                  Register
-                </a>
-              </>
-            )}
 
             {/* Theme & Color Mood Trigger */}
             <div className="relative" ref={paletteRef}>
@@ -409,77 +360,6 @@ export function Header() {
                   })}
                 </div>
               </li>
-
-              {/* ── Mobile auth links ── */}
-              {user ? (
-                <>
-                  <li className="mt-1 border-t border-border/60 pt-2">
-                    <a
-                      href="/dashboard"
-                      onClick={() => setOpen(false)}
-                      className="nm-raised-sm flex items-center justify-center gap-1.5 rounded-[10px] px-4 py-3 text-center uppercase tracking-wider transition-all duration-200 font-bold"
-                      style={{
-                        fontFamily: '"Funnel Display", sans-serif',
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                        color: "rgb(255, 96, 0)",
-                      }}
-                    >
-                      <LayoutDashboard className="h-4 w-4" />
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => { logout(); setOpen(false); }}
-                      className="nm-raised-sm flex w-full items-center justify-center gap-1.5 rounded-[10px] px-4 py-3 uppercase tracking-wider transition-all duration-200 font-bold text-destructive"
-                      style={{
-                        fontFamily: '"Funnel Display", sans-serif',
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                      }}
-                    >
-                      <LogOut className="h-4 w-4" />
-                      Logout
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="mt-1 border-t border-border/60 pt-2">
-                    <a
-                      href="/login"
-                      onClick={() => setOpen(false)}
-                      className="nm-raised-sm flex items-center justify-center gap-1.5 rounded-[10px] px-4 py-3 text-center uppercase tracking-wider transition-all duration-200 font-semibold text-foreground/70"
-                      style={{
-                        fontFamily: '"Funnel Display", sans-serif',
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                      }}
-                    >
-                      <LogIn className="h-4 w-4" />
-                      Login
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/register"
-                      onClick={() => setOpen(false)}
-                      className="nm-raised-sm flex items-center justify-center gap-1.5 rounded-[10px] px-4 py-3 text-center uppercase tracking-wider transition-all duration-200 font-bold"
-                      style={{
-                        fontFamily: '"Funnel Display", sans-serif',
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                        color: "rgb(255, 96, 0)",
-                      }}
-                    >
-                      <UserPlus className="h-4 w-4" />
-                      Register
-                    </a>
-                  </li>
-                </>
-              )}
             </ul>
           </div>
         </div>

@@ -1,5 +1,6 @@
-import { Facebook, Github, Instagram, MessageCircle, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Github, Instagram, MessageCircle, Mail, Phone, MapPin, LayoutDashboard, LogIn, UserPlus, LogOut } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
+import { useAuth } from "@/lib/auth";
 
 const QUICK = [
   { label: "Home", href: "/#home" },
@@ -27,6 +28,7 @@ const SOCIALS = [
 ];
 
 export function Footer() {
+  const { user, logout } = useAuth();
   return (
     <footer className="w-full">
       <NeumorphicCard depth="md" radius="lg" className="px-6 py-10 sm:px-10 sm:py-12 reveal-on-scroll">
@@ -117,7 +119,63 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 items-center gap-4 border-t border-border pt-6 sm:grid-cols-2">
+        {/* ── Account Access ── */}
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
+          <p className="text-[13px] font-medium text-muted-foreground">
+            {user ? (
+              <>
+                Logged in as{" "}
+                <span className="text-brand-deep font-bold">{user.name}</span>
+              </>
+            ) : (
+              <span className="text-muted-foreground">Member area</span>
+            )}
+          </p>
+          <div className="flex items-center gap-2">
+            {user ? (
+              <>
+                <a
+                  href="/dashboard"
+                  className="nm-raised-sm nm-interactive inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ color: "rgb(255, 96, 0)", fontFamily: '"Funnel Display", sans-serif' }}
+                >
+                  <LayoutDashboard className="h-3.5 w-3.5" />
+                  Dashboard
+                </a>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="nm-raised-sm nm-interactive inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 text-muted-foreground hover:text-destructive"
+                  style={{ fontFamily: '"Funnel Display", sans-serif' }}
+                >
+                  <LogOut className="h-3.5 w-3.5" />
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <a
+                  href="/login"
+                  className="nm-raised-sm nm-interactive inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 text-muted-foreground hover:text-brand-deep"
+                  style={{ fontFamily: '"Funnel Display", sans-serif' }}
+                >
+                  <LogIn className="h-3.5 w-3.5" />
+                  Login
+                </a>
+                <a
+                  href="/register"
+                  className="nm-raised-sm nm-interactive inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ color: "rgb(255, 96, 0)", fontFamily: '"Funnel Display", sans-serif' }}
+                >
+                  <UserPlus className="h-3.5 w-3.5" />
+                  Register
+                </a>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 items-center gap-4 border-t border-border pt-6 sm:grid-cols-2">
           <p className="text-[13px] font-medium text-muted-foreground text-center sm:text-left">
             © 2026 <span className="text-brand-deep font-bold">Sujon</span>. All Rights Reserved.
           </p>
