@@ -33,7 +33,7 @@ function validateEmail(v: string) {
 
 // ─── Login Page ──────────────────────────────────────────────────────────────
 function LoginPage() {
-  const { login, user } = useAuth();
+  const { login, logout, user, quickLoginAs } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -43,12 +43,8 @@ function LoginPage() {
   const [errors, setErrors] = useState<{ email?: string; password?: string; form?: string }>({});
   const [loading, setLoading] = useState(false);
 
-  // Already logged in → redirect to dashboard
-  useEffect(() => {
-    if (user) {
-      navigate({ to: "/dashboard" });
-    }
-  }, [user, navigate]);
+  // If user is already logged in, we let them switch or proceed
+  // No forced automatic redirect so they can log in as Admin!
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -99,6 +95,39 @@ function LoginPage() {
                 Sign in to your SUJON account
               </p>
             </div>
+
+            {/* Active session reminder */}
+            {user && (
+              <div className="mb-5 nm-inset rounded-[12px] p-3.5 flex items-center justify-between gap-2 text-[11px]">
+                <div>
+                  <span className="text-muted-foreground block text-[10px] font-bold uppercase">
+                    Currently Signed In:
+                  </span>
+                  <span className="font-bold text-foreground">
+                    {user.name} ({user.role === "admin" ? "🛡️ Super Admin" : "👤 Customer"})
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => navigate({ to: "/dashboard" })}
+                    className="nm-raised-sm px-2.5 py-1 rounded-[7px] font-extrabold text-brand-deep text-[10.5px]"
+                  >
+                    Dashboard
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      logout();
+                      toast.info("Signed out.");
+                    }}
+                    className="nm-raised-sm px-2.5 py-1 rounded-[7px] font-bold text-destructive text-[10.5px]"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Global form error */}
             {errors.form && (
@@ -238,14 +267,6 @@ function LoginPage() {
                 Create an account
               </a>
             </p>
-
-            {/* Demo hint */}
-            <div className="mt-5 nm-inset rounded-[10px] px-4 py-3 text-center">
-              <p className="text-[10px] text-muted-foreground">
-                <span className="font-bold text-brand-deep">Demo account:</span>{" "}
-                demo@sujon.dev / Password123!
-              </p>
-            </div>
           </NeumorphicCard>
         </div>
       </main>

@@ -38,12 +38,19 @@ export function useScrollReveal() {
     // Initial observation
     observeAll();
 
-    // Check once after render transitions settle
-    const timer = setTimeout(observeAll, 300);
+    // Check after render transitions settle
+    const timer = setTimeout(observeAll, 200);
+
+    // Watch for DOM mutations (route changes in SPA) to automatically observe newly mounted elements
+    const mutationObserver = new MutationObserver(() => {
+      observeAll();
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       clearTimeout(timer);
       observer.disconnect();
+      mutationObserver.disconnect();
     };
   }, []);
 }
