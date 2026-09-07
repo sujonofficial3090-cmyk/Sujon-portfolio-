@@ -43,12 +43,12 @@ export function NeumorphicCard({
 }
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-[10px] bg-surface font-extrabold uppercase tracking-[0.08em] transition-[box-shadow,transform,color] duration-300 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+  "inline-flex items-center justify-center gap-2 rounded-[10px] bg-surface font-extrabold uppercase tracking-[0.08em] transition-[box-shadow,transform,color,filter] duration-300 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background border-0 outline-none",
   {
     variants: {
       tone: {
         default: "text-foreground/80 hover:text-brand-deep",
-        brand: "text-brand-deep border border-brand/20 dark:border-brand/30",
+        brand: "text-brand-deep",
       },
       size: {
         sm: "px-4 py-2 text-[11px]",
@@ -66,7 +66,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 export function NeumorphicButton({ className, tone, size, ...props }: ButtonProps) {
   return (
     <button
-      className={cn(buttonVariants({ tone, size }), "nm-raised-sm nm-interactive", className)}
+      className={cn(buttonVariants({ tone, size }), "nm-raised-sm nm-interactive border-0", className)}
       {...props}
     />
   );
@@ -80,7 +80,7 @@ export function NeumorphicLinkButton({
 }: React.AnchorHTMLAttributes<HTMLAnchorElement> & VariantProps<typeof buttonVariants>) {
   return (
     <a
-      className={cn(buttonVariants({ tone, size }), "nm-raised-sm nm-interactive", className)}
+      className={cn(buttonVariants({ tone, size }), "nm-raised-sm nm-interactive border-0", className)}
       {...props}
     />
   );

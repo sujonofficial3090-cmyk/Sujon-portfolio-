@@ -295,9 +295,12 @@ html.dark[data-accent="teal"],
 }
 
 @utility nm-interactive {
+  border: none !important;
+  outline: none !important;
   transition:
-    box-shadow 0.22s ease,
-    transform 0.22s ease;
+    box-shadow 0.35s ease,
+    transform 0.35s ease,
+    color 0.2s ease;
   &:hover {
     box-shadow: var(--shadow-nm-hover);
     transform: translateY(-2px);
@@ -305,6 +308,7 @@ html.dark[data-accent="teal"],
   &:active {
     box-shadow: var(--shadow-nm-inset);
     transform: translateY(0);
+    transition-duration: 0.12s;
   }
 }
 
@@ -337,9 +341,13 @@ html.dark[data-accent="teal"],
   color: rgb(255, 96, 0);
   background-color: var(--surface);
   box-shadow: var(--shadow-nm-sm);
+  border: none !important;
+  outline: none !important;
   border-radius: 10px;
   padding: 12px 18px;
-  transition: box-shadow 0.22s ease, transform 0.22s ease;
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -356,6 +364,7 @@ html.dark[data-accent="teal"],
 .nav-menu-btn.active {
   box-shadow: var(--shadow-nm-inset);
   transform: translateY(0);
+  transition-duration: 0.12s;
 }
 
 /* ==========================================================================
@@ -464,6 +473,20 @@ html.lenis body {
 @layer base {
   * {
     border-color: var(--color-border);
+  }
+
+  /* === GLOBAL BUTTON / LINK RESET — No border, no border-color === */
+  button,
+  [type="button"],
+  [type="submit"],
+  [type="reset"],
+  a.nm-interactive,
+  .nm-interactive,
+  .nm-raised-sm,
+  .nav-menu-btn {
+    border: none !important;
+    border-color: transparent !important;
+    outline: none;
   }
 
   html {

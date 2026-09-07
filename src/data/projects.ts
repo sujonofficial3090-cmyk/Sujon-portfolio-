@@ -13,6 +13,8 @@ import caterPsychiatry from "@/assets/cater-psychiatry.webp";
 import dieselRepair from "@/assets/diesel-repair.webp";
 import finseo from "@/assets/finseo.webp";
 import moritzDunkel from "@/assets/moritz-dunkel.webp";
+import globalMed from "@/assets/global-med.webp";
+import emodula from "@/assets/emodula.webp";
 
 export interface Project {
   id: string;
@@ -176,5 +178,47 @@ export const PROJECTS: Project[] = [
     techStack: ["WordPress", "Elementor Pro", "ACF Pro", "PHP", "CSS3 Animations", "JavaScript", "Responsive Design"],
     screenshots: [moritzDunkel, pf2, office],
     liveUrl: "https://www.moritzdunkel.de/"
+  },
+  {
+    id: "global-med",
+    title: "Global Med — US Healthcare & Medical Services Website",
+    category: "Healthcare & Medical Services",
+    description: "A professional healthcare and medical services website for Global Med (USA), featuring comprehensive medical service listings, patient resources, provider portals, telehealth integrations, and streamlined appointment booking.",
+    img: globalMed,
+    overview: "Global Med is a professional USA-based healthcare and medical services platform designed to connect patients with comprehensive medical care. The website features detailed service pages for Primary Care, Specialist Consultations, Telehealth, Lab Testing, Pharmacy, and Insurance guidance — all within a clean, trust-building, HIPAA-aligned design system.",
+    challenge: "Presenting a wide range of medical services, patient resources, and insurance information in an approachable, professional layout that builds patient trust, ensures accessibility compliance, and drives appointment bookings across desktop and mobile devices.",
+    solution: "Built a high-performance WordPress healthcare website with structured service pages, a patient-first navigation architecture, telehealth integration sections, transparent service listings, and clear call-to-action flows designed to maximize appointment conversion.",
+    features: [
+      "Comprehensive medical services showcase (Primary Care, Specialist, Telehealth, Lab Testing)",
+      "Patient resources portal with insurance guidance and coverage information",
+      "Provider directory with doctor profiles and specialty listings",
+      "Telehealth virtual appointment booking integration",
+      "HIPAA-aligned design with trust signals and patient testimonials",
+      "100% responsive, accessible healthcare design optimized for mobile & desktop"
+    ],
+    techStack: ["WordPress", "Elementor Pro", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    screenshots: [globalMed, pf1, office],
+    liveUrl: "https://globalmedus.com"
+  },
+  {
+    id: "emodula",
+    title: "Emodula — Permanent Modular Buildings & Construction",
+    category: "Construction & Real Estate",
+    description: "A high-impact corporate website for Emodula, a UK-based permanent modular buildings company delivering compliance-led construction with ISO 9001, 14001 & 45001 certifications, covering healthcare, data centres, M&E systems and EV charging sectors.",
+    img: emodula,
+    overview: "Emodula is a leading UK permanent modular construction company delivering high-quality, compliance-led modular buildings across healthcare, data centres, hub systems, and EV charging infrastructure. The website is engineered to communicate Emodula's unique volumetric modular delivery approach, structured governance model, and BOPAS accreditation — building buyer confidence through transparency, certifications, and clear project pathways.",
+    challenge: "Communicating complex construction compliance frameworks (BOPAS accreditation, PAS 2080, ISO 9001/14001/45001), multi-sector project capabilities, and a 5-step delivery methodology in a clean, authoritative web presence that builds buyer trust and drives project enquiries.",
+    solution: "Designed and developed a bold, dark-themed corporate website with structured sector pages (Healthcare, Data Centres, Hub Systems, EV Charging), compliance & certification showcases, a clear 'How Emodula Works' 5-step process section, and high-converting contact and project enquiry forms.",
+    features: [
+      "Permanent modular buildings showcase with compliance-led approach hero section",
+      "ISO 9001:2015, ISO 14001, ISO 45001 & BOPAS certification display",
+      "Multi-sector project browser: Healthcare, Data Centres, Hub Systems, EV Charging",
+      "'How Emodula Works' 5-step delivery process walkthrough",
+      "Governance, assurance and buyer confidence section with project imagery",
+      "100% responsive dark-themed corporate design with high-impact CTAs"
+    ],
+    techStack: ["WordPress", "Elementor Pro", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    screenshots: [emodula, pf2, office],
+    liveUrl: "https://emodula.org"
   }
 ];
