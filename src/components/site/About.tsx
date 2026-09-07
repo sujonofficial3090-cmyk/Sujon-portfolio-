@@ -1,4 +1,5 @@
 import { NeumorphicCard } from "@/components/nm";
+import { ParticleLetterS } from "@/components/site/ParticleLetterS";
 
 const SKILLS = [
   "WordPress Development",
@@ -52,22 +53,11 @@ export function About() {
         <NeumorphicCard
           depth="md"
           radius="lg"
-          className="relative flex min-h-[460px] lg:min-h-[520px] items-end justify-center overflow-hidden px-4 pt-8 reveal-on-scroll stagger-2"
+          className="relative flex min-h-[460px] lg:min-h-[520px] items-center justify-center overflow-hidden p-4 reveal-on-scroll stagger-2"
         >
           {/* Soft ambient lighting */}
-          <div className="pointer-events-none absolute top-8 left-1/2 -translate-x-1/2 w-[300px] h-[300px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
-          {/* Arch frame */}
-          <div className="pointer-events-none absolute inset-x-4 sm:inset-x-6 bottom-0 h-3/4 rounded-t-[120px] bg-gradient-to-t from-brand/20 via-surface/40 to-surface/10 border-t border-x border-white/50 dark:border-white/10 nm-raised-sm opacity-85" />
-          <img
-            src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
-            alt="Sujon, Professional WordPress Developer"
-            loading="lazy"
-            width={900}
-            height={1200}
-            className="relative z-10 max-h-[480px] lg:max-h-[540px] w-auto object-contain object-bottom drop-shadow-[0_14px_30px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_16px_32px_rgba(0,0,0,0.5)] transition-transform duration-500 hover:scale-[1.02]"
-          />
-          {/* Bottom subtle blend */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-14 bg-gradient-to-t from-surface via-surface/70 to-transparent" />
+          <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
+          <ParticleLetterS />
         </NeumorphicCard>
       </div>
     </section>
