@@ -49,7 +49,7 @@ export function Footer() {
               {user ? (
                 <a
                   href="/dashboard"
-                  className="nm-raised-sm nm-interactive inline-flex items-center gap-2 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5"
+                  className="nm-raised-sm nm-interactive inline-flex items-center gap-2 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200"
                   style={{ color: "rgb(255, 96, 0)", fontFamily: '"Funnel Display", sans-serif' }}
                 >
                   <LayoutDashboard className="h-3.5 w-3.5" />
@@ -58,7 +58,7 @@ export function Footer() {
               ) : (
                 <a
                   href="/login"
-                  className="nm-raised-sm nm-interactive inline-flex items-center gap-2 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5"
+                  className="nm-raised-sm nm-interactive inline-flex items-center gap-2 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200"
                   style={{ color: "rgb(255, 96, 0)", fontFamily: '"Funnel Display", sans-serif' }}
                 >
                   <LogIn className="h-3.5 w-3.5" />

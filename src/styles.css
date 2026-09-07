@@ -298,17 +298,17 @@ html.dark[data-accent="teal"],
   border: none !important;
   outline: none !important;
   transition:
-    box-shadow 0.35s ease,
-    transform 0.35s ease,
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.2s ease;
   &:hover {
-    box-shadow: var(--shadow-nm-hover);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-nm-inset) !important;
+    transform: translateY(0) scale(0.985);
   }
   &:active {
-    box-shadow: var(--shadow-nm-inset);
-    transform: translateY(0);
-    transition-duration: 0.12s;
+    box-shadow: var(--shadow-nm-inset-deep, var(--shadow-nm-inset)) !important;
+    transform: translateY(0) scale(0.975);
+    transition-duration: 0.1s;
   }
 }
 
@@ -346,8 +346,8 @@ html.dark[data-accent="teal"],
   border-radius: 10px;
   padding: 12px 18px;
   transition:
-    box-shadow 0.35s ease,
-    transform 0.35s ease;
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -356,15 +356,15 @@ html.dark[data-accent="teal"],
 }
 
 .nav-menu-btn:hover {
-  box-shadow: var(--shadow-nm-hover);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-nm-inset) !important;
+  transform: translateY(0) scale(0.985);
 }
 
 .nav-menu-btn:active,
 .nav-menu-btn.active {
-  box-shadow: var(--shadow-nm-inset);
-  transform: translateY(0);
-  transition-duration: 0.12s;
+  box-shadow: var(--shadow-nm-inset) !important;
+  transform: translateY(0) scale(0.975);
+  transition-duration: 0.1s;
 }
 
 /* ==========================================================================
@@ -487,6 +487,51 @@ html.lenis body {
     border: none !important;
     border-color: transparent !important;
     outline: none;
+  }
+
+  /* === GLOBAL BUTTON & MENU ITEM HOVER INSET EFFECT ===
+     Click deye dhorle jamon hoy (inset pressed state),
+     hover korle thik temon inset / pressed down hoy. */
+  button:not(:disabled),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a.nm-interactive,
+  .nm-interactive,
+  .nav-menu-btn,
+  header nav ul li a,
+  header a.nm-raised-sm {
+    transition:
+      box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.2s ease;
+  }
+
+  button:not(:disabled):hover,
+  [type="button"]:not(:disabled):hover,
+  [type="submit"]:not(:disabled):hover,
+  [type="reset"]:not(:disabled):hover,
+  a.nm-interactive:hover,
+  .nm-interactive:hover,
+  .nav-menu-btn:hover,
+  header nav ul li a:hover,
+  header a.nm-raised-sm:hover {
+    box-shadow: var(--shadow-nm-inset) !important;
+    transform: translateY(0) scale(0.985) !important;
+  }
+
+  button:not(:disabled):active,
+  [type="button"]:not(:disabled):active,
+  [type="submit"]:not(:disabled):active,
+  [type="reset"]:not(:disabled):active,
+  a.nm-interactive:active,
+  .nm-interactive:active,
+  .nav-menu-btn:active,
+  header nav ul li a:active,
+  header a.nm-raised-sm:active {
+    box-shadow: var(--shadow-nm-inset-deep, var(--shadow-nm-inset)) !important;
+    transform: translateY(0) scale(0.975) !important;
+    transition-duration: 0.1s;
   }
 
   html {

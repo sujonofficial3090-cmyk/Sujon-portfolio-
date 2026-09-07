@@ -76,7 +76,7 @@ function ProjectDetail() {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center gap-2 rounded-[10px] px-6 py-3.5 text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all duration-300 hover:shadow-[var(--shadow-nm-hover)] hover:-translate-y-0.5 active:nm-inset"
+                className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center gap-2 rounded-[10px] px-6 py-3.5 text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all duration-300 active:nm-inset"
               >
                 View Live Website <ExternalLink className="h-4 w-4" />
               </a>

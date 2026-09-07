@@ -94,7 +94,7 @@ export function Header() {
                         "inline-flex items-center justify-center rounded-[10px] px-[18px] py-[10px] uppercase tracking-wider transition-all duration-200",
                         isActive
                           ? "nm-inset font-bold shadow-[var(--shadow-nm-inset)] scale-[0.98]"
-                          : "nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 font-semibold",
+                          : "nm-raised-sm hover:nm-interactive font-semibold",
                       )}
                       style={{
                         fontFamily: '"Funnel Display", sans-serif',
@@ -118,7 +118,7 @@ export function Header() {
             {/* Get a Quote Button Styled like Menu Item but slightly larger in size */}
             <a
               href="/#contact"
-              className="hidden sm:inline-flex items-center justify-center rounded-[11px] px-[22px] py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-bold"
+              className="hidden sm:inline-flex items-center justify-center rounded-[11px] px-[22px] py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold"
               style={{
                 fontFamily: '"Funnel Display", sans-serif',
                 fontStyle: "normal",
@@ -284,7 +284,7 @@ export function Header() {
                         "block text-center rounded-[10px] px-4 py-3 uppercase tracking-wider transition-all duration-200",
                         isActive
                           ? "nm-inset font-bold shadow-[var(--shadow-nm-inset)]"
-                          : "nm-raised-sm font-semibold",
+                          : "nm-raised-sm hover:nm-interactive font-semibold",
                       )}
                       style={{
                         fontFamily: '"Funnel Display", sans-serif',

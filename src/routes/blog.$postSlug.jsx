@@ -197,7 +197,7 @@ function BlogDetail() {
                   href="https://wa.me/8801936711699"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="nm-raised-sm nm-interactive text-brand-deep flex items-center justify-center gap-2 rounded-[10px] w-full py-3 text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all duration-300 hover:shadow-[var(--shadow-nm-hover)] hover:-translate-y-0.5 active:nm-inset"
+                  className="nm-raised-sm nm-interactive text-brand-deep flex items-center justify-center gap-2 rounded-[10px] w-full py-3 text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all duration-300 active:nm-inset"
                 >
                   Hire Me
                 </a>

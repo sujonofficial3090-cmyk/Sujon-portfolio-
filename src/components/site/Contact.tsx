@@ -207,7 +207,7 @@ export function Contact() {
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
-                className="inline-flex items-center justify-center rounded-[11px] px-6 py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-bold mt-6"
+                className="inline-flex items-center justify-center rounded-[11px] px-6 py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold mt-6"
                 style={{
                   fontFamily: '"Funnel Display", sans-serif',
                   fontStyle: "normal",
@@ -336,7 +336,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={sending}
-                  className="w-full inline-flex items-center justify-center rounded-[11px] px-6 py-[13px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-bold disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full inline-flex items-center justify-center rounded-[11px] px-6 py-[13px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold disabled:opacity-60 disabled:cursor-not-allowed"
                   style={{
                     fontFamily: '"Funnel Display", sans-serif',
                     fontStyle: "normal",

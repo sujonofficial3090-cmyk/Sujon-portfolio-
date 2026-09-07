@@ -80,7 +80,7 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
       <div className="mt-6 px-2 pb-1.5">
         <a
           href={projectUrl}
-          className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center justify-center gap-2 rounded-[10px] w-full py-3.5 text-[12px] font-extrabold tracking-[0.1em] uppercase transition-all duration-300 hover:shadow-[var(--shadow-nm-hover)] hover:-translate-y-0.5 active:nm-inset"
+          className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center justify-center gap-2 rounded-[10px] w-full py-3.5 text-[12px] font-extrabold tracking-[0.1em] uppercase transition-all duration-300 active:nm-inset"
         >
           View Project <ArrowUpRight className="h-4 w-4" />
         </a>
