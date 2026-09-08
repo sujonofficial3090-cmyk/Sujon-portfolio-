@@ -79,9 +79,9 @@ export function Header() {
             </span>
           </a>
 
-          {/* Desktop Navigation: Real Neumorphic Buttons with Funnel Display 17.5px/22px, 700 weight */}
+          {/* Desktop Navigation: Real Neumorphic Buttons with Funnel Display 16px/20px, 600 weight, rgb(255,96,0) */}
           <nav className="hidden justify-center lg:flex">
-            <ul className="flex items-center gap-4">
+            <ul className="flex items-center gap-3.5">
               {NAV.map((item) => {
                 const isActive = active === item.href;
                 return (
@@ -90,17 +90,17 @@ export function Header() {
                       href={item.href}
                       onClick={() => setActive(item.href)}
                       className={cn(
-                        "inline-flex items-center justify-center rounded-[12px] px-6 py-3 uppercase tracking-wider transition-all duration-200",
+                        "inline-flex items-center justify-center rounded-[10px] px-[18px] py-[10px] uppercase tracking-wider transition-all duration-200",
                         isActive
-                          ? "nm-inset font-extrabold shadow-[var(--shadow-nm-inset)] scale-[0.98]"
-                          : "nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 hover:shadow-[var(--shadow-nm-hover)] font-bold",
+                          ? "nm-inset font-bold shadow-[var(--shadow-nm-inset)] scale-[0.98]"
+                          : "nm-raised-sm hover:nm-interactive font-semibold",
                       )}
                       style={{
                         fontFamily: '"Funnel Display", sans-serif',
                         fontStyle: "normal",
-                        fontWeight: 700,
-                        fontSize: "17.5px",
-                        lineHeight: "22px",
+                        fontWeight: 600,
+                        fontSize: "16px",
+                        lineHeight: "20px",
                         color: "rgb(255, 96, 0)",
                       }}
                     >
@@ -114,16 +114,16 @@ export function Header() {
 
           {/* Header Action Controls */}
           <div className="flex items-center justify-end gap-3">
-            {/* Get a Quote Button Styled like Menu Item, slightly larger in size */}
+            {/* Get a Quote Button Styled like Menu Item but slightly larger in size */}
             <a
               href="/#contact"
-              className="hidden sm:inline-flex items-center justify-center rounded-[12px] px-6 py-3 uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive hover:-translate-y-0.5 active:nm-inset font-extrabold"
+              className="hidden sm:inline-flex items-center justify-center rounded-[11px] px-[22px] py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold"
               style={{
                 fontFamily: '"Funnel Display", sans-serif',
                 fontStyle: "normal",
-                fontWeight: 800,
-                fontSize: "17.5px",
-                lineHeight: "22px",
+                fontWeight: 700,
+                fontSize: "16px",
+                lineHeight: "20px",
                 color: "rgb(255, 96, 0)",
               }}
             >
@@ -280,17 +280,17 @@ export function Header() {
                         setOpen(false);
                       }}
                       className={cn(
-                        "block text-center rounded-[12px] px-5 py-3.5 uppercase tracking-wider transition-all duration-200",
+                        "block text-center rounded-[10px] px-4 py-3 uppercase tracking-wider transition-all duration-200",
                         isActive
-                          ? "nm-inset font-extrabold shadow-[var(--shadow-nm-inset)]"
-                          : "nm-raised-sm hover:nm-interactive font-bold",
+                          ? "nm-inset font-bold shadow-[var(--shadow-nm-inset)]"
+                          : "nm-raised-sm hover:nm-interactive font-semibold",
                       )}
                       style={{
                         fontFamily: '"Funnel Display", sans-serif',
                         fontStyle: "normal",
-                        fontWeight: 700,
-                        fontSize: "17.5px",
-                        lineHeight: "22px",
+                        fontWeight: 600,
+                        fontSize: "16px",
+                        lineHeight: "20px",
                         color: "rgb(255, 96, 0)",
                       }}
                     >
@@ -305,13 +305,13 @@ export function Header() {
                 <a
                   href="/#contact"
                   onClick={() => setOpen(false)}
-                  className="nm-raised-sm hover:nm-interactive active:nm-inset block text-center rounded-[12px] px-6 py-4 uppercase tracking-wider transition-all duration-200 font-extrabold"
+                  className="nm-raised-sm hover:nm-interactive active:nm-inset block text-center rounded-[11px] px-5 py-3.5 uppercase tracking-wider transition-all duration-200 font-bold"
                   style={{
                     fontFamily: '"Funnel Display", sans-serif',
                     fontStyle: "normal",
-                    fontWeight: 800,
-                    fontSize: "17.5px",
-                    lineHeight: "22px",
+                    fontWeight: 700,
+                    fontSize: "16px",
+                    lineHeight: "20px",
                     color: "rgb(255, 96, 0)",
                   }}
                 >
