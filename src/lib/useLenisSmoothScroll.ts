@@ -11,13 +11,14 @@ export function useLenisSmoothScroll() {
 
     // Initialize Lenis for responsive, ultra-smooth momentum scrolling
     const lenis = new Lenis({
-      duration: 0.9,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.0,
+      wheelMultiplier: 1.15,
+      touchMultiplier: 1.5,
+      syncTouch: false,
       infinite: false,
     });
 

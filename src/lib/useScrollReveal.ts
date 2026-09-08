@@ -41,14 +41,17 @@ export function useScrollReveal() {
     // Check after render transitions settle
     const timer = setTimeout(observeAll, 200);
 
-    // Watch for DOM mutations (route changes in SPA) to automatically observe newly mounted elements
+    let mutationTimer: ReturnType<typeof setTimeout>;
+    // Watch for DOM mutations (route changes in SPA) with debounce
     const mutationObserver = new MutationObserver(() => {
-      observeAll();
+      clearTimeout(mutationTimer);
+      mutationTimer = setTimeout(observeAll, 150);
     });
     mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       clearTimeout(timer);
+      clearTimeout(mutationTimer);
       observer.disconnect();
       mutationObserver.disconnect();
     };

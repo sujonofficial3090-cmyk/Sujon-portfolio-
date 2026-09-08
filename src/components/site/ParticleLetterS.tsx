@@ -38,6 +38,7 @@ export function ParticleLetterS() {
     // Formation state
     let isFormed = false;
     let isForming = false;
+    let isVisible = true;
     let assemblyStartTime = 0;
 
     // Track active theme state to detect instant changes
@@ -298,14 +299,22 @@ export function ParticleLetterS() {
       });
     }
 
-    // Trigger cloud assemble on scroll into view or re-entry
+    // Trigger cloud assemble on scroll into view and pause render loop when off-screen to eliminate scroll lag
     const intersectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
-            startAssembly();
-          } else if (!entry.isIntersecting) {
-            // When leaving viewport, reset to stardust cloud so it re-assembles on next visit
+          const wasVisible = isVisible;
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            if (!wasVisible) {
+              cancelAnimationFrame(animationFrameId);
+              animationFrameId = requestAnimationFrame(animate);
+            }
+            if (entry.intersectionRatio >= 0.1) {
+              startAssembly();
+            }
+          } else {
+            cancelAnimationFrame(animationFrameId);
             resetToCloud();
           }
         });
@@ -393,18 +402,9 @@ export function ParticleLetterS() {
 
     // High-performance 60+ FPS animation loop with batched color rendering
     function animate() {
-      if (!ctx) return;
+      if (!ctx || !isVisible) return;
       time += 0.018;
       ctx.clearRect(0, 0, width, height);
-
-      // Check for theme/accent changes on each frame as failsafe
-      const currentAccent = document.documentElement.getAttribute("data-accent") || "gold";
-      const currentDark = document.documentElement.classList.contains("dark");
-      if (currentAccent !== lastAccent || currentDark !== lastDark) {
-        lastAccent = currentAccent;
-        lastDark = currentDark;
-        updateParticleColors();
-      }
 
       // Snappy mouse interpolation
       if (rawMouse.isHovered) {
