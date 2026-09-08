@@ -81,6 +81,7 @@ export function Services() {
                   src={s.img}
                   alt={s.title}
                   loading="lazy"
+                  decoding="async"
                   width={240}
                   height={240}
                   className="max-h-full max-w-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_8px_18px_rgba(0,0,0,0.4)] transition-transform duration-300 group-hover:scale-105"
