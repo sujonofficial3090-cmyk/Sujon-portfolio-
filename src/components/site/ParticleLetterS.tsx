@@ -206,8 +206,8 @@ export function ParticleLetterS() {
       particles = [];
       buckets = [[], [], []];
 
-      // Ultra-micro step (0.95px) for massive "koti koti" count (~24,000 to 30,000 micro-particles)
-      const step = 0.95;
+      // High-performance stardust step (~6,000 crisp micro-particles for silky 120 FPS)
+      const step = 1.85;
       const palette = getThemePalette();
       const paletteArr = [palette.light, palette.mid, palette.deep];
 
@@ -243,8 +243,8 @@ export function ParticleLetterS() {
                 bucket = 2;
               }
 
-              // Crisp stardust micro-dots: 1.3px to 1.85px (exact match to user screenshot)
-              const size = 1.3 + Math.random() * 0.55;
+              // Crisp stardust micro-dots: 1.5px to 2.1px
+              const size = 1.55 + Math.random() * 0.55;
 
               // Start in a circular ring outside the letter S ("gol hoye")
               const maxDim = Math.max(width, height);
@@ -338,33 +338,19 @@ export function ParticleLetterS() {
       startAssembly();
     };
 
-    // Responsive coordinate tracking with normal default cursor
-    const updatePointerPos = (clientX: number, clientY: number) => {
-      const rect = container.getBoundingClientRect();
-      const margin = 70;
-      if (
-        clientX >= rect.left - margin &&
-        clientX <= rect.right + margin &&
-        clientY >= rect.top - margin &&
-        clientY <= rect.bottom + margin
-      ) {
-        rawMouse.x = clientX - rect.left;
-        rawMouse.y = clientY - rect.top;
-        rawMouse.isHovered = true;
-      } else {
-        rawMouse.isHovered = false;
-        rawMouse.x = -9999;
-        rawMouse.y = -9999;
-      }
-    };
-
-    const handlePointerMove = (e: PointerEvent | MouseEvent) => {
-      updatePointerPos(e.clientX, e.clientY);
+    // Responsive coordinate tracking directly on container without forced layout reflow
+    const handlePointerMove = (e: MouseEvent) => {
+      rawMouse.x = e.offsetX;
+      rawMouse.y = e.offsetY;
+      rawMouse.isHovered = true;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches && e.touches.length > 0) {
-        updatePointerPos(e.touches[0].clientX, e.touches[0].clientY);
+        const rect = container.getBoundingClientRect();
+        rawMouse.x = e.touches[0].clientX - rect.left;
+        rawMouse.y = e.touches[0].clientY - rect.top;
+        rawMouse.isHovered = true;
       }
     };
 
@@ -374,8 +360,7 @@ export function ParticleLetterS() {
       rawMouse.isHovered = false;
     };
 
-    window.addEventListener("mousemove", handlePointerMove, { passive: true });
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    container.addEventListener("mousemove", handlePointerMove, { passive: true });
     container.addEventListener("mouseleave", handlePointerLeave);
     container.addEventListener("touchmove", handleTouchMove, { passive: true });
     container.addEventListener("touchend", handlePointerLeave);
@@ -476,14 +461,25 @@ export function ParticleLetterS() {
               }
             }
 
-            const breathingX = Math.sin(time + p.seed) * 0.18;
-            const breathingY = Math.cos(time + p.seed * 1.3) * 0.18;
+            let breathingX = 0;
+            let breathingY = 0;
+            if (isMouseActive) {
+              breathingX = Math.sin(time + p.seed) * 0.18;
+              breathingY = Math.cos(time + p.seed * 1.3) * 0.18;
+            }
 
             targetX = p.originX + repelX + breathingX;
             targetY = p.originY + repelY + breathingY;
 
-            p.x += (targetX - p.x) * p.ease;
-            p.y += (targetY - p.y) * p.ease;
+            const diffX = targetX - p.x;
+            const diffY = targetY - p.y;
+            if (Math.abs(diffX) > 0.02 || Math.abs(diffY) > 0.02) {
+              p.x += diffX * p.ease;
+              p.y += diffY * p.ease;
+            } else {
+              p.x = targetX;
+              p.y = targetY;
+            }
           } else if (isForming) {
             // Assembling inward from the circular outer ring ("gol hoye") into the letter S (fast & energetic)
             if (elapsedAssembly <= 0) {
@@ -530,12 +526,11 @@ export function ParticleLetterS() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("mousemove", handlePointerMove);
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("hashchange", handleHashChange);
+      container.removeEventListener("mousemove", handlePointerMove);
       container.removeEventListener("mouseleave", handlePointerLeave);
       container.removeEventListener("touchmove", handleTouchMove);
       container.removeEventListener("touchend", handlePointerLeave);
+      window.removeEventListener("hashchange", handleHashChange);
       themeObserver.disconnect();
       resizeObserver.disconnect();
       intersectionObserver.disconnect();

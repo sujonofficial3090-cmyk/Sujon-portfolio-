@@ -371,19 +371,14 @@ html.dark[data-accent="teal"],
    SMOOTH SCROLL REVEAL ANIMATION SYSTEM
    ========================================================================== */
 
-/* Subtle Scroll Reveal for Sections & Cards */
+/* Clean, Butter-Smooth Scroll Reveal for Sections & Cards (Pure Opacity - No Layout Shift) */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(18px) scale(0.99);
-  transition:
-    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transition: opacity 0.5s ease-out;
 }
 
 .reveal-on-scroll.is-revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
 }
 
 /* Subtle Staggered Delays for Grid Cards */
