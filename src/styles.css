@@ -329,30 +329,19 @@ html.dark[data-accent="teal"],
 }
 
 /* ==========================================================================
-   LIVING ANIMATED "SUJON" BRAND LOGO SYSTEM
-   Continuous liquid shimmer wave & breathing aura
+   PREMIUM SPECULAR LIGHT-SWEEP ANIMATION FOR "SUJON" BRAND LOGO
+   Completely stable (no vertical floating/bobbing) with periodic luxury gleam
    ========================================================================== */
 
-@keyframes sujonLogoShimmer {
+@keyframes sujonSpecularSweep {
   0% {
-    background-position: 0% 50%;
+    background-position: -200% 0;
   }
-  50% {
-    background-position: 100% 50%;
+  28% {
+    background-position: 200% 0;
   }
   100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes sujonLogoFloat {
-  0%, 100% {
-    transform: translateY(0);
-    filter: drop-shadow(0 2px 4px rgba(255, 96, 0, 0.2));
-  }
-  50% {
-    transform: translateY(-1.5px);
-    filter: drop-shadow(0 4px 12px rgba(255, 96, 0, 0.45));
+    background-position: 200% 0;
   }
 }
 
@@ -360,26 +349,25 @@ html.dark[data-accent="teal"],
   background: linear-gradient(
     115deg,
     var(--brand-deep) 0%,
-    var(--brand) 25%,
-    #FFF8E7 48%,
-    #FFEDC2 54%,
-    var(--brand) 75%,
+    var(--brand) 30%,
+    #FFFFFF 48%,
+    #FFF2CC 52%,
+    var(--brand) 70%,
     var(--brand-deep) 100%
   );
-  background-size: 260% 100%;
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   display: inline-block;
-  animation:
-    sujonLogoShimmer 4s ease-in-out infinite,
-    sujonLogoFloat 3.5s ease-in-out infinite;
-  will-change: background-position, transform, filter;
-  transition: transform 0.25s ease, filter 0.25s ease;
+  animation: sujonSpecularSweep 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: background-position;
+  transform: translateZ(0);
+  transition: filter 0.3s ease;
 }
 
 .logo-sujon-animated:hover {
-  filter: drop-shadow(0 6px 16px rgba(255, 96, 0, 0.65));
+  filter: drop-shadow(0 0 10px rgba(255, 96, 0, 0.45));
 }
 
 /* ==========================================================================
