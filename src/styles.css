@@ -329,45 +329,96 @@ html.dark[data-accent="teal"],
 }
 
 /* ==========================================================================
-   PREMIUM SPECULAR LIGHT-SWEEP ANIMATION FOR "SUJON" BRAND LOGO
-   Completely stable (no vertical floating/bobbing) with periodic luxury gleam
+   PREMIUM SVG STROKE-DRAWING LOGO REVEAL FOR "Sujon"
+   - Letter "S" drawn first using continuous SVG path animation (~820ms)
+   - Subtle pause (~120ms)
+   - "ujon" smoothly unveiled from left to right (~500ms)
+   - Stays permanently static once finished (no looping)
    ========================================================================== */
 
-@keyframes sujonSpecularSweep {
+@keyframes sujonDrawStrokeS {
   0% {
-    background-position: -200% 0;
+    stroke-dashoffset: 100;
+    opacity: 0;
   }
-  28% {
-    background-position: 200% 0;
+  10% {
+    opacity: 1;
   }
   100% {
-    background-position: 200% 0;
+    stroke-dashoffset: 0;
+    opacity: 1;
   }
 }
 
-.logo-sujon-animated {
-  background: linear-gradient(
-    115deg,
-    var(--brand-deep) 0%,
-    var(--brand) 30%,
-    #FFFFFF 48%,
-    #FFF2CC 52%,
-    var(--brand) 70%,
-    var(--brand-deep) 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-  animation: sujonSpecularSweep 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  will-change: background-position;
-  transform: translateZ(0);
-  transition: filter 0.3s ease;
+@keyframes sujonFillFadeInS {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-.logo-sujon-animated:hover {
-  filter: drop-shadow(0 0 10px rgba(255, 96, 0, 0.45));
+@keyframes sujonStrokeFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes sujonRevealUjon {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-4px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+}
+
+.sujon-s-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: sujonDrawStrokeS 820ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.sujon-s-fill {
+  opacity: 0;
+  animation: sujonFillFadeInS 220ms ease-out 740ms forwards;
+}
+
+.sujon-s-stroke-svg {
+  animation: sujonStrokeFadeOut 200ms ease-out 840ms forwards;
+}
+
+.sujon-ujon-text {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: sujonRevealUjon 500ms cubic-bezier(0.16, 1, 0.3, 1) 940ms forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sujon-s-fill,
+  .sujon-ujon-text {
+    opacity: 1 !important;
+    clip-path: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .sujon-s-stroke-svg {
+    display: none !important;
+  }
 }
 
 /* ==========================================================================

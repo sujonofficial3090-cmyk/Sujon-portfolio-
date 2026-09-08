@@ -72,10 +72,47 @@ export function Header() {
     <header className="sticky top-3.5 z-50">
       <NeumorphicCard depth="md" radius="lg" className="px-5 py-4 sm:px-8 sm:py-5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
-          {/* Pure Typographic Logo — SUJON Only */}
+          {/* Typographic Logo — Sujon with SVG-Style Stroke Drawing Reveal */}
           <a href="/#home" className="flex min-w-0 items-center">
-            <span className="logo-sujon-animated text-[24px] sm:text-[28px] font-extrabold tracking-[0.14em] uppercase">
-              SUJON
+            <span
+              className="sujon-logo-reveal inline-flex items-baseline text-[24px] sm:text-[28px] font-extrabold tracking-[0.04em] select-none"
+              style={{ fontFamily: '"Funnel Display", sans-serif' }}
+            >
+              {/* Animated S with continuous stroke-draw */}
+              <span className="sujon-s-wrapper relative inline-flex items-center justify-center">
+                <svg
+                  viewBox="0 0 20 28"
+                  fill="none"
+                  className="sujon-s-stroke-svg absolute -inset-x-0.5 inset-y-0 w-[110%] h-full pointer-events-none"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <linearGradient id="sujonLogoStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="var(--brand-deep, #EA580C)" />
+                      <stop offset="50%" stopColor="var(--brand, #F59E0B)" />
+                      <stop offset="100%" stopColor="var(--brand-deep, #EA580C)" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M 16.5 6 C 15 3 11 2 8.5 2 C 4.5 2 2 5 2 8.5 C 2 12 5.5 13.5 10 15 C 14.5 16.5 18 18.5 18 22 C 18 25.5 14.5 27.5 9.5 27.5 C 5 27.5 2 25.5 1 23"
+                    fill="none"
+                    stroke="url(#sujonLogoStrokeGrad)"
+                    strokeWidth="3.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    pathLength="100"
+                    className="sujon-s-path"
+                  />
+                </svg>
+                <span className="sujon-s-fill text-brand-gradient inline-block">
+                  S
+                </span>
+              </span>
+
+              {/* Animated ujon that unveils left-to-right */}
+              <span className="sujon-ujon-text text-brand-gradient inline-block">
+                ujon
+              </span>
             </span>
           </a>
 

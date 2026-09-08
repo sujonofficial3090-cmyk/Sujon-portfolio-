@@ -37,8 +37,11 @@ export function Footer() {
             {/* Pure SUJON typographic wordmark */}
             <div>
               <a href="/#home">
-                <span className="logo-sujon-animated text-[28px] font-extrabold tracking-[0.14em] uppercase pb-1 leading-normal inline-block">
-                  SUJON
+                <span
+                  className="text-brand-gradient text-[28px] font-extrabold tracking-[0.04em] pb-1 leading-normal inline-block"
+                  style={{ fontFamily: '"Funnel Display", sans-serif' }}
+                >
+                  Sujon
                 </span>
               </a>
             </div>
