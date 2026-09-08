@@ -37,7 +37,7 @@ export function Footer() {
             {/* Pure SUJON typographic wordmark */}
             <div>
               <a href="/#home">
-                <span className="text-brand-gradient text-[28px] font-extrabold tracking-[0.14em] uppercase pb-1 leading-normal inline-block">
+                <span className="logo-sujon-animated text-[28px] font-extrabold tracking-[0.14em] uppercase pb-1 leading-normal inline-block">
                   SUJON
                 </span>
               </a>

@@ -74,7 +74,7 @@ export function Header() {
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
           {/* Pure Typographic Logo — SUJON Only */}
           <a href="/#home" className="flex min-w-0 items-center">
-            <span className="text-brand-gradient text-[24px] sm:text-[28px] font-extrabold tracking-[0.14em] uppercase transition-colors">
+            <span className="logo-sujon-animated text-[24px] sm:text-[28px] font-extrabold tracking-[0.14em] uppercase">
               SUJON
             </span>
           </a>
