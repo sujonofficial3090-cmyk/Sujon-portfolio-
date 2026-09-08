@@ -647,6 +647,12 @@ function DashboardPage() {
       const cleanPhone = bkashPhone.replace(/[\s-]/g, "").trim();
       const cleanTrx = bkashTrxId.trim().toUpperCase();
 
+      if (!user) {
+        setPaymentSubmitting(false);
+        toast.error("You must be logged in to complete payment.");
+        return;
+      }
+
       if (paymentMethod === "bkash") {
         createdRec = createPaymentRecord({
           customerName: user.name,
@@ -746,7 +752,7 @@ function DashboardPage() {
       badge: uploadBadge,
       planRequirement: uploadPlanReq,
       price: priceNum,
-      author: user.name || "Sujon Mia",
+      author: user?.name || "Sujon Mia",
     });
 
     setUploadLoading(false);

@@ -139,7 +139,7 @@ export function ParticleLetterS() {
     }
 
     function initParticles() {
-      if (!canvas || !container) return;
+      if (!canvas || !container || !ctx) return;
       const rect = container.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
@@ -393,6 +393,7 @@ export function ParticleLetterS() {
 
     // High-performance 60+ FPS animation loop with batched color rendering
     function animate() {
+      if (!ctx) return;
       time += 0.018;
       ctx.clearRect(0, 0, width, height);
 

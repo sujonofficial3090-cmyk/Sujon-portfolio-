@@ -3,10 +3,10 @@ import pf2 from "@/assets/pf-2.jpg";
 import pf3 from "@/assets/pf-3.jpg";
 import tommysListing from "@/assets/tommys-listing.webp";
 import applianceWorld from "@/assets/appliance-world.webp";
-import digitalDropify from "@/assets/digital-dropify.webp";
+import montgomeryInn from "@/assets/montgomery-inn.webp";
 import caterPsychiatry from "@/assets/cater-psychiatry.webp";
 import dieselRepair from "@/assets/diesel-repair.webp";
-import finseo from "@/assets/finseo.webp";
+import salvajeGroup from "@/assets/salvaje-group.webp";
 import moritzDunkel from "@/assets/moritz-dunkel.webp";
 
 export type Project = {
@@ -73,28 +73,28 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "Elementor Pro", "Custom Post Types", "ACF Pro", "AJAX Filtering", "PHP", "CSS3"],
   },
   {
-    slug: "digital-dropify",
-    title: "Digital Dropify — High-Converting Landing Page",
-    category: "Landing Page & Funnel Design",
+    slug: "montgomery-inn",
+    title: "Montgomery Inn at Ingleside — Boutique Luxury Inn & Suites",
+    category: "Hotel & Hospitality Website",
     excerpt:
-      "A high-converting digital products landing page built for Digital Dropify, featuring 1,000+ digital products catalog showcase, profit breakdowns, faceless video vaults, and seamless checkout funnels.",
-    image: digitalDropify,
-    liveUrl: "https://digitaldropify.com/",
+      "A picturesque boutique inn and cottage destination website located in Prince Edward Island, Canada, featuring Anne of Green Gables heritage, guest room & suite showcases, local tourism guides, and online booking workflows.",
+    image: montgomeryInn,
+    liveUrl: "https://montgomeryinnatingleside.com/",
     overview:
-      "Digital Dropify is a high-converting digital eCommerce landing page engineered to sell turn-key digital products, PLR/MRR eBooks, Notion templates, and 10,000+ viral faceless video reels. The landing page is crafted with modern dark-mode glassmorphic aesthetics, psychological conversion triggers, interactive product vaults, and seamless checkout funnel integration to maximize digital sales.",
+      "Montgomery Inn at Ingleside is a historic boutique inn and luxury cottage experience nestled in Prince Edward Island (Anne's Land). The website offers travelers and vacationers an immersive glimpse into boutique guest rooms, tranquil coastal landscapes, heritage dining, and streamlined reservation scheduling.",
     challenge:
-      "Structuring an extensive collection of 1,000+ digital products, video vaults, and PLR resources into an engaging, single-page sales funnel that educates visitors, establishes authority, overcomes objections, and converts cold ad traffic with zero friction and rapid loading speeds.",
+      "Creating an elegant, story-driven hospitality website that honors the historic Anne of Green Gables legacy while providing clear room rate comparisons, amenities highlights, and smooth direct reservation booking.",
     solution:
-      "Designed and developed a conversion-focused landing page with modern dark UI styling, interactive product preview cards, video mockup showcases, multi-tier pricing/bundle comparisons, live social proof badges, and instant CTA buttons linked to high-converting checkout flows.",
+      "Developed an aesthetically rich, responsive boutique hotel website with high-resolution visual storytelling, interactive suite & cottage galleries, area attraction guides, and direct reservation funnels.",
     features: [
-      "High-converting dark aesthetic landing page with animated visual badges",
-      "1,000+ digital product library catalog & category breakdown showcase",
-      "10,000+ Faceless viral video vault showcase & mockup preview cards",
-      "PLR & MRR rebrandable license explanation & profit breakdown section",
-      "Dynamic conversion triggers: social proof logos, earnings proof & FAQ accordion",
-      "100% responsive, mobile-first design optimized for ad campaign traffic",
+      "Historic boutique inn & coastal cottage experience showcase",
+      "Interactive guest suites, room amenities & rates breakdown",
+      "Anne of Green Gables heritage storytelling & local PEI attractions guide",
+      "Direct online booking & reservation inquiry workflow",
+      "Guest reviews, verified testimonials & high-res visual photography galleries",
+      "100% mobile-responsive layout optimized for travelers booking on mobile & desktop",
     ],
-    stack: ["WordPress", "Elementor Pro", "Landing Page Funnel", "Stripe Checkout", "CSS3 Animations", "Responsive Design"],
+    stack: ["WordPress", "Elementor Pro", "Hotel Booking System", "PHP", "CSS3 Animations", "Responsive Design"],
   },
   {
     slug: "cater-psychiatry",
@@ -145,28 +145,28 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "Elementor Pro", "Google Maps API", "PHP", "CSS3", "JavaScript", "Responsive Design"],
   },
   {
-    slug: "finseo",
-    title: "Finseo — AI Search Visibility & SaaS Platform",
-    category: "AI SaaS / Business Website",
+    slug: "salvaje-group",
+    title: "AMOR — Downtown Dubai Speakeasy & Nightclub",
+    category: "Hospitality & Entertainment Website",
     excerpt:
-      "Modern AI visibility SaaS platform website designed to help brands track, understand and improve how they appear across AI search and answer engines.",
-    image: finseo,
-    liveUrl: "https://www.finseo.ai/",
+      "Exclusive luxury speakeasy nightclub website in Downtown Dubai, featuring world-class mixology, international DJ headliners, weekly night events, and online reservation workflows.",
+    image: salvajeGroup,
+    liveUrl: "https://salvajegroupdubai.com/",
     overview:
-      "Finseo is a next-generation AI search optimization and visibility SaaS platform engineered to help brands and enterprises monitor, analyze, and optimize how their products and brand citations appear across generative AI engines including ChatGPT, Claude, Perplexity, and Gemini.",
+      "AMOR is a premier speakeasy nightclub situated in the heart of Downtown Dubai right next to Dubai Opera & Burj Khalifa. Developed for Salvaje Group Dubai, the platform showcases bespoke nightlife events, curated mixology, house-driven DJ vibes, interactive event galleries, and instant table booking integrations.",
     challenge:
-      "Presenting sophisticated AI visibility tracking analytics, prompt research tools, competitor benchmarking, and citation attribution pipelines within a sleek, high-trust SaaS interface designed for enterprise lead capture.",
+      "Capturing the dark, sensual luxury atmosphere of Downtown Dubai's elite nightlife while building a fast, responsive event management and reservation intake portal for high-profile international guests.",
     solution:
-      "Designed and built a modern, high-performance SaaS marketing website with interactive prompt demonstrations, multi-platform integration directories, clear product architecture, enterprise pricing tiers, and seamless live demo booking workflows.",
+      "Designed and engineered a high-impact, dark-themed luxury web application with immersive event showcases, cocktail mixology highlights, interactive Google Maps location widgets, and instant WhatsApp / online table booking funnels.",
     features: [
-      "AI visibility & brand citation tracking across ChatGPT, Claude & Perplexity",
-      "Interactive prompt research simulator & brand mention intelligence cards",
-      "Comprehensive AI platforms integration directory (Shopify, WordPress, Webflow, HubSpot)",
-      "Instant enterprise demo booking & lead qualification funnel",
-      "Dark glassmorphic SaaS interface with high-contrast typography & subtle animations",
-      "100% responsive, high-performance layout optimized for enterprise desktop and mobile",
+      "Dark luxury speakeasy branding with high-contrast typography & vibrant red accent aesthetics",
+      "Interactive weekly event showcase ('Prohibido', 'Midnight by Amor', 'Favela Disco')",
+      "Instant table booking & VIP reservation intake via direct WhatsApp and booking forms",
+      "Integrated location map & operating schedule widget for Downtown Dubai Opera location",
+      "Dynamic photo gallery showcasing venue ambiance, DJ performances, and mixology",
+      "100% mobile-responsive, fast-loading design optimized across all mobile devices",
     ],
-    stack: ["WordPress", "Next.js / Headless", "Tailwind CSS", "Elementor Pro", "SaaS Analytics", "Responsive Design"],
+    stack: ["WordPress", "Elementor Pro", "JavaScript", "PHP", "CSS3 Animations", "Google Maps API", "Responsive Design"],
   },
   {
     slug: "moritz-dunkel",
