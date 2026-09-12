@@ -17,6 +17,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { useScrollReveal } from "../lib/useScrollReveal";
 import { useLenisSmoothScroll } from "../lib/useLenisSmoothScroll";
 import { useContentProtection } from "../lib/useContentProtection";
+import { ClickDotEffect } from "../components/ui/ClickDotEffect";
 
 function NotFoundComponent() {
   return (
@@ -149,6 +150,7 @@ function RootComponent() {
       <QueryClientProvider client={queryClient}>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        <ClickDotEffect />
         <Toaster position="bottom-right" richColors />
       </QueryClientProvider>
     </AuthProvider>
