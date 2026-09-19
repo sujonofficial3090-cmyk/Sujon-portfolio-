@@ -41,9 +41,9 @@ export function useLenisSmoothScroll() {
         const element = document.getElementById(id);
         if (element) {
           e.preventDefault();
-          // Scroll target with comfortable clearance under the sticky header
+          // Scroll target with comfortable clearance under the slim sticky header
           lenis.scrollTo(element, {
-            offset: -86,
+            offset: -70,
             duration: isTouchDevice ? 0.8 : 1.05,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });

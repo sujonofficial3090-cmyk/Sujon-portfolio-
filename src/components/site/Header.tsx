@@ -83,18 +83,18 @@ export function Header() {
 
   return (
     <header className="sticky top-3.5 z-50">
-      <NeumorphicCard depth="md" radius="lg" className="px-5 py-4 sm:px-8 sm:py-5">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
+      <NeumorphicCard depth="md" radius="lg" className="px-4 py-2 sm:px-6 sm:py-2.5">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 lg:grid-cols-[auto_1fr_auto]">
           {/* SUJON — Clean Bold Text Logo */}
           <a href="/#home" className="flex min-w-0 items-center group">
-            <span className="sujon-logo text-[28px] sm:text-[34px] font-black tracking-[0.08em] select-none uppercase">
+            <span className="sujon-logo text-[22px] sm:text-[26px] font-black tracking-[0.08em] select-none uppercase">
               Sujon
             </span>
           </a>
 
-          {/* Desktop Navigation: Real Neumorphic Buttons with Funnel Display 16px/20px, 600 weight, rgb(255,96,0) */}
+          {/* Desktop Navigation: Slim Neumorphic Buttons with Funnel Display 14px/18px, 600 weight, rgb(255,96,0) */}
           <nav className="hidden justify-center lg:flex">
-            <ul className="flex items-center gap-3.5">
+            <ul className="flex items-center gap-2">
               {NAV.map((item) => {
                 const isActive = active === item.href;
                 return (
@@ -103,7 +103,7 @@ export function Header() {
                       href={item.href}
                       onClick={() => setActive(item.href)}
                       className={cn(
-                        "inline-flex items-center justify-center rounded-[10px] px-[18px] py-[10px] uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold",
+                        "inline-flex items-center justify-center rounded-[8px] px-3.5 py-1.5 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold",
                         isActive
                           ? "nm-inset text-brand-deep"
                           : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
@@ -112,8 +112,8 @@ export function Header() {
                         fontFamily: '"Funnel Display", sans-serif',
                         fontStyle: "normal",
                         fontWeight: 600,
-                        fontSize: "16px",
-                        lineHeight: "20px",
+                        fontSize: "14px",
+                        lineHeight: "18px",
                         transform: "none",
                       }}
                     >
@@ -126,17 +126,17 @@ export function Header() {
           </nav>
 
           {/* Header Action Controls */}
-          <div className="flex items-center justify-end gap-3">
-            {/* Get a Quote Button Styled like Menu Item but slightly larger in size */}
+          <div className="flex items-center justify-end gap-2">
+            {/* Get a Quote Button */}
             <a
               href="/#contact"
-              className="hidden sm:inline-flex items-center justify-center rounded-[11px] px-[22px] py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold"
+              className="hidden sm:inline-flex items-center justify-center rounded-[8px] px-4 py-1.5 uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold"
               style={{
                 fontFamily: '"Funnel Display", sans-serif',
                 fontStyle: "normal",
                 fontWeight: 700,
-                fontSize: "16px",
-                lineHeight: "20px",
+                fontSize: "14px",
+                lineHeight: "18px",
                 color: "rgb(255, 96, 0)",
               }}
             >
@@ -151,13 +151,13 @@ export function Header() {
                 aria-label="Theme and color palette"
                 aria-expanded={paletteOpen}
                 className={cn(
-                  "nm-raised-sm nm-interactive flex h-10 items-center gap-1.5 rounded-[10px] px-3 text-foreground/80",
+                  "nm-raised-sm nm-interactive flex h-8.5 items-center gap-1.5 rounded-[8px] px-2.5 text-foreground/80",
                   paletteOpen && "nm-inset text-brand-deep",
                 )}
               >
-                <Palette className="h-4 w-4 text-brand-deep" />
+                <Palette className="h-3.5 w-3.5 text-brand-deep" />
                 <span
-                  className="h-3 w-3 rounded-full shrink-0 shadow-xs border border-white/40 dark:border-black/40"
+                  className="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs border border-white/40 dark:border-black/40"
                   style={{
                     backgroundColor:
                       COLOR_MOODS.find((c) => c.id === accent)?.hex || "#F5B700",
@@ -331,12 +331,12 @@ export function Header() {
               type="button"
               onClick={toggleTheme}
               aria-label="Toggle light or dark theme"
-              className="nm-raised-sm nm-interactive grid h-10 w-10 shrink-0 place-items-center rounded-[10px] text-foreground/75"
+              className="nm-raised-sm nm-interactive grid h-8.5 w-8.5 shrink-0 place-items-center rounded-[8px] text-foreground/75"
             >
               {dark ? (
-                <Sun className="h-4 w-4 text-brand-deep" />
+                <Sun className="h-3.5 w-3.5 text-brand-deep" />
               ) : (
-                <Moon className="h-4 w-4 text-brand-deep" />
+                <Moon className="h-3.5 w-3.5 text-brand-deep" />
               )}
             </button>
 
@@ -346,7 +346,7 @@ export function Header() {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="nm-raised-sm nm-interactive grid h-10 w-10 shrink-0 place-items-center rounded-[10px] text-foreground/70 lg:hidden"
+              className="nm-raised-sm nm-interactive grid h-8.5 w-8.5 shrink-0 place-items-center rounded-[8px] text-foreground/70 lg:hidden"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -363,7 +363,7 @@ export function Header() {
             onClick={() => setOpen(false)}
           />
 
-          <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 max-h-[calc(100vh-90px)] overflow-y-auto lg:hidden animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl">
+          <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-50 max-h-[calc(100vh-90px)] overflow-y-auto lg:hidden animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl">
             <NeumorphicCard depth="lg" radius="lg" className="p-3 border border-white/50 dark:border-white/10">
               <ul className="nm-inset flex flex-col gap-2.5 rounded-[14px] p-3">
               {NAV.map((item) => {
