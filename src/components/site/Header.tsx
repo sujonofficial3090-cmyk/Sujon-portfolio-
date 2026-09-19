@@ -98,15 +98,15 @@ export function Header() {
               {NAV.map((item) => {
                 const isActive = active === item.href;
                 return (
-                  <li key={item.href}>
+                  <li key={item.href} className="shrink-0">
                     <a
                       href={item.href}
                       onClick={() => setActive(item.href)}
                       className={cn(
-                        "inline-flex items-center justify-center rounded-[10px] px-[18px] py-[10px] uppercase tracking-wider transition-all duration-200",
+                        "inline-flex items-center justify-center rounded-[10px] px-[18px] py-[10px] uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold",
                         isActive
-                          ? "nm-inset font-semibold shadow-[var(--shadow-nm-inset)]"
-                          : "nm-raised-sm hover:nm-interactive font-semibold",
+                          ? "nm-inset text-brand-deep"
+                          : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
                       )}
                       style={{
                         fontFamily: '"Funnel Display", sans-serif',
@@ -114,7 +114,7 @@ export function Header() {
                         fontWeight: 600,
                         fontSize: "16px",
                         lineHeight: "20px",
-                        color: "rgb(255, 96, 0)",
+                        transform: "none",
                       }}
                     >
                       {item.label}
@@ -377,10 +377,10 @@ export function Header() {
                         setOpen(false);
                       }}
                       className={cn(
-                        "block text-center rounded-[10px] px-4 py-3 uppercase tracking-wider transition-all duration-200",
+                        "block text-center rounded-[10px] px-4 py-3 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold",
                         isActive
-                          ? "nm-inset font-bold shadow-[var(--shadow-nm-inset)]"
-                          : "nm-raised-sm hover:nm-interactive font-semibold",
+                          ? "nm-inset text-brand-deep"
+                          : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
                       )}
                       style={{
                         fontFamily: '"Funnel Display", sans-serif',
@@ -388,7 +388,7 @@ export function Header() {
                         fontWeight: 600,
                         fontSize: "16px",
                         lineHeight: "20px",
-                        color: "rgb(255, 96, 0)",
+                        transform: "none",
                       }}
                     >
                       {item.label}

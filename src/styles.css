@@ -602,9 +602,13 @@ html.lenis body {
   a.nm-interactive:hover,
   .nm-interactive:hover,
   .nav-menu-btn:hover,
-  header nav ul li a:hover,
-  header a.nm-raised-sm:hover {
+  header nav ul li a:hover {
     box-shadow: var(--shadow-nm-inset) !important;
+    transform: none !important;
+  }
+
+  header nav ul li a:active {
+    box-shadow: var(--shadow-nm-inset-deep, var(--shadow-nm-inset)) !important;
     transform: none !important;
   }
 
@@ -615,8 +619,7 @@ html.lenis body {
   a.nm-interactive:active,
   .nm-interactive:active,
   .nav-menu-btn:active,
-  header nav ul li a:active,
-  header a.nm-raised-sm:active {
+  header a.nm-raised-sm:not(nav a):active {
     box-shadow: var(--shadow-nm-inset-deep, var(--shadow-nm-inset)) !important;
     transform: scale(0.975) !important;
     transition-duration: 0.08s;
@@ -763,25 +766,6 @@ img {
   opacity: 0 !important;
 }
 
-/* ==========================================================================
-   STICKY HEADER — GPU COMPOSITED (eliminates mobile scroll shake/jitter)
-   ========================================================================== */
-header[class*="sticky"] {
-  /* Force GPU layer — prevents layout recalc on scroll = zero shake */
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  /* Snap header precisely to sub-pixel grid */
-  -webkit-font-smoothing: subpixel-antialiased;
-}
-
-/* Smooth section transitions — all content flows smoothly */
-section {
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
 
 /* ==========================================================================
    HIDE SCROLLBAR (Full page scrolling enabled, scrollbar hidden)
