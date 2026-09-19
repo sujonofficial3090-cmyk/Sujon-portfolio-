@@ -144,11 +144,50 @@ function RootComponent() {
     // Color mood accent: default Gold
     const storedAccent = localStorage.getItem("accentColor") || "gold";
     document.documentElement.setAttribute("data-accent", storedAccent);
+
+    // Initialize Google Translate Element Headless Engine
+    if (typeof window !== "undefined") {
+      (window as unknown as { googleTranslateElementInit?: () => void }).googleTranslateElementInit = () => {
+        const googleObj = (window as unknown as { google?: { translate?: { TranslateElement: new (opts: object, el: string) => void } } }).google;
+        if (googleObj?.translate?.TranslateElement) {
+          new googleObj.translate.TranslateElement(
+            {
+              pageLanguage: "en",
+              autoDisplay: false,
+            },
+            "google_translate_element"
+          );
+        }
+      };
+
+      if (!document.getElementById("google-translate-script")) {
+        const script = document.createElement("script");
+        script.id = "google-translate-script";
+        script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    }
   }, []);
 
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
+        {/* Headless Google Translate Mount */}
+        <div
+          id="google_translate_element"
+          style={{
+            position: "fixed",
+            top: "-9999px",
+            left: "-9999px",
+            width: "1px",
+            height: "1px",
+            opacity: 0,
+            pointerEvents: "none",
+            overflow: "hidden",
+          }}
+          aria-hidden="true"
+        />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         <ClickDotEffect />

@@ -1,8 +1,14 @@
-import { Menu, X, Sun, Moon, Palette, Check } from "lucide-react";
+import { Menu, X, Sun, Moon, Palette, Check, Globe, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { NeumorphicCard } from "@/components/nm";
 import { cn } from "@/lib/utils";
+import {
+  ALL_LANGUAGES,
+  POPULAR_LANGUAGES,
+  setGoogleTranslateLanguage,
+  getCurrentLanguage,
+} from "@/lib/languages";
 
 const NAV = [
   { label: "Home", href: "/#home" },
@@ -28,6 +34,10 @@ export function Header() {
   const [cursorMode, setCursorMode] = useState<"circle" | "spark" | "default">("default");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const paletteRef = useRef<HTMLDivElement>(null);
+  const [langOpen, setLangOpen] = useState(false);
+  const [currentLang, setCurrentLang] = useState("en");
+  const [searchLang, setSearchLang] = useState("");
+  const langRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -45,14 +55,26 @@ export function Header() {
     setCursorMode(currentCursor);
     document.documentElement.setAttribute("data-cursor", currentCursor);
 
+    setCurrentLang(getCurrentLanguage());
+
     function handleClickOutside(e: MouseEvent) {
       if (paletteRef.current && !paletteRef.current.contains(e.target as Node)) {
         setPaletteOpen(false);
+      }
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const selectLanguage = (code: string) => {
+    setCurrentLang(code);
+    setLangOpen(false);
+    setOpen(false);
+    setGoogleTranslateLanguage(code);
+  };
 
   const selectCursor = (mode: "circle" | "spark" | "default") => {
     setCursorMode(mode);
@@ -82,19 +104,25 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-3.5 z-50">
-      <NeumorphicCard depth="md" radius="lg" className="px-5 py-4 sm:px-8 sm:py-5">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
+    <>
+      {/* Invisible Document Flow Spacer (Ensures content starts below fixed header) */}
+      <div className="h-16 sm:h-20 w-full shrink-0 pointer-events-none" aria-hidden="true" />
+
+      {/* Rock-Solid Fixed Header — 100% immune to scroll vibration, jitter, or shaking */}
+      <header className="fixed top-2 sm:top-3.5 left-0 right-0 z-50 mx-auto w-full max-w-[1500px] px-3 sm:px-5 pointer-events-none isolate [transform:translate3d(0,0,0)] [backface-visibility:hidden]">
+        <div className="pointer-events-auto relative">
+          <NeumorphicCard depth="md" radius="lg" className="px-3.5 py-3 sm:px-6 sm:py-3.5 lg:px-8 lg:py-4">
+        <div className="flex items-center justify-between gap-2 sm:gap-4 lg:grid lg:grid-cols-[auto_1fr_auto]">
           {/* SUJON — Clean Bold Text Logo */}
-          <a href="/#home" className="flex min-w-0 items-center group">
-            <span className="sujon-logo text-[28px] sm:text-[34px] font-black tracking-[0.08em] select-none uppercase">
+          <a href="/#home" className="flex min-w-0 shrink items-center group">
+            <span className="sujon-logo text-[22px] min-[380px]:text-[26px] sm:text-[30px] lg:text-[34px] font-black tracking-[0.06em] select-none uppercase truncate">
               Sujon
             </span>
           </a>
 
-          {/* Desktop Navigation: Real Neumorphic Buttons with Funnel Display 16px/20px, 600 weight, rgb(255,96,0) */}
+          {/* Desktop Navigation: Real Neumorphic Buttons with Funnel Display, responsive scaling */}
           <nav className="hidden justify-center lg:flex">
-            <ul className="flex items-center gap-3.5">
+            <ul className="flex items-center gap-1.5 xl:gap-3">
               {NAV.map((item) => {
                 const isActive = active === item.href;
                 return (
@@ -103,7 +131,7 @@ export function Header() {
                       href={item.href}
                       onClick={() => setActive(item.href)}
                       className={cn(
-                        "inline-flex items-center justify-center rounded-[10px] px-[18px] py-[10px] uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold",
+                        "inline-flex items-center justify-center rounded-[10px] px-2.5 py-2 xl:px-4 xl:py-2.5 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold text-[13px] xl:text-[15px]",
                         isActive
                           ? "nm-inset text-brand-deep"
                           : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
@@ -112,8 +140,7 @@ export function Header() {
                         fontFamily: '"Funnel Display", sans-serif',
                         fontStyle: "normal",
                         fontWeight: 600,
-                        fontSize: "16px",
-                        lineHeight: "20px",
+                        lineHeight: "18px",
                         transform: "none",
                       }}
                     >
@@ -126,38 +153,164 @@ export function Header() {
           </nav>
 
           {/* Header Action Controls */}
-          <div className="flex items-center justify-end gap-3">
-            {/* Get a Quote Button Styled like Menu Item but slightly larger in size */}
+          <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 shrink-0">
+            {/* Get a Quote Button - visible from tablet (md: 768px+) */}
             <a
               href="/#contact"
-              className="hidden sm:inline-flex items-center justify-center rounded-[11px] px-[22px] py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold"
+              className="hidden md:inline-flex items-center justify-center rounded-[10px] px-3.5 py-2 lg:px-5 lg:py-2.5 uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold text-[13px] lg:text-[15px]"
               style={{
                 fontFamily: '"Funnel Display", sans-serif',
                 fontStyle: "normal",
                 fontWeight: 700,
-                fontSize: "16px",
-                lineHeight: "20px",
                 color: "rgb(255, 96, 0)",
               }}
             >
               Get a Quote
             </a>
 
-            {/* Theme & Color Mood Trigger */}
-            <div className="relative" ref={paletteRef}>
+            {/* Multi-Language Selector Trigger & Popover */}
+            <div className="relative" ref={langRef}>
+              <button
+                type="button"
+                onClick={() => {
+                  setLangOpen((v) => !v);
+                  if (paletteOpen) setPaletteOpen(false);
+                }}
+                aria-label="Select language"
+                aria-expanded={langOpen}
+                className={cn(
+                  "nm-raised-sm nm-interactive flex h-9 min-[380px]:h-10 items-center justify-center gap-1 sm:gap-1.5 rounded-[9px] sm:rounded-[10px] px-2.5 sm:px-3 text-foreground/85 font-extrabold text-[11px] sm:text-[12px] tracking-wider shrink-0",
+                  langOpen && "nm-inset text-brand-deep",
+                )}
+                title="Change language / ভাষা পরিবর্তন করুন"
+              >
+                <Globe className="h-4 w-4 text-brand-deep shrink-0" />
+                <span className="text-[11px] font-black uppercase">
+                  {currentLang.slice(0, 2).toUpperCase()}
+                </span>
+              </button>
+
+              {/* Multi-Language Neumorphic Popover (100% Centered on Mobile & Scroll-Safe) */}
+              {langOpen && (
+                <>
+                  {/* Backdrop for Mobile */}
+                  <div
+                    onClick={() => setLangOpen(false)}
+                    className="fixed inset-0 z-40 bg-transparent sm:hidden"
+                  />
+
+                  <div className="fixed left-1/2 -translate-x-1/2 top-[68px] sm:top-12 z-50 w-[calc(100vw-24px)] max-w-[340px] max-h-[calc(100vh-80px)] overflow-y-auto rounded-[18px] bg-surface p-3.5 sm:p-4 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-[var(--shadow-nm-hover)] sm:absolute sm:left-auto sm:right-0 sm:translate-x-0 sm:w-80">
+                    {/* Popover Header */}
+                    <div className="flex items-center justify-between border-b border-border pb-2.5">
+                      <div className="flex items-center gap-1.5">
+                        <Globe className="h-4 w-4 text-brand-deep" />
+                        <span className="text-[12px] font-extrabold uppercase tracking-wider text-foreground">
+                          Language / ভাষা
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-extrabold text-brand-deep uppercase">
+                        {ALL_LANGUAGES.find((l) => l.code === currentLang)?.nativeName || "English"}
+                      </span>
+                    </div>
+
+                    {/* Search Input */}
+                    <div className="mt-3 relative">
+                      <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                      <input
+                        type="text"
+                        placeholder="Search language / ভাষা খুঁজুন..."
+                        value={searchLang}
+                        onChange={(e) => setSearchLang(e.target.value)}
+                        className="w-full pl-8 pr-3 py-1.5 rounded-[9px] nm-inset bg-surface text-[12px] text-foreground placeholder:text-muted-foreground focus:outline-hidden"
+                      />
+                    </div>
+
+                    {/* Quick Popular Languages */}
+                    {!searchLang && (
+                      <div className="mt-3">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground mb-1.5 block">
+                          Popular / জনপ্রিয়
+                        </span>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          {POPULAR_LANGUAGES.slice(0, 6).map((lang) => {
+                            const isSelected = currentLang === lang.code;
+                            return (
+                              <button
+                                key={lang.code}
+                                type="button"
+                                onClick={() => selectLanguage(lang.code)}
+                                className={cn(
+                                  "flex items-center gap-1.5 px-2 py-1.5 rounded-[8px] text-[11px] font-bold transition-all text-left",
+                                  isSelected
+                                    ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                                    : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                                )}
+                              >
+                                <span className="text-sm">{lang.flag}</span>
+                                <span className="truncate">{lang.nativeName}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* All 100+ Languages Scrollable List */}
+                    <div className="mt-3">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground mb-1.5 block">
+                        {searchLang ? "Search Results" : "All Languages / সকল ভাষা"}
+                      </span>
+                      <div className="max-h-48 overflow-y-auto pr-1 flex flex-col gap-1 nm-inset rounded-[10px] p-1.5">
+                        {ALL_LANGUAGES.filter(
+                          (l) =>
+                            l.name.toLowerCase().includes(searchLang.toLowerCase()) ||
+                            l.nativeName.toLowerCase().includes(searchLang.toLowerCase()) ||
+                            l.code.toLowerCase().includes(searchLang.toLowerCase()),
+                        ).map((lang) => {
+                          const isSelected = currentLang === lang.code;
+                          return (
+                            <button
+                              key={lang.code}
+                              type="button"
+                              onClick={() => selectLanguage(lang.code)}
+                              className={cn(
+                                "flex items-center justify-between px-2.5 py-1.5 rounded-[7px] text-[12px] font-semibold transition-colors",
+                                isSelected
+                                  ? "bg-brand/15 text-brand-deep font-bold"
+                                  : "hover:bg-muted text-foreground/85",
+                              )}
+                            >
+                              <div className="flex items-center gap-2 truncate">
+                                <span className="text-sm">{lang.flag}</span>
+                                <span className="font-bold">{lang.nativeName}</span>
+                                <span className="text-[10px] text-muted-foreground">({lang.name})</span>
+                              </div>
+                              {isSelected && <Check className="h-3.5 w-3.5 text-brand-deep shrink-0 ml-1" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Theme & Color Mood Trigger - visible on sm: 640px+ (mobile drawer has full color mood) */}
+            <div className="relative hidden sm:block" ref={paletteRef}>
               <button
                 type="button"
                 onClick={() => setPaletteOpen((v) => !v)}
                 aria-label="Theme and color palette"
                 aria-expanded={paletteOpen}
                 className={cn(
-                  "nm-raised-sm nm-interactive flex h-10 items-center gap-1.5 rounded-[10px] px-3 text-foreground/80",
+                  "nm-raised-sm nm-interactive flex h-9 sm:h-10 items-center gap-1.5 rounded-[9px] sm:rounded-[10px] px-2.5 sm:px-3 text-foreground/80 shrink-0",
                   paletteOpen && "nm-inset text-brand-deep",
                 )}
               >
                 <Palette className="h-4 w-4 text-brand-deep" />
                 <span
-                  className="h-3 w-3 rounded-full shrink-0 shadow-xs border border-white/40 dark:border-black/40"
+                  className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full shrink-0 shadow-xs border border-white/40 dark:border-black/40"
                   style={{
                     backgroundColor:
                       COLOR_MOODS.find((c) => c.id === accent)?.hex || "#F5B700",
@@ -165,16 +318,16 @@ export function Header() {
                 />
               </button>
 
-              {/* 5-Color Mood + Light/Dark Neumorphic Popover (100% Perfectly Centered on Mobile) */}
+              {/* 5-Color Mood + Light/Dark Neumorphic Popover */}
               {paletteOpen && (
                 <>
                   {/* Backdrop for Mobile */}
                   <div
                     onClick={() => setPaletteOpen(false)}
-                    className="fixed inset-0 z-40 bg-black/25 backdrop-blur-[1px] sm:hidden"
+                    className="fixed inset-0 z-40 bg-transparent sm:hidden"
                   />
 
-                  <div className="fixed left-1/2 -translate-x-1/2 top-[72px] z-50 w-[min(calc(100vw-32px),300px)] rounded-[18px] bg-surface p-4 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-[var(--shadow-nm-hover)] sm:absolute sm:left-auto sm:right-0 sm:top-12 sm:translate-x-0 sm:w-72">
+                  <div className="fixed left-1/2 -translate-x-1/2 top-[68px] sm:top-12 z-50 w-[calc(100vw-24px)] max-w-[320px] max-h-[calc(100vh-80px)] overflow-y-auto rounded-[18px] bg-surface p-3.5 sm:p-4 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-[var(--shadow-nm-hover)] sm:absolute sm:left-auto sm:right-0 sm:translate-x-0 sm:w-72">
                     {/* Header */}
                     <div className="flex items-center justify-between border-b border-border pb-2.5">
                       <span className="text-[12px] font-extrabold uppercase tracking-wider text-foreground">
@@ -331,7 +484,7 @@ export function Header() {
               type="button"
               onClick={toggleTheme}
               aria-label="Toggle light or dark theme"
-              className="nm-raised-sm nm-interactive grid h-10 w-10 shrink-0 place-items-center rounded-[10px] text-foreground/75"
+              className="nm-raised-sm nm-interactive grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-[9px] sm:rounded-[10px] text-foreground/75"
             >
               {dark ? (
                 <Sun className="h-4 w-4 text-brand-deep" />
@@ -346,7 +499,7 @@ export function Header() {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="nm-raised-sm nm-interactive grid h-10 w-10 shrink-0 place-items-center rounded-[10px] text-foreground/70 lg:hidden"
+              className="nm-raised-sm nm-interactive grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-[9px] sm:rounded-[10px] text-foreground/70 lg:hidden"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -359,13 +512,13 @@ export function Header() {
         <>
           {/* Backdrop to close menu when tapping outside */}
           <div
-            className="fixed inset-0 z-40 bg-black/25 backdrop-blur-[1px] lg:hidden"
+            className="fixed inset-0 z-40 bg-transparent lg:hidden"
             onClick={() => setOpen(false)}
           />
 
-          <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 max-h-[calc(100vh-90px)] overflow-y-auto lg:hidden animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl">
-            <NeumorphicCard depth="lg" radius="lg" className="p-3 border border-white/50 dark:border-white/10">
-              <ul className="nm-inset flex flex-col gap-2.5 rounded-[14px] p-3">
+          <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 max-h-[calc(100vh-85px)] overflow-y-auto lg:hidden animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl pb-4">
+            <NeumorphicCard depth="lg" radius="lg" className="p-2.5 sm:p-3.5 border border-white/50 dark:border-white/10">
+              <ul className="nm-inset flex flex-col gap-2 rounded-[14px] p-2.5 sm:p-3">
               {NAV.map((item) => {
                 const isActive = active === item.href;
                 return (
@@ -398,22 +551,52 @@ export function Header() {
               })}
 
               {/* Mobile Get a Quote button */}
-              <li className="sm:hidden mt-1">
+              <li className="md:hidden mt-0.5">
                 <a
                   href="/#contact"
                   onClick={() => setOpen(false)}
-                  className="nm-raised-sm hover:nm-interactive active:nm-inset block text-center rounded-[11px] px-5 py-3.5 uppercase tracking-wider transition-all duration-200 font-bold"
+                  className="nm-raised-sm hover:nm-interactive active:nm-inset block text-center rounded-[10px] px-5 py-3 uppercase tracking-wider transition-all duration-200 font-bold text-[15px]"
                   style={{
                     fontFamily: '"Funnel Display", sans-serif',
                     fontStyle: "normal",
                     fontWeight: 700,
-                    fontSize: "16px",
-                    lineHeight: "20px",
                     color: "rgb(255, 96, 0)",
                   }}
                 >
                   Get a Quote
                 </a>
+              </li>
+
+              {/* Mobile Multi-Language Selector */}
+              <li className="mt-2 border-t border-border/60 pt-3 px-2">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground/80 flex items-center gap-1.5">
+                    <Globe className="h-3.5 w-3.5 text-brand-deep" />
+                    Language: <span className="text-brand-deep">{ALL_LANGUAGES.find((l) => l.code === currentLang)?.nativeName || "English"}</span>
+                  </span>
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase">{currentLang}</span>
+                </div>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {POPULAR_LANGUAGES.slice(0, 6).map((lang) => {
+                    const isSelected = currentLang === lang.code;
+                    return (
+                      <button
+                        key={lang.code}
+                        type="button"
+                        onClick={() => selectLanguage(lang.code)}
+                        className={cn(
+                          "flex items-center justify-center gap-1 py-1.5 px-1 rounded-[8px] text-[11px] font-bold transition-all truncate",
+                          isSelected
+                            ? "nm-inset text-brand-deep"
+                            : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                        )}
+                      >
+                        <span className="text-xs">{lang.flag}</span>
+                        <span className="truncate text-[10px]">{lang.nativeName}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </li>
 
               {/* Mobile 5-Color Moods & Mode Selector */}
@@ -547,6 +730,8 @@ export function Header() {
           </div>
         </>
       )}
-    </header>
+        </div>
+      </header>
+    </>
   );
 }

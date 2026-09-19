@@ -9,16 +9,13 @@ export function useLenisSmoothScroll() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
-    // Detect touch/mobile device
-    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
-
-    // Initialize Lenis — hardware accelerated smooth scroll
+    // Initialize Lenis — hardware accelerated buttery smooth momentum scrolling
     const lenis = new Lenis({
-      lerp: 0.1,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.0,
+      lerp: 0.09,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.2,
       smoothWheel: true,
-      syncTouch: false, // Let native mobile touch scroll run at 120Hz without stutter/jitter
+      syncTouch: true,
       infinite: false,
     });
 
@@ -30,7 +27,7 @@ export function useLenisSmoothScroll() {
 
     rafId = requestAnimationFrame(raf);
 
-    // Smooth scroll for in-page anchors (#about, #services, #portfolio, #contact, etc.)
+    // Smooth scroll for in-page anchors on both mobile and desktop
     const handleAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("a");
       if (!target) return;
@@ -41,10 +38,9 @@ export function useLenisSmoothScroll() {
         const element = document.getElementById(id);
         if (element) {
           e.preventDefault();
-          // Scroll target with comfortable clearance under the sticky header
           lenis.scrollTo(element, {
-            offset: -86,
-            duration: isTouchDevice ? 0.8 : 1.05,
+            offset: -90,
+            duration: 1.15,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
         }

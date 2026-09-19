@@ -59,9 +59,9 @@ function WhatsAppFloat() {
 
 function Index() {
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[1500px] flex-col gap-6 px-3 pb-10 pt-3 sm:px-5 sm:gap-8">
+    <div className="mx-auto min-h-screen w-full max-w-[1500px] px-3 pb-10 pt-3 sm:px-5">
       <Header />
-      <main className="flex flex-col gap-6 sm:gap-8">
+      <main className="mt-6 flex flex-col gap-6 sm:mt-8 sm:gap-8">
         <Hero />
         <Stats />
         <About />
