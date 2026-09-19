@@ -12,14 +12,13 @@ export function useLenisSmoothScroll() {
     // Detect touch/mobile device
     const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
 
-    // Initialize Lenis — tuned for smooth scroll on both desktop and mobile
+    // Initialize Lenis — hardware accelerated smooth scroll
     const lenis = new Lenis({
-      lerp: isTouchDevice ? 0.08 : 0.1,       // slightly faster on mobile for responsiveness
-      wheelMultiplier: 0.85,
-      touchMultiplier: isTouchDevice ? 1.4 : 1.0,  // stronger touch response on mobile
+      lerp: 0.1,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.0,
       smoothWheel: true,
-      syncTouch: isTouchDevice,                // sync native touch on mobile = no stutter
-      syncTouchLerp: 0.06,                     // smooth interpolation on touch
+      syncTouch: false, // Let native mobile touch scroll run at 120Hz without stutter/jitter
       infinite: false,
     });
 
@@ -42,9 +41,10 @@ export function useLenisSmoothScroll() {
         const element = document.getElementById(id);
         if (element) {
           e.preventDefault();
+          // Scroll target with comfortable clearance under the sticky header
           lenis.scrollTo(element, {
-            offset: -28,
-            duration: isTouchDevice ? 0.9 : 1.15,
+            offset: -86,
+            duration: isTouchDevice ? 0.8 : 1.05,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
         }

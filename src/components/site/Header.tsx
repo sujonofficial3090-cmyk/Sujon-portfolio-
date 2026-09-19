@@ -82,7 +82,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-3.5 z-50" style={{ willChange: "transform", transform: "translateZ(0)", backfaceVisibility: "hidden" }}>
+    <header className="sticky top-3.5 z-50">
       <NeumorphicCard depth="md" radius="lg" className="px-5 py-4 sm:px-8 sm:py-5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
           {/* SUJON — Clean Bold Text Logo */}
@@ -105,7 +105,7 @@ export function Header() {
                       className={cn(
                         "inline-flex items-center justify-center rounded-[10px] px-[18px] py-[10px] uppercase tracking-wider transition-all duration-200",
                         isActive
-                          ? "nm-inset font-bold shadow-[var(--shadow-nm-inset)] scale-[0.98]"
+                          ? "nm-inset font-semibold shadow-[var(--shadow-nm-inset)]"
                           : "nm-raised-sm hover:nm-interactive font-semibold",
                       )}
                       style={{
@@ -352,16 +352,20 @@ export function Header() {
             </button>
           </div>
         </div>
+      </NeumorphicCard>
 
-        {/* Mobile Navigation Dropdown with Real Neumorphic Buttons & Built-in 5-Color Mood Bar */}
-        <div
-          className={cn(
-            "grid overflow-hidden transition-[grid-template-rows,opacity] duration-250 lg:hidden",
-            open ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
-          )}
-        >
-          <div className="min-h-0">
-            <ul className="nm-inset flex flex-col gap-2.5 rounded-[14px] p-3">
+      {/* Mobile Navigation Dropdown Menu - Floating Overlay Card (No page layout shifts / zero shake) */}
+      {open && (
+        <>
+          {/* Backdrop to close menu when tapping outside */}
+          <div
+            className="fixed inset-0 z-40 bg-black/25 backdrop-blur-[1px] lg:hidden"
+            onClick={() => setOpen(false)}
+          />
+
+          <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 max-h-[calc(100vh-90px)] overflow-y-auto lg:hidden animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl">
+            <NeumorphicCard depth="lg" radius="lg" className="p-3 border border-white/50 dark:border-white/10">
+              <ul className="nm-inset flex flex-col gap-2.5 rounded-[14px] p-3">
               {NAV.map((item) => {
                 const isActive = active === item.href;
                 return (
@@ -539,9 +543,10 @@ export function Header() {
                 </div>
               </li>
             </ul>
+            </NeumorphicCard>
           </div>
-        </div>
-      </NeumorphicCard>
+        </>
+      )}
     </header>
   );
 }
