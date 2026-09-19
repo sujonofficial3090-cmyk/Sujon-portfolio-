@@ -624,6 +624,13 @@ html.lenis body {
 
   html {
     font-family: "Poppins", "Funnel Display", sans-serif;
+    /* Smooth touch scrolling on iOS (momentum scroll) */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent font size inflation on mobile orientation change */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Allow vertical pan gesture for scrolling */
+    touch-action: pan-y;
   }
 
   body {
@@ -634,7 +641,10 @@ html.lenis body {
     font-weight: 400;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
+    /* GPU paint layer for body — eliminates scroll jank */
+    transform: translateZ(0);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -688,4 +698,139 @@ img {
   -o-user-drag: none !important;
   user-drag: none !important;
   -webkit-touch-callout: none !important;
+}
+
+/* ==========================================================================
+   MAGIC CURSOR SYSTEM (100% Pointer-Events-Free, Zero Click Block, Zero Stutter)
+   ========================================================================== */
+
+.magic-cursor-container {
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 9999999 !important;
+  overflow: hidden !important;
+}
+
+.magic-cursor-ring {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  border-radius: 9999px !important;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--brand);
+  background-color: transparent;
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  will-change: transform, width, height, background-color, border-color;
+  transition: width 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.18s ease,
+              border-color 0.18s ease,
+              opacity 0.15s ease;
+}
+
+.magic-cursor-ring.is-hover {
+  width: 48px;
+  height: 48px;
+  background-color: color-mix(in srgb, var(--brand) 28%, transparent);
+  border-color: var(--brand);
+}
+
+.magic-cursor-ring.is-down {
+  width: 18px;
+  height: 18px;
+}
+
+.magic-cursor-dot {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  border-radius: 9999px !important;
+  width: 5px;
+  height: 5px;
+  background-color: var(--foreground);
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  will-change: transform, opacity;
+  transition: opacity 0.15s ease;
+}
+
+.magic-cursor-dot.is-hover {
+  opacity: 0 !important;
+}
+
+/* ==========================================================================
+   STICKY HEADER — GPU COMPOSITED (eliminates mobile scroll shake/jitter)
+   ========================================================================== */
+header[class*="sticky"] {
+  /* Force GPU layer — prevents layout recalc on scroll = zero shake */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Snap header precisely to sub-pixel grid */
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Smooth section transitions — all content flows smoothly */
+section {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* ==========================================================================
+   HIDE SCROLLBAR (Full page scrolling enabled, scrollbar hidden)
+   ========================================================================== */
+html,
+body {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* ==========================================================================
+   SUJON — Clean Bold Text Logo
+   ========================================================================== */
+.sujon-logo {
+  font-family: "Funnel Display", sans-serif;
+  font-weight: 900;
+  background: linear-gradient(
+    135deg,
+    var(--brand-deep) 0%,
+    var(--brand) 50%,
+    var(--brand-deep) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: sujonShimmer 4s ease-in-out infinite alternate;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: drop-shadow(0 1px 4px color-mix(in srgb, var(--brand) 40%, transparent));
+}
+
+.sujon-logo:hover,
+a:hover .sujon-logo {
+  transform: scale(1.04);
+  filter: drop-shadow(0 2px 10px color-mix(in srgb, var(--brand) 60%, transparent));
+}
+
+/* Gentle gradient shimmer */
+@keyframes sujonShimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }

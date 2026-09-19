@@ -25,6 +25,7 @@ export function Header() {
   const [active, setActive] = useState("/#home");
   const [dark, setDark] = useState(false);
   const [accent, setAccent] = useState("gold");
+  const [cursorMode, setCursorMode] = useState<"circle" | "spark" | "default">("default");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const paletteRef = useRef<HTMLDivElement>(null);
 
@@ -39,6 +40,11 @@ export function Header() {
     setAccent(currentAccent);
     document.documentElement.setAttribute("data-accent", currentAccent);
 
+    const currentCursor =
+      (localStorage.getItem("magicCursor") as "circle" | "spark" | "default") || "default";
+    setCursorMode(currentCursor);
+    document.documentElement.setAttribute("data-cursor", currentCursor);
+
     function handleClickOutside(e: MouseEvent) {
       if (paletteRef.current && !paletteRef.current.contains(e.target as Node)) {
         setPaletteOpen(false);
@@ -47,6 +53,13 @@ export function Header() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const selectCursor = (mode: "circle" | "spark" | "default") => {
+    setCursorMode(mode);
+    localStorage.setItem("magicCursor", mode);
+    document.documentElement.setAttribute("data-cursor", mode);
+    window.dispatchEvent(new Event("magicCursorChange"));
+  };
 
   // Instant mood selection without transition delay
   const selectAccent = (colorId: string) => {
@@ -69,50 +82,13 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-3.5 z-50">
+    <header className="sticky top-3.5 z-50" style={{ willChange: "transform", transform: "translateZ(0)", backfaceVisibility: "hidden" }}>
       <NeumorphicCard depth="md" radius="lg" className="px-5 py-4 sm:px-8 sm:py-5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
-          {/* Typographic Logo — Sujon with SVG-Style Stroke Drawing Reveal */}
-          <a href="/#home" className="flex min-w-0 items-center">
-            <span
-              className="sujon-logo-reveal inline-flex items-baseline text-[24px] sm:text-[28px] font-extrabold tracking-[0.04em] select-none"
-              style={{ fontFamily: '"Funnel Display", sans-serif' }}
-            >
-              {/* Animated S with continuous stroke-draw */}
-              <span className="sujon-s-wrapper relative inline-flex items-center justify-center">
-                <svg
-                  viewBox="0 0 20 28"
-                  fill="none"
-                  className="sujon-s-stroke-svg absolute -inset-x-0.5 inset-y-0 w-[110%] h-full pointer-events-none"
-                  aria-hidden="true"
-                >
-                  <defs>
-                    <linearGradient id="sujonLogoStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="var(--brand-deep, #EA580C)" />
-                      <stop offset="50%" stopColor="var(--brand, #F59E0B)" />
-                      <stop offset="100%" stopColor="var(--brand-deep, #EA580C)" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M 16.5 6 C 15 3 11 2 8.5 2 C 4.5 2 2 5 2 8.5 C 2 12 5.5 13.5 10 15 C 14.5 16.5 18 18.5 18 22 C 18 25.5 14.5 27.5 9.5 27.5 C 5 27.5 2 25.5 1 23"
-                    fill="none"
-                    stroke="url(#sujonLogoStrokeGrad)"
-                    strokeWidth="3.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    pathLength="100"
-                    className="sujon-s-path"
-                  />
-                </svg>
-                <span className="sujon-s-fill text-brand-gradient inline-block">
-                  S
-                </span>
-              </span>
-
-              {/* Animated ujon that unveils left-to-right */}
-              <span className="sujon-ujon-text text-brand-gradient inline-block">
-                ujon
-              </span>
+          {/* SUJON — Clean Bold Text Logo */}
+          <a href="/#home" className="flex min-w-0 items-center group">
+            <span className="sujon-logo text-[28px] sm:text-[34px] font-black tracking-[0.08em] select-none uppercase">
+              Sujon
             </span>
           </a>
 
@@ -265,6 +241,86 @@ export function Header() {
                         </button>
                       </div>
                     </div>
+
+                    {/* Magic Cursor Selection (Circle Dot, Magic Spark Arrow, System Default) */}
+                    <div className="mt-4 border-t border-border pt-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground">
+                          Magic Cursor
+                        </span>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-brand-deep">
+                          {cursorMode === "circle" ? "Circle Dot" : cursorMode === "spark" ? "Magic Spark" : "Default"}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2">
+                        {/* Circle Dot Option (Matching user's image icon ⊙) */}
+                        <button
+                          type="button"
+                          onClick={() => selectCursor("circle")}
+                          title="Circle Dot Cursor"
+                          aria-label="Circle Dot Cursor"
+                          className={cn(
+                            "flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-[10px] text-[11px] font-bold transition-all duration-200",
+                            cursorMode === "circle"
+                              ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                              : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                          )}
+                        >
+                          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="12" cy="12" r="8.5" />
+                            <circle cx="12" cy="12" r="2.2" fill="currentColor" />
+                          </svg>
+                          <span className="text-[10px]">Circle</span>
+                        </button>
+
+                        {/* Magic Spark Arrow Option (Matching user's image icon ↖✨) */}
+                        <button
+                          type="button"
+                          onClick={() => selectCursor("spark")}
+                          title="Magic Spark Arrow Cursor"
+                          aria-label="Magic Spark Arrow Cursor"
+                          className={cn(
+                            "flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-[10px] text-[11px] font-bold transition-all duration-200",
+                            cursorMode === "spark"
+                              ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                              : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                          )}
+                        >
+                          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                            <path
+                              d="M5 3L11.5 19.5L14.2 13.8L20 11.2L5 3Z"
+                              fill="currentColor"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinejoin="round"
+                            />
+                            <path d="M17 3V6M17 3H14M17 3H20M17 3V0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            <circle cx="21" cy="7" r="1" fill="currentColor" />
+                          </svg>
+                          <span className="text-[10px]">Spark</span>
+                        </button>
+
+                        {/* System Default Option */}
+                        <button
+                          type="button"
+                          onClick={() => selectCursor("default")}
+                          title="Default System Cursor"
+                          aria-label="Default System Cursor"
+                          className={cn(
+                            "flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-[10px] text-[11px] font-bold transition-all duration-200",
+                            cursorMode === "default"
+                              ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                              : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                          )}
+                        >
+                          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
+                          </svg>
+                          <span className="text-[10px]">Default</span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </>
               )}
@@ -408,6 +464,78 @@ export function Header() {
                       </button>
                     );
                   })}
+                </div>
+                <div className="mt-3 border-t border-border/60 pt-2.5">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground/80">
+                      Magic Cursor
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-brand-deep">
+                      {cursorMode === "circle" ? "Circle Dot" : cursorMode === "spark" ? "Magic Spark" : "Default"}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    {/* Circle Dot Option */}
+                    <button
+                      type="button"
+                      onClick={() => selectCursor("circle")}
+                      className={cn(
+                        "flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-[10px] text-[11px] font-bold transition-all duration-200",
+                        cursorMode === "circle"
+                          ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                          : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                      )}
+                    >
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="8.5" />
+                        <circle cx="12" cy="12" r="2.2" fill="currentColor" />
+                      </svg>
+                      <span className="text-[10px]">Circle</span>
+                    </button>
+
+                    {/* Magic Spark Arrow Option */}
+                    <button
+                      type="button"
+                      onClick={() => selectCursor("spark")}
+                      className={cn(
+                        "flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-[10px] text-[11px] font-bold transition-all duration-200",
+                        cursorMode === "spark"
+                          ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                          : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                      )}
+                    >
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                        <path
+                          d="M5 3L11.5 19.5L14.2 13.8L20 11.2L5 3Z"
+                          fill="currentColor"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinejoin="round"
+                        />
+                        <path d="M17 3V6M17 3H14M17 3H20M17 3V0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        <circle cx="21" cy="7" r="1" fill="currentColor" />
+                      </svg>
+                      <span className="text-[10px]">Spark</span>
+                    </button>
+
+                    {/* System Default Option */}
+                    <button
+                      type="button"
+                      onClick={() => selectCursor("default")}
+                      className={cn(
+                        "flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-[10px] text-[11px] font-bold transition-all duration-200",
+                        cursorMode === "default"
+                          ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                          : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                      )}
+                    >
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
+                      </svg>
+                      <span className="text-[10px]">Default</span>
+                    </button>
+                  </div>
                 </div>
               </li>
             </ul>

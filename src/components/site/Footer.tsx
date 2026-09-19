@@ -37,10 +37,7 @@ export function Footer() {
             {/* Pure SUJON typographic wordmark */}
             <div>
               <a href="/#home">
-                <span
-                  className="text-brand-gradient text-[28px] font-extrabold tracking-[0.04em] pb-1 leading-normal inline-block"
-                  style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                >
+                <span className="sujon-logo text-[26px] font-black tracking-[0.08em] select-none uppercase">
                   Sujon
                 </span>
               </a>
@@ -145,7 +142,7 @@ export function Footer() {
 
         <div className="mt-6 grid grid-cols-1 items-center gap-4 border-t border-border pt-6 sm:grid-cols-2">
           <p className="text-[13px] font-medium text-muted-foreground text-center sm:text-left">
-            © 2026 <span className="text-brand-deep font-bold">Sujon</span>. All Rights Reserved.
+            © 2026 <span className="sujon-logo text-[13px] font-black tracking-[0.06em]">Sujon</span>. All Rights Reserved.
           </p>
           <ul className="flex justify-center shrink-0 items-center gap-3.5 sm:justify-end">
             {SOCIALS.map((soc, i) => (

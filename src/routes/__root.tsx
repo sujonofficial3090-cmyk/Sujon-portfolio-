@@ -18,6 +18,7 @@ import { useScrollReveal } from "../lib/useScrollReveal";
 import { useLenisSmoothScroll } from "../lib/useLenisSmoothScroll";
 import { useContentProtection } from "../lib/useContentProtection";
 import { ClickDotEffect } from "../components/ui/ClickDotEffect";
+import { MagicCursorEffect } from "../components/ui/MagicCursorEffect";
 
 function NotFoundComponent() {
   return (
@@ -151,6 +152,7 @@ function RootComponent() {
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         <ClickDotEffect />
+        <MagicCursorEffect />
         <Toaster position="bottom-right" richColors />
       </QueryClientProvider>
     </AuthProvider>
