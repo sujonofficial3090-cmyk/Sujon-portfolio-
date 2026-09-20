@@ -19,6 +19,7 @@ import { useLenisSmoothScroll } from "../lib/useLenisSmoothScroll";
 import { useContentProtection } from "../lib/useContentProtection";
 import { ClickDotEffect } from "../components/ui/ClickDotEffect";
 import { MagicCursorEffect } from "../components/ui/MagicCursorEffect";
+import { SitePreloader } from "../components/ui/SitePreloader";
 import { initAccentColor } from "../lib/accentColors";
 
 function NotFoundComponent() {
@@ -189,6 +190,7 @@ function RootComponent() {
           aria-hidden="true"
         />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <SitePreloader />
         <Outlet />
         <ClickDotEffect />
         <MagicCursorEffect />
