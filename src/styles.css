@@ -162,6 +162,20 @@ html[data-accent="teal"] {
   --ring: #0D9488;
 }
 
+/* Color 6: Mint (#00FD90) */
+[data-accent="mint"],
+html[data-accent="mint"] {
+  --brand: #00D679;
+  --brand-deep: #00A85F;
+  --brand-light: #D4FEE9;
+  --brand-rgb: 0, 214, 121;
+  --primary: #00D679;
+  --primary-foreground: rgb(16, 16, 16);
+  --accent: #00D679;
+  --accent-foreground: rgb(16, 16, 16);
+  --ring: #00FD90;
+}
+
 /* ==========================================================================
    DARK MODE SURFACES & ACCENTS
    ========================================================================== */
@@ -263,6 +277,19 @@ html.dark[data-accent="teal"],
   --accent: #2DD4BF;
   --accent-foreground: oklch(0.22 0.01 285);
   --ring: #2DD4BF;
+}
+
+html.dark[data-accent="mint"],
+.dark[data-accent="mint"] {
+  --brand: #00FD90;
+  --brand-deep: #00D679;
+  --brand-light: rgba(0, 253, 144, 0.15);
+  --brand-rgb: 0, 253, 144;
+  --primary: #00FD90;
+  --primary-foreground: rgb(16, 16, 16);
+  --accent: #00FD90;
+  --accent-foreground: rgb(16, 16, 16);
+  --ring: #00FD90;
 }
 
 /* ==========================================================================

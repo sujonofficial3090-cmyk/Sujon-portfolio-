@@ -19,6 +19,7 @@ import { useLenisSmoothScroll } from "../lib/useLenisSmoothScroll";
 import { useContentProtection } from "../lib/useContentProtection";
 import { ClickDotEffect } from "../components/ui/ClickDotEffect";
 import { MagicCursorEffect } from "../components/ui/MagicCursorEffect";
+import { initAccentColor } from "../lib/accentColors";
 
 function NotFoundComponent() {
   return (
@@ -141,9 +142,8 @@ function RootComponent() {
       document.documentElement.classList.remove("dark");
     }
 
-    // Color mood accent: default Gold
-    const storedAccent = localStorage.getItem("accentColor") || "gold";
-    document.documentElement.setAttribute("data-accent", storedAccent);
+    // Color mood accent: presets or custom color picker
+    initAccentColor();
 
     // Initialize Google Translate Element Headless Engine
     if (typeof window !== "undefined") {

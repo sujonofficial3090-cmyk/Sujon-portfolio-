@@ -68,6 +68,9 @@ export function ClickDotEffect() {
         case "teal":
           palette = ["#F0FDFA", "#99F6E4", "#2DD4BF", "#0D9488", "#0F766E"];
           break;
+        case "mint":
+          palette = ["#D1FEE8", "#6EE7B7", "#00FD90", "#00D679", "#00A85F"];
+          break;
         case "gold":
         default:
           palette = ["#FEF3C7", "#FDE68A", "#F59E0B", "#D97706", "#B45309"];

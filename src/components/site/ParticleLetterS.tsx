@@ -90,6 +90,12 @@ export function ParticleLetterS() {
             mid: "#0D9488",
             deep: "#0F766E",
           };
+        case "mint":
+          return {
+            light: "#6EE7B7",
+            mid: "#00FD90",
+            deep: "#00A85F",
+          };
         case "gold":
         default:
           return {
