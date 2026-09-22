@@ -9,13 +9,20 @@ export function useLenisSmoothScroll() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
-    // Initialize Lenis — hardware accelerated buttery smooth momentum scrolling
+    const isTouchDevice =
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia("(pointer: coarse)").matches);
+
+    // Initialize Lenis — hardware accelerated buttery smooth momentum scrolling for desktop,
+    // while keeping mobile touch scrolling 100% native, instant and lag-free.
     const lenis = new Lenis({
-      lerp: 0.09,
+      lerp: 0.1,
       wheelMultiplier: 0.95,
-      touchMultiplier: 1.2,
+      touchMultiplier: 1.0,
       smoothWheel: true,
-      syncTouch: true,
+      syncTouch: false,
       infinite: false,
     });
 

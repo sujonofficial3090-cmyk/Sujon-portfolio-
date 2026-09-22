@@ -67,6 +67,18 @@ interface RippleRing {
 
 export function MagicCursorEffect() {
   const [mode, setMode] = useState<CursorMode>("circle");
+  const [isTouch, setIsTouch] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isTouchDevice =
+        window.matchMedia("(pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        window.innerWidth < 768;
+      setIsTouch(isTouchDevice);
+      if (isTouchDevice) return;
+    }
+  }, []);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const domContainerRef = useRef<HTMLDivElement>(null);
@@ -74,6 +86,7 @@ export function MagicCursorEffect() {
 
   // Sync cursor mode from Header & LocalStorage
   useEffect(() => {
+    if (isTouch) return;
     const validModes: CursorMode[] = [
       "circle",
       "spark",
@@ -684,7 +697,9 @@ export function MagicCursorEffect() {
       window.removeEventListener("mousedown", handleMouseDown);
       if (animId) cancelAnimationFrame(animId);
     };
-  }, [mode]);
+  }, [mode, isTouch]);
+
+  if (isTouch) return null;
 
   if (mode === "default") {
     return null;

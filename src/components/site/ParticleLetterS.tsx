@@ -212,8 +212,10 @@ export function ParticleLetterS() {
       particles = [];
       buckets = [[], [], []];
 
-      // High-performance stardust step (~6,000 crisp micro-particles for silky 120 FPS)
-      const step = 1.85;
+      // Adaptive stardust step: lightweight for mobile (~1,200 particles) for silky 60/120 FPS,
+      // dense on desktop (~6,000 particles).
+      const isMobile = width < 768;
+      const step = isMobile ? 3.4 : 1.85;
       const palette = getThemePalette();
       const paletteArr = [palette.light, palette.mid, palette.deep];
 
@@ -222,8 +224,8 @@ export function ParticleLetterS() {
 
       for (let y = minY; y <= maxY; y += step) {
         for (let x = minX; x <= maxX; x += step) {
-          const jitterX = (Math.random() - 0.5) * 0.55;
-          const jitterY = (Math.random() - 0.5) * 0.55;
+          const jitterX = (Math.random() - 0.5) * (isMobile ? 0.8 : 0.55);
+          const jitterY = (Math.random() - 0.5) * (isMobile ? 0.8 : 0.55);
           const sampleX = Math.round(x + jitterX);
           const sampleY = Math.round(y + jitterY);
 
@@ -249,8 +251,10 @@ export function ParticleLetterS() {
                 bucket = 2;
               }
 
-              // Crisp stardust micro-dots: 1.5px to 2.1px
-              const size = 1.55 + Math.random() * 0.55;
+              // Crisp stardust micro-dots: slightly larger on mobile for solid visual presence with 75% fewer dots
+              const size = isMobile
+                ? 2.2 + Math.random() * 0.7
+                : 1.55 + Math.random() * 0.55;
 
               // Start in a circular ring outside the letter S ("gol hoye")
               const maxDim = Math.max(width, height);

@@ -196,13 +196,19 @@ export function ClickDotEffect() {
     };
 
     const handlePointerDown = (e: MouseEvent | TouchEvent) => {
+      // Don't spawn heavy canvas particle bursts on mobile touch/scroll
+      if (
+        ("touches" in e) ||
+        (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) ||
+        window.innerWidth < 768
+      ) {
+        return;
+      }
+
       let clientX = 0;
       let clientY = 0;
 
-      if ("touches" in e && e.touches.length > 0) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-      } else if ("clientX" in e) {
+      if ("clientX" in e) {
         clientX = (e as MouseEvent).clientX;
         clientY = (e as MouseEvent).clientY;
       } else {

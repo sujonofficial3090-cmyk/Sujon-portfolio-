@@ -123,9 +123,9 @@ function BlogDetail() {
         <div>
           <a
             href="/#blog"
-            className="nm-raised-sm hover:nm-inset inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-[0.08em] text-muted-foreground transition-all duration-300 hover:text-brand-deep"
+            className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center gap-2 rounded-[10px] px-5 py-3 text-[12px] font-extrabold uppercase tracking-[0.1em] transition-all duration-300 active:nm-inset"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back To Blog
+            <ArrowLeft className="h-4 w-4" /> Back To Blog
           </a>
         </div>
 
