@@ -1,18 +1,21 @@
 import { NeumorphicCard } from "@/components/nm";
-
-const STATS = [
-  { value: "5+", label: "Years Experience" },
-  { value: "200+", label: "Completed Projects" },
-  { value: "150+", label: "Happy Clients" },
-  { value: "99%", label: "Client Satisfaction" },
-];
+import { useTranslation } from "@/lib/i18n";
 
 export function Stats() {
+  const { t } = useTranslation();
+
+  const stats = [
+    { value: t("stat_exp_val"), label: t("stat_exp_lbl") },
+    { value: t("stat_proj_val"), label: t("stat_proj_lbl") },
+    { value: t("stat_clients_val"), label: t("stat_clients_lbl") },
+    { value: t("stat_satisfaction_val"), label: t("stat_satisfaction_lbl") },
+  ];
+
   return (
     <section aria-label="Company statistics" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-7 reveal-on-scroll">
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-          {STATS.map((s, idx) => (
+          {stats.map((s, idx) => (
             <div
               key={s.value}
               className={`nm-inset flex min-h-[140px] sm:min-h-[160px] flex-col items-center justify-center rounded-[18px] sm:rounded-[20px] p-5 sm:p-7 text-center transition-transform duration-300 hover:scale-[1.02] reveal-on-scroll stagger-${idx + 1}`}

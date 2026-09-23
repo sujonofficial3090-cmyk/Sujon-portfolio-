@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
+import { useTranslation } from "@/lib/i18n";
 
 const REVIEWS = [
   {
@@ -47,15 +48,17 @@ const REVIEWS = [
 ];
 
 export function Testimonials() {
+  const { t } = useTranslation();
+
   return (
     <section id="reviews" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
         <div className="mb-8 text-center reveal-on-scroll">
           <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
-            What Our Clients Say
+            {t("reviews_heading")}
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
-            Trusted feedback from businesses and partners worldwide.
+            {t("reviews_subtitle")}
           </p>
         </div>
 

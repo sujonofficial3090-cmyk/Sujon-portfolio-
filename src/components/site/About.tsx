@@ -1,5 +1,6 @@
 import { NeumorphicCard } from "@/components/nm";
 import { ParticleLetterS } from "@/components/site/ParticleLetterS";
+import { useTranslation } from "@/lib/i18n";
 
 const SKILLS = [
   "WordPress Development",
@@ -13,26 +14,24 @@ const SKILLS = [
 ];
 
 export function About() {
+  const { t } = useTranslation();
+
   return (
     <section id="about" className="scroll-mt-28">
       <div className="grid gap-6 lg:grid-cols-[1.25fr_1fr]">
         <NeumorphicCard depth="md" radius="lg" className="px-6 py-8 sm:px-10 sm:py-10 reveal-on-scroll stagger-1">
           <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
-            Who am I?
+            {t("about_heading")}
           </h2>
 
           <div className="mt-5 space-y-4 text-[15px] sm:text-[16px] font-medium leading-[1.75] text-foreground/85 dark:text-foreground/85">
-            <p>
-              I'm <span className="text-brand-deep font-extrabold">Sujon</span>, a passionate WordPress Developer focused on building beautiful, responsive and high-performing websites. I work with WordPress, Elementor, WooCommerce and custom website development to create professional digital experiences for businesses and clients worldwide.
-            </p>
-            <p>
-              Over the years, I've helped numerous clients establish a stronger digital presence through robust, scalable, and conversion-focused digital experiences that accelerate business growth and create lasting online impact.
-            </p>
+            <p>{t("about_p1")}</p>
+            <p>{t("about_p2")}</p>
           </div>
 
           <div className="mt-8 border-t border-border pt-6">
             <h3 className="text-[14px] sm:text-[15px] font-extrabold text-foreground mb-4 uppercase tracking-wider">
-              Skills Highlight
+              {t("about_skills_title")}
             </h3>
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {SKILLS.map((skill) => (

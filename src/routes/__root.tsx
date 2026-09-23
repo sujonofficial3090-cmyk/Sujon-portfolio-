@@ -21,6 +21,7 @@ import { ClickDotEffect } from "../components/ui/ClickDotEffect";
 import { MagicCursorEffect } from "../components/ui/MagicCursorEffect";
 import { SitePreloader } from "../components/ui/SitePreloader";
 import { initAccentColor } from "../lib/accentColors";
+import { LanguageProvider } from "../lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -145,57 +146,20 @@ function RootComponent() {
 
     // Color mood accent: presets or custom color picker
     initAccentColor();
-
-    // Initialize Google Translate Element Headless Engine
-    if (typeof window !== "undefined") {
-      (window as unknown as { googleTranslateElementInit?: () => void }).googleTranslateElementInit = () => {
-        const googleObj = (window as unknown as { google?: { translate?: { TranslateElement: new (opts: object, el: string) => void } } }).google;
-        if (googleObj?.translate?.TranslateElement) {
-          new googleObj.translate.TranslateElement(
-            {
-              pageLanguage: "en",
-              autoDisplay: false,
-            },
-            "google_translate_element"
-          );
-        }
-      };
-
-      if (!document.getElementById("google-translate-script")) {
-        const script = document.createElement("script");
-        script.id = "google-translate-script";
-        script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-        script.async = true;
-        document.body.appendChild(script);
-      }
-    }
   }, []);
 
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        {/* Headless Google Translate Mount */}
-        <div
-          id="google_translate_element"
-          style={{
-            position: "fixed",
-            top: "-9999px",
-            left: "-9999px",
-            width: "1px",
-            height: "1px",
-            opacity: 0,
-            pointerEvents: "none",
-            overflow: "hidden",
-          }}
-          aria-hidden="true"
-        />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <SitePreloader />
-        <Outlet />
-        <ClickDotEffect />
-        <MagicCursorEffect />
-        <Toaster position="bottom-right" richColors />
-      </QueryClientProvider>
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <SitePreloader />
+          <Outlet />
+          <ClickDotEffect />
+          <MagicCursorEffect />
+          <Toaster position="bottom-right" richColors />
+        </QueryClientProvider>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }

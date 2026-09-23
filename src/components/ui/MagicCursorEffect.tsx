@@ -14,6 +14,21 @@ export type CursorMode =
   | "galaxy"
   | "default";
 
+const VALID_MODES: CursorMode[] = [
+  "circle",
+  "spark",
+  "glow-dot",
+  "trail",
+  "crosshair",
+  "bubble",
+  "orbit",
+  "fire",
+  "matrix",
+  "ripple",
+  "galaxy",
+  "default",
+];
+
 interface SparkParticle {
   x: number;
   y: number;
@@ -67,57 +82,44 @@ interface RippleRing {
 
 export function MagicCursorEffect() {
   const [mode, setMode] = useState<CursorMode>("circle");
-  const [isTouch, setIsTouch] = useState(true);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isTouchDevice =
-        window.matchMedia("(pointer: coarse)").matches ||
-        "ontouchstart" in window ||
-        window.innerWidth < 768;
-      setIsTouch(isTouchDevice);
-      if (isTouchDevice) return;
-    }
-  }, []);
+  const [mounted, setMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const domContainerRef = useRef<HTMLDivElement>(null);
   const domCursorRef = useRef<HTMLDivElement>(null);
+  const domDotRef = useRef<HTMLDivElement>(null);
 
-  // Sync cursor mode from Header & LocalStorage
+  // Synchronize cursor mode from Header & LocalStorage
   useEffect(() => {
-    if (isTouch) return;
-    const validModes: CursorMode[] = [
-      "circle",
-      "spark",
-      "glow-dot",
-      "trail",
-      "crosshair",
-      "bubble",
-      "orbit",
-      "fire",
-      "matrix",
-      "ripple",
-      "galaxy",
-      "default",
-    ];
+    setMounted(true);
 
     const getInitialMode = (): CursorMode => {
-      const saved = localStorage.getItem("magicCursor") as CursorMode;
-      if (validModes.includes(saved)) {
-        return saved;
+      try {
+        const saved = localStorage.getItem("magicCursor") as CursorMode;
+        if (saved && VALID_MODES.includes(saved)) {
+          return saved;
+        }
+      } catch {
+        // fallback
       }
       return "circle";
     };
 
-    const initialMode = getInitialMode();
-    setMode(initialMode);
-    document.documentElement.setAttribute("data-cursor", initialMode);
+    const initial = getInitialMode();
+    setMode(initial);
+    document.documentElement.setAttribute("data-cursor", initial);
 
-    const handleCursorChange = () => {
-      const current = (localStorage.getItem("magicCursor") as CursorMode) || "circle";
-      setMode(current);
-      document.documentElement.setAttribute("data-cursor", current);
+    const handleCursorChange = (e?: Event) => {
+      const customDetail = (e as CustomEvent)?.detail;
+      let targetMode: CursorMode = "circle";
+      if (typeof customDetail === "string" && VALID_MODES.includes(customDetail as CursorMode)) {
+        targetMode = customDetail as CursorMode;
+      } else {
+        targetMode = getInitialMode();
+      }
+      setMode(targetMode);
+      document.documentElement.setAttribute("data-cursor", targetMode);
     };
 
     window.addEventListener("magicCursorChange", handleCursorChange);
@@ -131,27 +133,61 @@ export function MagicCursorEffect() {
 
   // Helper to dynamically read theme colors from CSS variables
   const getThemePalette = (): string[] => {
-    if (typeof window === "undefined") return ["#F5B700", "#FDE68A"];
+    if (typeof window === "undefined") return ["#FDE68A", "#F5B700", "#D97706", "#FFFFFF"];
     const root = document.documentElement;
     const computed = getComputedStyle(root);
     const brand = computed.getPropertyValue("--brand").trim() || "#F5B700";
     const brandLight = computed.getPropertyValue("--brand-light").trim() || "#FEF3C7";
-    const brandDeep = computed.getPropertyValue("--brand-deep").trim() || "#D99B00";
+    const brandDeep = computed.getPropertyValue("--brand-deep").trim() || "#D97706";
     return [brandLight, brand, brandDeep, "#FFFFFF"];
   };
 
+  // Visibility manager: show when mouse moves, hide on touch / when mouse leaves window
+  useEffect(() => {
+    if (!mounted) return;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (e.pointerType === "touch") {
+        setIsVisible(false);
+        return;
+      }
+      setIsVisible(true);
+    };
+
+    const handleMouseMove = () => {
+      setIsVisible(true);
+    };
+
+    const handleTouchStart = () => {
+      setIsVisible(false);
+    };
+
+    const handleMouseLeave = () => {
+      setIsVisible(false);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [mounted]);
+
   // 1. DOM Based Follower Physics (circle, glow-dot, crosshair, bubble)
   useEffect(() => {
+    if (!mounted) return;
     if (
       mode !== "circle" &&
       mode !== "glow-dot" &&
       mode !== "crosshair" &&
       mode !== "bubble"
     ) {
-      return;
-    }
-
-    if (typeof window === "undefined" || window.matchMedia("(pointer: coarse)").matches) {
       return;
     }
 
@@ -163,24 +199,26 @@ export function MagicCursorEffect() {
     let prevY = -100;
     let animId: number | null = null;
     let isHovering = false;
-    let isVisible = false;
 
     const el = domCursorRef.current;
+    const dot = domDotRef.current;
     const container = domContainerRef.current;
 
     const renderLoop = () => {
       if (mouseX > -50 && mouseY > -50) {
-        // Lerp factor
-        const lerpFactor = mode === "crosshair" ? 0.35 : mode === "glow-dot" ? 0.3 : 0.22;
+        const lerpFactor = mode === "crosshair" ? 0.35 : mode === "glow-dot" ? 0.28 : 0.2;
         currX += (mouseX - currX) * lerpFactor;
         currY += (mouseY - currY) * lerpFactor;
 
+        if (dot) {
+          dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+        }
+
         if (el) {
           if (mode === "bubble") {
-            // Velocity squash & stretch
             const vx = currX - prevX;
             const vy = currY - prevY;
-            const speed = Math.min(Math.sqrt(vx * vx + vy * vy), 25);
+            const speed = Math.min(Math.hypot(vx, vy), 25);
             const angle = Math.atan2(vy, vx);
             const stretch = 1 + speed * 0.018;
             const squash = 1 / stretch;
@@ -199,11 +237,6 @@ export function MagicCursorEffect() {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
-      if (!isVisible) {
-        isVisible = true;
-        if (container) container.style.opacity = "1";
-      }
-
       if (currX === -100) {
         currX = mouseX;
         currY = mouseY;
@@ -212,16 +245,14 @@ export function MagicCursorEffect() {
       }
 
       const target = e.target as HTMLElement | null;
-      const interactive = !!(
-        target &&
-        target.closest(
-          'a, button, [role="button"], input, select, textarea, .nm-interactive, .sujon-logo-reveal, [data-interactive], [tabindex="0"]'
-        )
+      const interactive = !!target?.closest(
+        'a, button, [role="button"], input, select, textarea, .nm-interactive, .sujon-logo-reveal, [data-interactive], [tabindex="0"], label, summary'
       );
 
       if (interactive !== isHovering) {
         isHovering = interactive;
         if (el) el.classList.toggle("is-hover", isHovering);
+        if (dot) dot.classList.toggle("is-hover", isHovering);
       }
     };
 
@@ -234,8 +265,6 @@ export function MagicCursorEffect() {
     };
 
     const handleMouseLeave = () => {
-      isVisible = false;
-      if (container) container.style.opacity = "0";
       mouseX = -100;
       mouseY = -100;
     };
@@ -253,11 +282,15 @@ export function MagicCursorEffect() {
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      if (container) {
+        container.style.opacity = "0";
+      }
     };
-  }, [mode]);
+  }, [mode, mounted]);
 
   // 2. Canvas Based Physics (spark, trail, orbit, fire, matrix, ripple, galaxy)
   useEffect(() => {
+    if (!mounted) return;
     if (
       mode !== "spark" &&
       mode !== "trail" &&
@@ -267,10 +300,6 @@ export function MagicCursorEffect() {
       mode !== "ripple" &&
       mode !== "galaxy"
     ) {
-      return;
-    }
-
-    if (typeof window === "undefined" || window.matchMedia("(pointer: coarse)").matches) {
       return;
     }
 
@@ -306,6 +335,25 @@ export function MagicCursorEffect() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas, { passive: true });
 
+    const spawnSparkBurst = (x: number, y: number, count = 12) => {
+      const palette = getThemePalette();
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+        const speed = 1.2 + Math.random() * 2.4;
+        sparks.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: 2.2 + Math.random() * 2.4,
+          color: palette[Math.floor(Math.random() * palette.length)],
+          alpha: 1,
+          life: 0,
+          maxLife: 26 + Math.random() * 12,
+        });
+      }
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -317,7 +365,7 @@ export function MagicCursorEffect() {
         const count = Math.random() > 0.35 ? 2 : 1;
         for (let i = 0; i < count; i++) {
           const angle = Math.random() * Math.PI * 2;
-          const speed = 0.3 + Math.random() * 1.2;
+          const speed = 0.4 + Math.random() * 1.4;
           sparks.push({
             x: e.clientX + (Math.random() - 0.5) * 6,
             y: e.clientY + (Math.random() - 0.5) * 6,
@@ -332,7 +380,7 @@ export function MagicCursorEffect() {
         }
       } else if (mode === "trail") {
         trailPoints.push({ x: mouseX, y: mouseY, time: Date.now() });
-        if (trailPoints.length > 25) trailPoints.shift();
+        if (trailPoints.length > 28) trailPoints.shift();
       } else if (mode === "fire") {
         const fireColors = ["#FF3B30", "#FF9500", "#FFCC00", "#FFF3A8", primaryColor];
         const count = Math.random() > 0.4 ? 3 : 2;
@@ -352,8 +400,8 @@ export function MagicCursorEffect() {
       } else if (mode === "matrix") {
         const chars = ["0", "1", "0", "1", "1", "0", "λ", "⚡", "◊", "1"];
         matrixDrops.push({
-          x: e.clientX + (Math.random() - 0.5) * 8,
-          y: e.clientY + (Math.random() - 0.5) * 8,
+          x: e.clientX + (Math.random() - 0.5) * 10,
+          y: e.clientY + (Math.random() - 0.5) * 10,
           vy: 1.2 + Math.random() * 2.0,
           char: chars[Math.floor(Math.random() * chars.length)],
           color: Math.random() > 0.35 ? (palette[0] || "#22C55E") : "#FFFFFF",
@@ -377,17 +425,15 @@ export function MagicCursorEffect() {
           });
         }
       }
-
-      if (!animId) {
-        animId = requestAnimationFrame(renderLoop);
-      }
     };
 
     const handleMouseDown = (e: MouseEvent) => {
       const palette = getThemePalette();
       const primaryColor = palette[1] || "#F5B700";
 
-      if (mode === "ripple") {
+      if (mode === "spark") {
+        spawnSparkBurst(e.clientX, e.clientY, 16);
+      } else if (mode === "ripple") {
         ripples.push({
           x: e.clientX,
           y: e.clientY,
@@ -398,7 +444,7 @@ export function MagicCursorEffect() {
         });
       } else if (mode === "fire") {
         const fireColors = ["#FF3B30", "#FF9500", "#FFCC00", "#FFF3A8"];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
           fireParticles.push({
             x: e.clientX + (Math.random() - 0.5) * 10,
             y: e.clientY + (Math.random() - 0.5) * 10,
@@ -411,11 +457,27 @@ export function MagicCursorEffect() {
             maxLife: 26 + Math.random() * 12,
           });
         }
+      } else if (mode === "matrix") {
+        const chars = ["1", "0", "⚡", "◊", "λ"];
+        for (let i = 0; i < 6; i++) {
+          matrixDrops.push({
+            x: e.clientX + (Math.random() - 0.5) * 24,
+            y: e.clientY + (Math.random() - 0.5) * 24,
+            vy: 2.0 + Math.random() * 2.5,
+            char: chars[Math.floor(Math.random() * chars.length)],
+            color: primaryColor,
+            alpha: 1,
+            life: 0,
+            maxLife: 28,
+            size: 13,
+          });
+        }
       }
+    };
 
-      if (!animId) {
-        animId = requestAnimationFrame(renderLoop);
-      }
+    const handleMouseLeave = () => {
+      mouseX = -1000;
+      mouseY = -1000;
     };
 
     const renderLoop = () => {
@@ -426,8 +488,6 @@ export function MagicCursorEffect() {
 
       const palette = getThemePalette();
       const primaryColor = palette[1] || "#F5B700";
-
-      let hasActiveDrawing = false;
 
       // MODE: SPARK
       if (mode === "spark") {
@@ -445,7 +505,7 @@ export function MagicCursorEffect() {
           ctx.globalAlpha = sp.alpha * 0.9;
           ctx.fill();
 
-          if (currentSize > 1.8 && sp.alpha > 0.4) {
+          if (currentSize > 1.6 && sp.alpha > 0.4) {
             ctx.beginPath();
             ctx.moveTo(sp.x - currentSize * 1.8, sp.y);
             ctx.lineTo(sp.x + currentSize * 1.8, sp.y);
@@ -458,7 +518,17 @@ export function MagicCursorEffect() {
           }
           return sp.life < sp.maxLife;
         });
-        hasActiveDrawing = sparks.length > 0;
+
+        if (mouseX > -50 && mouseY > -50) {
+          ctx.beginPath();
+          ctx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = "#FFFFFF";
+          ctx.globalAlpha = 0.95;
+          ctx.shadowColor = primaryColor;
+          ctx.shadowBlur = 8;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
       }
 
       // MODE: TRAIL (Smooth Comet Ribbon)
@@ -467,7 +537,6 @@ export function MagicCursorEffect() {
         trailPoints = trailPoints.filter((pt) => now - pt.time < 350);
 
         if (trailPoints.length > 1) {
-          hasActiveDrawing = true;
           for (let i = 1; i < trailPoints.length; i++) {
             const p1 = trailPoints[i - 1];
             const p2 = trailPoints[i];
@@ -483,28 +552,41 @@ export function MagicCursorEffect() {
             ctx.stroke();
           }
 
-          // Glowing tip
           const tip = trailPoints[trailPoints.length - 1];
           ctx.beginPath();
           ctx.arc(tip.x, tip.y, 4, 0, Math.PI * 2);
           ctx.fillStyle = "#FFFFFF";
           ctx.globalAlpha = 0.95;
+          ctx.shadowColor = primaryColor;
+          ctx.shadowBlur = 8;
           ctx.fill();
+          ctx.shadowBlur = 0;
+        } else if (mouseX > -50 && mouseY > -50) {
+          ctx.beginPath();
+          ctx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = "#FFFFFF";
+          ctx.globalAlpha = 0.9;
+          ctx.shadowColor = primaryColor;
+          ctx.shadowBlur = 6;
+          ctx.fill();
+          ctx.shadowBlur = 0;
         }
       }
 
       // MODE: ORBIT (Cosmic Orbiting Satellites)
       if (mode === "orbit") {
         if (mouseX > -50 && mouseY > -50) {
-          hasActiveDrawing = true;
           orbitAngle += 0.05;
 
           // Center micro core
           ctx.beginPath();
           ctx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
           ctx.fillStyle = primaryColor;
-          ctx.globalAlpha = 0.9;
+          ctx.globalAlpha = 0.95;
+          ctx.shadowColor = primaryColor;
+          ctx.shadowBlur = 6;
           ctx.fill();
+          ctx.shadowBlur = 0;
 
           // Satellite 1
           const r1 = 20;
@@ -521,7 +603,7 @@ export function MagicCursorEffect() {
           ctx.shadowBlur = 0;
 
           // Satellite 2
-          const r2 = 24;
+          const r2 = 25;
           const s2X = mouseX + Math.cos(orbitAngle + Math.PI) * r2;
           const s2Y = mouseY + Math.sin(orbitAngle + Math.PI) * (r2 * 0.7);
 
@@ -565,7 +647,7 @@ export function MagicCursorEffect() {
           return p.life < p.maxLife;
         });
 
-        if (mouseX > -50) {
+        if (mouseX > -50 && mouseY > -50) {
           ctx.beginPath();
           ctx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
           ctx.fillStyle = "#FFF3A8";
@@ -575,7 +657,6 @@ export function MagicCursorEffect() {
           ctx.fill();
           ctx.shadowBlur = 0;
         }
-        hasActiveDrawing = fireParticles.length > 0;
       }
 
       // MODE: MATRIX (Cyber Rain & Digital Glyphs)
@@ -598,7 +679,7 @@ export function MagicCursorEffect() {
           return d.life < d.maxLife;
         });
 
-        if (mouseX > -50) {
+        if (mouseX > -50 && mouseY > -50) {
           ctx.beginPath();
           ctx.arc(mouseX, mouseY, 3, 0, Math.PI * 2);
           ctx.fillStyle = "#FFFFFF";
@@ -608,7 +689,6 @@ export function MagicCursorEffect() {
           ctx.fill();
           ctx.shadowBlur = 0;
         }
-        hasActiveDrawing = matrixDrops.length > 0;
       }
 
       // MODE: RIPPLE (Concentric Liquid Waves)
@@ -627,7 +707,7 @@ export function MagicCursorEffect() {
           return true;
         });
 
-        if (mouseX > -50) {
+        if (mouseX > -50 && mouseY > -50) {
           ctx.beginPath();
           ctx.arc(mouseX, mouseY, 4, 0, Math.PI * 2);
           ctx.fillStyle = primaryColor;
@@ -637,13 +717,11 @@ export function MagicCursorEffect() {
           ctx.fill();
           ctx.shadowBlur = 0;
         }
-        hasActiveDrawing = ripples.length > 0;
       }
 
       // MODE: GALAXY (Swirling Cosmic Vortex)
       if (mode === "galaxy") {
         if (mouseX > -50 && mouseY > -50) {
-          hasActiveDrawing = true;
           galaxyAngle += 0.04;
 
           // Glowing Galactic Nucleus
@@ -680,28 +758,25 @@ export function MagicCursorEffect() {
       }
 
       ctx.globalAlpha = 1;
-
-      if (hasActiveDrawing || mode === "orbit" || mode === "galaxy") {
-        animId = requestAnimationFrame(renderLoop);
-      } else {
-        animId = null;
-      }
+      animId = requestAnimationFrame(renderLoop);
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("mousedown", handleMouseDown, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    animId = requestAnimationFrame(renderLoop);
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseleave", handleMouseLeave);
       if (animId) cancelAnimationFrame(animId);
     };
-  }, [mode, isTouch]);
+  }, [mode, mounted]);
 
-  if (isTouch) return null;
-
-  if (mode === "default") {
+  if (!mounted || mode === "default") {
     return null;
   }
 
@@ -718,6 +793,7 @@ export function MagicCursorEffect() {
         <canvas
           ref={canvasRef}
           className="pointer-events-none fixed inset-0 z-[9999998]"
+          style={{ opacity: isVisible ? 1 : 0, transition: "opacity 0.15s ease" }}
           aria-hidden="true"
         />
       )}
@@ -729,46 +805,23 @@ export function MagicCursorEffect() {
         mode === "bubble") && (
         <div
           ref={domContainerRef}
-          className="magic-cursor-container transition-opacity duration-150 opacity-0"
+          className="magic-cursor-container"
+          style={{ opacity: isVisible ? 1 : 0 }}
           aria-hidden="true"
         >
           {mode === "circle" && (
-            <div ref={domCursorRef} className="magic-cursor-ring" />
+            <>
+              <div ref={domCursorRef} className="magic-cursor-ring" />
+              <div ref={domDotRef} className="magic-cursor-dot" />
+            </>
           )}
 
           {mode === "glow-dot" && (
-            <div
-              ref={domCursorRef}
-              className="magic-cursor-glow-dot"
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                pointerEvents: "none",
-                borderRadius: "9999px",
-                width: 14,
-                height: 14,
-                backgroundColor: "var(--brand)",
-                boxShadow: "0 0 14px var(--brand), 0 0 28px var(--brand)",
-                transition: "width 0.15s ease, height 0.15s ease, opacity 0.15s ease",
-              }}
-            />
+            <div ref={domCursorRef} className="magic-cursor-glow-dot" />
           )}
 
           {mode === "crosshair" && (
-            <div
-              ref={domCursorRef}
-              className="magic-cursor-crosshair"
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                pointerEvents: "none",
-                width: 32,
-                height: 32,
-                transition: "transform 0.08s ease-out",
-              }}
-            >
+            <div ref={domCursorRef} className="magic-cursor-crosshair">
               {/* Outer Reticle Ring */}
               <div
                 style={{
@@ -801,24 +854,7 @@ export function MagicCursorEffect() {
           )}
 
           {mode === "bubble" && (
-            <div
-              ref={domCursorRef}
-              className="magic-cursor-bubble"
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                pointerEvents: "none",
-                borderRadius: "50%",
-                width: 28,
-                height: 28,
-                background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7), transparent 60%), color-mix(in srgb, var(--brand) 35%, transparent)",
-                border: "1.5px solid color-mix(in srgb, var(--brand) 70%, white)",
-                backdropFilter: "blur(2px)",
-                boxShadow: "inset -2px -2px 6px rgba(0,0,0,0.15), 0 4px 12px color-mix(in srgb, var(--brand) 25%, transparent)",
-                willChange: "transform",
-              }}
-            />
+            <div ref={domCursorRef} className="magic-cursor-bubble" />
           )}
         </div>
       )}

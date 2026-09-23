@@ -89,63 +89,11 @@ export const ALL_LANGUAGES: Language[] = [
   { code: "zu", name: "Zulu", nativeName: "isiZulu", flag: "🇿🇦" },
 ];
 
-export function setGoogleTranslateLanguage(langCode: string) {
-  if (typeof window === "undefined") return;
-
-  // 1. Store in localStorage
-  localStorage.setItem("userLanguage", langCode);
-
-  // 2. Set google translate cookie for root path
-  const host = window.location.hostname;
-  const cookieVal = `/auto/${langCode}`;
-  document.cookie = `googtrans=${cookieVal}; path=/;`;
-  if (host && !host.includes("localhost") && !host.includes("127.0.0.1") && host.includes(".")) {
-    document.cookie = `googtrans=${cookieVal}; domain=.${host}; path=/;`;
-  }
-
-  // 3. Trigger Google Translate combo box
-  const applyTranslation = (combo: HTMLSelectElement) => {
-    combo.value = langCode;
-    combo.dispatchEvent(new Event("change"));
-  };
-
-  const selectEl = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-  if (selectEl) {
-    applyTranslation(selectEl);
-  } else {
-    // Retry polling for combo element if script is still initializing
-    let retries = 0;
-    const interval = setInterval(() => {
-      retries++;
-      const el = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-      if (el) {
-        clearInterval(interval);
-        applyTranslation(el);
-      } else if (retries >= 8) {
-        clearInterval(interval);
-        window.location.reload();
-      }
-    }, 100);
-  }
-
-  // 4. Update html lang attribute and RTL if applicable
-  document.documentElement.lang = langCode;
-  const rtlCodes = ["ar", "he", "fa", "ur"];
-  if (rtlCodes.includes(langCode)) {
-    document.documentElement.dir = "rtl";
-  } else {
-    document.documentElement.dir = "ltr";
-  }
-}
-
 export function getCurrentLanguage(): string {
   if (typeof window === "undefined") return "en";
-
-  // Check cookie first
-  const match = document.cookie.match(/googtrans=\/auto\/([^;]+)/);
-  if (match && match[1]) {
-    return match[1];
+  try {
+    return localStorage.getItem("userLanguage") || "en";
+  } catch {
+    return "en";
   }
-
-  return localStorage.getItem("userLanguage") || "en";
 }

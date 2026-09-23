@@ -6,9 +6,8 @@ import { cn } from "@/lib/utils";
 import {
   ALL_LANGUAGES,
   POPULAR_LANGUAGES,
-  setGoogleTranslateLanguage,
-  getCurrentLanguage,
 } from "@/lib/languages";
+import { useTranslation } from "@/lib/i18n";
 import {
   COLOR_MOODS,
   applyCustomColor,
@@ -162,6 +161,7 @@ const CURSOR_OPTIONS: { id: CursorMode; label: string; icon: React.ReactNode }[]
 ];
 
 export function Header() {
+  const { t, lang: currentLang, setLanguage } = useTranslation();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("/#home");
   const [dark, setDark] = useState(false);
@@ -171,9 +171,16 @@ export function Header() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const paletteRef = useRef<HTMLDivElement>(null);
   const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("en");
   const [searchLang, setSearchLang] = useState("");
   const langRef = useRef<HTMLDivElement>(null);
+
+  const navItems = [
+    { label: t("nav_home"), href: "/#home" },
+    { label: t("nav_about"), href: "/#about" },
+    { label: t("nav_services"), href: "/#services" },
+    { label: t("nav_projects"), href: "/#portfolio" },
+    { label: t("nav_reviews"), href: "/#reviews" },
+  ];
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -192,8 +199,6 @@ export function Header() {
       (localStorage.getItem("magicCursor") as CursorMode) || "circle";
     setCursorMode(currentCursor);
 
-    setCurrentLang(getCurrentLanguage());
-
     function handleClickOutside(e: MouseEvent) {
       if (paletteRef.current && !paletteRef.current.contains(e.target as Node)) {
         setPaletteOpen(false);
@@ -207,17 +212,20 @@ export function Header() {
   }, []);
 
   const selectLanguage = (code: string) => {
-    setCurrentLang(code);
+    setLanguage(code);
     setLangOpen(false);
     setOpen(false);
-    setGoogleTranslateLanguage(code);
   };
 
   const selectCursor = (mode: CursorMode) => {
     setCursorMode(mode);
-    localStorage.setItem("magicCursor", mode);
+    try {
+      localStorage.setItem("magicCursor", mode);
+    } catch {
+      // ignore
+    }
     document.documentElement.setAttribute("data-cursor", mode);
-    window.dispatchEvent(new Event("magicCursorChange"));
+    window.dispatchEvent(new CustomEvent("magicCursorChange", { detail: mode }));
   };
 
   const selectAccent = (colorId: string) => {
@@ -268,7 +276,7 @@ export function Header() {
           {/* Desktop Navigation: Real Neumorphic Buttons with Funnel Display, responsive scaling */}
           <nav className="hidden justify-center lg:flex">
             <ul className="flex items-center gap-3.5 xl:gap-5 2xl:gap-6">
-              {NAV.map((item) => {
+              {navItems.map((item) => {
                 const isActive = active === item.href;
                 return (
                   <li key={item.href} className="shrink-0">
@@ -310,7 +318,7 @@ export function Header() {
                 color: "rgb(255, 96, 0)",
               }}
             >
-              Get a Quote
+              {t("nav_quote")}
             </a>
 
             {/* Multi-Language Selector Trigger & Popover */}
@@ -350,7 +358,7 @@ export function Header() {
                       <div className="flex items-center gap-2">
                         <Globe className="h-4.5 w-4.5 text-brand-deep" />
                         <span className="text-[13px] font-black uppercase tracking-wider text-foreground">
-                          Language / ভাষা
+                          {t("nav_language")}
                         </span>
                       </div>
                       <span className="text-[12px] font-black text-brand-deep uppercase">
@@ -363,7 +371,7 @@ export function Header() {
                       <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                       <input
                         type="text"
-                        placeholder="Search language / ভাষা খুঁজুন..."
+                        placeholder={t("nav_search_lang")}
                         value={searchLang}
                         onChange={(e) => setSearchLang(e.target.value)}
                         className="w-full pl-9 pr-3 py-2 rounded-[10px] nm-inset bg-surface text-[13px] font-medium text-foreground placeholder:text-muted-foreground focus:outline-hidden"
@@ -374,7 +382,7 @@ export function Header() {
                     {!searchLang && (
                       <div className="mt-3.5">
                         <span className="text-[11px] font-black uppercase tracking-wider text-muted-foreground mb-2 block">
-                          Popular / জনপ্রিয়
+                          {t("nav_popular")}
                         </span>
                         <div className="grid grid-cols-2 gap-2">
                           {POPULAR_LANGUAGES.slice(0, 6).map((lang) => {
@@ -403,7 +411,7 @@ export function Header() {
                     {/* All 100+ Languages Scrollable List */}
                     <div className="mt-3.5">
                       <span className="text-[11px] font-black uppercase tracking-wider text-muted-foreground mb-2 block">
-                        {searchLang ? "Search Results" : "All Languages / সকল ভাষা (100+)"}
+                        {searchLang ? "Search Results" : t("nav_all_languages")}
                       </span>
                       <div className="max-h-56 overflow-y-auto pr-1 flex flex-col gap-1.5 nm-inset rounded-[11px] p-2">
                         {ALL_LANGUAGES.filter(
@@ -597,7 +605,7 @@ export function Header() {
                     <div className="mt-4 border-t border-border pt-3">
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-semibold text-muted-foreground">
-                          Surface Mode
+                          {t("nav_surface_mode")}
                         </span>
                         <button
                           type="button"
@@ -607,23 +615,23 @@ export function Header() {
                           {dark ? (
                             <>
                               <Sun className="h-3.5 w-3.5 text-brand-deep" />
-                              <span>Light</span>
+                              <span>{t("nav_light")}</span>
                             </>
                           ) : (
                             <>
                               <Moon className="h-3.5 w-3.5 text-brand-deep" />
-                              <span>Dark</span>
+                              <span>{t("nav_dark")}</span>
                             </>
                           )}
                         </button>
                       </div>
                     </div>
 
-                    {/* Magic Cursor Selection (8 options in 4x2 grid) */}
+                    {/* Magic Cursor Selection */}
                     <div className="mt-4 border-t border-border pt-3">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground">
-                          Magic Cursor
+                          {t("nav_magic_cursor")}
                         </span>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-brand-deep">
                           {CURSOR_OPTIONS.find((c) => c.id === cursorMode)?.label || "Circle"}
@@ -696,7 +704,7 @@ export function Header() {
           <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 max-h-[calc(100vh-85px)] overflow-y-auto lg:hidden animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl pb-4">
             <NeumorphicCard depth="lg" radius="lg" className="p-3 sm:p-4 border border-white/50 dark:border-white/10">
               <ul className="nm-inset flex flex-col gap-2.5 sm:gap-3 rounded-[14px] p-2.5 sm:p-3">
-              {NAV.map((item) => {
+              {navItems.map((item) => {
                 const isActive = active === item.href;
                 return (
                   <li key={item.href}>
@@ -740,173 +748,8 @@ export function Header() {
                     color: "rgb(255, 96, 0)",
                   }}
                 >
-                  Get a Quote
+                  {t("nav_quote")}
                 </a>
-              </li>
-
-              {/* Mobile 5-Color Moods & Mode Selector */}
-              <li className="mt-1 border-t border-border/60 pt-3 px-1">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground/80">
-                    Color Mood: <span className="text-brand-deep">{COLOR_MOODS.find((c) => c.id === accent)?.label}</span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={toggleTheme}
-                    className="nm-raised-sm nm-interactive flex items-center gap-1.5 rounded-[8px] px-2.5 py-1 text-[11px] font-bold tracking-wider uppercase text-foreground/80"
-                  >
-                    {dark ? (
-                      <>
-                        <Sun className="h-3.5 w-3.5 text-brand-deep" />
-                        <span>Light</span>
-                      </>
-                    ) : (
-                      <>
-                        <Moon className="h-3.5 w-3.5 text-brand-deep" />
-                        <span>Dark</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-                <div className="flex items-center justify-between gap-1">
-                  {COLOR_MOODS.map((c) => {
-                    const isSelected = accent === c.id;
-                    return (
-                      <button
-                        key={c.id}
-                        type="button"
-                        onClick={() => selectAccent(c.id)}
-                        title={`${c.label} Mood`}
-                        aria-label={`Select ${c.label} color mood`}
-                        className={cn(
-                          "relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform duration-200",
-                          isSelected
-                            ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
-                            : "nm-raised-sm hover:scale-105",
-                        )}
-                      >
-                        <span
-                          className="h-5 w-5 rounded-full shrink-0 shadow-inner flex items-center justify-center"
-                          style={{ backgroundColor: c.hex }}
-                        >
-                          {isSelected && (
-                            <Check
-                              className={cn(
-                                "h-3.5 w-3.5 stroke-[3px] drop-shadow-xs",
-                                c.id === "mint" ? "text-zinc-950" : "text-white",
-                              )}
-                            />
-                          )}
-                        </span>
-                      </button>
-                    );
-                  })}
-
-                  {/* Mobile Custom Color Picker Swatch */}
-                  <label
-                    title="Pick Any Custom Color"
-                    aria-label="Pick any custom color"
-                    className={cn(
-                      "relative flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full transition-transform duration-200",
-                      accent === "custom"
-                        ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
-                        : "nm-raised-sm hover:scale-105",
-                    )}
-                  >
-                    <input
-                      type="color"
-                      value={customHex}
-                      onChange={(e) => handleCustomColorChange(e.target.value)}
-                      className="sr-only"
-                    />
-                    <span
-                      className="h-5 w-5 rounded-full shrink-0 shadow-inner flex items-center justify-center border border-black/10 overflow-hidden relative"
-                      style={{
-                        background:
-                          accent === "custom"
-                            ? customHex
-                            : "conic-gradient(from 0deg, #f43f5e, #eab308, #22c55e, #06b6d4, #3b82f6, #a855f7, #f43f5e)",
-                      }}
-                    >
-                      {accent === "custom" ? (
-                        <Check className="h-3.5 w-3.5 stroke-[3px] text-white drop-shadow-xs" />
-                      ) : (
-                        <Pipette className="h-2.5 w-2.5 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]" />
-                      )}
-                    </span>
-                  </label>
-                </div>
-
-                {/* Mobile Custom Color Live Input */}
-                {accent === "custom" && (
-                  <div className="mt-2.5 flex items-center justify-between rounded-lg bg-black/5 dark:bg-white/5 px-2.5 py-1 border border-border/50 text-[11px]">
-                    <div className="flex items-center gap-1.5 text-muted-foreground font-semibold">
-                      <Pipette className="h-3 w-3 text-brand-deep" />
-                      <span>Custom Hex:</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <input
-                        type="text"
-                        value={customHex}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          setCustomHex(val);
-                          if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-                            applyCustomColor(val);
-                          }
-                        }}
-                        maxLength={7}
-                        className="w-18 bg-transparent text-right font-mono text-[11px] font-bold uppercase text-brand-deep focus:outline-none"
-                        placeholder="#RRGGBB"
-                      />
-                      <label className="cursor-pointer shrink-0">
-                        <input
-                          type="color"
-                          value={customHex}
-                          onChange={(e) => handleCustomColorChange(e.target.value)}
-                          className="sr-only"
-                        />
-                        <span
-                          className="inline-block h-3.5 w-3.5 rounded-full border border-black/20 shadow-xs"
-                          style={{ backgroundColor: customHex }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                )}
-              </li>
-
-              {/* Mobile Magic Cursor Selector */}
-              <li className="mt-2 border-t border-border/60 pt-2.5 px-1">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground/80">
-                    Magic Cursor
-                  </span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand-deep">
-                    {CURSOR_OPTIONS.find((c) => c.id === cursorMode)?.label || "Circle"}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-4 gap-1.5">
-                  {CURSOR_OPTIONS.map((opt) => (
-                    <button
-                      key={opt.id}
-                      type="button"
-                      onClick={() => selectCursor(opt.id)}
-                      title={`${opt.label} Cursor`}
-                      aria-label={`${opt.label} Cursor`}
-                      className={cn(
-                        "flex flex-col items-center justify-center gap-1 py-1.5 px-0.5 rounded-[10px] text-[10px] font-bold transition-all duration-200",
-                        cursorMode === opt.id
-                          ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
-                          : "nm-raised-sm hover:nm-interactive text-foreground/80",
-                      )}
-                    >
-                      {opt.icon}
-                      <span className="text-[9.5px] truncate max-w-full">{opt.label}</span>
-                    </button>
-                  ))}
-                </div>
               </li>
             </ul>
             </NeumorphicCard>

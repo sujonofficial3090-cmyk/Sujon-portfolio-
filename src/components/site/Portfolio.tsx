@@ -2,8 +2,10 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 import { PROJECTS, type Project } from "@/data/projects";
+import { useTranslation } from "@/lib/i18n";
 
 function ProjectCard({ item, idx }: { item: Project; idx: number }) {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [isMobileActive, setIsMobileActive] = useState(false);
   const [canScroll, setCanScroll] = useState(true);
@@ -82,7 +84,7 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
           href={projectUrl}
           className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center justify-center gap-2 rounded-[10px] w-full py-3.5 text-[12px] font-extrabold tracking-[0.1em] uppercase transition-all duration-300 active:nm-inset"
         >
-          View Project <ArrowUpRight className="h-4 w-4" />
+          {t("portfolio_view_project")} <ArrowUpRight className="h-4 w-4" />
         </a>
       </div>
     </figure>
@@ -90,6 +92,8 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
 }
 
 export function Portfolio() {
+  const { t } = useTranslation();
+
   return (
     <section id="portfolio" className="scroll-mt-28">
       <NeumorphicCard
@@ -99,10 +103,10 @@ export function Portfolio() {
       >
         <div className="mb-8 text-center reveal-on-scroll">
           <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
-            Recent Projects
+            {t("portfolio_heading")}
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
-            A curated showcase of recent high-converting WordPress & Web client projects. Hover over cards to preview full pages.
+            {t("portfolio_subtitle")}
           </p>
         </div>
 

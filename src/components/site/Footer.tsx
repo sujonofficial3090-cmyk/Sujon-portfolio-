@@ -1,24 +1,7 @@
 import { Facebook, Github, Instagram, MessageCircle, Mail, Phone, MapPin, LayoutDashboard, LogIn } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 import { useAuth } from "@/lib/auth";
-
-const QUICK = [
-  { label: "Home", href: "/#home" },
-  { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
-  { label: "Projects", href: "/#portfolio" },
-  { label: "Reviews", href: "/#reviews" },
-  { label: "Contact", href: "/#contact" },
-];
-
-const SERVICES = [
-  "WordPress Development",
-  "Elementor Development",
-  "WooCommerce Development",
-  "Speed Optimization",
-  "WordPress Maintenance",
-  "Landing Page Development",
-];
+import { useTranslation } from "@/lib/i18n";
 
 const SOCIALS = [
   { Icon: Github, href: "https://github.com/sujonofficial3090-cmyk", label: "GitHub" },
@@ -29,6 +12,26 @@ const SOCIALS = [
 
 export function Footer() {
   const { user } = useAuth();
+  const { t } = useTranslation();
+
+  const quickLinks = [
+    { label: t("nav_home"), href: "/#home" },
+    { label: t("nav_about"), href: "/#about" },
+    { label: t("nav_services"), href: "/#services" },
+    { label: t("nav_projects"), href: "/#portfolio" },
+    { label: t("nav_reviews"), href: "/#reviews" },
+    { label: t("nav_contact"), href: "/#contact" },
+  ];
+
+  const services = [
+    t("svc_1_title"),
+    t("svc_2_title"),
+    t("svc_3_title"),
+    t("svc_6_title"),
+    t("svc_7_title"),
+    t("svc_8_title"),
+  ];
+
   return (
     <footer className="w-full">
       <NeumorphicCard depth="md" radius="lg" className="px-6 py-10 sm:px-10 sm:py-12">
@@ -43,7 +46,7 @@ export function Footer() {
               </a>
             </div>
             <p className="text-[14px] sm:text-[15px] font-normal leading-[1.7] text-muted-foreground max-w-sm">
-              Professional WordPress Developer creating modern, responsive and high-quality WordPress websites for businesses and brands.
+              {t("footer_tagline")}
             </p>
             <div className="pt-1">
               {user ? (
@@ -70,10 +73,10 @@ export function Footer() {
 
           <nav aria-label="Quick links">
             <h2 className="text-brand-deep text-[15px] font-extrabold uppercase tracking-wider">
-              Quick Links
+              {t("footer_quick_links")}
             </h2>
             <ul className="mt-4 space-y-2.5">
-              {QUICK.map((q) => (
+              {quickLinks.map((q) => (
                 <li key={q.label}>
                   <a
                     href={q.href}
@@ -88,11 +91,11 @@ export function Footer() {
 
           <div>
             <h2 className="text-brand-deep text-[15px] font-extrabold uppercase tracking-wider">
-              Our Services
+              {t("nav_services")}
             </h2>
             <ul className="mt-4 space-y-2.5 text-[14px] font-medium text-muted-foreground">
-              {SERVICES.map((s) => (
-                <li key={s} className="hover:text-brand-deep transition-colors">
+              {services.map((s, idx) => (
+                <li key={idx} className="hover:text-brand-deep transition-colors">
                   {s}
                 </li>
               ))}
@@ -101,7 +104,7 @@ export function Footer() {
 
           <div>
             <h2 className="text-brand-deep text-[15px] font-extrabold uppercase tracking-wider">
-              Get In Touch
+              {t("nav_contact")}
             </h2>
             <ul className="mt-4 space-y-3.5 text-[14px] font-medium text-muted-foreground">
               <li className="flex items-start gap-2.5">
@@ -142,7 +145,7 @@ export function Footer() {
 
         <div className="mt-6 grid grid-cols-1 items-center gap-4 border-t border-border pt-6 sm:grid-cols-2">
           <p className="text-[13px] font-medium text-muted-foreground text-center sm:text-left">
-            © 2026 <span className="sujon-logo text-[13px] font-black tracking-[0.06em]">Sujon</span>. All Rights Reserved.
+            © 2026 <span className="sujon-logo text-[13px] font-black tracking-[0.06em]">Sujon</span>. {t("footer_rights")}
           </p>
           <ul className="flex justify-center shrink-0 items-center gap-3.5 sm:justify-end">
             {SOCIALS.map((soc, i) => (

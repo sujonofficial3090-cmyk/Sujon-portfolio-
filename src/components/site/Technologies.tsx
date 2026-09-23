@@ -164,14 +164,18 @@ const TECHNOLOGIES_LIST = [
   "Figma",
 ];
 
+import { useTranslation } from "@/lib/i18n";
+
 export function Technologies() {
+  const { t } = useTranslation();
+
   return (
     <section aria-label="Technologies I work with" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
         {/* Clean Header */}
         <div className="mb-8 text-center reveal-on-scroll">
           <h2 className="text-brand-gradient text-[clamp(1.7rem,4vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
-            Technologies I Work With
+            {t("tech_heading")}
           </h2>
         </div>
 

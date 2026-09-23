@@ -1,6 +1,9 @@
 import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
+import { useTranslation } from "@/lib/i18n";
 
 export function Hero() {
+  const { t } = useTranslation();
+
   return (
     <section id="home" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="overflow-hidden">
@@ -10,23 +13,21 @@ export function Hero() {
             {/* Badge */}
             <div className="mb-5 hero-animate-1">
               <span className="nm-inset text-brand-deep inline-block rounded-[8px] px-4 py-1.5 text-[11px] font-extrabold tracking-[0.2em] uppercase">
-                WORDPRESS DEVELOPER
+                {t("hero_badge")}
               </span>
             </div>
 
             {/* Main heading: Funnel Display, Weight 800, Desktop Line-height 96px */}
             <h1 className="hero-animate-1 text-[clamp(2.1rem,5vw,3.8rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15] lg:leading-[96px]">
-              I Build{" "}
-              <span className="text-brand-gradient pb-1 inline-block">Modern &amp; High-Performance</span>
+              {t("hero_heading_1")}{" "}
+              <span className="text-brand-gradient pb-1 inline-block">{t("hero_heading_gradient")}</span>
               <br />
-              WordPress Websites
+              {t("hero_heading_2")}
             </h1>
 
             {/* Body text: 16px Poppins font */}
             <p className="hero-animate-2 mt-6 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.8] text-foreground/85 dark:text-foreground/85">
-              I'm <strong className="text-brand-deep font-extrabold">Sujon</strong>, a professional WordPress Developer specializing in
-              responsive, fast, modern and conversion-focused WordPress websites for businesses,
-              startups and personal brands worldwide.
+              {t("hero_bio")}
             </p>
 
             {/* CTA Buttons — STRICTLY SIDE BY SIDE ON MOBILE (1 ROW) & INLINE ON DESKTOP */}
@@ -39,14 +40,14 @@ export function Hero() {
                 size="lg"
                 className="w-full sm:w-auto justify-center font-extrabold text-[11.5px] sm:text-[13px] px-2 py-3.5 sm:px-6 sm:py-3.5 whitespace-nowrap text-center"
               >
-                DOWNLOAD CV
+                {t("hero_download_cv")}
               </NeumorphicLinkButton>
               <NeumorphicLinkButton
                 href="/#portfolio"
                 size="lg"
                 className="w-full sm:w-auto justify-center font-extrabold text-[11.5px] sm:text-[13px] px-2 py-3.5 sm:px-6 sm:py-3.5 whitespace-nowrap text-center"
               >
-                VIEW PROJECTS
+                {t("hero_view_projects")}
               </NeumorphicLinkButton>
             </div>
 

@@ -2,11 +2,13 @@ import { type FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { MapPin, Phone, Mail, CheckCircle2 } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
+import { useTranslation } from "@/lib/i18n";
 
 const fieldClass =
   "nm-inset w-full rounded-[10px] px-4 py-3.5 text-[15px] font-medium text-foreground placeholder:text-muted-foreground/70 outline-none focus:shadow-[var(--shadow-nm-inset-deep)] transition-shadow";
 
 export function Contact() {
+  const { t } = useTranslation();
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -132,10 +134,10 @@ export function Contact() {
     <section id="contact" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="mb-6 p-5 text-center sm:p-8 reveal-on-scroll">
         <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
-          Let's Build Your WordPress Website
+          {t("contact_heading")}
         </h2>
         <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.65] text-muted-foreground">
-          Have a WordPress project in mind? Fill out the form below or contact me directly, and all project details will be sent immediately to my email.
+          {t("contact_subtitle")}
         </p>
       </NeumorphicCard>
 
@@ -149,8 +151,8 @@ export function Contact() {
                 <MapPin className="h-4 w-4" />
               </span>
               <div>
-                <h3 className="text-[15px] font-extrabold text-foreground">Location</h3>
-                <p className="text-[12px] font-medium text-muted-foreground">Banasree, Dhaka, Bangladesh</p>
+                <h3 className="text-[15px] font-extrabold text-foreground">{t("contact_info_title")}</h3>
+                <p className="text-[12px] font-medium text-muted-foreground">{t("contact_location")}</p>
               </div>
             </div>
             <span className="nm-inset text-brand-deep rounded-[8px] px-3 py-1 text-[11px] font-extrabold tracking-wider uppercase">
@@ -193,16 +195,16 @@ export function Contact() {
 
         {/* RIGHT — Contact Request Form */}
         <NeumorphicCard depth="md" radius="lg" className="px-5 py-7 sm:px-8 sm:py-8 reveal-on-scroll stagger-2">
-          <h2 className="sr-only">Request a quote</h2>
+          <h2 className="sr-only">{t("contact_heading")}</h2>
 
           {submitted ? (
             <div className="flex flex-col items-center justify-center py-10 text-center animate-in fade-in zoom-in-95 duration-300">
               <div className="nm-inset text-brand-deep mb-4 flex h-16 w-16 items-center justify-center rounded-full">
                 <CheckCircle2 className="h-8 w-8 text-brand-deep" />
               </div>
-              <h3 className="text-[22px] font-extrabold text-foreground">Message Sent Successfully!</h3>
+              <h3 className="text-[22px] font-extrabold text-foreground">{t("contact_success_title")}</h3>
               <p className="mt-2 max-w-md text-[14px] font-medium text-muted-foreground">
-                Thank you! Your project inquiry has been dispatched directly to <strong className="text-foreground">sujonmia3090@gmail.com</strong>. I will get back to you shortly.
+                {t("contact_success_desc")}
               </p>
               <button
                 type="button"
@@ -217,14 +219,14 @@ export function Contact() {
                   color: "rgb(255, 96, 0)",
                 }}
               >
-                Send Another Message
+                {t("contact_send_another")}
               </button>
             </div>
           ) : (
             <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="c-firstname" className="sr-only">
-                  First Name
+                  {t("contact_first_name")}
                 </label>
                 <input
                   id="c-firstname"
@@ -232,13 +234,13 @@ export function Contact() {
                   required
                   value={formData.firstName}
                   onChange={handleChange}
-                  placeholder="First Name *"
+                  placeholder={`${t("contact_first_name")} *`}
                   className={fieldClass}
                 />
               </div>
               <div>
                 <label htmlFor="c-lastname" className="sr-only">
-                  Last Name
+                  {t("contact_last_name")}
                 </label>
                 <input
                   id="c-lastname"
@@ -246,13 +248,13 @@ export function Contact() {
                   required
                   value={formData.lastName}
                   onChange={handleChange}
-                  placeholder="Last Name *"
+                  placeholder={`${t("contact_last_name")} *`}
                   className={fieldClass}
                 />
               </div>
               <div>
                 <label htmlFor="c-email" className="sr-only">
-                  Email
+                  {t("contact_email")}
                 </label>
                 <input
                   id="c-email"
@@ -261,13 +263,13 @@ export function Contact() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Email Address *"
+                  placeholder={`${t("contact_email")} *`}
                   className={fieldClass}
                 />
               </div>
               <div>
                 <label htmlFor="c-phone" className="sr-only">
-                  Phone
+                  {t("contact_phone")}
                 </label>
                 <input
                   id="c-phone"
@@ -275,13 +277,13 @@ export function Contact() {
                   type="tel"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="Phone Number"
+                  placeholder={t("contact_phone")}
                   className={fieldClass}
                 />
               </div>
               <div>
                 <label htmlFor="c-projecttype" className="sr-only">
-                  Project Type
+                  {t("contact_project_type")}
                 </label>
                 <select
                   id="c-projecttype"
@@ -292,34 +294,34 @@ export function Contact() {
                   required
                 >
                   <option value="" disabled>
-                    Project Type *
+                    {t("contact_project_type")} *
                   </option>
-                  <option value="WordPress Development">WordPress Development</option>
-                  <option value="Elementor Development">Elementor Development</option>
-                  <option value="WooCommerce Development">WooCommerce Development</option>
-                  <option value="Custom WordPress Website">Custom WordPress Website</option>
-                  <option value="WordPress Website Redesign">WordPress Website Redesign</option>
-                  <option value="WordPress Speed Optimization">WordPress Speed Optimization</option>
-                  <option value="WordPress Maintenance">WordPress Maintenance</option>
-                  <option value="Landing Page Development">Landing Page Development</option>
+                  <option value="WordPress Development">{t("svc_1_title")}</option>
+                  <option value="Elementor Development">{t("svc_2_title")}</option>
+                  <option value="WooCommerce Development">{t("svc_3_title")}</option>
+                  <option value="Custom WordPress Website">{t("svc_4_title")}</option>
+                  <option value="WordPress Website Redesign">{t("svc_5_title")}</option>
+                  <option value="WordPress Speed Optimization">{t("svc_6_title")}</option>
+                  <option value="WordPress Maintenance">{t("svc_7_title")}</option>
+                  <option value="Landing Page Development">{t("svc_8_title")}</option>
                 </select>
               </div>
               <div>
                 <label htmlFor="c-budget" className="sr-only">
-                  Project Budget
+                  {t("contact_budget")}
                 </label>
                 <input
                   id="c-budget"
                   name="budget"
                   value={formData.budget}
                   onChange={handleChange}
-                  placeholder="Project Budget"
+                  placeholder={t("contact_budget")}
                   className={fieldClass}
                 />
               </div>
               <div className="sm:col-span-2">
                 <label htmlFor="c-message" className="sr-only">
-                  Message
+                  {t("contact_message")}
                 </label>
                 <textarea
                   id="c-message"
@@ -328,7 +330,7 @@ export function Contact() {
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell me about your project... *"
+                  placeholder={`${t("contact_message")} *`}
                   className={fieldClass}
                 />
               </div>
@@ -346,7 +348,7 @@ export function Contact() {
                     color: "rgb(255, 96, 0)",
                   }}
                 >
-                  {sending ? "SENDING TO SUJON..." : "SUBMIT REQUEST"}
+                  {sending ? t("contact_sending") : t("contact_send")}
                 </button>
               </div>
             </form>
