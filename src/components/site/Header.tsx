@@ -1,4 +1,4 @@
-import { Menu, X, Sun, Moon, Palette, Check, Globe, Search, Pipette } from "lucide-react";
+import { Menu, X, Sun, Moon, Palette, Check, Globe, Search, Pipette, Volume2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { NeumorphicCard } from "@/components/nm";
@@ -14,6 +14,7 @@ import {
   clearCustomColor,
 } from "@/lib/accentColors";
 import type { CursorMode } from "@/components/ui/MagicCursorEffect";
+import { SOUND_OPTIONS, getSoundMode, setSoundMode, type SoundMode } from "@/lib/useClickSound";
 
 const NAV = [
   { label: "Home", href: "/#home" },
@@ -168,6 +169,7 @@ export function Header() {
   const [accent, setAccent] = useState("gold");
   const [customHex, setCustomHex] = useState("#EC4899");
   const [cursorMode, setCursorMode] = useState<CursorMode>("circle");
+  const [soundMode, setSoundModeState] = useState<SoundMode>("pop");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const paletteRef = useRef<HTMLDivElement>(null);
   const [langOpen, setLangOpen] = useState(false);
@@ -199,6 +201,14 @@ export function Header() {
       (localStorage.getItem("magicCursor") as CursorMode) || "circle";
     setCursorMode(currentCursor);
 
+    setSoundModeState(getSoundMode());
+
+    // Sync sound mode if changed from elsewhere
+    const onSoundChange = (e: Event) => {
+      setSoundModeState((e as CustomEvent<SoundMode>).detail);
+    };
+    window.addEventListener("clickSoundChange", onSoundChange);
+
     function handleClickOutside(e: MouseEvent) {
       if (paletteRef.current && !paletteRef.current.contains(e.target as Node)) {
         setPaletteOpen(false);
@@ -208,7 +218,10 @@ export function Header() {
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("clickSoundChange", onSoundChange);
+    };
   }, []);
 
   const selectLanguage = (code: string) => {
@@ -226,6 +239,11 @@ export function Header() {
     }
     document.documentElement.setAttribute("data-cursor", mode);
     window.dispatchEvent(new CustomEvent("magicCursorChange", { detail: mode }));
+  };
+
+  const selectSound = (mode: SoundMode) => {
+    setSoundModeState(mode);
+    setSoundMode(mode);
   };
 
   const selectAccent = (colorId: string) => {
@@ -655,6 +673,41 @@ export function Header() {
                           >
                             {opt.icon}
                             <span className="text-[9.5px] truncate max-w-full">{opt.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Click Sound Selection */}
+                    <div className="mt-4 border-t border-border pt-3">
+                      <div className="flex items-center justify-between mb-2.5">
+                        <div className="flex items-center gap-1.5">
+                          <Volume2 className="h-3.5 w-3.5 text-brand-deep" />
+                          <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground">
+                            Click Sound
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-brand-deep">
+                          {SOUND_OPTIONS.find((s) => s.id === soundMode)?.label || "Soft Pop"}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-4 gap-1.5">
+                        {SOUND_OPTIONS.map((opt) => (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() => selectSound(opt.id)}
+                            title={opt.desc}
+                            aria-label={`${opt.label} click sound`}
+                            className={cn(
+                              "flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-[10px] text-[10px] font-bold transition-all duration-200",
+                              soundMode === opt.id
+                                ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                                : "nm-raised-sm hover:nm-interactive text-foreground/80",
+                            )}
+                          >
+                            <span className="text-[15px] leading-none">{opt.emoji}</span>
+                            <span className="text-[9px] truncate max-w-full">{opt.label}</span>
                           </button>
                         ))}
                       </div>
