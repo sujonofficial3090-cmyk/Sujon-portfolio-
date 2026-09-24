@@ -944,3 +944,23 @@ header {
   }
 }
 
+@keyframes eq-wave-1 {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+@keyframes eq-wave-2 {
+  0%, 100% { height: 15px; }
+  50% { height: 5px; }
+}
+
+@keyframes eq-wave-3 {
+  0%, 100% { height: 6px; }
+  50% { height: 18px; }
+}
+
+@keyframes eq-wave-4 {
+  0%, 100% { height: 16px; }
+  50% { height: 4px; }
+}
+

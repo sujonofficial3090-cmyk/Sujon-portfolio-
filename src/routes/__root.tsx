@@ -20,6 +20,8 @@ import { useContentProtection } from "../lib/useContentProtection";
 import { ClickDotEffect } from "../components/ui/ClickDotEffect";
 import { MagicCursorEffect } from "../components/ui/MagicCursorEffect";
 import { SitePreloader } from "../components/ui/SitePreloader";
+import { NationalAnthemPlayer } from "../components/ui/NationalAnthemPlayer";
+import { ClickSoundEffect } from "../components/ui/ClickSoundEffect";
 import { initAccentColor } from "../lib/accentColors";
 import { LanguageProvider } from "../lib/i18n";
 
@@ -156,7 +158,9 @@ function RootComponent() {
           <SitePreloader />
           <Outlet />
           <ClickDotEffect />
+          <ClickSoundEffect />
           <MagicCursorEffect />
+          <NationalAnthemPlayer />
           <Toaster position="bottom-right" richColors />
         </QueryClientProvider>
       </AuthProvider>
