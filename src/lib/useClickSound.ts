@@ -23,8 +23,8 @@ export type SoundMode =
   | "tick"       // Crisp mechanical keyboard tick
   | "bubble"     // Bubbly water drop
   | "chime"      // Bright glass chime bell
-  | "swoosh"     // Airy modern swoosh
-  | "digital"    // Sci-fi digital blip
+  | "crystal"    // Magical rising crystal sparkle
+  | "snap"       // Warm wood snap / finger flick
   | "none";      // Silent (off)
 
 export const SOUND_OPTIONS: { id: SoundMode; label: string; emoji: string; desc: string }[] = [
@@ -32,8 +32,8 @@ export const SOUND_OPTIONS: { id: SoundMode; label: string; emoji: string; desc:
   { id: "tick",    label: "Mech Tick",   emoji: "⌨️", desc: "Keyboard tactile click" },
   { id: "bubble",  label: "Bubble",      emoji: "💧", desc: "Water drop pop" },
   { id: "chime",   label: "Glass Chime", emoji: "🔔", desc: "Bright bell ring" },
-  { id: "swoosh",  label: "Swoosh",      emoji: "🌬️", desc: "Airy modern swipe" },
-  { id: "digital", label: "Digital",     emoji: "🤖", desc: "Sci-fi blip" },
+  { id: "crystal", label: "Crystal",     emoji: "✨", desc: "Magical sparkle shimmer" },
+  { id: "snap",    label: "Wood Snap",   emoji: "🪵", desc: "Warm wooden tap" },
   { id: "none",    label: "Silent",      emoji: "🔇", desc: "No sound" },
 ];
 
@@ -167,63 +167,110 @@ function playChime(pitch = 1.0) {
   });
 }
 
-// ── 5. Airy Swoosh ───────────────────────────────────────────────────────────
-function playSwoosh(pitch = 1.0) {
+// ── 5. Crystal Sparkle Shimmer ───────────────────────────────────────────────
+// 5 staggered sine partials with rising frequencies creating a magical
+// fairy-dust shimmer effect — very premium and satisfying
+function playCrystal(pitch = 1.0) {
   const ctx = getCtx();
   if (!ctx) return;
   const now = ctx.currentTime;
 
-  const bufferSize = Math.floor(ctx.sampleRate * 0.09);
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const d = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) {
-    const t = i / bufferSize;
-    const env = Math.sin(Math.PI * t) * Math.sin(Math.PI * t);
-    d[i] = (Math.random() * 2 - 1) * env * 0.7;
+  // Staggered rising crystal partials
+  const partials = [
+    { freq: 1760 * pitch, delay: 0.000, vol: 0.11, dur: 0.18 },
+    { freq: 2093 * pitch, delay: 0.016, vol: 0.09, dur: 0.16 },
+    { freq: 2637 * pitch, delay: 0.030, vol: 0.07, dur: 0.14 },
+    { freq: 3136 * pitch, delay: 0.042, vol: 0.05, dur: 0.12 },
+    { freq: 3951 * pitch, delay: 0.052, vol: 0.04, dur: 0.10 },
+  ];
+
+  for (const p of partials) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    // Slight inharmonic vibrato for shimmer effect
+    osc.frequency.setValueAtTime(p.freq * 0.996, now + p.delay);
+    osc.frequency.linearRampToValueAtTime(p.freq * 1.004, now + p.delay + p.dur * 0.4);
+    osc.frequency.linearRampToValueAtTime(p.freq, now + p.delay + p.dur);
+    gain.gain.setValueAtTime(0.0, now + p.delay);
+    gain.gain.linearRampToValueAtTime(p.vol, now + p.delay + 0.006);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + p.delay + p.dur);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now + p.delay);
+    osc.stop(now + p.delay + p.dur + 0.01);
   }
-  const noise = ctx.createBufferSource();
-  noise.buffer = buffer;
 
-  const lpf = ctx.createBiquadFilter();
-  lpf.type = "lowpass";
-  lpf.frequency.setValueAtTime(200 * pitch, now);
-  lpf.frequency.exponentialRampToValueAtTime(2400 * pitch, now + 0.04);
-  lpf.frequency.exponentialRampToValueAtTime(800 * pitch, now + 0.09);
-
+  // Soft sparkle transient noise burst
+  const bufSize = Math.floor(ctx.sampleRate * 0.018);
+  const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) {
+    d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 3);
+  }
+  const ns = ctx.createBufferSource();
+  ns.buffer = buf;
   const hpf = ctx.createBiquadFilter();
   hpf.type = "highpass";
-  hpf.frequency.value = 80;
-
-  const g = ctx.createGain();
-  g.gain.setValueAtTime(0.22, now);
-  g.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-
-  noise.connect(hpf); hpf.connect(lpf); lpf.connect(g); g.connect(ctx.destination);
-  noise.start(now);
+  hpf.frequency.value = 5000;
+  const ng = ctx.createGain();
+  ng.gain.setValueAtTime(0.06, now);
+  ng.gain.exponentialRampToValueAtTime(0.001, now + 0.018);
+  ns.connect(hpf); hpf.connect(ng); ng.connect(ctx.destination);
+  ns.start(now);
 }
 
-// ── 6. Digital Sci-Fi Blip ───────────────────────────────────────────────────
-function playDigital(pitch = 1.0) {
+// ── 6. Warm Wood Snap / Finger Flick ─────────────────────────────────────────
+// A warm, organic percussion click — like snapping fingers or a gentle
+// wooden table tap. Very satisfying and pleasant.
+function playSnap(pitch = 1.0) {
   const ctx = getCtx();
   if (!ctx) return;
   const now = ctx.currentTime;
 
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.type = "square";
-  osc.frequency.setValueAtTime(320 * pitch, now);
-  osc.frequency.setValueAtTime(640 * pitch, now + 0.02);
-  osc.frequency.setValueAtTime(1280 * pitch, now + 0.04);
-  gain.gain.setValueAtTime(0.09, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
+  // Pitched thud (low woody body)
+  const body = ctx.createOscillator();
+  const bodyGain = ctx.createGain();
+  body.type = "sine";
+  body.frequency.setValueAtTime(180 * pitch, now);
+  body.frequency.exponentialRampToValueAtTime(55 * pitch, now + 0.035);
+  bodyGain.gain.setValueAtTime(0.22, now);
+  bodyGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+  body.connect(bodyGain);
+  bodyGain.connect(ctx.destination);
+  body.start(now);
+  body.stop(now + 0.055);
 
-  const filt = ctx.createBiquadFilter();
-  filt.type = "bandpass";
-  filt.frequency.value = 800 * pitch;
-  filt.Q.value = 3;
+  // Sharp attack transient (the snap crack)
+  const crack = ctx.createOscillator();
+  const crackGain = ctx.createGain();
+  crack.type = "triangle";
+  crack.frequency.setValueAtTime(900 * pitch, now);
+  crack.frequency.exponentialRampToValueAtTime(120 * pitch, now + 0.012);
+  crackGain.gain.setValueAtTime(0.15, now);
+  crackGain.gain.exponentialRampToValueAtTime(0.001, now + 0.018);
+  crack.connect(crackGain);
+  crackGain.connect(ctx.destination);
+  crack.start(now);
+  crack.stop(now + 0.02);
 
-  osc.connect(filt); filt.connect(gain); gain.connect(ctx.destination);
-  osc.start(now); osc.stop(now + 0.07);
+  // Warm noise burst (wood texture)
+  const bufSize = Math.floor(ctx.sampleRate * 0.022);
+  const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 2.5) * 0.6;
+  }
+  const nSrc = ctx.createBufferSource();
+  nSrc.buffer = buf;
+  const lpf = ctx.createBiquadFilter();
+  lpf.type = "lowpass";
+  lpf.frequency.value = 2800;
+  const nGain = ctx.createGain();
+  nGain.gain.setValueAtTime(0.18, now);
+  nGain.gain.exponentialRampToValueAtTime(0.001, now + 0.022);
+  nSrc.connect(lpf); lpf.connect(nGain); nGain.connect(ctx.destination);
+  nSrc.start(now);
 }
 
 // ── Master play dispatcher ────────────────────────────────────────────────────
@@ -233,12 +280,12 @@ export function playClickSound(pitch = 1.0, mode?: SoundMode) {
 
   try {
     switch (soundMode) {
-      case "pop":     playSoftPop(pitch);    break;
-      case "tick":    playMechTick(pitch);   break;
-      case "bubble":  playBubble(pitch);     break;
-      case "chime":   playChime(pitch);      break;
-      case "swoosh":  playSwoosh(pitch);     break;
-      case "digital": playDigital(pitch);    break;
+      case "pop":     playSoftPop(pitch);   break;
+      case "tick":    playMechTick(pitch);  break;
+      case "bubble":  playBubble(pitch);    break;
+      case "chime":   playChime(pitch);     break;
+      case "crystal": playCrystal(pitch);   break;
+      case "snap":    playSnap(pitch);      break;
     }
   } catch {
     // fail silently
