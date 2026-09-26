@@ -118,11 +118,12 @@ const CURSOR_OPTIONS: { id: CursorMode; label: string; icon: React.ReactNode }[]
   },
   {
     id: "matrix",
-    label: "Matrix",
+    label: "Cyber Radar",
     icon: (
-      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <path d="M4 17l6-6-6-6" />
-        <path d="M12 19h8" />
+      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.4" strokeDasharray="3 2" />
+        <circle cx="12" cy="12" r="5.5" stroke="currentColor" strokeWidth="1.2" strokeDasharray="2 1.5" />
+        <circle cx="12" cy="12" r="2" fill="currentColor" />
       </svg>
     ),
   },

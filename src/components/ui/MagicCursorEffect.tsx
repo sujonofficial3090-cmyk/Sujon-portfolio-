@@ -59,17 +59,155 @@ interface FireParticle {
   maxLife: number;
 }
 
-interface MatrixDrop {
-  x: number;
-  y: number;
-  vy: number;
-  char: string;
-  color: string;
-  alpha: number;
-  life: number;
-  maxLife: number;
-  size: number;
+function CyberRadarCursor({ isVisible }: { isVisible: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const [bursts, setBursts] = useState<{ id: number }[]>([]);
+  const [dotPopping, setDotPopping] = useState(false);
+  const [isHover, setIsHover] = useState(false);
+
+  useEffect(() => {
+    let mouseX = -100;
+    let mouseY = -100;
+    let currX = -100;
+    let currY = -100;
+    let animId: number | null = null;
+
+    const el = containerRef.current;
+
+    const renderLoop = () => {
+      if (mouseX > -50 && mouseY > -50) {
+        // QuickTo / Spring lerp (0.32) - zero stutter, high FPS tracking
+        currX += (mouseX - 20 - currX) * 0.32;
+        currY += (mouseY - 20 - currY) * 0.32;
+
+        if (el) {
+          el.style.transform = `translate3d(${currX}px, ${currY}px, 0)`;
+        }
+      }
+      animId = requestAnimationFrame(renderLoop);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (currX === -100) {
+        currX = mouseX - 20;
+        currY = mouseY - 20;
+      }
+
+      const target = e.target as HTMLElement | null;
+      const interactive = !!target?.closest(
+        'a, button, [role="button"], input, select, textarea, .nm-interactive, .sujon-logo-reveal, [data-interactive], [tabindex="0"], label, summary'
+      );
+      setIsHover(interactive);
+    };
+
+    const handleClick = () => {
+      const id = Date.now() + Math.random();
+      setBursts((prev) => [...prev.slice(-3), { id }]);
+      setDotPopping(true);
+      setTimeout(() => {
+        setBursts((prev) => prev.filter((b) => b.id !== id));
+      }, 500);
+      setTimeout(() => {
+        setDotPopping(false);
+      }, 240);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("click", handleClick, { passive: true });
+    animId = requestAnimationFrame(renderLoop);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("click", handleClick);
+      if (animId) cancelAnimationFrame(animId);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className={`radar-cursor-container ${isHover ? "is-hover" : ""}`}
+      style={{
+        opacity: isVisible ? 1 : 0,
+      }}
+      aria-hidden="true"
+    >
+      {/* Concentric Rotating Dashed Radar Circles */}
+      <svg viewBox="0 0 100 100" className="radar-rings-svg">
+        <g className="radar-rings-spin">
+          <g className="radar-rings-pulse">
+            <circle
+              cx="50"
+              cy="50"
+              r="32"
+              fill="none"
+              stroke="var(--brand-deep)"
+              className="radar-ring-inner"
+              strokeWidth="1.5"
+              strokeDasharray="12 8"
+              opacity="0.85"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="40"
+              fill="none"
+              stroke="var(--brand)"
+              className="radar-ring-outer"
+              strokeWidth="1"
+              strokeDasharray="3 12"
+              opacity="0.9"
+            />
+          </g>
+        </g>
+      </svg>
+
+      {/* Click Shockwaves & Bursts */}
+      {bursts.map((b) => (
+        <React.Fragment key={b.id}>
+          {/* Shockwave expanding ring */}
+          <svg viewBox="0 0 100 100" className="radar-burst-svg radar-shockwave-active">
+            <circle
+              cx="50"
+              cy="50"
+              r="34"
+              fill="none"
+              stroke="var(--brand)"
+              className="radar-shockwave-ring"
+              strokeWidth="1.5"
+              strokeDasharray="12 8"
+            />
+          </svg>
+
+          {/* Electric burst spark rays */}
+          <svg viewBox="0 0 100 100" className="radar-burst-svg radar-burst-active">
+            <g stroke="var(--brand)" className="radar-spark-ray" strokeWidth="2" fill="none" strokeLinecap="round">
+              <path d="M50 2 L43 22 L51 18 L45 35" />
+              <path d="M98 50 L78 43 L82 51 L65 45" />
+              <path d="M50 98 L57 78 L49 82 L55 65" />
+              <path d="M2 50 L22 57 L18 49 L35 55" />
+              <path d="M15 15 L30 30" />
+              <path d="M85 15 L70 30" />
+              <path d="M15 85 L30 70" />
+              <path d="M85 85 L70 70" />
+            </g>
+          </svg>
+        </React.Fragment>
+      ))}
+
+      {/* Center Glowing Core Dot */}
+      <div
+        ref={dotRef}
+        className={`radar-core-dot ${dotPopping ? "radar-dot-pop" : ""}`}
+      />
+    </div>
+  );
 }
+
 
 interface RippleRing {
   x: number;
@@ -296,7 +434,6 @@ export function MagicCursorEffect() {
       mode !== "trail" &&
       mode !== "orbit" &&
       mode !== "fire" &&
-      mode !== "matrix" &&
       mode !== "ripple" &&
       mode !== "galaxy"
     ) {
@@ -312,7 +449,6 @@ export function MagicCursorEffect() {
     let sparks: SparkParticle[] = [];
     let trailPoints: TrailPoint[] = [];
     let fireParticles: FireParticle[] = [];
-    let matrixDrops: MatrixDrop[] = [];
     let ripples: RippleRing[] = [];
     let lastRippleX = -100;
     let lastRippleY = -100;
@@ -397,19 +533,6 @@ export function MagicCursorEffect() {
             maxLife: 20 + Math.random() * 14,
           });
         }
-      } else if (mode === "matrix") {
-        const chars = ["0", "1", "0", "1", "1", "0", "λ", "⚡", "◊", "1"];
-        matrixDrops.push({
-          x: e.clientX + (Math.random() - 0.5) * 10,
-          y: e.clientY + (Math.random() - 0.5) * 10,
-          vy: 1.2 + Math.random() * 2.0,
-          char: chars[Math.floor(Math.random() * chars.length)],
-          color: Math.random() > 0.35 ? (palette[0] || "#22C55E") : "#FFFFFF",
-          alpha: 1,
-          life: 0,
-          maxLife: 22 + Math.random() * 10,
-          size: 11,
-        });
       } else if (mode === "ripple") {
         const dist = Math.hypot(e.clientX - lastRippleX, e.clientY - lastRippleY);
         if (dist > 18) {
@@ -455,21 +578,6 @@ export function MagicCursorEffect() {
             alpha: 1,
             life: 0,
             maxLife: 26 + Math.random() * 12,
-          });
-        }
-      } else if (mode === "matrix") {
-        const chars = ["1", "0", "⚡", "◊", "λ"];
-        for (let i = 0; i < 6; i++) {
-          matrixDrops.push({
-            x: e.clientX + (Math.random() - 0.5) * 24,
-            y: e.clientY + (Math.random() - 0.5) * 24,
-            vy: 2.0 + Math.random() * 2.5,
-            char: chars[Math.floor(Math.random() * chars.length)],
-            color: primaryColor,
-            alpha: 1,
-            life: 0,
-            maxLife: 28,
-            size: 13,
           });
         }
       }
@@ -659,38 +767,6 @@ export function MagicCursorEffect() {
         }
       }
 
-      // MODE: MATRIX (Cyber Rain & Digital Glyphs)
-      if (mode === "matrix") {
-        ctx.font = "bold 11px monospace";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        matrixDrops = matrixDrops.filter((d) => {
-          d.y += d.vy;
-          d.life += 1;
-          d.alpha = Math.max(0, 1 - d.life / d.maxLife);
-          if (d.alpha <= 0.01) return false;
-
-          ctx.fillStyle = d.color;
-          ctx.globalAlpha = d.alpha * 0.95;
-          ctx.shadowColor = d.color;
-          ctx.shadowBlur = 5;
-          ctx.fillText(d.char, d.x, d.y);
-          ctx.shadowBlur = 0;
-          return d.life < d.maxLife;
-        });
-
-        if (mouseX > -50 && mouseY > -50) {
-          ctx.beginPath();
-          ctx.arc(mouseX, mouseY, 3, 0, Math.PI * 2);
-          ctx.fillStyle = "#FFFFFF";
-          ctx.globalAlpha = 1;
-          ctx.shadowColor = primaryColor;
-          ctx.shadowBlur = 8;
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
-      }
-
       // MODE: RIPPLE (Concentric Liquid Waves)
       if (mode === "ripple") {
         ripples = ripples.filter((r) => {
@@ -782,12 +858,11 @@ export function MagicCursorEffect() {
 
   return (
     <>
-      {/* Canvas Layer for Particle & Dynamic Cursors (spark, trail, orbit, fire, matrix, ripple, galaxy) */}
+      {/* Canvas Layer for Particle & Dynamic Cursors (spark, trail, orbit, fire, ripple, galaxy) */}
       {(mode === "spark" ||
         mode === "trail" ||
         mode === "orbit" ||
         mode === "fire" ||
-        mode === "matrix" ||
         mode === "ripple" ||
         mode === "galaxy") && (
         <canvas
@@ -797,6 +872,9 @@ export function MagicCursorEffect() {
           aria-hidden="true"
         />
       )}
+
+      {/* Cyber Radar Cursor (from https://jakareya-dev.vercel.app/) */}
+      {mode === "matrix" && <CyberRadarCursor isVisible={isVisible} />}
 
       {/* DOM Layer for Follower Cursors (circle, glow-dot, crosshair, bubble) */}
       {(mode === "circle" ||
