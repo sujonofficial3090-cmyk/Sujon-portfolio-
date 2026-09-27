@@ -35,6 +35,7 @@ export const Route = createFileRoute("/")({
 });
 
 import { ScrollButton } from "@/components/site/ScrollButton";
+import { MobileAiAssistant } from "@/components/site/MobileAiAssistant";
 
 function WhatsAppFloat() {
   return (
@@ -75,7 +76,7 @@ function Index() {
       <Footer />
       <WhatsAppFloat />
       <ScrollButton />
+      <MobileAiAssistant />
     </div>
   );
 }
-

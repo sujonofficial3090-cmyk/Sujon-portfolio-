@@ -54,7 +54,7 @@ export function AdminBlogView() {
     setExcerpt(p.excerpt);
     setContent(p.content);
     setTagsInput((p.tags || []).join(", "));
-    setStatus(p.status);
+    setStatus(p.status || "published");
     setImgUrl(p.img);
     setIsModalOpen(true);
   };
