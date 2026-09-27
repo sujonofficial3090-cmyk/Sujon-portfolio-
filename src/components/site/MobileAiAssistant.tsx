@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Bot,
   X,
@@ -6,13 +6,6 @@ import {
   Sparkles,
   ArrowRight,
   RefreshCw,
-  ExternalLink,
-  PhoneCall,
-  CheckCircle2,
-  Clock,
-  Zap,
-  ShieldCheck,
-  CreditCard,
   MessageCircle,
 } from "lucide-react";
 
@@ -46,7 +39,7 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: "m1",
     sender: "bot",
-    text: "👋 Assalamu Alaikum & Hello! I'm Sujon's AI Assistant.\n\nI can answer any questions about Sujon's WordPress development services, pricing, 90+ speed optimization, timeline, and custom quotes. How can I help you today?",
+    text: "👋 Assalamu Alaikum & Hello! I'm Sujon's AI Assistant.\n\nI can answer any questions about Sujon's WordPress development, pricing, 90+ speed guarantee, custom stores, and timelines. How can I assist you today?",
     time: "Just now",
     options: [
       { label: "💼 Services & Skills", action: "services" },
@@ -59,11 +52,14 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
-const KNOWLEDGE_BASE: KnowledgeTopic[] = [
+// ─────────────────────────────────────────────────────────────
+// PURE GREETING TOPICS (Triggered ONLY when user greets alone)
+// ─────────────────────────────────────────────────────────────
+const GREETING_TOPICS: KnowledgeTopic[] = [
   {
     id: "greeting_hi",
     keywords: ["hi", "hello", "hey", "hiya", "hlo", "helo", "halo", "hi there", "hello there", "good morning", "good evening", "good afternoon"],
-    patterns: [/^(hi|hello|hey|hiya|helo|hlo|halo|hi there|hello there)(\s.*)?$/i, /\b(hi|hello|hey)\b/i],
+    patterns: [/^(hi|hello|hey|hiya|helo|hlo|halo|hi there|hello there|good morning|good evening|good afternoon)[\s!?,.-]*$/i],
     reply:
       "Hello! 👋 Welcome to Sujon's portfolio!\n\nHow can I help you today? Are you looking to build a new website, optimize your site speed, or have a question about pricing? Feel free to tell me what you need! 😊",
     options: [
@@ -81,7 +77,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
   {
     id: "greeting_salam",
     keywords: ["salam", "assalam", "assalamu alaikum", "assalamualaikum", "slm", "সালাম", "আসসালামু আলাইকুম"],
-    patterns: [/^(salam|assalam|assalamu alaikum|assalamualaikum|slm|সালাম|আসসালামু আলাইকুম)(\s.*)?$/i],
+    patterns: [/^(salam|assalam|assalamu alaikum|assalamualaikum|slm|সালাম|আসসালামু আলাইকুম)[\s!?,.-]*$/i],
     reply:
       "Walaikum Assalam Warahmatullah! 🌸 স্বাগতম!\n\nকেমন আছেন? আমি সুজনের পক্ষ থেকে আপনাকে সাহায্য করতে এখানে আছি। নতুন ওয়েবসাইট তৈরি, স্পিড অপটিমাইজেশন, নাকি অন্য কোনো বিষয়ে জানতে চাচ্ছেন?",
     options: [
@@ -99,7 +95,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
   {
     id: "greeting_how_are_you",
     keywords: ["how are you", "kemon achen", "kemon acho", "how r u", "how are u", "valoo achen", "bhalo achen", "kemon"],
-    patterns: [/\b(kemon achen|kemon acho|how are you|how are u|how r u|valoo achen|bhalo achen)\b/i],
+    patterns: [/^(kemon achen|kemon acho|how are you|how are u|how r u|valoo achen|bhalo achen)[\s!?,.-]*$/i, /\b(kemon achen|how are you|bhalo achen)\b/i],
     reply:
       "Alhamdulillah, I'm doing great! Thank you so much for asking. 😊\n\nHow are you doing today? What kind of website or project do you have in mind? I'm here to give you all the details!",
     options: [
@@ -130,7 +126,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
   {
     id: "greeting_bhai",
     keywords: ["bhai", "bro", "brother", "vai", "vaia", "sir", "boss"],
-    patterns: [/^(bhai|bro|brother|vai|vaia|sir|boss)(\s.*)?$/i],
+    patterns: [/^(bhai|bro|brother|vai|vaia|sir|boss)[\s!?,.-]*$/i],
     reply:
       "Ji bolun! 😊 How can I help you?\n\nAre you looking to build a new website, fix bugs, or optimize your site speed? Tell me what you need, or we can chat directly on WhatsApp!",
     options: [
@@ -152,30 +148,44 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       { label: "💬 Chat on WhatsApp", action: "whatsapp" },
     ],
   },
+];
+
+// ─────────────────────────────────────────────────────────────
+// SUBSTANTIVE SPECIFIC TOPICS (Evaluated FIRST with High Priority)
+// ─────────────────────────────────────────────────────────────
+const SPECIFIC_TOPICS: KnowledgeTopic[] = [
   {
-    id: "about_sujon",
-    keywords: [
-      "who is sujon",
-      "about sujon",
-      "experience",
-      "years",
-      "background",
-      "developer",
-      "qualification",
-      "portfolio",
-      "who are you",
-      "sujon ke",
-      "porichiti",
-      "experience koto",
-    ],
-    patterns: [/\b(who is sujon|about sujon|experience|years of experience)\b/i],
+    id: "ecommerce_pricing",
+    keywords: ["ecommerce price", "woocommerce price", "shop cost", "store price", "online store cost", "ecommerce koto taka"],
+    patterns: [/\b(ecommerce|woocommerce|online store|online shop)\b.*\b(price|pricing|cost|rate|how much|koto taka|khoroch|budget)\b/i, /\b(price|pricing|cost|how much|koto taka|khoroch)\b.*\b(ecommerce|woocommerce|online store|online shop)\b/i],
     reply:
-      "🌟 **About Md. Sujon Mia**:\n\n• **5+ Years** of hands-on professional WordPress & Front-end expertise\n• **200+ Projects Completed** successfully for businesses and agencies globally\n• **150+ Happy Clients** across USA, UK, Canada, Australia, Europe & Asia\n• **99% Client Satisfaction** rating with repeat clients\n• Specializes in custom WordPress, Elementor Pro, WooCommerce, speed optimization (90+ score), and Full-stack PHP/React integrations.\n\nSujon is based in Dhaka, Bangladesh, and works seamlessly with clients in any international time zone (EST, PST, GMT, BST, AEST).",
+      "🛍️ **WooCommerce Online Store Pricing**:\n\nA complete, conversion-focused online shop by Sujon typically ranges from **$400 to $1,200 (৳40,000 to ৳120,000)**:\n• **Starter Store (~$400–$600)**: Up to 25 products, mobile-first design, payment gateways (Stripe, PayPal, bKash, etc.), coupons, invoices.\n• **Full Advanced Store (~$700–$1,200)**: Unlimited products, multi-currency, variable attributes, stock alerts, speed-tuned, 30 days support.\n\n*All store builds include a video tutorial on how to add and manage products yourself!*",
     options: [
-      { label: "💼 View Core Services", action: "services" },
-      { label: "📁 See Portfolio Work", action: "portfolio_action" },
-      { label: "💬 Talk to Sujon Directly", action: "whatsapp" },
+      { label: "📋 Start an eCommerce Project", action: "quote" },
+      { label: "💬 Discuss on WhatsApp", action: "whatsapp" },
+      { label: "⏱️ Delivery Timeline", action: "timeline" },
     ],
+    highlightAction: {
+      type: "whatsapp",
+      label: "Discuss eCommerce on WhatsApp",
+      url: "https://wa.me/8801936711699",
+    },
+  },
+  {
+    id: "speed_pricing",
+    keywords: ["speed price", "speed cost", "optimize cost", "speed optimization price", "speed koto taka"],
+    patterns: [/\b(speed|slow|pagespeed|gtmetrix|optimize)\b.*\b(price|pricing|cost|rate|how much|koto taka|khoroch)\b/i, /\b(price|pricing|cost|how much|koto taka|khoroch)\b.*\b(speed|slow|pagespeed|gtmetrix|optimize)\b/i],
+    reply:
+      "⚡ **WordPress Speed Optimization Pricing (90+ Score Guaranteed)**:\n\nSujon's speed optimization fee is **$50 to $150 (৳5,000 to ৳15,000)** based on site size:\n• **Standard Business / Blog Site**: **$50 – $80**\n• **WooCommerce / Dynamic Portal**: **$90 – $150**\n\n**Includes:**\n✔ Guaranteed 90+ PageSpeed on Mobile & Desktop\n✔ GTmetrix Grade A with < 1.5s load time\n✔ Core Web Vitals (LCP, FID, CLS) Pass\n✔ Delivered in **24 to 48 hours** with 100% money-back guarantee!",
+    options: [
+      { label: "🚀 Speed Up My Site Now", action: "quote" },
+      { label: "💬 Message on WhatsApp", action: "whatsapp" },
+    ],
+    highlightAction: {
+      type: "whatsapp",
+      label: "Get Free Speed Audit on WhatsApp",
+      url: "https://wa.me/8801936711699",
+    },
   },
   {
     id: "pricing",
@@ -196,7 +206,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "pricing koto",
       "rates",
     ],
-    patterns: [/\b(price|pricing|cost|how much|rate|koto taka|budget|charge)\b/i],
+    patterns: [/\b(price|pricing|cost|how much|rate|koto taka|budget|charge|khoroch|package)\b/i],
     reply:
       "💰 **Transparent Pricing & Packages**:\n\n1. **High-Converting Landing Page**: ~$80 – $200 (৳8,000 – ৳20,000)\n   • 1–3 days delivery, responsive, speed-optimized.\n\n2. **Business / Corporate Website**: ~$250 – $600 (৳25,000 – ৳65,000)\n   • 5–10 pages, modern UI, SEO ready, blog, contact forms.\n\n3. **Full WooCommerce eCommerce Store**: ~$400 – $1,200 (৳40,000 – ৳120,000)\n   • Product variations, payment gateways (Stripe, PayPal, bKash, etc.), coupons, invoices.\n\n4. **WordPress Speed Optimization**: ~$50 – $150 (৳5,000 – ৳15,000)\n   • Guaranteed 90+ score on Mobile & Desktop, GTmetrix Grade A.\n\n5. **Bug Fixing & Malware Cleanup**: ~$30 – $80 (৳3,000 – ৳8,000)\n   • Same-day fix for critical errors or hacked sites.\n\n✨ *Every project includes 30 days of free post-launch support!*",
     options: [
@@ -230,7 +240,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "druto",
       "speed barano",
     ],
-    patterns: [/\b(speed|slow|gtmetrix|pagespeed|core web vitals|load time)\b/i],
+    patterns: [/\b(speed|slow|gtmetrix|pagespeed|core web vitals|load time|speed barano)\b/i],
     reply:
       "⚡ **WordPress Speed Optimization (90+ Guaranteed)**:\n\nIs your website slow or losing Google rankings? Sujon guarantees:\n• **90+ PageSpeed Score** on Google Lighthouse & Mobile/Desktop\n• **GTmetrix Grade A** with load time under 1.5–2 seconds\n• **Core Web Vitals Pass** (LCP, FID, CLS)\n\n**What Sujon Does:**\n✔ Advanced Caching (WP Rocket, LiteSpeed, Redis)\n✔ Database deep cleanup and query optimization\n✔ Next-Gen WebP image compression and lazy loading\n✔ CSS/JS minification, delay and critical CSS generation\n✔ CDN configuration (Cloudflare with full edge caching)\n\n*Zero broken layouts, 100% safe process!*",
     options: [
@@ -258,7 +268,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "seba",
       "ki ki koren",
     ],
-    patterns: [/\b(service|services|what can you do|skills|specialties)\b/i],
+    patterns: [/\b(service|services|what can you do|skills|specialties|seba)\b/i],
     reply:
       "🛠️ **Core Services Offered by Sujon**:\n\n1. **Custom WordPress Development**: Fast, secure and custom-coded themes & plugins.\n2. **Elementor & Elementor Pro**: Pixel-perfect responsive designs from Figma / PSD / XD.\n3. **WooCommerce eCommerce**: Full online store setup with payments, tax & shipping.\n4. **Speed Optimization**: 90+ PageSpeed guarantee on Mobile & Desktop.\n5. **Website Redesign**: Modernizing outdated websites into sleek modern experiences.\n6. **Landing Page Design**: High-converting lead generation & sales funnels.\n7. **Bug Fixing & Security**: Emergency fixes, 500 errors, malware removal.\n8. **Website Migration**: Zero-downtime server and domain transfers.",
     options: [
@@ -292,7 +302,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
     reply:
       "🛍️ **WooCommerce & eCommerce Stores**:\n\nSujon builds full-featured online shops engineered for high sales conversions:\n\n• **Product Management**: Simple, variable, downloadable, or affiliate products.\n• **Payment Gateways**: Stripe, PayPal, Square, Authorize.net, plus local gateways (bKash, Nagad, Rocket, SSLCommerz, Cash on Delivery).\n• **Cart & Checkout**: Multi-step or 1-click seamless checkout to prevent cart abandonment.\n• **Automations**: Automated order emails, PDF invoices, discount coupon rules, and inventory tracking.\n• **Mobile-First**: 100% thumb-friendly shopping experience for smartphone buyers.",
     options: [
-      { label: "💰 eCommerce Pricing (~$400–$1200)", action: "pricing" },
+      { label: "💰 eCommerce Pricing (~$400–$1200)", action: "ecommerce_pricing" },
       { label: "💬 Start an eCommerce Project", action: "whatsapp" },
       { label: "⏱️ How Long Does It Take?", action: "timeline" },
     ],
@@ -311,7 +321,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "pixel perfect",
       "drag and drop",
     ],
-    patterns: [/\b(elementor|figma|psd to wordpress|figma to elementor)\b/i],
+    patterns: [/\b(elementor|figma|psd to wordpress|figma to elementor|pixel perfect)\b/i],
     reply:
       "🎨 **Elementor & Figma to WordPress Expert**:\n\nSujon has built 100+ websites using Elementor and Elementor Pro:\n• **Pixel-Perfect Conversion**: 100% identical translation from Figma, PSD, Adobe XD, or Canva designs.\n• **Clean & Lightweight**: No unnecessary bloated addons; custom CSS is used to keep pages lightning fast.\n• **Full Responsive Control**: Specially styled for Desktop, Tablet, and Mobile displays.\n• **Dynamic Content**: Custom post types, ACF (Advanced Custom Fields), and custom loops.",
     options: [
@@ -341,7 +351,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "khisti",
       "thik kora",
     ],
-    patterns: [/\b(bug|error|broken|hacked|malware|critical error|500 error)\b/i],
+    patterns: [/\b(bug|error|broken|hacked|malware|critical error|500 error|white screen|not working|thik kora)\b/i],
     reply:
       "🛠️ **Emergency WordPress Bug Fixing & Security**:\n\nGot an urgent problem? Sujon can fix it in a few hours:\n• **Critical Error / White Screen of Death (WSOD)**\n• **500 Internal Server Error & Database Connection Failures**\n• **Plugin & Theme Conflicts after updates**\n• **Malware Removal & Hacked Site Clean Up** (blacklist removal, security hardening)\n• **Broken CSS, mobile layout glitches & SSL HTTPS errors**\n\n⚡ Most bugs are solved within **2 to 6 hours**!",
     options: [
@@ -369,7 +379,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "deadline",
       "duration",
     ],
-    patterns: [/\b(how long|timeline|delivery time|koto din lagbe|turnaround)\b/i],
+    patterns: [/\b(how long|timeline|delivery time|koto din lagbe|turnaround|how many days)\b/i],
     reply:
       "⏱️ **Standard Project Delivery Timelines**:\n\n• **Landing Page / One-Pager**: 1 to 3 business days\n• **Standard Business Website**: 3 to 7 business days\n• **Full WooCommerce eCommerce Store**: 5 to 10 business days\n• **Speed Optimization (90+ score)**: 24 to 48 hours\n• **Urgent Bug Fixes**: Same day (2 to 6 hours)\n\n*Rush delivery is also available if you have an urgent deadline!*",
     options: [
@@ -379,90 +389,20 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
     ],
   },
   {
-    id: "process",
-    keywords: [
-      "process",
-      "how it works",
-      "workflow",
-      "steps",
-      "revisions",
-      "staging",
-      "rules",
-      "process ki",
-      "kivabe kaj koren",
-    ],
-    patterns: [/\b(process|how do you work|workflow|revisions|steps)\b/i],
+    id: "call_meeting",
+    keywords: ["call", "zoom", "google meet", "phone call", "talk on phone", "meeting", "kotha bola jabe", "voice call", "can we speak", "speak on phone", "call deya"],
+    patterns: [/\b(call|zoom|google meet|phone call|meeting|voice call|can we speak|kotha bolte|call deya)\b/i],
     reply:
-      "🤝 **How Sujon Works With You (Step-by-Step)**:\n\n1. **Discussion & Plan**: We discuss your business goals, design preferences, and required features.\n2. **Staging Development**: Sujon develops the website on a live private staging link so you can see progress in real-time.\n3. **Review & Revisions**: You review the site and request any adjustments (unlimited minor revisions until you are 100% happy).\n4. **Testing & Speed Optimization**: Complete QA testing on desktop, tablet, and mobile, plus speed tuning for 90+ PageSpeed.\n5. **Launch & Training**: Migration to your live domain, plus a personalized video walkthrough showing you how to manage your website easily!",
+      "📞 **Voice Calls & Zoom / Google Meet Meetings**:\n\n**Yes, absolutely!** Sujon is very happy to speak directly with you:\n• **WhatsApp Voice & Video Call**: [+8801936711699](https://wa.me/8801936711699)\n• **Google Meet / Zoom**: Screen-sharing walkthroughs and live discussion available upon request.\n\n*Just send a quick message on WhatsApp to schedule a call at your preferred time!*",
     options: [
-      { label: "💬 Chat With Sujon", action: "whatsapp" },
-      { label: "💰 View Rates", action: "pricing" },
+      { label: "💬 Open WhatsApp to Schedule Call", action: "open_wa_link" },
+      { label: "💰 View Pricing", action: "pricing" },
     ],
-  },
-  {
-    id: "easy_edit",
-    keywords: [
-      "can i edit",
-      "manage myself",
-      "without coding",
-      "easy to edit",
-      "admin panel",
-      "dashboard",
-      "amra ki edit korte parbo",
-      "video guide",
-    ],
-    patterns: [/\b(can i edit|manage myself|without coding|change text)\b/i],
-    reply:
-      "✨ **Yes! 100% Easy to Manage**:\n\nYou will NOT need any coding skills! Sujon builds websites with intuitive visual page builders (like Elementor) where you can easily:\n• Edit text and swap images with a few clicks\n• Add new blog posts, products, and prices\n• Receive incoming orders and contact submissions\n\n*Sujon also provides a custom video tutorial demonstrating how to update your site!*",
-    options: [
-      { label: "💼 Explore Services", action: "services" },
-      { label: "💬 Ask a Question on WhatsApp", action: "whatsapp" },
-    ],
-  },
-  {
-    id: "hosting_domain",
-    keywords: [
-      "hosting",
-      "domain",
-      "server",
-      "cpanel",
-      "namecheap",
-      "hostinger",
-      "siteground",
-      "godaddy",
-      "buy domain",
-      "hosting lagbe",
-    ],
-    patterns: [/\b(domain|hosting|cpanel|server|hostinger|namecheap)\b/i],
-    reply:
-      "🌐 **Domain & Web Hosting**:\n\n• **Do you already have hosting?** Sujon can work directly on your existing cPanel, Hostinger, SiteGround, Namecheap, or VPS.\n• **Don't have hosting yet?** Sujon will guide you to choose the best and most affordable hosting for your needs, or handle the entire setup for you.\n• **Need migration?** Sujon provides 100% safe, zero-downtime website and domain transfers.",
-    options: [
-      { label: "💬 Ask Sujon About Hosting", action: "whatsapp" },
-      { label: "💰 Pricing Packages", action: "pricing" },
-    ],
-  },
-  {
-    id: "payment_terms",
-    keywords: [
-      "payment method",
-      "pay",
-      "advance",
-      "bkash",
-      "nagad",
-      "bank",
-      "wise",
-      "payoneer",
-      "paypal",
-      "terms",
-      "taka kivabe dibo",
-    ],
-    patterns: [/\b(payment method|how to pay|advance|payoneer|wise|bkash)\b/i],
-    reply:
-      "💳 **Payment Terms & Accepted Methods**:\n\n• **Standard Terms**: 50% advance to start, and the remaining 50% only after you review and are 100% satisfied with the finished site.\n• **International Clients**: Wise, Payoneer, Bank Wire (SWIFT), Remitly, PayPal.\n• **Local (Bangladesh)**: bKash, Nagad, Rocket, or Direct Bank Transfer.\n• **Guarantee**: 100% satisfaction guarantee or money back!",
-    options: [
-      { label: "💬 Discuss on WhatsApp", action: "whatsapp" },
-      { label: "📋 Start a Project", action: "quote" },
-    ],
+    highlightAction: {
+      type: "whatsapp",
+      label: "Schedule a Call on WhatsApp",
+      url: "https://wa.me/8801936711699",
+    },
   },
   {
     id: "contact",
@@ -471,7 +411,6 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "whatsapp",
       "phone",
       "number",
-      "call",
       "email",
       "message",
       "address",
@@ -483,7 +422,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "bangladesh",
       "dhaka",
     ],
-    patterns: [/\b(contact|whatsapp|phone number|call|email|location|where are you)\b/i],
+    patterns: [/\b(contact|whatsapp|phone number|call|email|location|where are you|jogajog)\b/i],
     reply:
       "📞 **Get in Touch With Sujon Directly**:\n\n• **WhatsApp**: [+8801936711699](https://wa.me/8801936711699) *(Instant response, typically within 15 minutes)*\n• **Email**: sujonmia3090@gmail.com\n• **Location**: Dhaka, Bangladesh *(Working globally across USA, UK, Europe, Australia, etc.)*\n• **Availability**: Currently **Available** for new projects & retainers!",
     options: [
@@ -498,6 +437,30 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
     },
   },
   {
+    id: "about_sujon",
+    keywords: [
+      "who is sujon",
+      "about sujon",
+      "experience",
+      "years",
+      "background",
+      "developer",
+      "qualification",
+      "who are you",
+      "sujon ke",
+      "porichiti",
+      "experience koto",
+    ],
+    patterns: [/\b(who is sujon|about sujon|years of experience|who are you|sujon ke)\b/i],
+    reply:
+      "🌟 **About Md. Sujon Mia**:\n\n• **5+ Years** of hands-on professional WordPress & Front-end expertise\n• **200+ Projects Completed** successfully for businesses and agencies globally\n• **150+ Happy Clients** across USA, UK, Canada, Australia, Europe & Asia\n• **99% Client Satisfaction** rating with repeat clients\n• Specializes in custom WordPress, Elementor Pro, WooCommerce, speed optimization (90+ score), and Full-stack PHP/React integrations.\n\nSujon is based in Dhaka, Bangladesh, and works seamlessly with clients in any international time zone (EST, PST, GMT, BST, AEST).",
+    options: [
+      { label: "💼 View Core Services", action: "services" },
+      { label: "📁 See Portfolio Work", action: "portfolio_action" },
+      { label: "💬 Talk to Sujon Directly", action: "whatsapp" },
+    ],
+  },
+  {
     id: "portfolio_work",
     keywords: [
       "portfolio",
@@ -509,7 +472,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "dekhao",
       "kaj dekhte chai",
     ],
-    patterns: [/\b(portfolio|sample|previous work|examples|live demo)\b/i],
+    patterns: [/\b(portfolio|sample|previous work|examples|live demo|kaj dekhan)\b/i],
     reply:
       "📁 **Recent Projects & Portfolio**:\n\nSujon has developed over 200+ projects ranging from eCommerce stores, corporate agency websites, restaurant portals, real estate directories, to custom landing pages.\n\nYou can explore live client projects right here on the portfolio section of this website!",
     options: [
@@ -528,11 +491,6 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       { label: "💰 View Pricing Packages", action: "pricing" },
       { label: "⏱️ Delivery Timeline", action: "timeline" },
     ],
-    highlightAction: {
-      type: "whatsapp",
-      label: "Discuss Requirements on WhatsApp",
-      url: "https://wa.me/8801936711699",
-    },
   },
   {
     id: "no_content_logo",
@@ -555,11 +513,6 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       { label: "💬 Send Website Link on WhatsApp", action: "whatsapp" },
       { label: "💰 How Much Will It Cost?", action: "pricing" },
     ],
-    highlightAction: {
-      type: "whatsapp",
-      label: "Send Reference Link on WhatsApp",
-      url: "https://wa.me/8801936711699",
-    },
   },
   {
     id: "convert_platforms",
@@ -593,11 +546,6 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       { label: "💬 Discuss Budget on WhatsApp", action: "whatsapp" },
       { label: "💰 View Standard Pricing", action: "pricing" },
     ],
-    highlightAction: {
-      type: "whatsapp",
-      label: "Discuss Your Budget on WhatsApp",
-      url: "https://wa.me/8801936711699",
-    },
   },
   {
     id: "hidden_costs",
@@ -643,22 +591,6 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       { label: "💰 Request Multilingual Quote", action: "quote" },
       { label: "💬 Chat on WhatsApp", action: "whatsapp" },
     ],
-  },
-  {
-    id: "call_meeting",
-    keywords: ["call", "zoom", "google meet", "phone call", "talk on phone", "meeting", "kotha bola jabe", "voice call", "can we speak", "speak on phone"],
-    patterns: [/\b(call|zoom|google meet|phone call|meeting|voice call|can we speak)\b/i],
-    reply:
-      "📞 **Voice Calls & Zoom / Google Meet Meetings**:\n\n**Yes, absolutely!** Sujon is very happy to speak directly with you:\n• **WhatsApp Voice & Video Call**: [+8801936711699](https://wa.me/8801936711699)\n• **Google Meet / Zoom**: Screen-sharing walkthroughs and live discussion available upon request.\n\n*Just send a quick message on WhatsApp to schedule a call at your preferred time!*",
-    options: [
-      { label: "💬 Open WhatsApp to Schedule Call", action: "open_wa_link" },
-      { label: "💰 View Pricing", action: "pricing" },
-    ],
-    highlightAction: {
-      type: "whatsapp",
-      label: "Schedule a Call on WhatsApp",
-      url: "https://wa.me/8801936711699",
-    },
   },
   {
     id: "working_hours_timezone",
@@ -930,7 +862,108 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
       { label: "💬 Message on WhatsApp", action: "whatsapp" },
     ],
   },
+  {
+    id: "process",
+    keywords: [
+      "process",
+      "how it works",
+      "workflow",
+      "steps",
+      "revisions",
+      "staging",
+      "rules",
+      "process ki",
+      "kivabe kaj koren",
+    ],
+    patterns: [/\b(process|how do you work|workflow|revisions|steps)\b/i],
+    reply:
+      "🤝 **How Sujon Works With You (Step-by-Step)**:\n\n1. **Discussion & Plan**: We discuss your business goals, design preferences, and required features.\n2. **Staging Development**: Sujon develops the website on a live private staging link so you can see progress in real-time.\n3. **Review & Revisions**: You review the site and request any adjustments (unlimited minor revisions until you are 100% happy).\n4. **Testing & Speed Optimization**: Complete QA testing on desktop, tablet, and mobile, plus speed tuning for 90+ PageSpeed.\n5. **Launch & Training**: Migration to your live domain, plus a personalized video walkthrough showing you how to manage your website easily!",
+    options: [
+      { label: "💬 Chat With Sujon", action: "whatsapp" },
+      { label: "💰 View Rates", action: "pricing" },
+    ],
+  },
+  {
+    id: "easy_edit",
+    keywords: [
+      "can i edit",
+      "manage myself",
+      "without coding",
+      "easy to edit",
+      "admin panel",
+      "dashboard",
+      "amra ki edit korte parbo",
+      "video guide",
+    ],
+    patterns: [/\b(can i edit|manage myself|without coding|change text)\b/i],
+    reply:
+      "✨ **Yes! 100% Easy to Manage**:\n\nYou will NOT need any coding skills! Sujon builds websites with intuitive visual page builders (like Elementor) where you can easily:\n• Edit text and swap images with a few clicks\n• Add new blog posts, products, and prices\n• Receive incoming orders and contact submissions\n\n*Sujon also provides a custom video tutorial demonstrating how to update your site!*",
+    options: [
+      { label: "💼 Explore Services", action: "services" },
+      { label: "💬 Ask a Question on WhatsApp", action: "whatsapp" },
+    ],
+  },
+  {
+    id: "hosting_domain",
+    keywords: [
+      "hosting",
+      "domain",
+      "server",
+      "cpanel",
+      "buy domain",
+      "hosting lagbe",
+    ],
+    patterns: [/\b(domain|hosting|cpanel|server)\b/i],
+    reply:
+      "🌐 **Domain & Web Hosting**:\n\n• **Do you already have hosting?** Sujon can work directly on your existing cPanel, Hostinger, SiteGround, Namecheap, or VPS.\n• **Don't have hosting yet?** Sujon will guide you to choose the best and most affordable hosting for your needs, or handle the entire setup for you.\n• **Need migration?** Sujon provides 100% safe, zero-downtime website and domain transfers.",
+    options: [
+      { label: "💬 Ask Sujon About Hosting", action: "whatsapp" },
+      { label: "💰 Pricing Packages", action: "pricing" },
+    ],
+  },
+  {
+    id: "payment_terms",
+    keywords: [
+      "payment method",
+      "pay",
+      "advance",
+      "bkash",
+      "nagad",
+      "bank",
+      "wise",
+      "payoneer",
+      "paypal",
+      "terms",
+      "taka kivabe dibo",
+    ],
+    patterns: [/\b(payment method|how to pay|advance|payoneer|wise|bkash)\b/i],
+    reply:
+      "💳 **Payment Terms & Accepted Methods**:\n\n• **Standard Terms**: 50% advance to start, and the remaining 50% only after you review and are 100% satisfied with the finished site.\n• **International Clients**: Wise, Payoneer, Bank Wire (SWIFT), Remitly, PayPal.\n• **Local (Bangladesh)**: bKash, Nagad, Rocket, or Direct Bank Transfer.\n• **Guarantee**: 100% satisfaction guarantee or money back!",
+    options: [
+      { label: "💬 Discuss on WhatsApp", action: "whatsapp" },
+      { label: "📋 Start a Project", action: "quote" },
+    ],
+  },
 ];
+
+const FALLBACK_TOPIC: KnowledgeTopic = {
+  id: "fallback",
+  keywords: [],
+  reply: `Thanks for asking! 😊 Sujon specializes in custom WordPress websites, guaranteed 90+ speed optimization, and high-converting WooCommerce stores.\n\nCould you share a bit more detail about what you need? Or, if you'd like an instant direct answer, feel free to chat with Sujon on WhatsApp at +8801936711699!`,
+  options: [
+    { label: "💰 Pricing Packages", action: "pricing" },
+    { label: "⚡ Speed Optimization Help", action: "speed" },
+    { label: "💼 View Services", action: "services" },
+    { label: "💬 Chat on WhatsApp", action: "whatsapp" },
+  ],
+  highlightAction: {
+    type: "whatsapp",
+    label: "Chat with Sujon on WhatsApp",
+    url: "https://wa.me/8801936711699",
+  },
+};
+
+const ALL_TOPICS = [...GREETING_TOPICS, ...SPECIFIC_TOPICS];
 
 export function MobileAiAssistant() {
   const [isOpen, setIsOpen] = useState(false);
@@ -944,38 +977,76 @@ export function MobileAiAssistant() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Lock background scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      setTimeout(() => inputRef.current?.focus(), 250);
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
   useEffect(() => {
     if (isOpen) {
       scrollToBottom();
-      setTimeout(() => inputRef.current?.focus(), 250);
     }
   }, [messages, isOpen, isTyping]);
 
-  // Intelligent Natural Language Query Matcher
-  const matchQueryToKnowledge = (query: string): KnowledgeTopic => {
-    const q = query.toLowerCase().trim();
+  // ─────────────────────────────────────────────────────────────
+  // INTELLIGENT MATCHING ENGINE:
+  // 1. Checks compound intents (e.g. ecommerce + pricing)
+  // 2. Checks substantive specific topics FIRST
+  // 3. ONLY falls back to greetings if no specific topic matched!
+  // ─────────────────────────────────────────────────────────────
+  const matchQueryToKnowledge = (rawQuery: string): KnowledgeTopic => {
+    const q = rawQuery.toLowerCase().trim();
 
-    // 1. Exact or regex pattern matches
-    for (const item of KNOWLEDGE_BASE) {
+    // 1. Compound intent checks
+    const isAskingPrice = /\b(price|pricing|cost|rate|rates|how much|budget|charge|fee|koto taka|khoroch|dam)\b/i.test(q);
+    const isAskingEcommerce = /\b(ecommerce|woocommerce|shop|store|sell products)\b/i.test(q);
+    const isAskingSpeed = /\b(speed|slow|pagespeed|gtmetrix|core web vitals|load time)\b/i.test(q);
+
+    if (isAskingPrice && isAskingEcommerce) {
+      const ecomPrice = SPECIFIC_TOPICS.find((t) => t.id === "ecommerce_pricing");
+      if (ecomPrice) return ecomPrice;
+    }
+
+    if (isAskingPrice && isAskingSpeed) {
+      const speedPrice = SPECIFIC_TOPICS.find((t) => t.id === "speed_pricing");
+      if (speedPrice) return speedPrice;
+    }
+
+    // 2. Score-based matching on SPECIFIC TOPICS (High priority!)
+    let bestScore = 0;
+    let bestMatch: KnowledgeTopic | null = null;
+
+    for (const item of SPECIFIC_TOPICS) {
+      let score = 0;
       if (item.patterns) {
         for (const pattern of item.patterns) {
           if (pattern.test(q)) {
-            return item;
+            score += 10;
           }
         }
       }
-    }
-
-    // 2. Score-based keyword match
-    let bestScore = 0;
-    let bestMatch = KNOWLEDGE_BASE[0];
-
-    for (const item of KNOWLEDGE_BASE) {
-      let score = 0;
       for (const kw of item.keywords) {
         if (q.includes(kw)) {
-          // Weighted scoring: longer keyword matches get higher score
-          score += kw.length > 5 ? 3 : 1.5;
+          score += kw.length > 5 ? 4 : 2;
         }
       }
       if (score > bestScore) {
@@ -984,27 +1055,35 @@ export function MobileAiAssistant() {
       }
     }
 
-    if (bestScore > 0) {
+    if (bestScore >= 2 && bestMatch) {
       return bestMatch;
     }
 
-    // 3. Fallback friendly human consultant response
-    return {
-      id: "fallback",
-      keywords: [],
-      reply: `Thanks for asking! 😊 Sujon is an expert in custom WordPress websites, 90+ speed optimization, and WooCommerce stores.\n\nCould you share a bit more detail about what you need? Or, if you prefer an instant direct answer, you can message Sujon directly on WhatsApp: +8801936711699!`,
-      options: [
-        { label: "💰 Pricing Packages", action: "pricing" },
-        { label: "⚡ Speed Optimization Help", action: "speed" },
-        { label: "💼 View Services", action: "services" },
-        { label: "💬 Chat on WhatsApp", action: "whatsapp" },
-      ],
-      highlightAction: {
-        type: "whatsapp",
-        label: "Chat with Sujon on WhatsApp",
-        url: "https://wa.me/8801936711699",
-      },
-    };
+    // 3. Greeting check (Triggered ONLY when user greets without another specific topic)
+    for (const item of GREETING_TOPICS) {
+      if (item.patterns) {
+        for (const pattern of item.patterns) {
+          if (pattern.test(q)) {
+            return item;
+          }
+        }
+      }
+      for (const kw of item.keywords) {
+        if (
+          q === kw ||
+          q.startsWith(kw + " ") ||
+          q.endsWith(" " + kw) ||
+          q.startsWith(kw + "?") ||
+          q.startsWith(kw + "!") ||
+          q.startsWith(kw + ",")
+        ) {
+          return item;
+        }
+      }
+    }
+
+    // 4. Friendly fallback response
+    return FALLBACK_TOPIC;
   };
 
   const handleAction = (action: string) => {
@@ -1029,12 +1108,16 @@ export function MobileAiAssistant() {
       return;
     }
 
-    const topic = KNOWLEDGE_BASE.find((k) => k.id === action);
+    if (isTyping) return;
+
+    const topic = ALL_TOPICS.find((k) => k.id === action);
     if (!topic) return;
 
     const userLabelMap: Record<string, string> = {
       services: "What services does Sujon provide?",
       pricing: "What are your pricing packages?",
+      ecommerce_pricing: "How much does a WooCommerce store cost?",
+      speed_pricing: "How much for 90+ Speed Optimization?",
       speed: "Tell me about 90+ Speed Optimization",
       ecommerce: "Tell me about WooCommerce and online shops",
       elementor: "Do you design with Elementor and Figma?",
@@ -1102,13 +1185,13 @@ export function MobileAiAssistant() {
         highlightAction: topic.highlightAction,
       };
       setMessages((prev) => [...prev, botMsg]);
-    }, 600);
+    }, 500);
   };
 
   const handleSend = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const query = inputValue.trim();
-    if (!query) return;
+    if (!query || isTyping) return;
 
     const userMsg: Message = {
       id: `u-${Date.now()}`,
@@ -1123,8 +1206,8 @@ export function MobileAiAssistant() {
 
     const matchedTopic = matchQueryToKnowledge(query);
 
-    // Realistic human response delay
-    const delay = Math.min(1000, Math.max(500, query.length * 15));
+    // Fast, natural delay (400 - 750ms)
+    const delay = Math.min(750, Math.max(400, query.length * 12));
 
     setTimeout(() => {
       setIsTyping(false);
@@ -1146,33 +1229,38 @@ export function MobileAiAssistant() {
 
   return (
     <>
-      {/* Floating App AI Assistant Trigger Button (Mobile & Desktop) */}
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        aria-label="Open AI Assistant"
-        className="fixed bottom-6 left-[72px] sm:left-22 z-50 nm-raised nm-interactive flex items-center gap-1.5 rounded-full px-3.5 py-2.5 text-brand-deep hover:text-brand transition-all active:scale-95 shadow-lg group"
-      >
-        <span className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-        </span>
-        <Sparkles className="h-4 w-4 text-brand-deep animate-pulse" />
-        <span className="text-[12px] font-extrabold uppercase tracking-wider text-foreground group-hover:text-brand-deep">
-          Ask AI
-        </span>
-      </button>
+      {/* Floating App AI Assistant Trigger Button (Hidden when modal is open to avoid overlapping) */}
+      {!isOpen && (
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          aria-label="Open AI Assistant"
+          className="fixed bottom-6 left-[72px] sm:left-22 z-40 nm-raised nm-interactive flex items-center gap-1.5 rounded-full px-3.5 py-2.5 text-brand-deep hover:text-brand transition-all active:scale-95 shadow-lg group"
+        >
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <Sparkles className="h-4 w-4 text-brand-deep animate-pulse" />
+          <span className="text-[12px] font-extrabold uppercase tracking-wider text-foreground group-hover:text-brand-deep">
+            Ask AI
+          </span>
+        </button>
+      )}
 
       {/* Modern Responsive Assistant Dialog (Mobile Bottom Sheet / Desktop Modal) */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col justify-end sm:items-center sm:justify-center bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+        <div
+          className="fixed inset-0 z-[9999] flex flex-col justify-end sm:items-center sm:justify-center bg-black/70 backdrop-blur-sm animate-in fade-in duration-200"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Sujon AI Assistant"
+        >
           {/* Backdrop click on desktop */}
           <div className="absolute inset-0 -z-10" onClick={() => setIsOpen(false)} />
 
           <div
-            className="w-full sm:max-w-[480px] h-[92vh] sm:h-[640px] max-h-[100dvh] flex flex-col bg-surface rounded-t-[28px] sm:rounded-[28px] shadow-2xl border border-white/40 dark:border-white/10 overflow-hidden animate-in slide-in-from-bottom-6 duration-250"
-            role="dialog"
-            aria-label="Sujon AI Assistant"
+            className="w-full sm:max-w-[480px] h-[90dvh] sm:h-[640px] max-h-[100dvh] flex flex-col bg-surface rounded-t-[28px] sm:rounded-[28px] shadow-2xl border border-white/40 dark:border-white/10 overflow-hidden animate-in slide-in-from-bottom-6 duration-250 z-[10000]"
           >
             {/* Top Native App Header */}
             <div className="nm-raised-sm flex items-center justify-between px-4 py-3.5 border-b border-border/50 shrink-0">
@@ -1341,14 +1429,14 @@ export function MobileAiAssistant() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask about rates, speed, WordPress, timeline..."
-                className="nm-inset flex-1 rounded-full px-4 py-2.5 text-[13.5px] text-foreground placeholder:text-muted-foreground/60 outline-none focus:ring-1 focus:ring-brand-deep/30 transition-shadow bg-surface"
+                className="nm-inset flex-1 rounded-full px-4 py-2.5 text-[16px] sm:text-[14px] text-foreground placeholder:text-muted-foreground/60 outline-none focus:ring-1 focus:ring-brand-deep/30 transition-shadow bg-surface"
               />
               <button
                 type="submit"
-                disabled={!inputValue.trim()}
+                disabled={!inputValue.trim() || isTyping}
                 aria-label="Send message"
                 className={`nm-raised-sm nm-interactive flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-all ${
-                  inputValue.trim()
+                  inputValue.trim() && !isTyping
                     ? "text-brand-deep hover:text-brand active:scale-95"
                     : "text-muted-foreground/40 cursor-not-allowed"
                 }`}
