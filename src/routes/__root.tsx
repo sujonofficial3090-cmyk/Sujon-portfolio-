@@ -24,8 +24,6 @@ import { NationalAnthemPlayer } from "../components/ui/NationalAnthemPlayer";
 import { ClickSoundEffect } from "../components/ui/ClickSoundEffect";
 import { initAccentColor } from "../lib/accentColors";
 import { LanguageProvider } from "../lib/i18n";
-import { VersionProvider } from "../lib/versionContext";
-import { VersionSwitcher } from "../components/ui/VersionSwitcher";
 import { WhatsAppFloat } from "../components/site/WhatsAppFloat";
 import { ScrollButton } from "../components/site/ScrollButton";
 
@@ -156,23 +154,20 @@ function RootComponent() {
 
   return (
     <LanguageProvider>
-      <VersionProvider>
-        <AuthProvider>
-          <QueryClientProvider client={queryClient}>
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <SitePreloader />
-            <Outlet />
-            <ClickDotEffect />
-            <ClickSoundEffect />
-            <MagicCursorEffect />
-            <NationalAnthemPlayer />
-            <WhatsAppFloat />
-            <VersionSwitcher />
-            <ScrollButton />
-            <Toaster position="bottom-right" richColors />
-          </QueryClientProvider>
-        </AuthProvider>
-      </VersionProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <SitePreloader />
+          <Outlet />
+          <ClickDotEffect />
+          <ClickSoundEffect />
+          <MagicCursorEffect />
+          <NationalAnthemPlayer />
+          <WhatsAppFloat />
+          <ScrollButton />
+          <Toaster position="bottom-right" richColors />
+        </QueryClientProvider>
+      </AuthProvider>
     </LanguageProvider>
   );
 }
