@@ -9,6 +9,7 @@ import {
   POPULAR_LANGUAGES,
 } from "@/lib/languages";
 import { useTranslation } from "@/lib/i18n";
+import { useSiteVersion } from "@/lib/versionContext";
 import {
   COLOR_MOODS,
   applyCustomColor,
@@ -166,6 +167,7 @@ const CURSOR_OPTIONS: { id: CursorMode; label: string; icon: React.ReactNode }[]
 
 export function Header() {
   const { t, lang: currentLang, setLanguage } = useTranslation();
+  const { isV2 } = useSiteVersion();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("/#home");
   const [dark, setDark] = useState(false);
@@ -203,12 +205,22 @@ export function Header() {
     }, 250);
   };
 
-  const navItems = [
-    { label: t("nav_home"), href: "/#home" },
-    { label: t("nav_about"), href: "/#about" },
-    { label: t("nav_services"), href: "/#services" },
-    { label: t("nav_projects"), href: "/#portfolio" },
-  ];
+  const navItems = isV2
+    ? [
+        { label: t("nav_home"), href: "/#home" },
+        { label: t("nav_about"), href: "/#about" },
+        { label: t("nav_services"), href: "/#services" },
+        { label: t("nav_projects"), href: "/#portfolio" },
+      ]
+    : [
+        { label: t("nav_home"), href: "/#home" },
+        { label: t("nav_about"), href: "/#about" },
+        { label: t("nav_services"), href: "/#services" },
+        { label: t("nav_projects"), href: "/#portfolio" },
+        { label: t("nav_reviews"), href: "/#reviews" },
+        { label: t("nav_blog"), href: "/#blog" },
+        { label: t("nav_contact"), href: "/#contact" },
+      ];
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -353,71 +365,73 @@ export function Header() {
                 );
               })}
 
-              {/* Experience Dropdown Item (contains Work Experience & Client Reviews) */}
-              <li
-                ref={experienceRef}
-                className="relative shrink-0"
-                onMouseEnter={handleExpMouseEnter}
-                onMouseLeave={handleExpMouseLeave}
-              >
-                <button
-                  type="button"
-                  onClick={() => setExperienceOpen((v) => !v)}
-                  className={cn(
-                    "inline-flex items-center gap-1.5 justify-center rounded-[10px] px-4 py-2 xl:px-6 xl:py-2.5 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold text-[13px] xl:text-[15px] cursor-pointer",
-                    active === "/experience" || active === "/#reviews" || experienceOpen
-                      ? "nm-inset text-brand-deep"
-                      : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
-                  )}
-                  style={{
-                    fontFamily: '"Funnel Display", sans-serif',
-                    fontStyle: "normal",
-                    fontWeight: 600,
-                    lineHeight: "18px",
-                  }}
+              {/* Experience Dropdown Item (contains Work Experience & Client Reviews) - Only in v2 */}
+              {isV2 && (
+                <li
+                  ref={experienceRef}
+                  className="relative shrink-0"
+                  onMouseEnter={handleExpMouseEnter}
+                  onMouseLeave={handleExpMouseLeave}
                 >
-                  <span>{t("nav_experience", "Experience")}</span>
-                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", experienceOpen && "rotate-180")} />
-                </button>
-
-                {experienceOpen && (
-                  <div
-                    onMouseEnter={handleExpMouseEnter}
-                    onMouseLeave={handleExpMouseLeave}
-                    className="absolute top-[calc(100%+6px)] left-1/2 -translate-x-1/2 z-50 w-52 rounded-[16px] bg-surface p-2 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-xl"
+                  <button
+                    type="button"
+                    onClick={() => setExperienceOpen((v) => !v)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 justify-center rounded-[10px] px-4 py-2 xl:px-6 xl:py-2.5 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold text-[13px] xl:text-[15px] cursor-pointer",
+                      active === "/experience" || active === "/#reviews" || experienceOpen
+                        ? "nm-inset text-brand-deep"
+                        : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
+                    )}
+                    style={{
+                      fontFamily: '"Funnel Display", sans-serif',
+                      fontStyle: "normal",
+                      fontWeight: 600,
+                      lineHeight: "18px",
+                    }}
                   >
-                    {/* Invisible hover bridge to eliminate gap bug when mouse moves downwards */}
-                    <div className="absolute -top-4 inset-x-0 h-5 bg-transparent pointer-events-auto" aria-hidden="true" />
+                    <span>{t("nav_experience", "Experience")}</span>
+                    <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", experienceOpen && "rotate-180")} />
+                  </button>
 
-                    <div className="relative z-10 flex flex-col gap-1 nm-inset rounded-[12px] p-1.5">
-                      <Link
-                        to="/experience"
-                        onClick={() => {
-                          setActive("/experience");
-                          setExperienceOpen(false);
-                        }}
-                        className="flex items-center gap-2.5 rounded-[9px] px-3.5 py-2.5 text-[12.5px] font-bold text-foreground/85 hover:text-brand-deep hover:bg-brand/10 transition-colors uppercase tracking-wider"
-                        style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                      >
-                        <Briefcase className="h-4 w-4 text-brand-deep shrink-0" />
-                        <span>{t("nav_work_exp", "Work Experience")}</span>
-                      </Link>
-                      <a
-                        href="/#reviews"
-                        onClick={() => {
-                          setActive("/#reviews");
-                          setExperienceOpen(false);
-                        }}
-                        className="flex items-center gap-2.5 rounded-[9px] px-3.5 py-2.5 text-[12.5px] font-bold text-foreground/85 hover:text-brand-deep hover:bg-brand/10 transition-colors uppercase tracking-wider"
-                        style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                      >
-                        <Star className="h-4 w-4 text-brand-deep shrink-0" />
-                        <span>{t("nav_client_reviews", "Client Reviews")}</span>
-                      </a>
+                  {experienceOpen && (
+                    <div
+                      onMouseEnter={handleExpMouseEnter}
+                      onMouseLeave={handleExpMouseLeave}
+                      className="absolute top-[calc(100%+6px)] left-1/2 -translate-x-1/2 z-50 w-52 rounded-[16px] bg-surface p-2 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-xl"
+                    >
+                      {/* Invisible hover bridge to eliminate gap bug when mouse moves downwards */}
+                      <div className="absolute -top-4 inset-x-0 h-5 bg-transparent pointer-events-auto" aria-hidden="true" />
+
+                      <div className="relative z-10 flex flex-col gap-1 nm-inset rounded-[12px] p-1.5">
+                        <Link
+                          to="/experience"
+                          onClick={() => {
+                            setActive("/experience");
+                            setExperienceOpen(false);
+                          }}
+                          className="flex items-center gap-2.5 rounded-[9px] px-3.5 py-2.5 text-[12.5px] font-bold text-foreground/85 hover:text-brand-deep hover:bg-brand/10 transition-colors uppercase tracking-wider"
+                          style={{ fontFamily: '"Funnel Display", sans-serif' }}
+                        >
+                          <Briefcase className="h-4 w-4 text-brand-deep shrink-0" />
+                          <span>{t("nav_work_exp", "Work Experience")}</span>
+                        </Link>
+                        <a
+                          href="/#reviews"
+                          onClick={() => {
+                            setActive("/#reviews");
+                            setExperienceOpen(false);
+                          }}
+                          className="flex items-center gap-2.5 rounded-[9px] px-3.5 py-2.5 text-[12.5px] font-bold text-foreground/85 hover:text-brand-deep hover:bg-brand/10 transition-colors uppercase tracking-wider"
+                          style={{ fontFamily: '"Funnel Display", sans-serif' }}
+                        >
+                          <Star className="h-4 w-4 text-brand-deep shrink-0" />
+                          <span>{t("nav_client_reviews", "Client Reviews")}</span>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </li>
+                  )}
+                </li>
+              )}
             </ul>
           </nav>
 
@@ -886,69 +900,71 @@ export function Header() {
                 );
               })}
 
-              {/* Mobile Experience Dropdown */}
-              <li className="flex flex-col gap-2">
-                <button
-                  type="button"
-                  onClick={() => setMobileExpOpen((prev) => !prev)}
-                  className={cn(
-                    "w-full flex items-center justify-center gap-2 rounded-[10px] px-5 py-2.5 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold cursor-pointer",
-                    active === "/experience" || active === "/#reviews" || mobileExpOpen
-                      ? "nm-inset text-brand-deep"
-                      : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
+              {/* Mobile Experience Dropdown - Only in v2 */}
+              {isV2 && (
+                <li className="flex flex-col gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setMobileExpOpen((prev) => !prev)}
+                    className={cn(
+                      "w-full flex items-center justify-center gap-2 rounded-[10px] px-5 py-2.5 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold cursor-pointer",
+                      active === "/experience" || active === "/#reviews" || mobileExpOpen
+                        ? "nm-inset text-brand-deep"
+                        : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
+                    )}
+                    style={{
+                      fontFamily: '"Funnel Display", sans-serif',
+                      fontStyle: "normal",
+                      fontWeight: 600,
+                      fontSize: "15px",
+                      lineHeight: "19px",
+                    }}
+                  >
+                    <span>{t("nav_experience", "Experience")}</span>
+                    <ChevronDown className={cn("h-4 w-4 transition-transform duration-200 text-brand-deep", mobileExpOpen && "rotate-180")} />
+                  </button>
+
+                  {mobileExpOpen && (
+                    <div className="grid grid-cols-2 gap-2 p-1.5 rounded-[12px] nm-inset animate-in fade-in zoom-in-95 duration-150">
+                      <Link
+                        to="/experience"
+                        onClick={() => {
+                          setActive("/experience");
+                          setOpen(false);
+                        }}
+                        className={cn(
+                          "flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-[9px] text-[12px] font-bold uppercase tracking-wider transition-all select-none text-center",
+                          active === "/experience"
+                            ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                            : "nm-raised-sm hover:nm-interactive text-foreground/85 hover:text-brand-deep",
+                        )}
+                        style={{ fontFamily: '"Funnel Display", sans-serif' }}
+                      >
+                        <Briefcase className="h-4 w-4 text-brand-deep shrink-0" />
+                        <span>{t("nav_work_exp_short", "Work Exp")}</span>
+                      </Link>
+
+                      <a
+                        href="/#reviews"
+                        onClick={() => {
+                          setActive("/#reviews");
+                          setOpen(false);
+                        }}
+                        className={cn(
+                          "flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-[9px] text-[12px] font-bold uppercase tracking-wider transition-all select-none text-center",
+                          active === "/#reviews"
+                            ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                            : "nm-raised-sm hover:nm-interactive text-foreground/85 hover:text-brand-deep",
+                        )}
+                        style={{ fontFamily: '"Funnel Display", sans-serif' }}
+                      >
+                        <Star className="h-4 w-4 text-brand-deep shrink-0" />
+                        <span>{t("nav_reviews_short", "Reviews")}</span>
+                      </a>
+                    </div>
                   )}
-                  style={{
-                    fontFamily: '"Funnel Display", sans-serif',
-                    fontStyle: "normal",
-                    fontWeight: 600,
-                    fontSize: "15px",
-                    lineHeight: "19px",
-                  }}
-                >
-                  <span>{t("nav_experience", "Experience")}</span>
-                  <ChevronDown className={cn("h-4 w-4 transition-transform duration-200 text-brand-deep", mobileExpOpen && "rotate-180")} />
-                </button>
-
-                {mobileExpOpen && (
-                  <div className="grid grid-cols-2 gap-2 p-1.5 rounded-[12px] nm-inset animate-in fade-in zoom-in-95 duration-150">
-                    <Link
-                      to="/experience"
-                      onClick={() => {
-                        setActive("/experience");
-                        setOpen(false);
-                      }}
-                      className={cn(
-                        "flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-[9px] text-[12px] font-bold uppercase tracking-wider transition-all select-none text-center",
-                        active === "/experience"
-                          ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
-                          : "nm-raised-sm hover:nm-interactive text-foreground/85 hover:text-brand-deep",
-                      )}
-                      style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                    >
-                      <Briefcase className="h-4 w-4 text-brand-deep shrink-0" />
-                      <span>{t("nav_work_exp_short", "Work Exp")}</span>
-                    </Link>
-
-                    <a
-                      href="/#reviews"
-                      onClick={() => {
-                        setActive("/#reviews");
-                        setOpen(false);
-                      }}
-                      className={cn(
-                        "flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-[9px] text-[12px] font-bold uppercase tracking-wider transition-all select-none text-center",
-                        active === "/#reviews"
-                          ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
-                          : "nm-raised-sm hover:nm-interactive text-foreground/85 hover:text-brand-deep",
-                      )}
-                      style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                    >
-                      <Star className="h-4 w-4 text-brand-deep shrink-0" />
-                      <span>{t("nav_reviews_short", "Reviews")}</span>
-                    </a>
-                  </div>
-                )}
-              </li>
+                </li>
+              )}
 
               {/* Mobile Get a Quote button */}
               <li className="md:hidden mt-0.5">

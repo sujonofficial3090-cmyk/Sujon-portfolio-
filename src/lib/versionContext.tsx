@@ -45,6 +45,10 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
     setVersionState(v);
     if (typeof window !== "undefined") {
       localStorage.setItem("portfolio_site_version", v);
+      const url = new URL(window.location.href);
+      url.searchParams.set("v", v === "v2" ? "2" : "1");
+      window.history.replaceState({}, "", url.toString());
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 

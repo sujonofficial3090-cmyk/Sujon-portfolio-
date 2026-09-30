@@ -167,7 +167,9 @@ export function Portfolio() {
             {t("portfolio_heading")}
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[14.5px] sm:text-[16px] font-medium text-muted-foreground">
-            {t("portfolio_subtitle")}
+            {isV2
+              ? t("portfolio_subtitle")
+              : "A curated showcase of recent high-converting WordPress & WooCommerce client websites. Hover over cards to preview full pages."}
           </p>
         </div>
 

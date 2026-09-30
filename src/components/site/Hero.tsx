@@ -1,8 +1,10 @@
 import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
+import { useSiteVersion } from "@/lib/versionContext";
 
 export function Hero() {
   const { t } = useTranslation();
+  const { isV2 } = useSiteVersion();
 
   return (
     <section id="home" className="scroll-mt-28">
@@ -13,25 +15,37 @@ export function Hero() {
             {/* Badge */}
             <div className="mb-4 hero-animate-1 flex flex-wrap gap-2">
               <span className="nm-inset text-brand-deep inline-block rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold tracking-[0.14em] uppercase">
-                {t("hero_badge")}
+                {isV2 ? t("hero_badge") : "Professional WordPress Developer"}
               </span>
             </div>
 
             {/* Main heading: Funnel Display, Weight 800 */}
             <h1 className="hero-animate-1 text-[clamp(2rem,4.5vw,3.6rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15]">
-              {t("hero_heading_1")}{" "}
-              <span className="text-brand-gradient pb-1 inline-block">{t("hero_heading_gradient")}</span>
+              {isV2 ? (
+                <>
+                  {t("hero_heading_1")}{" "}
+                  <span className="text-brand-gradient pb-1 inline-block">{t("hero_heading_gradient")}</span>
+                </>
+              ) : (
+                <>
+                  Transforming Ideas Into{" "}
+                  <span className="text-brand-gradient pb-1 inline-block">High-Converting Web Experiences</span>
+                </>
+              )}
             </h1>
 
             {/* Supporting text */}
             <p className="hero-animate-2 mt-4 max-w-2xl text-[15px] sm:text-[17px] font-bold leading-[1.5] text-foreground/90">
-              {t("hero_subheading")}
+              {isV2 ? t("hero_subheading") : "5+ Years Experience • 200+ Completed Projects • 100% Client Satisfaction"}
             </p>
 
             {/* Short supporting paragraph */}
             <p className="hero-animate-2 mt-3 max-w-2xl text-[14px] sm:text-[15px] font-medium leading-[1.75] text-foreground/80 dark:text-foreground/80">
-              {t("hero_bio")}
+              {isV2
+                ? t("hero_bio")
+                : "Specializing in high-performance WordPress development, WooCommerce stores, Elementor Pro, and custom dynamic web solutions."}
             </p>
+
 
             {/* CTA Buttons — STRICTLY SIDE BY SIDE ON MOBILE (1 ROW) & INLINE ON DESKTOP */}
             <div className="hero-animate-3 mt-7 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">

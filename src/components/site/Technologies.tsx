@@ -2,6 +2,7 @@ import { useState } from "react";
 import type * as React from "react";
 import { NeumorphicCard } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
+import { useSiteVersion } from "@/lib/versionContext";
 // Standalone Vector SVG / Official Brand Logos with Authentic Colors
 const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> = {
   // --- WORDPRESS & ECOSYSTEM ---
@@ -469,9 +470,28 @@ const ALL_TECH: TechItem[] = [
 
 export function Technologies() {
   const { t } = useTranslation();
+  const { isV2 } = useSiteVersion();
   const [activeTab, setActiveTab] = useState<"all" | "wordpress" | "frontend" | "backend" | "ai">("all");
 
-  const filtered = activeTab === "all" ? ALL_TECH : ALL_TECH.filter((item) => item.category === activeTab);
+  const techSource = isV2
+    ? ALL_TECH
+    : ALL_TECH.filter((item) => item.category === "wordpress" || ["HTML5", "CSS3", "JavaScript", "Tailwind CSS"].includes(item.name));
+
+  const filtered = activeTab === "all" ? techSource : techSource.filter((item) => item.category === activeTab);
+
+  const availableTabs = isV2
+    ? [
+        { id: "all", label: t("tab_all_tech", "All Technologies") },
+        { id: "wordpress", label: t("tab_wp", "WordPress") },
+        { id: "frontend", label: t("tab_frontend", "Frontend") },
+        { id: "backend", label: t("tab_backend", "Backend") },
+        { id: "ai", label: t("tab_ai", "AI & Workflow") },
+      ]
+    : [
+        { id: "all", label: t("tab_all_tech", "All Technologies") },
+        { id: "wordpress", label: t("tab_wp", "WordPress") },
+        { id: "frontend", label: t("tab_frontend", "Frontend") },
+      ];
 
   return (
     <section id="technologies" aria-label="Technologies and Tech Stack" className="scroll-mt-28">
@@ -482,19 +502,15 @@ export function Technologies() {
             {t("tech_heading")}
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[14px] sm:text-[15.5px] font-medium text-muted-foreground">
-            {t("tech_subtitle", "Grouped into core frontend, backend, WordPress architecture, and modern AI development workflows with official brand identities.")}
+            {isV2
+              ? t("tech_subtitle", "Grouped into core frontend, backend, WordPress architecture, and modern AI development workflows with official brand identities.")
+              : "Core WordPress architecture, WooCommerce, and modern frontend tools powering high-performance websites."}
           </p>
         </div>
 
         {/* Category Tabs — Smooth Horizontal Swipeable on Mobile, Centered with zero clipping on Desktop */}
         <div className="flex items-center gap-2.5 sm:gap-3 mb-8 overflow-x-auto sm:overflow-visible no-scrollbar py-3.5 px-3 sm:px-0 sm:py-2.5 sm:flex-wrap sm:justify-center touch-pan-x">
-          {[
-            { id: "all", label: t("tab_all_tech", "All Technologies") },
-            { id: "wordpress", label: t("tab_wp", "WordPress") },
-            { id: "frontend", label: t("tab_frontend", "Frontend") },
-            { id: "backend", label: t("tab_backend", "Backend") },
-            { id: "ai", label: t("tab_ai", "AI & Workflow") },
-          ].map((tab) => {
+          {availableTabs.map((tab) => {
             const isSelected = activeTab === tab.id;
             return (
               <button

@@ -21,7 +21,9 @@ export function Blog() {
             {t("blog_heading", "Latest from the Blog")}
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[15px] sm:text-[16px] font-medium text-muted-foreground">
-            {t("blog_subtitle", "Insights, tutorials, and best practices on WordPress development, full-stack architecture, and AI-powered workflows.")}
+            {isV2
+              ? t("blog_subtitle", "Insights, tutorials, and best practices on WordPress development, full-stack architecture, and AI-powered workflows.")
+              : "Insights, tutorials, and best practices on WordPress development, Elementor Pro, and WooCommerce optimization."}
           </p>
         </div>
 
