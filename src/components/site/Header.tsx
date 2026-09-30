@@ -203,22 +203,12 @@ export function Header() {
     }, 250);
   };
 
-  const navItems = isV2
-    ? [
-        { label: t("nav_home"), href: "/#home" },
-        { label: t("nav_about"), href: "/#about" },
-        { label: t("nav_services"), href: "/#services" },
-        { label: t("nav_projects"), href: "/#portfolio" },
-      ]
-    : [
-        { label: t("nav_home"), href: "/#home" },
-        { label: t("nav_about"), href: "/#about" },
-        { label: t("nav_services"), href: "/#services" },
-        { label: t("nav_projects"), href: "/#portfolio" },
-        { label: t("nav_reviews"), href: "/#reviews" },
-        { label: t("nav_blog"), href: "/#blog" },
-        { label: t("nav_contact"), href: "/#contact" },
-      ];
+  const navItems = [
+    { label: t("nav_home"), href: "/#home" },
+    { label: t("nav_about"), href: "/#about" },
+    { label: t("nav_services"), href: "/#services" },
+    { label: t("nav_projects"), href: "/#portfolio" },
+  ];
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -363,8 +353,8 @@ export function Header() {
                 );
               })}
 
-              {/* Experience Dropdown Item (contains Work Experience & Client Reviews) - Only in v2 */}
-              {isV2 && (
+              {/* Experience Dropdown Item (contains Work Experience & Client Reviews) */}
+              {(
                 <li
                   ref={experienceRef}
                   className="relative shrink-0"
@@ -898,8 +888,8 @@ export function Header() {
                 );
               })}
 
-              {/* Mobile Experience Dropdown - Only in v2 */}
-              {isV2 && (
+              {/* Mobile Experience Dropdown */}
+              {(
                 <li className="flex flex-col gap-2">
                   <button
                     type="button"
