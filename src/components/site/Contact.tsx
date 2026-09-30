@@ -67,11 +67,11 @@ export function Contact() {
       name: name,
       email: formData.email.trim(),
       phone: formData.phone.trim() || "Not provided",
-      project_type: formData.projectType || "WordPress Development",
+      project_type: formData.projectType || "Full-Stack / WordPress Development",
       budget: formData.budget.trim() || "Not specified",
       message: formData.message.trim(),
       submission_date: `${formattedDate} at ${formattedTime}`,
-      _subject: `🔥 New WordPress Project Inquiry from ${name}`,
+      _subject: `🔥 New Project Inquiry from ${name} (${formData.projectType || "Full-Stack / WordPress"})`,
       _template: "table",
       _captcha: "false",
     };
@@ -163,7 +163,7 @@ export function Contact() {
           {/* Interactive Google Map Frame with Neumorphic Inset */}
           <div className="nm-inset relative min-h-[290px] grow overflow-hidden rounded-[14px] shadow-inner">
             <iframe
-              title="Sujon WordPress Developer Location - Banasree, Dhaka"
+              title="Sujon Full-Stack Web Developer & WordPress Expert Location - Banasree, Dhaka"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14606.071649235882!2d90.42436735398284!3d23.764506509930773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7892dcf0001%3A0x853ad129be4da935!2sBanasree%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
               className="h-full min-h-[290px] w-full border-0"
               allowFullScreen={false}
@@ -296,13 +296,13 @@ export function Contact() {
                   <option value="" disabled>
                     {t("contact_project_type")} *
                   </option>
-                  <option value="WordPress Development">{t("svc_1_title")}</option>
-                  <option value="Elementor Development">{t("svc_2_title")}</option>
-                  <option value="WooCommerce Development">{t("svc_3_title")}</option>
-                  <option value="Custom WordPress Website">{t("svc_4_title")}</option>
-                  <option value="WordPress Website Redesign">{t("svc_5_title")}</option>
-                  <option value="WordPress Speed Optimization">{t("svc_6_title")}</option>
-                  <option value="WordPress Maintenance">{t("svc_7_title")}</option>
+                  <option value="Full-Stack Web Development">{t("svc_1_title")}</option>
+                  <option value="WordPress Development">{t("svc_2_title")}</option>
+                  <option value="AI-Assisted Web Development">{t("svc_3_title")}</option>
+                  <option value="Vibe Coding Rapid Development">{t("svc_4_title")}</option>
+                  <option value="Custom Web Solutions">{t("svc_5_title")}</option>
+                  <option value="Website Optimization">{t("svc_6_title")}</option>
+                  <option value="WooCommerce Store">{t("svc_7_title")}</option>
                   <option value="Landing Page Development">{t("svc_8_title")}</option>
                 </select>
               </div>

@@ -48,7 +48,23 @@ export function NationalAnthemPlayer() {
     }
   });
 
-  const isUserManuallyPaused = useRef(false);
+  const isUserManuallyPaused = useRef<boolean>(
+    typeof window !== "undefined" && sessionStorage.getItem("anthem_paused_by_user") === "true"
+  );
+
+  const isInternalNav = useRef<boolean>(
+    typeof window !== "undefined" && (() => {
+      try {
+        const navEntry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+        const isReload = navEntry?.type === "reload";
+        const hasInit = sessionStorage.getItem("anthem_initialized_session");
+        return Boolean(hasInit && !isReload);
+      } catch {
+        return false;
+      }
+    })()
+  );
+
   const activeAnthem: NationalAnthem =
     NATIONAL_ANTHEMS[selectedCountryCode] || NATIONAL_ANTHEMS[DEFAULT_ANTHEM_CODE];
 
@@ -101,7 +117,13 @@ export function NationalAnthemPlayer() {
 
     // Function to start playback
     const startAudio = () => {
-      if (isUserManuallyPaused.current) return;
+      // If user paused it, or navigating between pages in same session, DO NOT autoplay!
+      if (isUserManuallyPaused.current || isInternalNav.current) return;
+
+      try {
+        sessionStorage.setItem("anthem_initialized_session", "true");
+      } catch {}
+
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise
@@ -175,9 +197,16 @@ export function NationalAnthemPlayer() {
     if (!audioRef.current) return;
     if (isPlaying) {
       isUserManuallyPaused.current = true;
+      try {
+        sessionStorage.setItem("anthem_paused_by_user", "true");
+      } catch {}
       audioRef.current.pause();
     } else {
       isUserManuallyPaused.current = false;
+      try {
+        sessionStorage.removeItem("anthem_paused_by_user");
+        sessionStorage.setItem("anthem_initialized_session", "true");
+      } catch {}
       audioRef.current.play().catch(() => {});
     }
   };

@@ -11,27 +11,30 @@ export function Hero() {
           {/* LEFT — Text content & CTA */}
           <div className="flex flex-col justify-center px-5 py-10 sm:px-10 sm:py-14 lg:py-16 lg:pl-14">
             {/* Badge */}
-            <div className="mb-5 hero-animate-1">
-              <span className="nm-inset text-brand-deep inline-block rounded-[8px] px-4 py-1.5 text-[11px] font-extrabold tracking-[0.2em] uppercase">
+            <div className="mb-4 hero-animate-1 flex flex-wrap gap-2">
+              <span className="nm-inset text-brand-deep inline-block rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold tracking-[0.14em] uppercase">
                 {t("hero_badge")}
               </span>
             </div>
 
-            {/* Main heading: Funnel Display, Weight 800, Desktop Line-height 96px */}
-            <h1 className="hero-animate-1 text-[clamp(2.1rem,5vw,3.8rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15] lg:leading-[96px]">
+            {/* Main heading: Funnel Display, Weight 800 */}
+            <h1 className="hero-animate-1 text-[clamp(2rem,4.5vw,3.6rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15]">
               {t("hero_heading_1")}{" "}
               <span className="text-brand-gradient pb-1 inline-block">{t("hero_heading_gradient")}</span>
-              <br />
-              {t("hero_heading_2")}
             </h1>
 
-            {/* Body text: 16px Poppins font */}
-            <p className="hero-animate-2 mt-6 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.8] text-foreground/85 dark:text-foreground/85">
+            {/* Supporting text */}
+            <p className="hero-animate-2 mt-4 max-w-2xl text-[15px] sm:text-[17px] font-bold leading-[1.5] text-foreground/90">
+              {t("hero_subheading")}
+            </p>
+
+            {/* Short supporting paragraph */}
+            <p className="hero-animate-2 mt-3 max-w-2xl text-[14px] sm:text-[15px] font-medium leading-[1.75] text-foreground/80 dark:text-foreground/80">
               {t("hero_bio")}
             </p>
 
             {/* CTA Buttons — STRICTLY SIDE BY SIDE ON MOBILE (1 ROW) & INLINE ON DESKTOP */}
-            <div className="hero-animate-3 mt-8 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">
+            <div className="hero-animate-3 mt-7 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">
               <NeumorphicLinkButton
                 href="/SUJON.pdf"
                 target="_blank"
@@ -59,7 +62,7 @@ export function Hero() {
               <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[280px] sm:w-[320px] h-[340px] sm:h-[400px] rounded-t-[140px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/50 dark:border-white/10 nm-raised-sm opacity-85" />
               <img
                 src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
-                alt="Sujon — Professional WordPress Developer"
+                alt="Sujon — Full-Stack Web Developer & WordPress Expert"
                 loading="eager"
                 width={700}
                 height={950}
@@ -81,7 +84,7 @@ export function Hero() {
             {/* Natural Personal Photo */}
             <img
               src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
-              alt="Sujon — Professional WordPress Developer"
+              alt="Sujon — Full-Stack Web Developer & WordPress Expert"
               loading="eager"
               width={900}
               height={1200}

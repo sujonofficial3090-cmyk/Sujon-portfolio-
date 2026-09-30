@@ -2,19 +2,27 @@ import { NeumorphicCard } from "@/components/nm";
 import { ParticleLetterS } from "@/components/site/ParticleLetterS";
 import { useTranslation } from "@/lib/i18n";
 
-const SKILLS = [
-  "WordPress Development",
-  "Elementor & Elementor Pro",
-  "WooCommerce",
-  "Custom WordPress Websites",
-  "Responsive Web Design",
-  "WordPress Speed Optimization",
-  "Website Redesign",
-  "WordPress Maintenance",
-];
-
 export function About() {
   const { t } = useTranslation();
+
+  const skillPillars = [
+    {
+      title: t("svc_2_title", "WordPress Development"),
+      desc: t("svc_2_desc", "Advanced website development, Elementor Pro, WooCommerce, dynamic content, custom post types, theme/plugin customization."),
+    },
+    {
+      title: t("svc_1_title", "Full-Stack Development"),
+      desc: t("svc_1_desc", "Modern frontend interfaces, backend functionality, APIs, databases, authentication, and custom web applications."),
+    },
+    {
+      title: t("svc_3_title", "AI-Assisted Development"),
+      desc: t("svc_3_desc", "AI-powered planning, coding, debugging, testing, optimization, prototyping, and rapid implementation."),
+    },
+    {
+      title: t("svc_4_title", "Vibe Coding"),
+      desc: t("svc_4_desc", "Rapid development of websites, interfaces, prototypes, and web applications using AI-assisted coding workflows."),
+    },
+  ];
 
   return (
     <section id="about" className="scroll-mt-28">
@@ -24,28 +32,38 @@ export function About() {
             {t("about_heading")}
           </h2>
 
-          <div className="mt-5 space-y-4 text-[15px] sm:text-[16px] font-medium leading-[1.75] text-foreground/85 dark:text-foreground/85">
+          <div className="mt-5 space-y-4 text-[14.5px] sm:text-[15.5px] font-medium leading-[1.75] text-foreground/85 dark:text-foreground/85">
             <p>{t("about_p1")}</p>
             <p>{t("about_p2")}</p>
+            <p>{t("about_p3")}</p>
+            <p>{t("about_p4")}</p>
+            <p>{t("about_p5")}</p>
           </div>
 
           <div className="mt-8 border-t border-border pt-6">
             <h3 className="text-[14px] sm:text-[15px] font-extrabold text-foreground mb-4 uppercase tracking-wider">
               {t("about_skills_title")}
             </h3>
-            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {SKILLS.map((skill) => (
-                <li
-                  key={skill}
-                  className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-foreground/80"
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+              {skillPillars.map((pillar) => (
+                <div
+                  key={pillar.title}
+                  className="nm-inset rounded-[12px] p-3.5 flex flex-col justify-start"
                 >
-                  <span className="nm-raised-sm flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] text-brand-deep font-extrabold">
-                    ✓
-                  </span>
-                  <span>{skill}</span>
-                </li>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="nm-raised-sm flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] text-brand-deep font-extrabold">
+                      ✓
+                    </span>
+                    <span className="text-[14px] font-extrabold text-foreground tracking-tight">
+                      {pillar.title}
+                    </span>
+                  </div>
+                  <p className="text-[12.5px] font-medium leading-[1.6] text-muted-foreground pl-7">
+                    {pillar.desc}
+                  </p>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </NeumorphicCard>
 

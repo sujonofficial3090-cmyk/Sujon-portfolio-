@@ -2,53 +2,53 @@ import { Star } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
 
-const REVIEWS = [
-  {
-    initials: "SJ",
-    body: "Sujon built our WooCommerce fashion store and the results exceeded our expectations. The custom filtering and smooth checkout flow have significantly boosted our sales. His speed optimization is wizardry!",
-    name: "Sarah Jenkins",
-    company: "CEO, Glamour Boutique",
-    site: "www.glamourboutique.com",
-  },
-  {
-    initials: "DM",
-    body: "Our consulting website is incredibly fast and looks stunning. Sujon made the Elementor integration easy to manage ourselves, and our search engine rankings rose immediately after launch.",
-    name: "David Miller",
-    company: "Founder, Apex Consulting",
-    site: "www.apexconsulting.com",
-  },
-  {
-    initials: "MF",
-    body: "Sujon delivered a robust real estate booking platform that runs flawlessly. He integrated dynamic mapping and WhatsApp support seamlessly. Highly professional and responsive developer.",
-    name: "Michael Foster",
-    company: "Operations Director, PropLink",
-    site: "www.proplink.net",
-  },
-  {
-    initials: "EW",
-    body: "We needed a high-performance landing page in under a week. Sujon delivered a page that loads in sub-seconds and has a conversion rate of over 12%. Exceptional work!",
-    name: "Emma Watson",
-    company: "Campaign Manager, CloudSaaS",
-    site: "www.cloudsaas.io",
-  },
-  {
-    initials: "RC",
-    body: "The car booking calendar Sujon integrated into our website is brilliant. It handles variable seasonal pricing perfectly and our booking management is completely automated now.",
-    name: "Robert Chen",
-    company: "Owner, Elite Ride",
-    site: "www.eliteride.com",
-  },
-  {
-    initials: "JV",
-    body: "Sujon is our go-to guy for all WordPress maintenance. He keeps our multisite secure, updated, and lightning-fast. The post-launch support is worth every dollar.",
-    name: "James Vance",
-    company: "Marketing Director, TechCorp",
-    site: "www.techcorp.com",
-  },
-];
-
 export function Testimonials() {
   const { t } = useTranslation();
+
+  const reviews = [
+    {
+      initials: "SJ",
+      body: t("review_1_body", "Sujon built our WooCommerce fashion store and the results exceeded our expectations. The custom filtering and smooth checkout flow have significantly boosted our sales. His speed optimization is wizardry!"),
+      name: "Sarah Jenkins",
+      company: t("review_1_company", "CEO, Glamour Boutique"),
+      site: "www.glamourboutique.com",
+    },
+    {
+      initials: "DM",
+      body: t("review_2_body", "Our consulting website is incredibly fast and looks stunning. Sujon made the Elementor integration easy to manage ourselves, and our search engine rankings rose immediately after launch."),
+      name: "David Miller",
+      company: t("review_2_company", "Founder, Apex Consulting"),
+      site: "www.apexconsulting.com",
+    },
+    {
+      initials: "MF",
+      body: t("review_3_body", "Sujon delivered a robust real estate booking platform that runs flawlessly. He integrated dynamic mapping and WhatsApp support seamlessly. Highly professional and responsive developer."),
+      name: "Michael Foster",
+      company: t("review_3_company", "Operations Director, PropLink"),
+      site: "www.proplink.net",
+    },
+    {
+      initials: "EW",
+      body: t("review_4_body", "We needed a high-performance landing page in under a week. Sujon delivered a page that loads in sub-seconds and has a conversion rate of over 12%. Exceptional work!"),
+      name: "Emma Watson",
+      company: t("review_4_company", "Campaign Manager, CloudSaaS"),
+      site: "www.cloudsaas.io",
+    },
+    {
+      initials: "RC",
+      body: t("review_5_body", "The car booking calendar Sujon integrated into our website is brilliant. It handles variable seasonal pricing perfectly and our booking management is completely automated now."),
+      name: "Robert Chen",
+      company: t("review_5_company", "Owner, Elite Ride"),
+      site: "www.eliteride.com",
+    },
+    {
+      initials: "JV",
+      body: t("review_6_body", "Sujon is our go-to guy for all WordPress maintenance. He keeps our multisite secure, updated, and lightning-fast. The post-launch support is worth every dollar."),
+      name: "James Vance",
+      company: t("review_6_company", "Marketing Director, TechCorp"),
+      site: "www.techcorp.com",
+    },
+  ];
 
   return (
     <section id="reviews" className="scroll-mt-28">
@@ -63,7 +63,7 @@ export function Testimonials() {
         </div>
 
         <div className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {REVIEWS.map((r, idx) => (
+          {reviews.map((r, idx) => (
             <NeumorphicCard
               key={r.name + r.site}
               depth="sm"

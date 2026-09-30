@@ -7,17 +7,33 @@ interface SitePreloaderProps {
 export function SitePreloader({ onComplete }: SitePreloaderProps) {
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
-  const [isDone, setIsDone] = useState(false);
+  const [isDone, setIsDone] = useState(() => {
+    if (typeof window === "undefined") return true;
+    try {
+      const navEntry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+      const isReload = navEntry?.type === "reload";
+      const hasPreloaded = sessionStorage.getItem("site_preloaded_session");
+
+      // If user has already loaded in this session and this is NOT a browser reload, skip!
+      if (hasPreloaded && !isReload) {
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  });
   const animFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (isDone) return;
+
     // Lock scroll during preloader
     document.body.style.overflow = "hidden";
 
     const startTime = performance.now();
-    const duration = 1600; // Silky-smooth 1.6s duration for fluid counting
+    const duration = 1500; // Fluid count
 
-    // Custom cubic ease-in-out for buttery smooth numbers
     const easeInOutCubic = (t: number) =>
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
@@ -33,16 +49,17 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
         animFrameRef.current = requestAnimationFrame(updateProgress);
       } else {
         setProgress(100);
-        // Brief deliberate pause at 100% to feel accomplished
         setTimeout(() => {
           setIsExiting(true);
-          // Wait for the dual-curtain slide animation (950ms) to complete
           setTimeout(() => {
+            try {
+              sessionStorage.setItem("site_preloaded_session", "true");
+            } catch {}
             setIsDone(true);
             document.body.style.overflow = "";
             if (onComplete) onComplete();
-          }, 950);
-        }, 220);
+          }, 850);
+        }, 180);
       }
     };
 
@@ -52,7 +69,7 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
       document.body.style.overflow = "";
     };
-  }, [onComplete]);
+  }, [isDone, onComplete]);
 
   if (isDone) return null;
 

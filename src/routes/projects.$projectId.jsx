@@ -10,7 +10,7 @@ export const Route = createFileRoute("/projects/$projectId")({
     const project = PROJECTS.find((p) => p.id === params.projectId);
     return {
       meta: [
-        { title: project ? `${project.title} — WordPress Developer Portfolio` : "Project Not Found" },
+        { title: project ? `${project.title} — Full-Stack Web Developer & WordPress Expert` : "Project Not Found" },
         {
           name: "description",
           content: project ? project.description : "Project details page.",
@@ -169,10 +169,22 @@ function ProjectDetail() {
                   <span className="text-foreground/90 font-bold">Category</span>
                   <span className="text-muted-foreground">{project.category}</span>
                 </div>
+                {project.role && (
+                  <div className="flex justify-between border-b border-border pb-3">
+                    <span className="text-foreground/90 font-bold">Role</span>
+                    <span className="text-muted-foreground text-right">{project.role}</span>
+                  </div>
+                )}
                 <div className="flex justify-between border-b border-border pb-3">
                   <span className="text-foreground/90 font-bold">Developer</span>
                   <span className="text-muted-foreground">Sujon</span>
                 </div>
+                {project.whatIBuilt && (
+                  <div className="border-b border-border pb-3">
+                    <span className="text-foreground/90 font-bold block mb-1">What I Built</span>
+                    <span className="text-muted-foreground text-[13px] leading-relaxed block">{project.whatIBuilt}</span>
+                  </div>
+                )}
                 <div className="flex justify-between border-b border-border pb-3">
                   <span className="text-foreground/90 font-bold">Live Status</span>
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold">Active Live Website</span>

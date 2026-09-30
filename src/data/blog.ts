@@ -2,6 +2,10 @@ import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
 import blog4 from "@/assets/blog-4.jpg";
+import blog5 from "@/assets/blog-5.jpg";
+import blog6 from "@/assets/blog-6.jpg";
+import blog7 from "@/assets/blog-7.jpg";
+import blog8 from "@/assets/blog-8.jpg";
 
 export interface BlogPost {
   id: string;
@@ -316,4 +320,180 @@ WooCommerce stores need special performance considerations:
 
 A successful WooCommerce store requires careful planning, quality development, and ongoing optimization. The investment pays off with a powerful, scalable platform that you fully own and control.`
   },
+  {
+    id: "5",
+    slug: "the-rise-of-vibe-coding-ai-web-development",
+    title: "The Rise of Vibe Coding: How AI-Powered Workflows Transform Web Development",
+    category: "Vibe Coding",
+    date: "September 18, 2026",
+    author: "Sujon",
+    img: blog5,
+    excerpt: "How modern developers leverage AI execution loops, live feedback, and architectural discipline to turn ideas into production code 5x faster.",
+    content: `Web development is experiencing its biggest paradigm shift since the invention of component frameworks. Enter **Vibe Coding** — an AI-augmented methodology where developers direct, synthesize, and refine software at unprecedented speed.
+
+## What Exactly is Vibe Coding?
+
+Vibe coding is not about letting an AI blindly spit out random snippets and hoping for the best. True vibe coding is an engineering discipline:
+- **High-level Architectural Control**: You provide the blueprint, data schema, and security rules.
+- **Continuous Prompt & Iteration Loop**: AI handles the repetitive boilerplate, type definitions, and component scaffolds.
+- **Human-in-the-Loop Verification**: Every line of code is inspected for edge cases, performance leaks, and logic flaws.
+
+## Why Vibe Coding Outperforms Traditional Solo Coding
+
+### 1. Velocity Without Burnout
+Writing hundreds of lines of repetitive CSS utilities, form validation schemas, and API handlers traditionally took days. With an AI pair-programmer, you scaffold functional features in minutes and spend your energy where it matters most: **user experience, business logic, and code quality**.
+
+### 2. Live Prototyping with Real Clients
+Instead of presenting static Figma mockups, I can spin up fully interactive, responsive prototypes during or immediately after a client strategy call. Clients can touch the UI, test form flows, and experience animations in real time.
+
+### 3. Rapid Iteration and Experimentation
+Want to test whether a Neumorphic embossed UI or a minimalist glassmorphic card performs better with users? AI-assisted workflows allow you to create and benchmark alternative implementations in a fraction of the time.
+
+## Key Rules for Effective Vibe Coding
+
+1. **Never commit unreviewed code**: Always inspect diffs line by line.
+2. **Modularize components**: Small, focused components produce significantly cleaner AI outputs.
+3. **Use strict TypeScript**: Type safety acts as an automated guardrail against hallucinated properties.
+4. **Automate testing**: Pair your workflow with automated test runners and linters to verify execution.
+
+## Conclusion
+
+Vibe coding isn't replacing software engineers; it's empowering full-stack developers to build at the speed of thought. By combining human architectural vision with AI speed, we deliver higher-quality web solutions in record turnaround times.`
+  },
+  {
+    id: "6",
+    slug: "headless-wordpress-with-nextjs-and-react",
+    title: "Headless WordPress with Next.js & React: The Modern High-Performance Stack",
+    category: "Full-Stack",
+    date: "September 12, 2026",
+    author: "Sujon",
+    img: blog6,
+    excerpt: "Combine the content editing ease of WordPress with the blazing-fast speed, security, and reactive UI of Next.js and Tailwind CSS.",
+    content: `WordPress is the undisputed king of content management, powering over 40% of the web. Meanwhile, React and Next.js dominate modern frontend engineering. **Headless WordPress** bridges these two worlds into the ultimate enterprise web stack.
+
+## What is Headless WordPress?
+
+In a traditional WordPress setup, the backend (database, PHP, admin dashboard) and the frontend (PHP theme templates) are tightly coupled. 
+
+In a **Headless architecture**:
+- **WordPress** acts purely as a Content Management System (CMS) via the REST API or WPGraphQL.
+- **Next.js (React)** serves as a decoupled, high-speed frontend application that fetches data at build time (SSG) or request time (SSR/ISR).
+
+## Major Advantages of Going Headless
+
+### 1. Blistering Speed and 99+ Lighthouse Scores
+Because Next.js pre-renders pages into static HTML and optimized JavaScript, your pages load instantly from a global CDN edge cache. Visitors enjoy zero server response delays.
+
+### 2. Enterprise-Grade Security
+Your WordPress admin dashboard and database can be placed behind a private IP or private subdomain. The public never interacts directly with your PHP/MySQL server, completely mitigating typical WordPress vulnerabilities like SQL injections and brute-force logins.
+
+### 3. Freedom in UI Design
+You aren't constrained by WordPress theme hierarchies or PHP template files. You can build modern, fluid, interactive web interfaces using Tailwind CSS, Framer Motion, and component libraries.
+
+### 4. Familiar CMS for Content Editors
+Your content team still uses the familiar WordPress Gutenberg editor, posts dashboard, and media library they already know and love.
+
+## When Should You Choose Headless?
+
+- High-traffic editorial and news portals requiring instant load times.
+- Businesses needing seamless transitions between a marketing site and a custom SaaS dashboard.
+- Brands wanting bespoke animations and micro-interactions that traditional page builders cannot easily achieve.
+
+## Conclusion
+
+Headless WordPress with Next.js offers the best of both worlds: content flexibility for clients and engineering power for developers. It's one of my favorite architectures for high-performance client projects.`
+  },
+  {
+    id: "7",
+    slug: "ai-assisted-debugging-fast-reliable-code",
+    title: "AI-Assisted Debugging: How to Ship Clean, Production-Ready Code Faster",
+    category: "AI Workflow",
+    date: "September 04, 2026",
+    author: "Sujon",
+    img: blog7,
+    excerpt: "Practical workflows using Cursor AI, LLMs, and automated test runners to diagnose edge cases and write rock-solid web software.",
+    content: `Every developer knows the frustration of spending hours tracking down a subtle state synchronization issue, a CSS layout shift bug, or an intermittent API error. With AI-assisted debugging, what used to take an entire afternoon can now be solved in minutes.
+
+## The Modern AI Debugging Stack
+
+Effective AI debugging relies on giving the model the right contextual information. Here is how I structure my debugging workflow:
+
+### 1. Contextual Error Capture
+Instead of just asking "why doesn't this work?", feed the AI:
+- The exact stack trace and runtime warning
+- The component code and relevant hook dependencies
+- The expected input vs actual output state
+
+### 2. Identifying Race Conditions & Asynchronous Pitfalls
+AI is exceptionally good at spotting:
+- Missing dependency array variables in \`useEffect\` hooks
+- Async state updates on unmounted React components
+- Unhandled Promise rejections and API error fallback gaps
+
+### 3. Edge-Case Generation
+Ask the AI: *"What edge cases or invalid inputs could cause this function to fail?"*
+This prompts tests for:
+- Nullish or undefined API payload values
+- Zero or negative numeric boundaries
+- Extremely long strings breaking mobile responsive layouts
+- Special characters causing SQL or regex escaping issues
+
+## The Golden Rule: Trust, but Benchmark
+
+Never accept an AI bug fix without verifying:
+1. **Does it actually fix the root cause, or just mask the symptom?**
+2. **Does it introduce any regression in adjacent components?**
+3. **Does it maintain or improve runtime performance?**
+
+## Conclusion
+
+AI is the ultimate rubber duck debugging partner. When combined with strict code inspection and automated testing, AI debugging dramatically reduces delivery time while elevating software reliability.`
+  },
+  {
+    id: "8",
+    slug: "building-custom-dynamic-websites-wordpress-jetengine",
+    title: "Building Custom Dynamic Websites with WordPress, Crocoblock & JetEngine",
+    category: "Dynamic Web",
+    date: "August 26, 2026",
+    author: "Sujon",
+    img: blog8,
+    excerpt: "Go beyond standard templates. Learn how to architect custom post types, relations, listings, and dynamic forms with JetEngine & Elementor.",
+    content: `Many people think WordPress is only for basic blogs or simple brochure sites. But with **JetEngine by Crocoblock**, WordPress transforms into a full relational database management system capable of powering complex web applications.
+
+## What Makes a Website \"Dynamic\"?
+
+A static website displays fixed information written directly into page templates. A **dynamic website** separates content from design:
+- Data is stored in Custom Post Types (e.g., Properties, Cars, Doctors, Courses).
+- Custom Fields store attributes (e.g., Price, Square Footage, Availability, Ratings).
+- Dynamic Listing Templates automatically display items with unified styling.
+- Interactive Filters let users search, sort, and filter content without page reloads.
+
+## Core Pillars of JetEngine Architecture
+
+### 1. Custom Post Types (CPT) & Custom Taxonomies
+Create structured content types tailored to your business model. For a real estate platform, you create a "Properties" CPT with custom taxonomies like "Location", "Property Type", and "Status".
+
+### 2. Meta Fields & Meta Boxes
+Add specific data fields: text fields, numeric pricing, galleries, date pickers, and conditional repeater fields.
+
+### 3. Post Relations (One-to-Many & Many-to-Many)
+Connect different content types together. For example, link an "Agent" post to multiple "Properties", or link "Doctors" to "Clinics" and "Services".
+
+### 4. Listing Grids & Dynamic Injections
+Design a single listing card template using Elementor. JetEngine dynamically populates hundreds of listings across archive pages, search results, and related item sliders.
+
+### 5. Smart Filters
+Combine JetEngine with JetSmartFilters to give users instant AJAX filtering by price range, checkboxes, visual search, and geolocation maps.
+
+## Real-World Use Cases
+
+- **Directory & Listing Portals** (Real estate, auto dealerships, job boards)
+- **Booking & Appointment Platforms** (Medical clinics, salon booking, consultation)
+- **Membership & User Portals** (Custom dashboards, user-submitted listings)
+
+## Conclusion
+
+Custom dynamic websites deliver the flexibility of custom software at a fraction of the development cost and timeline. Master JetEngine to build scalable, database-driven web platforms that provide tremendous client value.`
+  },
 ];
+

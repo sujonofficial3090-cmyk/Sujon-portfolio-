@@ -1,10 +1,6 @@
 import pf1 from "@/assets/pf-1.jpg";
 import pf2 from "@/assets/pf-2.jpg";
 import pf3 from "@/assets/pf-3.jpg";
-import blog1 from "@/assets/blog-1.jpg";
-import blog2 from "@/assets/blog-2.jpg";
-import blog3 from "@/assets/blog-3.jpg";
-import blog4 from "@/assets/blog-4.jpg";
 import office from "@/assets/office.jpg";
 import tommysListing from "@/assets/tommys-listing.webp";
 import applianceWorld from "@/assets/appliance-world.webp";
@@ -15,12 +11,17 @@ import salvajeGroup from "@/assets/salvaje-group.webp";
 import moritzDunkel from "@/assets/moritz-dunkel.webp";
 import globalMed from "@/assets/global-med.webp";
 import emodula from "@/assets/emodula.webp";
+import juncaStudio from "@/assets/junca-studio.webp";
+import silviaMalavasi from "@/assets/silvia-malavasi.webp";
+import gmxDigital from "@/assets/gmx-digital.webp";
 
 export interface Project {
   id: string;
   title: string;
-  category: string;
+  category: "WordPress" | "WooCommerce" | "Business Website" | "Custom Development" | "AI-Assisted Development" | "Vibe Coding" | "Web Application" | string;
   description: string;
+  role: string;
+  whatIBuilt: string;
   img: string;
   overview: string;
   challenge: string;
@@ -35,7 +36,9 @@ export const PROJECTS: Project[] = [
   {
     id: "appliance-world",
     title: "Appliance World — WooCommerce E-Commerce Store",
-    category: "WooCommerce & E-Commerce",
+    category: "WooCommerce",
+    role: "Lead WordPress & WooCommerce Developer",
+    whatIBuilt: "Full-scale eCommerce storefront with catalog management, quick-view modals, localized pricing, dynamic cart drawers, and checkout optimization.",
     description: "An eCommerce WooCommerce website built for Appliance World, featuring a structured product catalog, product categories, pricing, shopping functionality, and a streamlined online shopping experience for home appliances and electronics.",
     img: applianceWorld,
     overview: "Appliance World LTD is a leading online store for electronics and home appliances based in Uganda. The platform provides a modern online shopping experience featuring real-time product search, categorized browsing (ACs, TVs, Washers & Dryers, Refrigerators, Microwaves, Audio), regional currency pricing (UGX), product quick-views, and streamlined shopping cart management.",
@@ -56,7 +59,9 @@ export const PROJECTS: Project[] = [
   {
     id: "tommys-real-estate",
     title: "Tommy's Real Estate",
-    category: "Real Estate & Property Listing",
+    category: "Business Website",
+    role: "WordPress & Frontend Developer",
+    whatIBuilt: "Real estate listing platform with custom post types, multi-parameter search filtering, agent profile directory, and direct property lead capture.",
     description: "A modern real estate listing website for Wellington's market leader featuring property search filters, featured property showcases, agent directories, and client inquiry forms.",
     img: tommysListing,
     overview: "Tommy's Real Estate is a leading property agency website based in Wellington. The platform is designed to showcase residential and commercial property listings with multi-parameter search, featured property showcases, agent profile directories, and instant lead inquiry forms.",
@@ -77,7 +82,9 @@ export const PROJECTS: Project[] = [
   {
     id: "montgomery-inn",
     title: "Montgomery Inn at Ingleside — Boutique Luxury Inn & Suites",
-    category: "Hotel & Hospitality Website",
+    category: "Business Website",
+    role: "Lead WordPress & UI Developer",
+    whatIBuilt: "Story-driven hospitality website with room and cottage rate showcases, booking inquiry funnels, interactive amenities guides, and local tourism integrations.",
     description: "A picturesque boutique inn and cottage destination website located in Prince Edward Island, Canada, featuring Anne of Green Gables heritage, guest room & suite showcases, local tourism guides, and online booking workflows.",
     img: montgomeryInn,
     overview: "Montgomery Inn at Ingleside is a historic boutique inn and luxury cottage experience nestled in Prince Edward Island (Anne's Land). The website offers travelers and vacationers an immersive glimpse into boutique guest rooms, tranquil coastal landscapes, heritage dining, and streamlined reservation scheduling.",
@@ -98,7 +105,9 @@ export const PROJECTS: Project[] = [
   {
     id: "cater-psychiatry",
     title: "Cater Psychiatry — Healthcare & Telepsychiatry Services",
-    category: "Healthcare & Medical Services",
+    category: "Business Website",
+    role: "Full-Stack WordPress Developer",
+    whatIBuilt: "HIPAA-aligned medical practice portal with telepsychiatry scheduling, condition guides, transparent pricing tables, and verified patient reviews.",
     description: "A premium medical practice website built for Cater Psychiatry (Dr. Sammy Khader, MD) in St. Charles, IL, featuring adult psychiatric care, telepsychiatry scheduling, insurance/pricing transparency, and HIPAA-compliant patient intake.",
     img: caterPsychiatry,
     overview: "Cater Psychiatry provides personalized adult psychiatric care in Illinois, founded by Dr. Sammy Khader, MD. The platform is designed to provide thoughtful, personalized psychiatric treatment for ADHD, anxiety, depression, bipolar disorder, OCD, and insomnia, offering both in-person appointments in St. Charles and telepsychiatry across Illinois.",
@@ -119,7 +128,9 @@ export const PROJECTS: Project[] = [
   {
     id: "diesel-repair",
     title: "205 Diesel Repair — Automotive & Truck Repair Services",
-    category: "Automotive & Fleet Services",
+    category: "Business Website",
+    role: "WordPress Developer & Conversion Specialist",
+    whatIBuilt: "Service business website with emergency call-to-action triggers, structured diagnostic catalogs, embedded Google Maps, and quote estimation forms.",
     description: "A heavy-duty automotive and diesel truck repair service website built for 205 Diesel Repair in Rockwall, TX, featuring semi-truck repairs, A/C & brake diagnostics, mobile roadside service booking, and Google review highlights.",
     img: dieselRepair,
     overview: "205 Diesel Repair is a premier automotive and commercial truck repair facility located in Rockwall, Texas. The website is engineered to attract fleet managers, semi-truck drivers, and local vehicle owners with detailed service catalogs (Truck A/C, Brakes, Heavy Equipment, Diesel Pickup & Semi-Truck Repair), customer review showcases, and streamlined appointment scheduling.",
@@ -140,7 +151,9 @@ export const PROJECTS: Project[] = [
   {
     id: "salvaje-group",
     title: "AMOR — Downtown Dubai Speakeasy & Nightclub",
-    category: "Hospitality & Entertainment Website",
+    category: "Custom Development",
+    role: "Senior Web Developer & UI Engineer",
+    whatIBuilt: "Dark luxury entertainment platform with interactive weekly event programming, mixology showcases, WhatsApp VIP table booking, and multimedia galleries.",
     description: "Exclusive luxury speakeasy nightclub website in Downtown Dubai, featuring world-class mixology, international DJ headliners, weekly night events, and online reservation workflows.",
     img: salvajeGroup,
     overview: "AMOR is a premier speakeasy nightclub situated in the heart of Downtown Dubai right next to Dubai Opera & Burj Khalifa. Developed for Salvaje Group Dubai, the platform showcases bespoke nightlife events, curated mixology, house-driven DJ vibes, interactive event galleries, and instant table booking integrations.",
@@ -161,7 +174,9 @@ export const PROJECTS: Project[] = [
   {
     id: "moritz-dunkel",
     title: "Moritz Dunkel — Agency & Design Portfolio Website",
-    category: "Portfolio Website",
+    category: "Custom Development",
+    role: "Front-End Developer & CMS Specialist",
+    whatIBuilt: "Creative agency portfolio with custom post structures, interactive case study breakdowns, dynamic typography, and strategy booking intake.",
     description: "A high-end creative agency portfolio and brand identity website for Moritz Dunkel (Dunkel Design / DNKLDSN) in Cologne, Germany, featuring interactive case studies, design client testimonials, and strategy consultation bookings.",
     img: moritzDunkel,
     overview: "Moritz Dunkel (Dunkel Design / DNKLDSN) is a premier branding and web design agency based in Cologne, Germany. The website is engineered to showcase high-impact visual identities, psychology-driven web design, marketing strategies, and client success stories for entrepreneurs, service providers, and brands.",
@@ -182,7 +197,9 @@ export const PROJECTS: Project[] = [
   {
     id: "global-med",
     title: "Global Med — US Healthcare & Medical Services Website",
-    category: "Healthcare & Medical Services",
+    category: "WordPress",
+    role: "Lead WordPress Developer",
+    whatIBuilt: "Structured healthcare directory with doctor profiles, insurance portals, primary care/specialist listings, and telehealth virtual booking.",
     description: "A professional healthcare and medical services website for Global Med (USA), featuring comprehensive medical service listings, patient resources, provider portals, telehealth integrations, and streamlined appointment booking.",
     img: globalMed,
     overview: "Global Med is a professional USA-based healthcare and medical services platform designed to connect patients with comprehensive medical care. The website features detailed service pages for Primary Care, Specialist Consultations, Telehealth, Lab Testing, Pharmacy, and Insurance guidance — all within a clean, trust-building, HIPAA-aligned design system.",
@@ -203,7 +220,9 @@ export const PROJECTS: Project[] = [
   {
     id: "emodula",
     title: "Emodula — Permanent Modular Buildings & Construction",
-    category: "Construction & Real Estate",
+    category: "WordPress",
+    role: "Lead WordPress & Corporate Web Developer",
+    whatIBuilt: "Compliance-driven corporate portal with ISO certification showcases, volumetric modular methodology diagrams, multi-sector project navigation, and B2B inquiry funnels.",
     description: "A high-impact corporate website for Emodula, a UK-based permanent modular buildings company delivering compliance-led construction with ISO 9001, 14001 & 45001 certifications, covering healthcare, data centres, M&E systems and EV charging sectors.",
     img: emodula,
     overview: "Emodula is a leading UK permanent modular construction company delivering high-quality, compliance-led modular buildings across healthcare, data centres, hub systems, and EV charging infrastructure. The website is engineered to communicate Emodula's unique volumetric modular delivery approach, structured governance model, and BOPAS accreditation — building buyer confidence through transparency, certifications, and clear project pathways.",
@@ -220,5 +239,79 @@ export const PROJECTS: Project[] = [
     techStack: ["WordPress", "Elementor Pro", "PHP", "CSS3", "JavaScript", "Responsive Design"],
     screenshots: [emodula, pf2, office],
     liveUrl: "https://emodula.org"
+  },
+  {
+    id: "junca-studio",
+    title: "Junca Studio — Futuristic 3D & AI Web Experience",
+    category: "AI-Assisted Development",
+    role: "Lead Web Architect & 3D Interactive Developer",
+    whatIBuilt: "High-end futuristic 3D interactive web experience featuring real-time WebGL rendering, custom sound design, ambient lighting, dynamic timezones, and smooth fluid animations.",
+    description: "A premium futuristic web application built for ambitious tech companies, featuring immersive 3D robotics, interactive audio design, modern dark aesthetics, and ultra-smooth performance.",
+    img: juncaStudio,
+    overview: "Junca Studio (juncastudio.com) is an elite creative tech studio creating premium digital experiences for world-class technology companies. The website features an interactive 3D robot character ('Hello there!'), real-time sound effects, dynamic UTC clock, and cutting-edge dark-mode aesthetics.",
+    challenge: "Engineering a high-performance 3D WebGL experience with interactive audio and cinematic visual fidelity while maintaining instant initial loading times and responsive fluid interactions across all devices.",
+    solution: "Built with modern WebGL / Three.js 3D rendering pipelines, optimized asset loading, Web Audio API sound effects, and clean modular responsive component architecture.",
+    features: [
+      "Interactive 3D robot showcase with real-time WebGL rendering",
+      "Integrated ambient audio effects and sound design engine",
+      "Live UTC time synchronization and global industry services directory",
+      "Cinematic dark aesthetic with high-contrast typography and red atmospheric lighting",
+      "Fluid 60fps micro-interactions, responsive navigation, and contact funnels",
+      "100% responsive design optimized for mobile, tablet, and ultra-wide displays"
+    ],
+    techStack: ["React", "Three.js / WebGL", "Tailwind CSS", "Web Audio API", "AI-Assisted Coding", "Vibe Coding", "TypeScript"],
+    screenshots: [juncaStudio, pf1, office],
+    liveUrl: "https://juncastudio.com/"
+  },
+  {
+    id: "silvia-malavasi",
+    title: "Silvia Malavasi — Cyberpunk Creative Frontend Portfolio",
+    category: "AI-Assisted Development",
+    role: "Creative Frontend & WebGL Interaction Developer",
+    whatIBuilt: "Cyberpunk-themed interactive portfolio featuring 3D wireframe skull anatomy, GSAP timeline animations, Three.js shaders, reactive sound design, and custom cursor telemetry.",
+    description: "An avant-garde cyberpunk creative frontend portfolio engineered with Three.js, GSAP motion design, interactive WebGL skull visualization, audio synthesis, and brutalist high-contrast typography.",
+    img: silviaMalavasi,
+    overview: "Silvia Malavasi (silviamalavasi.com) is an elite creative frontend developer portfolio featuring an experimental cybernetic dissection aesthetic. The experience combines real-time 3D wireframe mesh deformation in Three.js, reactive sound synthesizers, complex GSAP physics animations, and custom classified-dossier UI styling.",
+    challenge: "Designing and orchestrating complex 3D wireframe geometry deformation synchronized with interactive audio and GSAP timeline scrub interactions while sustaining locked 60fps performance.",
+    solution: "Implemented efficient WebGL shaders with Three.js, optimized polygon rendering, throttled mouse trajectory listeners, and hardware-accelerated CSS/canvas blend layers.",
+    features: [
+      "Interactive 3D wireframe skull mesh with real-time mouse deformation",
+      "Dynamic sound synthesis engine with interactive audio triggers",
+      "Cyberpunk dossier aesthetic with barcode telemetry and classified badges",
+      "GSAP-driven scroll dissection walkthrough with micro-timelines",
+      "Live audio toggle, fluid typography, and custom interaction ribbons",
+      "100% responsive cross-platform performance across mobile and desktop"
+    ],
+    techStack: ["React", "Three.js", "GSAP", "WebGL", "Web Audio API", "CSS3 / Canvas", "TypeScript"],
+    screenshots: [silviaMalavasi, pf1, office],
+    liveUrl: "https://www.silviamalavasi.com/"
+  },
+  {
+    id: "gmx-digital",
+    title: "GMX Digital — Next-Gen Real Estate & Digital Reality Studio",
+    category: "AI-Assisted Development",
+    role: "Lead Full-Stack Web Architect & 3D Interactive Developer",
+    whatIBuilt: "High-end interactive digital reality showcase for luxury real estate and digital architecture with 3D smoke shaders, dynamic lighting, ultra-fluid animations, and multi-platform optimization.",
+    description: "A luxury digital reality and high-end real estate web platform featuring cinematic 3D visual engineering, immersive animations, bespoke lighting effects, and flawless responsive performance.",
+    img: gmxDigital,
+    overview: "GMX Digital (gmxdigital.com) is an elite digital engineering and creative technology agency crafting hyper-realistic digital reality experiences, architecture visualizations, and high-impact web platforms for luxury real estate and technology pioneers.",
+    challenge: "Harmonizing high-fidelity 3D atmospheric smoke, volumetric lighting, and luxury architectural rendering with sub-second page delivery and zero frame drops across mobile and desktop devices.",
+    solution: "Developed with Next-gen React and WebGL acceleration, shader pipeline optimization, hardware-accelerated CSS layers, and intelligent viewport rendering.",
+    features: [
+      "Cinematic 3D architectural rendering and volumetric smoke animation",
+      "High-impact luxury dark aesthetic with metallic chrome lighting accents",
+      "Dynamic property exploration and digital experience showcase",
+      "Fluid 60fps interaction models with custom cursor navigation",
+      "Optimized WebGL performance pipeline delivering instant load times",
+      "100% responsive architecture engineered for mobile, tablet, and 4K displays"
+    ],
+    techStack: ["React", "WebGL", "Three.js", "Tailwind CSS", "GSAP", "TypeScript", "AI-Assisted Coding"],
+    screenshots: [gmxDigital, pf1, office],
+    liveUrl: "https://gmxdigital.com/"
   }
 ];
+
+export const PROJECTS_CLASSIC: Project[] = PROJECTS.filter(
+  (p) => !["junca-studio", "silvia-malavasi", "gmx-digital"].includes(p.id)
+);
+

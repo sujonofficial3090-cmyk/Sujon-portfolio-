@@ -19,6 +19,7 @@ export function Footer() {
     { label: t("nav_about"), href: "/#about" },
     { label: t("nav_services"), href: "/#services" },
     { label: t("nav_projects"), href: "/#portfolio" },
+    { label: t("nav_experience", "Experience"), href: "/experience" },
     { label: t("nav_reviews"), href: "/#reviews" },
     { label: t("nav_contact"), href: "/#contact" },
   ];
@@ -27,9 +28,9 @@ export function Footer() {
     t("svc_1_title"),
     t("svc_2_title"),
     t("svc_3_title"),
+    t("svc_4_title"),
+    t("svc_5_title"),
     t("svc_6_title"),
-    t("svc_7_title"),
-    t("svc_8_title"),
   ];
 
   return (
@@ -40,7 +41,10 @@ export function Footer() {
             {/* Pure SUJON typographic wordmark */}
             <div>
               <a href="/#home">
-                <span className="sujon-logo text-[26px] font-black tracking-[0.08em] select-none uppercase">
+                <span
+                  translate="no"
+                  className="sujon-logo notranslate text-[26px] font-black tracking-[0.08em] select-none uppercase"
+                >
                   Sujon
                 </span>
               </a>
@@ -110,7 +114,7 @@ export function Footer() {
               <li className="flex items-start gap-2.5">
                 <MapPin className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
                 <span className="font-bold text-foreground/85">
-                  Rampura, Banasree, Dhaka
+                  {t("footer_location", "Rampura, Banasree, Dhaka")}
                 </span>
               </li>
               <li className="flex items-start gap-2.5">
@@ -136,7 +140,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-brand-deep transition-colors font-bold"
                 >
-                  WhatsApp Chat
+                  {t("footer_chat_whatsapp", "WhatsApp Chat")}
                 </a>
               </li>
             </ul>

@@ -39,14 +39,14 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: "m1",
     sender: "bot",
-    text: "👋 Assalamu Alaikum & Hello! I'm Sujon's AI Assistant.\n\nI can answer any questions about Sujon's WordPress development, pricing, 90+ speed guarantee, custom stores, and timelines. How can I assist you today?",
+    text: "👋 Assalamu Alaikum & Hello! I'm Sujon's AI Assistant.\n\nI can answer any questions about Sujon's Full-Stack web development, WordPress & WooCommerce expertise, AI-assisted development, vibe coding workflows, pricing, and project timelines. How can I assist you today?",
     time: "Just now",
     options: [
       { label: "💼 Services & Skills", action: "services" },
+      { label: "⚡ AI & Vibe Coding", action: "vibe_coding" },
+      { label: "🌐 Full-Stack & Modern Web", action: "fullstack" },
       { label: "💰 Pricing & Packages", action: "pricing" },
       { label: "⚡ 90+ Speed Guarantee", action: "speed" },
-      { label: "🛍️ WooCommerce Stores", action: "ecommerce" },
-      { label: "⏱️ Delivery Timeline", action: "timeline" },
       { label: "💬 Chat on WhatsApp", action: "whatsapp" },
     ],
   },
@@ -154,6 +154,40 @@ const GREETING_TOPICS: KnowledgeTopic[] = [
 // SUBSTANTIVE SPECIFIC TOPICS (Evaluated FIRST with High Priority)
 // ─────────────────────────────────────────────────────────────
 const SPECIFIC_TOPICS: KnowledgeTopic[] = [
+  {
+    id: "vibe_coding",
+    keywords: ["vibe coding", "ai coding", "ai workflow", "ai assistant", "ai development", "vibe code", "ai assisted"],
+    patterns: [/\b(vibe coding|ai coding|ai development|vibe code|ai-assisted|workflow)\b/i],
+    reply:
+      "⚡ **Vibe Coding & AI-Powered Development**:\n\nSujon uses AI as a development accelerator throughout the entire lifecycle:\n• **Rapid Prototyping**: Turning ideas, requirements, and designs into interactive web interfaces rapidly.\n• **AI-Assisted Coding & Debugging**: Accelerating architecture, coding, testing, and edge-case resolution.\n• **Strict Quality Control**: Human expertise leads the execution — ensuring robust architecture, security, cross-device responsiveness, and clean code.\n\n*Vibe coding is not a replacement for engineering, but a powerful modern workflow for shipping high-quality digital experiences faster!*",
+    options: [
+      { label: "💼 View Services", action: "services" },
+      { label: "🌐 Full-Stack Capabilities", action: "fullstack" },
+      { label: "💬 Discuss on WhatsApp", action: "whatsapp" },
+    ],
+    highlightAction: {
+      type: "whatsapp",
+      label: "Discuss a Project with Sujon",
+      url: "https://wa.me/8801936711699",
+    },
+  },
+  {
+    id: "fullstack",
+    keywords: ["full stack", "fullstack", "frontend", "backend", "next.js", "react", "node"],
+    patterns: [/\b(full[- ]?stack|frontend|backend|react|next\.?js|node)\b/i],
+    reply:
+      "🌐 **Full-Stack Web Development & Modern Stacks**:\n\nSujon builds modern, scalable, and responsive web applications combining:\n• **Frontend**: React, Next.js, HTML5, CSS3, Tailwind CSS, TypeScript, modern responsive UI.\n• **Backend & APIs**: Node.js, REST APIs, database integration, authentication, and secure server-side logic.\n• **WordPress & WooCommerce**: Custom themes, Elementor Pro, JetEngine, and custom post types.\n\n*Whether you need a custom web application or an enterprise WordPress platform, Sujon delivers end-to-end!*",
+    options: [
+      { label: "⚡ Vibe Coding Workflows", action: "vibe_coding" },
+      { label: "💰 Pricing Packages", action: "pricing" },
+      { label: "💬 Chat on WhatsApp", action: "whatsapp" },
+    ],
+    highlightAction: {
+      type: "whatsapp",
+      label: "Chat with Sujon on WhatsApp",
+      url: "https://wa.me/8801936711699",
+    },
+  },
   {
     id: "ecommerce_pricing",
     keywords: ["ecommerce price", "woocommerce price", "shop cost", "store price", "online store cost", "ecommerce koto taka"],
@@ -1281,7 +1315,7 @@ export function MobileAiAssistant() {
                     </span>
                   </div>
                   <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-                    Always Online • WordPress & Speed Expert
+                    Always Online • Full-Stack & WordPress Expert
                   </p>
                 </div>
               </div>
@@ -1312,10 +1346,24 @@ export function MobileAiAssistant() {
             <div className="flex items-center gap-1.5 overflow-x-auto px-3 py-2 border-b border-border/30 bg-surface/50 no-scrollbar shrink-0 text-[11px]">
               <button
                 type="button"
+                onClick={() => handleAction("vibe_coding")}
+                className="nm-raised-sm whitespace-nowrap rounded-full px-3 py-1 font-bold text-foreground/80 hover:text-brand-deep transition-colors shrink-0"
+              >
+                ⚡ Vibe Coding & AI
+              </button>
+              <button
+                type="button"
                 onClick={() => handleAction("pricing")}
                 className="nm-raised-sm whitespace-nowrap rounded-full px-3 py-1 font-bold text-foreground/80 hover:text-brand-deep transition-colors shrink-0"
               >
                 💰 Pricing
+              </button>
+              <button
+                type="button"
+                onClick={() => handleAction("services")}
+                className="nm-raised-sm whitespace-nowrap rounded-full px-3 py-1 font-bold text-foreground/80 hover:text-brand-deep transition-colors shrink-0"
+              >
+                💼 Full-Stack & WP
               </button>
               <button
                 type="button"
@@ -1337,13 +1385,6 @@ export function MobileAiAssistant() {
                 className="nm-raised-sm whitespace-nowrap rounded-full px-3 py-1 font-bold text-foreground/80 hover:text-brand-deep transition-colors shrink-0"
               >
                 ⏱️ Timeline
-              </button>
-              <button
-                type="button"
-                onClick={() => handleAction("bug_fixing")}
-                className="nm-raised-sm whitespace-nowrap rounded-full px-3 py-1 font-bold text-foreground/80 hover:text-brand-deep transition-colors shrink-0"
-              >
-                🛠️ Bug Fixing
               </button>
             </div>
 
