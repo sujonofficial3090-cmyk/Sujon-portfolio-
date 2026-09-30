@@ -1,0 +1,64 @@
+import { NeumorphicCard } from "@/components/nm";
+import { ParticleLetterS } from "@/components/site/ParticleLetterS";
+import { useTranslation } from "@/lib/i18n";
+
+const SKILLS = [
+  "WordPress Development",
+  "Elementor & Elementor Pro",
+  "WooCommerce",
+  "Custom WordPress Websites",
+  "Responsive Web Design",
+  "WordPress Speed Optimization",
+  "Website Redesign",
+  "WordPress Maintenance",
+];
+
+export function ClassicAbout() {
+  const { t } = useTranslation();
+
+  return (
+    <section id="about" className="scroll-mt-28">
+      <div className="grid gap-6 lg:grid-cols-[1.25fr_1fr]">
+        <NeumorphicCard depth="md" radius="lg" className="px-6 py-8 sm:px-10 sm:py-10 reveal-on-scroll stagger-1">
+          <h2 className="text-brand-gradient text-[clamp(1.8rem,4.5vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
+            {t("about_heading")}
+          </h2>
+
+          <div className="mt-5 space-y-4 text-[15px] sm:text-[16px] font-medium leading-[1.75] text-foreground/85 dark:text-foreground/85">
+            <p>{t("about_p1")}</p>
+            <p>{t("about_p2")}</p>
+          </div>
+
+          <div className="mt-8 border-t border-border pt-6">
+            <h3 className="text-[14px] sm:text-[15px] font-extrabold text-foreground mb-4 uppercase tracking-wider">
+              {t("about_skills_title")}
+            </h3>
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {SKILLS.map((skill) => (
+                <li
+                  key={skill}
+                  className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-foreground/80"
+                >
+                  <span className="nm-raised-sm flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] text-brand-deep font-extrabold">
+                    Γ£ô
+                  </span>
+                  <span>{skill}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </NeumorphicCard>
+
+        <NeumorphicCard
+          depth="md"
+          radius="lg"
+          className="relative flex min-h-[460px] lg:min-h-[520px] items-center justify-center overflow-hidden p-4 reveal-on-scroll stagger-2"
+        >
+          {/* Soft ambient lighting */}
+          <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
+          <ParticleLetterS />
+        </NeumorphicCard>
+      </div>
+    </section>
+  );
+}

@@ -1,41 +1,37 @@
 import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
 
-export function Hero() {
+export function ClassicHero() {
   const { t } = useTranslation();
 
   return (
     <section id="home" className="scroll-mt-28">
       <NeumorphicCard depth="md" radius="lg" className="overflow-hidden">
         <div className="grid min-h-[520px] items-center gap-0 lg:grid-cols-[1.25fr_auto]">
-          {/* LEFT — Text content & CTA */}
+          {/* LEFT ΓÇö Text content & CTA */}
           <div className="flex flex-col justify-center px-5 py-10 sm:px-10 sm:py-14 lg:py-16 lg:pl-14">
             {/* Badge */}
-            <div className="mb-4 hero-animate-1 flex flex-wrap gap-2">
-              <span className="nm-inset text-brand-deep inline-block rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold tracking-[0.14em] uppercase">
-              {t("hero_badge")}
+            <div className="mb-5 hero-animate-1">
+              <span className="nm-inset text-brand-deep inline-block rounded-[8px] px-4 py-1.5 text-[11px] font-extrabold tracking-[0.2em] uppercase">
+                {t("hero_badge")}
               </span>
             </div>
 
-            {/* Main heading: Funnel Display, Weight 800 */}
-            <h1 className="hero-animate-1 text-[clamp(2rem,4.5vw,3.6rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15]">
+            {/* Main heading: Funnel Display, Weight 800, Desktop Line-height 96px */}
+            <h1 className="hero-animate-1 text-[clamp(2.1rem,5vw,3.8rem)] font-extrabold tracking-[-0.025em] text-foreground leading-[1.15] lg:leading-[96px]">
               {t("hero_heading_1")}{" "}
-                  <span className="text-brand-gradient pb-1 inline-block">{t("hero_heading_gradient")}</span>
+              <span className="text-brand-gradient pb-1 inline-block">{t("hero_heading_gradient")}</span>
+              <br />
+              {t("hero_heading_2")}
             </h1>
 
-            {/* Supporting text */}
-            <p className="hero-animate-2 mt-4 max-w-2xl text-[15px] sm:text-[17px] font-bold leading-[1.5] text-foreground/90">
-              {t("hero_subheading")}
-            </p>
-
-            {/* Short supporting paragraph */}
-            <p className="hero-animate-2 mt-3 max-w-2xl text-[14px] sm:text-[15px] font-medium leading-[1.75] text-foreground/80 dark:text-foreground/80">
+            {/* Body text: 16px Poppins font */}
+            <p className="hero-animate-2 mt-6 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.8] text-foreground/85 dark:text-foreground/85">
               {t("hero_bio")}
             </p>
 
-
-            {/* CTA Buttons — STRICTLY SIDE BY SIDE ON MOBILE (1 ROW) & INLINE ON DESKTOP */}
-            <div className="hero-animate-3 mt-7 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">
+            {/* CTA Buttons ΓÇö STRICTLY SIDE BY SIDE ON MOBILE (1 ROW) & INLINE ON DESKTOP */}
+            <div className="hero-animate-3 mt-8 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">
               <NeumorphicLinkButton
                 href="/SUJON.pdf"
                 target="_blank"
@@ -63,7 +59,7 @@ export function Hero() {
               <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[280px] sm:w-[320px] h-[340px] sm:h-[400px] rounded-t-[140px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/50 dark:border-white/10 nm-raised-sm opacity-85" />
               <img
                 src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
-                alt="Sujon — Full-Stack Web Developer & WordPress Expert"
+                alt="Sujon ΓÇö Professional WordPress Developer"
                 loading="eager"
                 width={700}
                 height={950}
@@ -74,7 +70,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* RIGHT — Desktop Personal Photo with Seamless Neumorphic Arch & Lighting */}
+          {/* RIGHT ΓÇö Desktop Personal Photo with Seamless Neumorphic Arch & Lighting */}
           <div className="hero-animate-4 relative hidden lg:flex h-full min-h-[560px] w-[400px] xl:w-[480px] items-end justify-center overflow-hidden">
             {/* Soft Ambient Radial Glow behind the silhouette */}
             <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 w-[360px] h-[360px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
@@ -85,7 +81,7 @@ export function Hero() {
             {/* Natural Personal Photo */}
             <img
               src="https://i.ibb.co.com/KzBDF6fr/Chat-GPT-Image-Aug-27-2026-02-42-07-PM.png"
-              alt="Sujon — Full-Stack Web Developer & WordPress Expert"
+              alt="Sujon ΓÇö Professional WordPress Developer"
               loading="eager"
               width={900}
               height={1200}

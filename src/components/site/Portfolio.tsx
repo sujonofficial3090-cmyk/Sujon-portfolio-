@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
-import { PROJECTS, PROJECTS_CLASSIC, type Project } from "@/data/projects";
+import { PROJECTS, type Project } from "@/data/projects";
 import { useTranslation } from "@/lib/i18n";
-import { useSiteVersion } from "@/lib/versionContext";
 
 function ProjectCard({ item, idx }: { item: Project; idx: number }) {
   const { t } = useTranslation();
@@ -131,11 +130,8 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
 
 export function Portfolio() {
   const { t } = useTranslation();
-  const { isV2 } = useSiteVersion();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [showAll, setShowAll] = useState(false);
-
-  const activeProjects = isV2 ? PROJECTS : PROJECTS_CLASSIC;
 
   const categories = [
     { id: "all", label: t("cat_all", "All Projects") },
@@ -143,17 +139,15 @@ export function Portfolio() {
     { id: "WooCommerce", label: t("cat_woo", "WooCommerce") },
     { id: "Business Website", label: t("cat_business", "Business Website") },
     { id: "Custom Development", label: t("cat_custom", "Custom Development") },
-    ...(isV2 ? [{ id: "AI-Assisted Development", label: t("cat_ai", "AI & Web Apps") }] : []),
+    { id: "AI-Assisted Development", label: t("cat_ai", "AI & Web Apps") },
   ];
 
   const filteredProjects =
     selectedCategory === "all"
-      ? activeProjects
-      : activeProjects.filter((p) => p.category === selectedCategory);
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === selectedCategory);
 
-  const visibleProjects = isV2
-    ? (showAll ? filteredProjects : filteredProjects.slice(0, 6))
-    : filteredProjects;
+  const visibleProjects = showAll ? filteredProjects : filteredProjects.slice(0, 6);
 
   return (
     <section id="portfolio" className="scroll-mt-28">
@@ -167,9 +161,7 @@ export function Portfolio() {
             {t("portfolio_heading")}
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[14.5px] sm:text-[16px] font-medium text-muted-foreground">
-            {isV2
-              ? t("portfolio_subtitle")
-              : "A curated showcase of recent high-converting WordPress & WooCommerce client websites. Hover over cards to preview full pages."}
+            {t("portfolio_subtitle")}
           </p>
         </div>
 
@@ -203,7 +195,7 @@ export function Portfolio() {
           ))}
         </div>
 
-        {isV2 && filteredProjects.length > 6 && (
+        {filteredProjects.length > 6 && (
           <div className="mt-8 flex justify-center">
             <button
               type="button"

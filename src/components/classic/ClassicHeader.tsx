@@ -1,6 +1,5 @@
-import { Menu, X, Sun, Moon, Palette, Check, Globe, Search, Pipette, Volume2, ChevronDown, Briefcase, Star } from "lucide-react";
+import { Menu, X, Sun, Moon, Palette, Check, Globe, Search, Pipette, Volume2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
 
 import { NeumorphicCard } from "@/components/nm";
 import { cn } from "@/lib/utils";
@@ -22,7 +21,6 @@ const NAV = [
   { label: "About", href: "/#about" },
   { label: "Services", href: "/#services" },
   { label: "Projects", href: "/#portfolio" },
-  { label: "Experience", href: "/experience" },
   { label: "Reviews", href: "/#reviews" },
 ];
 
@@ -164,7 +162,7 @@ const CURSOR_OPTIONS: { id: CursorMode; label: string; icon: React.ReactNode }[]
   },
 ];
 
-export function Header() {
+export function ClassicHeader() {
   const { t, lang: currentLang, setLanguage } = useTranslation();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("/#home");
@@ -178,47 +176,14 @@ export function Header() {
   const [langOpen, setLangOpen] = useState(false);
   const [searchLang, setSearchLang] = useState("");
   const langRef = useRef<HTMLDivElement>(null);
-  const [experienceOpen, setExperienceOpen] = useState(false);
-  const [mobileExpOpen, setMobileExpOpen] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.location.pathname.includes("/experience") || window.location.hash.includes("reviews");
-  });
-  const experienceRef = useRef<HTMLLIElement>(null);
-  const expTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleExpMouseEnter = () => {
-    if (expTimeoutRef.current) {
-      clearTimeout(expTimeoutRef.current);
-      expTimeoutRef.current = null;
-    }
-    setExperienceOpen(true);
-  };
-
-  const handleExpMouseLeave = () => {
-    if (expTimeoutRef.current) {
-      clearTimeout(expTimeoutRef.current);
-    }
-    expTimeoutRef.current = setTimeout(() => {
-      setExperienceOpen(false);
-    }, 250);
-  };
-
-  const navItems = isV2
-    ? [
-        { label: t("nav_home"), href: "/#home" },
-        { label: t("nav_about"), href: "/#about" },
-        { label: t("nav_services"), href: "/#services" },
-        { label: t("nav_projects"), href: "/#portfolio" },
-      ]
-    : [
-        { label: t("nav_home"), href: "/#home" },
-        { label: t("nav_about"), href: "/#about" },
-        { label: t("nav_services"), href: "/#services" },
-        { label: t("nav_projects"), href: "/#portfolio" },
-        { label: t("nav_reviews"), href: "/#reviews" },
-        { label: t("nav_blog"), href: "/#blog" },
-        { label: t("nav_contact"), href: "/#contact" },
-      ];
+  const navItems = [
+    { label: t("nav_home"), href: "/#home" },
+    { label: t("nav_about"), href: "/#about" },
+    { label: t("nav_services"), href: "/#services" },
+    { label: t("nav_projects"), href: "/#portfolio" },
+    { label: t("nav_reviews"), href: "/#reviews" },
+  ];
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -251,9 +216,6 @@ export function Header() {
       }
       if (langRef.current && !langRef.current.contains(e.target as Node)) {
         setLangOpen(false);
-      }
-      if (experienceRef.current && !experienceRef.current.contains(e.target as Node)) {
-        setExperienceOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -318,17 +280,14 @@ export function Header() {
       {/* Invisible Document Flow Spacer (Ensures content starts below fixed header) */}
       <div className="h-16 sm:h-20 w-full shrink-0 pointer-events-none" aria-hidden="true" />
 
-      {/* Rock-Solid Fixed Header — 100% immune to scroll vibration, jitter, or shaking */}
+      {/* Rock-Solid Fixed Header ΓÇö 100% immune to scroll vibration, jitter, or shaking */}
       <header className="fixed top-2 sm:top-3.5 left-0 right-0 z-50 mx-auto w-full max-w-[1500px] px-3 sm:px-5 pointer-events-none isolate [transform:translate3d(0,0,0)] [backface-visibility:hidden]">
         <div className="pointer-events-auto relative">
           <NeumorphicCard depth="md" radius="lg" className="px-3.5 py-3 sm:px-6 sm:py-3.5 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between gap-2.5 sm:gap-4 lg:grid lg:grid-cols-[auto_1fr_auto]">
-          {/* SUJON — Clean Bold Text Logo */}
+          {/* SUJON ΓÇö Clean Bold Text Logo */}
           <a href="/#home" className="flex min-w-0 shrink items-center group">
-            <span
-              translate="no"
-              className="sujon-logo notranslate text-[22px] min-[380px]:text-[26px] sm:text-[30px] lg:text-[34px] font-black tracking-[0.06em] select-none uppercase truncate"
-            >
+            <span className="sujon-logo text-[22px] min-[380px]:text-[26px] sm:text-[30px] lg:text-[34px] font-black tracking-[0.06em] select-none uppercase truncate">
               Sujon
             </span>
           </a>
@@ -362,74 +321,6 @@ export function Header() {
                   </li>
                 );
               })}
-
-              {/* Experience Dropdown Item (contains Work Experience & Client Reviews) - Only in v2 */}
-              {isV2 && (
-                <li
-                  ref={experienceRef}
-                  className="relative shrink-0"
-                  onMouseEnter={handleExpMouseEnter}
-                  onMouseLeave={handleExpMouseLeave}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setExperienceOpen((v) => !v)}
-                    className={cn(
-                      "inline-flex items-center gap-1.5 justify-center rounded-[10px] px-4 py-2 xl:px-6 xl:py-2.5 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold text-[13px] xl:text-[15px] cursor-pointer",
-                      active === "/experience" || active === "/#reviews" || experienceOpen
-                        ? "nm-inset text-brand-deep"
-                        : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
-                    )}
-                    style={{
-                      fontFamily: '"Funnel Display", sans-serif',
-                      fontStyle: "normal",
-                      fontWeight: 600,
-                      lineHeight: "18px",
-                    }}
-                  >
-                    <span>{t("nav_experience", "Experience")}</span>
-                    <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", experienceOpen && "rotate-180")} />
-                  </button>
-
-                  {experienceOpen && (
-                    <div
-                      onMouseEnter={handleExpMouseEnter}
-                      onMouseLeave={handleExpMouseLeave}
-                      className="absolute top-[calc(100%+6px)] left-1/2 -translate-x-1/2 z-50 w-52 rounded-[16px] bg-surface p-2 nm-raised-lg border border-white/50 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150 shadow-xl"
-                    >
-                      {/* Invisible hover bridge to eliminate gap bug when mouse moves downwards */}
-                      <div className="absolute -top-4 inset-x-0 h-5 bg-transparent pointer-events-auto" aria-hidden="true" />
-
-                      <div className="relative z-10 flex flex-col gap-1 nm-inset rounded-[12px] p-1.5">
-                        <Link
-                          to="/experience"
-                          onClick={() => {
-                            setActive("/experience");
-                            setExperienceOpen(false);
-                          }}
-                          className="flex items-center gap-2.5 rounded-[9px] px-3.5 py-2.5 text-[12.5px] font-bold text-foreground/85 hover:text-brand-deep hover:bg-brand/10 transition-colors uppercase tracking-wider"
-                          style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                        >
-                          <Briefcase className="h-4 w-4 text-brand-deep shrink-0" />
-                          <span>{t("nav_work_exp", "Work Experience")}</span>
-                        </Link>
-                        <a
-                          href="/#reviews"
-                          onClick={() => {
-                            setActive("/#reviews");
-                            setExperienceOpen(false);
-                          }}
-                          className="flex items-center gap-2.5 rounded-[9px] px-3.5 py-2.5 text-[12.5px] font-bold text-foreground/85 hover:text-brand-deep hover:bg-brand/10 transition-colors uppercase tracking-wider"
-                          style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                        >
-                          <Star className="h-4 w-4 text-brand-deep shrink-0" />
-                          <span>{t("nav_client_reviews", "Client Reviews")}</span>
-                        </a>
-                      </div>
-                    </div>
-                  )}
-                </li>
-              )}
             </ul>
           </nav>
 
@@ -463,7 +354,7 @@ export function Header() {
                   "nm-raised-sm nm-interactive flex h-9.5 min-[380px]:h-10.5 items-center justify-center gap-1.5 rounded-[10px] px-3 sm:px-3.5 text-foreground/85 font-black text-[12px] sm:text-[13px] tracking-wider shrink-0",
                   langOpen && "nm-inset text-brand-deep",
                 )}
-                title="Change language / ভাষা পরিবর্তন করুন"
+                title="Change language / αª¡αª╛αª╖αª╛ αª¬αª░αª┐αª¼αª░αºìαªñαª¿ αªòαª░αºüαª¿"
               >
                 <Globe className="h-4.5 w-4.5 text-brand-deep shrink-0" />
                 <span className="text-[12px] sm:text-[13px] font-black uppercase">
@@ -897,72 +788,6 @@ export function Header() {
                   </li>
                 );
               })}
-
-              {/* Mobile Experience Dropdown - Only in v2 */}
-              {isV2 && (
-                <li className="flex flex-col gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setMobileExpOpen((prev) => !prev)}
-                    className={cn(
-                      "w-full flex items-center justify-center gap-2 rounded-[10px] px-5 py-2.5 uppercase tracking-wider select-none transition-[box-shadow,color] duration-150 font-semibold cursor-pointer",
-                      active === "/experience" || active === "/#reviews" || mobileExpOpen
-                        ? "nm-inset text-brand-deep"
-                        : "nm-raised-sm hover:nm-interactive text-[rgb(255,96,0)]",
-                    )}
-                    style={{
-                      fontFamily: '"Funnel Display", sans-serif',
-                      fontStyle: "normal",
-                      fontWeight: 600,
-                      fontSize: "15px",
-                      lineHeight: "19px",
-                    }}
-                  >
-                    <span>{t("nav_experience", "Experience")}</span>
-                    <ChevronDown className={cn("h-4 w-4 transition-transform duration-200 text-brand-deep", mobileExpOpen && "rotate-180")} />
-                  </button>
-
-                  {mobileExpOpen && (
-                    <div className="grid grid-cols-2 gap-2 p-1.5 rounded-[12px] nm-inset animate-in fade-in zoom-in-95 duration-150">
-                      <Link
-                        to="/experience"
-                        onClick={() => {
-                          setActive("/experience");
-                          setOpen(false);
-                        }}
-                        className={cn(
-                          "flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-[9px] text-[12px] font-bold uppercase tracking-wider transition-all select-none text-center",
-                          active === "/experience"
-                            ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
-                            : "nm-raised-sm hover:nm-interactive text-foreground/85 hover:text-brand-deep",
-                        )}
-                        style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                      >
-                        <Briefcase className="h-4 w-4 text-brand-deep shrink-0" />
-                        <span>{t("nav_work_exp_short", "Work Exp")}</span>
-                      </Link>
-
-                      <a
-                        href="/#reviews"
-                        onClick={() => {
-                          setActive("/#reviews");
-                          setOpen(false);
-                        }}
-                        className={cn(
-                          "flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-[9px] text-[12px] font-bold uppercase tracking-wider transition-all select-none text-center",
-                          active === "/#reviews"
-                            ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
-                            : "nm-raised-sm hover:nm-interactive text-foreground/85 hover:text-brand-deep",
-                        )}
-                        style={{ fontFamily: '"Funnel Display", sans-serif' }}
-                      >
-                        <Star className="h-4 w-4 text-brand-deep shrink-0" />
-                        <span>{t("nav_reviews_short", "Reviews")}</span>
-                      </a>
-                    </div>
-                  )}
-                </li>
-              )}
 
               {/* Mobile Get a Quote button */}
               <li className="md:hidden mt-0.5">

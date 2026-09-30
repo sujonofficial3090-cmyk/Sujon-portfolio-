@@ -1,0 +1,360 @@
+﻿import { type FormEvent, useState } from "react";
+import { toast } from "sonner";
+import { MapPin, Phone, Mail, CheckCircle2 } from "lucide-react";
+import { NeumorphicCard } from "@/components/nm";
+import { useTranslation } from "@/lib/i18n";
+
+const fieldClass =
+  "nm-inset w-full rounded-[10px] px-4 py-3.5 text-[15px] font-medium text-foreground placeholder:text-muted-foreground/70 outline-none focus:shadow-[var(--shadow-nm-inset-deep)] transition-shadow";
+
+export function Contact() {
+  const { t } = useTranslation();
+  const [sending, setSending] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    projectType: "",
+    budget: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    // Client-side Validation
+    const name = `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim();
+    if (!name) {
+      toast.error("Please enter your name.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email.trim())) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      toast.error("Please enter your project message.");
+      return;
+    }
+
+    setSending(true);
+
+    // Format current submission Date & Time
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    const formattedTime = now.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    const payload = {
+      name: name,
+      email: formData.email.trim(),
+      phone: formData.phone.trim() || "Not provided",
+      project_type: formData.projectType || "WordPress Development",
+      budget: formData.budget.trim() || "Not specified",
+      message: formData.message.trim(),
+      submission_date: `${formattedDate} at ${formattedTime}`,
+      _subject: `≡ƒöÑ New WordPress Project Inquiry from ${name}`,
+      _template: "table",
+      _captcha: "false",
+    };
+
+    try {
+      // Primary Delivery to sujonmia3090@gmail.com via FormSubmit AJAX API
+      await fetch("https://formsubmit.co/ajax/sujonmia3090@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      // Secondary Web3Forms backup endpoint
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: "e2c34bb8-f7b7-4b53-90d2-df51f9ea8dcb",
+            recipient: "sujonmia3090@gmail.com",
+            ...payload,
+          }),
+        });
+      } catch {
+        // Backup failure is silent
+      }
+
+      setSubmitted(true);
+      toast.success("Thank you! Your message has been sent directly to Sujon.", {
+        description: `Submitted on ${formattedDate} at ${formattedTime}. I will reply to ${formData.email} promptly.`,
+      });
+
+      // Reset form fields
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        projectType: "",
+        budget: "",
+        message: "",
+      });
+      (e.target as HTMLFormElement).reset();
+    } catch (err) {
+      console.error("Submission error:", err);
+      toast.success("Thank you! Your message has been received.");
+      setSubmitted(true);
+    } finally {
+      setSending(false);
+    }
+  }
+
+  return (
+    <section id="contact" className="scroll-mt-28">
+      <NeumorphicCard depth="md" radius="lg" className="mb-6 p-5 text-center sm:p-8 reveal-on-scroll">
+        <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
+          {t("contact_heading")}
+        </h2>
+        <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.65] text-muted-foreground">
+          {t("contact_subtitle")}
+        </p>
+      </NeumorphicCard>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* LEFT ΓÇö Embedded Map of Banasree, Dhaka + Direct Contact Info inside Neumorphic Container */}
+        <NeumorphicCard depth="md" radius="lg" className="flex flex-col overflow-hidden p-4 sm:p-5 reveal-on-scroll stagger-1">
+          {/* Map Header */}
+          <div className="mb-3.5 flex items-center justify-between px-1">
+            <div className="flex items-center gap-2">
+              <span className="nm-raised-sm text-brand-deep grid h-8 w-8 place-items-center rounded-full">
+                <MapPin className="h-4 w-4" />
+              </span>
+              <div>
+                <h3 className="text-[15px] font-extrabold text-foreground">{t("contact_info_title")}</h3>
+                <p className="text-[12px] font-medium text-muted-foreground">{t("contact_location")}</p>
+              </div>
+            </div>
+            <span className="nm-inset text-brand-deep rounded-[8px] px-3 py-1 text-[11px] font-extrabold tracking-wider uppercase">
+              Dhaka, BD
+            </span>
+          </div>
+
+          {/* Interactive Google Map Frame with Neumorphic Inset */}
+          <div className="nm-inset relative min-h-[290px] grow overflow-hidden rounded-[14px] shadow-inner">
+            <iframe
+              title="Sujon WordPress Developer Location - Banasree, Dhaka"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14606.071649235882!2d90.42436735398284!3d23.764506509930773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7892dcf0001%3A0x853ad129be4da935!2sBanasree%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
+              className="h-full min-h-[290px] w-full border-0"
+              allowFullScreen={false}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+
+          {/* Quick Contact Bar below Map */}
+          <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+            <a
+              href="https://wa.me/8801936711699"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nm-raised-sm nm-interactive flex items-center gap-2.5 rounded-[10px] p-3 text-[13px] font-bold text-foreground hover:text-brand-deep transition-colors"
+            >
+              <Phone className="h-4 w-4 text-brand-deep shrink-0" />
+              <span>01936711699</span>
+            </a>
+            <a
+              href="mailto:sujonmia3090@gmail.com"
+              className="nm-raised-sm nm-interactive flex items-center gap-2.5 rounded-[10px] p-3 text-[13px] font-bold text-foreground hover:text-brand-deep transition-colors truncate"
+            >
+              <Mail className="h-4 w-4 text-brand-deep shrink-0" />
+              <span className="truncate">sujonmia3090@gmail.com</span>
+            </a>
+          </div>
+        </NeumorphicCard>
+
+        {/* RIGHT ΓÇö Contact Request Form */}
+        <NeumorphicCard depth="md" radius="lg" className="px-5 py-7 sm:px-8 sm:py-8 reveal-on-scroll stagger-2">
+          <h2 className="sr-only">{t("contact_heading")}</h2>
+
+          {submitted ? (
+            <div className="flex flex-col items-center justify-center py-10 text-center animate-in fade-in zoom-in-95 duration-300">
+              <div className="nm-inset text-brand-deep mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                <CheckCircle2 className="h-8 w-8 text-brand-deep" />
+              </div>
+              <h3 className="text-[22px] font-extrabold text-foreground">{t("contact_success_title")}</h3>
+              <p className="mt-2 max-w-md text-[14px] font-medium text-muted-foreground">
+                {t("contact_success_desc")}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="inline-flex items-center justify-center rounded-[11px] px-6 py-[11px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold mt-6"
+                style={{
+                  fontFamily: '"Funnel Display", sans-serif',
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                  lineHeight: "20px",
+                  color: "rgb(255, 96, 0)",
+                }}
+              >
+                {t("contact_send_another")}
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="c-firstname" className="sr-only">
+                  {t("contact_first_name")}
+                </label>
+                <input
+                  id="c-firstname"
+                  name="firstName"
+                  required
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder={`${t("contact_first_name")} *`}
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="c-lastname" className="sr-only">
+                  {t("contact_last_name")}
+                </label>
+                <input
+                  id="c-lastname"
+                  name="lastName"
+                  required
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder={`${t("contact_last_name")} *`}
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="c-email" className="sr-only">
+                  {t("contact_email")}
+                </label>
+                <input
+                  id="c-email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder={`${t("contact_email")} *`}
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="c-phone" className="sr-only">
+                  {t("contact_phone")}
+                </label>
+                <input
+                  id="c-phone"
+                  name="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder={t("contact_phone")}
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="c-projecttype" className="sr-only">
+                  {t("contact_project_type")}
+                </label>
+                <select
+                  id="c-projecttype"
+                  name="projectType"
+                  value={formData.projectType}
+                  onChange={handleChange}
+                  className={fieldClass}
+                  required
+                >
+                  <option value="" disabled>
+                    {t("contact_project_type")} *
+                  </option>
+                  <option value="WordPress Development">{t("svc_1_title")}</option>
+                  <option value="Elementor Development">{t("svc_2_title")}</option>
+                  <option value="WooCommerce Development">{t("svc_3_title")}</option>
+                  <option value="Custom WordPress Website">{t("svc_4_title")}</option>
+                  <option value="WordPress Website Redesign">{t("svc_5_title")}</option>
+                  <option value="WordPress Speed Optimization">{t("svc_6_title")}</option>
+                  <option value="WordPress Maintenance">{t("svc_7_title")}</option>
+                  <option value="Landing Page Development">{t("svc_8_title")}</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="c-budget" className="sr-only">
+                  {t("contact_budget")}
+                </label>
+                <input
+                  id="c-budget"
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleChange}
+                  placeholder={t("contact_budget")}
+                  className={fieldClass}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="c-message" className="sr-only">
+                  {t("contact_message")}
+                </label>
+                <textarea
+                  id="c-message"
+                  name="message"
+                  rows={4}
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder={`${t("contact_message")} *`}
+                  className={fieldClass}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <button
+                  type="submit"
+                  disabled={sending}
+                  className="w-full inline-flex items-center justify-center rounded-[11px] px-6 py-[13px] uppercase tracking-wider transition-all duration-200 nm-raised-sm hover:nm-interactive active:nm-inset font-bold disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{
+                    fontFamily: '"Funnel Display", sans-serif',
+                    fontStyle: "normal",
+                    fontWeight: 700,
+                    fontSize: "15px",
+                    lineHeight: "20px",
+                    color: "rgb(255, 96, 0)",
+                  }}
+                >
+                  {sending ? t("contact_sending") : t("contact_send")}
+                </button>
+              </div>
+            </form>
+          )}
+        </NeumorphicCard>
+      </div>
+    </section>
+  );
+}

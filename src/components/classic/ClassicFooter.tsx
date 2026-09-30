@@ -1,0 +1,169 @@
+﻿import { Facebook, Github, Instagram, MessageCircle, Mail, Phone, MapPin, LayoutDashboard, LogIn } from "lucide-react";
+import { NeumorphicCard } from "@/components/nm";
+import { useAuth } from "@/lib/auth";
+import { useTranslation } from "@/lib/i18n";
+
+const SOCIALS = [
+  { Icon: Github, href: "https://github.com/sujonofficial3090-cmyk", label: "GitHub" },
+  { Icon: Facebook, href: "https://www.facebook.com/share/1FDd7ycTcD/", label: "Facebook" },
+  { Icon: Instagram, href: "https://www.instagram.com/sujon_309?igsi=MXc3MWY0ODhnM2tyaA==", label: "Instagram" },
+  { Icon: MessageCircle, href: "https://wa.me/8801936711699", label: "WhatsApp" },
+];
+
+export function Footer() {
+  const { user } = useAuth();
+  const { t } = useTranslation();
+
+  const quickLinks = [
+    { label: t("nav_home"), href: "/#home" },
+    { label: t("nav_about"), href: "/#about" },
+    { label: t("nav_services"), href: "/#services" },
+    { label: t("nav_projects"), href: "/#portfolio" },
+    { label: t("nav_reviews"), href: "/#reviews" },
+    { label: t("nav_contact"), href: "/#contact" },
+  ];
+
+  const services = [
+    t("svc_1_title"),
+    t("svc_2_title"),
+    t("svc_3_title"),
+    t("svc_6_title"),
+    t("svc_7_title"),
+    t("svc_8_title"),
+  ];
+
+  return (
+    <footer className="w-full">
+      <NeumorphicCard depth="md" radius="lg" className="px-6 py-10 sm:px-10 sm:py-12">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.2fr_1.2fr]">
+          <div className="flex flex-col gap-4">
+            {/* Pure SUJON typographic wordmark */}
+            <div>
+              <a href="/#home">
+                <span className="sujon-logo text-[26px] font-black tracking-[0.08em] select-none uppercase">
+                  Sujon
+                </span>
+              </a>
+            </div>
+            <p className="text-[14px] sm:text-[15px] font-normal leading-[1.7] text-muted-foreground max-w-sm">
+              {t("footer_tagline")}
+            </p>
+            <div className="pt-1">
+              {user ? (
+                <a
+                  href="/dashboard"
+                  className="nm-raised-sm nm-interactive inline-flex items-center gap-2 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200"
+                  style={{ color: "rgb(255, 96, 0)", fontFamily: '"Funnel Display", sans-serif' }}
+                >
+                  <LayoutDashboard className="h-3.5 w-3.5" />
+                  Dashboard
+                </a>
+              ) : (
+                <a
+                  href="/login"
+                  className="nm-raised-sm nm-interactive inline-flex items-center gap-2 rounded-[10px] px-4 py-2 text-[12px] font-bold uppercase tracking-wider transition-all duration-200"
+                  style={{ color: "rgb(255, 96, 0)", fontFamily: '"Funnel Display", sans-serif' }}
+                >
+                  <LogIn className="h-3.5 w-3.5" />
+                  Login
+                </a>
+              )}
+            </div>
+          </div>
+
+          <nav aria-label="Quick links">
+            <h2 className="text-brand-deep text-[15px] font-extrabold uppercase tracking-wider">
+              {t("footer_quick_links")}
+            </h2>
+            <ul className="mt-4 space-y-2.5">
+              {quickLinks.map((q) => (
+                <li key={q.label}>
+                  <a
+                    href={q.href}
+                    className="hover:text-brand-deep text-[14px] font-medium text-muted-foreground transition-colors"
+                  >
+                    {q.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <h2 className="text-brand-deep text-[15px] font-extrabold uppercase tracking-wider">
+              {t("nav_services")}
+            </h2>
+            <ul className="mt-4 space-y-2.5 text-[14px] font-medium text-muted-foreground">
+              {services.map((s, idx) => (
+                <li key={idx} className="hover:text-brand-deep transition-colors">
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-brand-deep text-[15px] font-extrabold uppercase tracking-wider">
+              {t("nav_contact")}
+            </h2>
+            <ul className="mt-4 space-y-3.5 text-[14px] font-medium text-muted-foreground">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
+                <span className="font-bold text-foreground/85">
+                  Rampura, Banasree, Dhaka
+                </span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Phone className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
+                <a href="tel:01936711699" className="hover:text-brand-deep transition-colors font-bold">
+                  01936711699
+                </a>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Mail className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
+                <a
+                  href="mailto:sujonmia3090@gmail.com"
+                  className="hover:text-brand-deep transition-colors font-bold break-all"
+                >
+                  sujonmia3090@gmail.com
+                </a>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <MessageCircle className="text-brand-deep mt-0.5 h-4 w-4 shrink-0" />
+                <a
+                  href="https://wa.me/8801936711699"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-deep transition-colors font-bold"
+                >
+                  WhatsApp Chat
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 items-center gap-4 border-t border-border pt-6 sm:grid-cols-2">
+          <p className="text-[13px] font-medium text-muted-foreground text-center sm:text-left">
+            ┬⌐ 2026 <span className="sujon-logo text-[13px] font-black tracking-[0.06em]">Sujon</span>. {t("footer_rights")}
+          </p>
+          <ul className="flex justify-center shrink-0 items-center gap-3.5 sm:justify-end">
+            {SOCIALS.map((soc, i) => (
+              <li key={i}>
+                <a
+                  href={soc.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={soc.label}
+                  className="nm-raised-sm nm-interactive text-brand-deep grid h-9 w-9 place-items-center rounded-[10px]"
+                >
+                  <soc.Icon className="h-4 w-4" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </NeumorphicCard>
+    </footer>
+  );
+}
