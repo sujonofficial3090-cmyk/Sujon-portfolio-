@@ -3,12 +3,13 @@ import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 import { BLOG_POSTS } from "@/data/blog";
 import { useTranslation } from "@/lib/i18n";
+import { WaterCanvas } from "@/components/ui/WaterCanvas";
 
 export function Blog() {
   const { t } = useTranslation();
   const [showAll, setShowAll] = useState(false);
 
-  const visiblePosts = showAll ? BLOG_POSTS : BLOG_POSTS.slice(0, 4);
+  const visiblePosts = showAll ? BLOG_POSTS : BLOG_POSTS.slice(0, 6);
 
   return (
     <section id="blog" aria-label="Latest articles" className="scroll-mt-28">
@@ -22,29 +23,25 @@ export function Blog() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* 3 columns grid */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visiblePosts.map((p, idx) => {
             const blogUrl = `/blog/${p.slug}`;
             const blogTitle = t(`blog_${p.id}_title` as any, p.title);
             return (
               <figure
                 key={p.id}
-                className={`group nm-raised-sm flex flex-col justify-between overflow-hidden rounded-[16px] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-nm-hover)] reveal-on-scroll stagger-${(idx % 4) + 1}`}
+                className={`group nm-raised-sm flex flex-col justify-between overflow-hidden rounded-[16px] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-nm-hover)] reveal-on-scroll stagger-${(idx % 3) + 1}`}
               >
                 <div className="flex flex-col grow">
-                  <a
-                    href={blogUrl}
-                    className="block overflow-hidden rounded-[10px]"
-                    title={blogTitle}
-                  >
-                    <img
+                  {/* Water ripple image */}
+                  <a href={blogUrl} title={blogTitle} tabIndex={-1}>
+                    <WaterCanvas
                       src={p.img}
                       alt={blogTitle}
-                      loading="lazy"
-                      decoding="async"
-                      width={800}
-                      height={600}
-                      className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      loading={idx < 3 ? "eager" : "lazy"}
+                      className="rounded-[10px]"
+                      imgClassName="aspect-[4/3] w-full object-cover block rounded-[10px]"
                     />
                   </a>
 
@@ -55,10 +52,7 @@ export function Blog() {
                   </div>
 
                   <h3 className="text-brand-deep mt-3 grow px-1 text-[15px] sm:text-[16px] font-extrabold leading-[1.5]">
-                    <a
-                      href={blogUrl}
-                      className="hover:text-brand transition-colors"
-                    >
+                    <a href={blogUrl} className="hover:text-brand transition-colors">
                       {blogTitle}
                     </a>
                   </h3>
@@ -77,7 +71,7 @@ export function Blog() {
           })}
         </div>
 
-        {BLOG_POSTS.length > 4 && (
+        {BLOG_POSTS.length > 6 && (
           <div className="mt-8 flex justify-center">
             <button
               type="button"

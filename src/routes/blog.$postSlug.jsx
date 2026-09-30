@@ -4,6 +4,7 @@ import { BLOG_POSTS } from "@/data/blog";
 import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { WaterCanvas } from "@/components/ui/WaterCanvas";
 
 export const Route = createFileRoute("/blog/$postSlug")({
   head: ({ params }) => {
@@ -132,15 +133,15 @@ function BlogDetail() {
         <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
           {/* Main Article */}
           <div className="flex flex-col gap-6">
-            {/* Hero Image */}
+            {/* Hero Image — with water ripple */}
             <NeumorphicCard depth="md" radius="lg" className="overflow-hidden p-3 sm:p-4">
               <div className="nm-inset overflow-hidden rounded-[14px]">
-                <img
+                <WaterCanvas
                   src={post.img}
                   alt={post.title}
-                  width={1200}
-                  height={600}
-                  className="aspect-[2/1] w-full object-cover max-h-[500px]"
+                  loading="eager"
+                  className="rounded-[14px]"
+                  imgClassName="aspect-[2/1] w-full object-cover max-h-[500px] block rounded-[14px]"
                 />
               </div>
             </NeumorphicCard>
