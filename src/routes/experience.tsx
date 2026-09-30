@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
@@ -16,6 +17,7 @@ import { NeumorphicCard } from "@/components/nm";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { useTranslation } from "@/lib/i18n";
+import { TransparentVideo } from "@/components/ui/TransparentVideo";
 
 export const Route = createFileRoute("/experience")({
   head: () => ({
@@ -167,17 +169,47 @@ function ExperiencePage() {
               </span>
             </div>
 
-            {/* Title & Realistic Intro */}
-            <div className="max-w-3xl flex flex-col items-start gap-2.5">
-              <span className="nm-inset text-brand-deep inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[11px] font-black uppercase tracking-widest">
-                <Sparkles className="h-3 w-3" /> {t("exp_verified_history", "Verified Work History")}
-              </span>
-              <h1 className="text-brand-gradient text-[clamp(2.1rem,4.8vw,3.2rem)] font-extrabold tracking-tight leading-[1.2] block w-full mt-0.5">
-                {t("exp_page_heading", "Professional Experience")}
-              </h1>
-              <p className="mt-1 text-[15px] sm:text-[16.5px] font-normal leading-[1.7] text-muted-foreground">
-                {t("exp_intro", "Over 5+ years of delivering high-performing WordPress solutions, custom dynamic web architectures, eCommerce platforms, and AI-accelerated workflows for agencies and international clients.")}
-              </p>
+            {/* Title & Right-Side 3D Video Showcase */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-center gap-8 lg:gap-10">
+              {/* Left Column: Text & Badges */}
+              <div className="flex flex-col items-start gap-2.5">
+                <span className="nm-inset text-brand-deep inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[11px] font-black uppercase tracking-widest">
+                  <Sparkles className="h-3 w-3" /> {t("exp_verified_history", "Verified Work History")}
+                </span>
+                <h1 className="text-brand-gradient text-[clamp(2.1rem,4.8vw,3.2rem)] font-extrabold tracking-tight leading-[1.2] block w-full mt-0.5">
+                  {t("exp_page_heading", "Professional Experience")}
+                </h1>
+                <p className="mt-1 text-[15px] sm:text-[16.5px] font-normal leading-[1.7] text-muted-foreground">
+                  {t("exp_intro", "Over 5+ years of delivering high-performing WordPress solutions, custom dynamic web architectures, eCommerce platforms, and AI-accelerated workflows for agencies and international clients.")}
+                </p>
+
+                {/* Quick Career Highlights Tags */}
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
+                    WordPress VIP & Headless
+                  </span>
+                  <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
+                    Next.js / React / TypeScript
+                  </span>
+                  <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
+                    Speed Optimization (95+)
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Column: 3D Transparent Floating Showcase (matched to section height, zero background) */}
+              <div className="flex flex-col items-center justify-center self-center mx-auto lg:mx-0 lg:-translate-x-6 xl:-translate-x-10">
+                <div className="relative flex items-center justify-center">
+                  <div className="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] lg:w-[350px] lg:h-[350px] flex items-center justify-center">
+                    <TransparentVideo
+                      src="/videos/service-video.mp4"
+                      width={350}
+                      height={350}
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Clean Minimalist Stats Strip */}
