@@ -5,6 +5,7 @@ interface TransparentVideoProps {
   className?: string;
   width?: number;
   height?: number;
+  filterTheme?: boolean;
 }
 
 /**
@@ -12,15 +13,17 @@ interface TransparentVideoProps {
  *
  * Preserves 100% of the original video quality:
  * - Flood fill strictly isolates the exterior background from the 4 outer image borders.
- * - Glass shadows and subtle refractions (which have subtle blue tint) are strictly protected.
+ * - Glass shadows and subtle refractions are strictly protected.
  * - Internal reflections, metallic sheen, and specular highlights remain 100% solid and crisp.
  * - Only the black background is made transparent, with no holes or quality loss.
+ * - filterTheme applies website theme accent colors (Gold, Mint, Orange, Teal, Purple, etc.) seamlessly.
  */
 export function TransparentVideo({
   src,
   className = "",
   width = 380,
   height = 380,
+  filterTheme = true,
 }: TransparentVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -239,12 +242,35 @@ export function TransparentVideo({
         ctx.putImageData(frame, 0, 0);
       }
 
-      rafId = requestAnimationFrame(renderFrame);
+      if (isVisible) {
+        rafId = requestAnimationFrame(renderFrame);
+      } else {
+        rafId = null;
+      }
     };
+
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          video.play().catch(() => {});
+          if (!rafId) rafId = requestAnimationFrame(renderFrame);
+        } else {
+          video.pause();
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
 
     const handlePlay = () => {
       setIsPlaying(true);
-      if (!rafId) rafId = requestAnimationFrame(renderFrame);
+      if (isVisible && !rafId) rafId = requestAnimationFrame(renderFrame);
     };
 
     video.addEventListener("play", handlePlay);
@@ -253,6 +279,7 @@ export function TransparentVideo({
     rafId = requestAnimationFrame(renderFrame);
 
     return () => {
+      observer.disconnect();
       if (rafId) cancelAnimationFrame(rafId);
       video.removeEventListener("play", handlePlay);
     };
@@ -282,6 +309,10 @@ export function TransparentVideo({
           height: "100%",
           background: "transparent",
           display: "block",
+          filter: filterTheme
+            ? "var(--theme-media-filter, var(--arrow-filter, none))"
+            : undefined,
+          transition: "filter 0.3s ease",
         }}
       />
     </div>

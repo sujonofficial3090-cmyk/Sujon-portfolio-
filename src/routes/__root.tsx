@@ -120,6 +120,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script src="/nextparticle.min.js" async></script>
       </head>
       <body>
         {children}

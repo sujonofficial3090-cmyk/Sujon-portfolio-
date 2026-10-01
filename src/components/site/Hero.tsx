@@ -40,8 +40,8 @@ export function Hero() {
               {t("hero_bio")}
             </p>
 
-            {/* CTA Buttons */}
-            <div className="hero-animate-3 mt-7 grid grid-cols-2 gap-3 w-full sm:w-auto sm:inline-flex sm:flex-row sm:gap-4">
+            {/* CTA Buttons + floating GIF arrow */}
+            <div className="hero-animate-3 mt-7 relative inline-flex flex-col sm:flex-row items-start gap-3 sm:gap-4 w-full sm:w-auto">
               <NeumorphicLinkButton
                 href="/SUJON.pdf"
                 target="_blank"
@@ -59,6 +59,25 @@ export function Hero() {
               >
                 {t("hero_view_projects")}
               </NeumorphicLinkButton>
+
+              {/* ── Floating animated arrow GIF — points toward CTA buttons (responsive across mobile, tablet, desktop) ── */}
+              <div className="hero-arrow-wrapper">
+                <img
+                  src="/title-img-2.gif"
+                  alt=""
+                  aria-hidden="true"
+                  width={360}
+                  height={360}
+                  style={{
+                    background: "transparent",
+                    backgroundColor: "transparent",
+                    imageRendering: "auto",
+                    filter:
+                      "var(--arrow-filter, sepia(1) saturate(5) hue-rotate(85deg) brightness(1.15))",
+                    opacity: 0.95,
+                  }}
+                />
+              </div>
             </div>
 
             {/* ── Mobile / Tablet Photo ── */}

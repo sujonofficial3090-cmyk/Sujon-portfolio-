@@ -49,6 +49,22 @@ export function applyCustomColor(hex: string) {
 
   const cleanHex = `#${[r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
 
+  // Calculate hue shift from base blue (~218deg)
+  const rNorm = r / 255;
+  const gNorm = g / 255;
+  const bNorm = b / 255;
+  const max = Math.max(rNorm, gNorm, bNorm);
+  const min = Math.min(rNorm, gNorm, bNorm);
+  let targetHue = 0;
+  if (max !== min) {
+    const d = max - min;
+    if (max === rNorm) targetHue = ((gNorm - bNorm) / d + (gNorm < bNorm ? 6 : 0)) * 60;
+    else if (max === gNorm) targetHue = ((bNorm - rNorm) / d + 2) * 60;
+    else targetHue = ((rNorm - gNorm) / d + 4) * 60;
+  }
+  const hueShift = Math.round((targetHue - 218 + 360) % 360);
+  const rotateDegFromSepia = Math.round((targetHue - 45 + 360) % 360);
+
   const root = document.documentElement;
   root.style.setProperty("--brand", cleanHex);
   root.style.setProperty("--brand-deep", deepHex);
@@ -57,6 +73,32 @@ export function applyCustomColor(hex: string) {
   root.style.setProperty("--primary", cleanHex);
   root.style.setProperty("--accent", cleanHex);
   root.style.setProperty("--ring", cleanHex);
+  root.style.setProperty(
+    "--arrow-filter",
+    `hue-rotate(${hueShift}deg) saturate(1.4) brightness(1.1)`
+  );
+  root.style.setProperty(
+    "--theme-media-filter",
+    `sepia(1) saturate(6) hue-rotate(${rotateDegFromSepia}deg) brightness(1.2)`
+  );
+  root.style.setProperty("--theme-build-filter", "url(#tint-custom)");
+
+  // Update SVG feComponentTransfer for Light Mode
+  const denom = 0.58;
+  const sR = ((1.0 - rNorm) / denom).toFixed(3);
+  const iR = (1.0 - parseFloat(sR)).toFixed(3);
+  const sG = ((1.0 - gNorm) / denom).toFixed(3);
+  const iG = (1.0 - parseFloat(sG)).toFixed(3);
+  const sB = ((1.0 - bNorm) / denom).toFixed(3);
+  const iB = (1.0 - parseFloat(sB)).toFixed(3);
+
+  const feR = document.getElementById("fe-custom-r");
+  const feG = document.getElementById("fe-custom-g");
+  const feB = document.getElementById("fe-custom-b");
+  if (feR) { feR.setAttribute("slope", sR); feR.setAttribute("intercept", iR); }
+  if (feG) { feG.setAttribute("slope", sG); feG.setAttribute("intercept", iG); }
+  if (feB) { feB.setAttribute("slope", sB); feB.setAttribute("intercept", iB); }
+
   root.setAttribute("data-accent", "custom");
 
   localStorage.setItem("accentColor", "custom");
@@ -73,6 +115,9 @@ export function clearCustomColor(colorId: string) {
   root.style.removeProperty("--primary");
   root.style.removeProperty("--accent");
   root.style.removeProperty("--ring");
+  root.style.removeProperty("--arrow-filter");
+  root.style.removeProperty("--theme-media-filter");
+  root.style.removeProperty("--theme-build-filter");
   root.setAttribute("data-accent", colorId);
 
   localStorage.setItem("accentColor", colorId);

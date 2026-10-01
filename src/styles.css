@@ -85,6 +85,9 @@
     inset 4px 4px 8px rgb(var(--nm-dark) / 0.38), inset -4px -4px 8px rgb(var(--nm-light) / 0.95);
   --shadow-nm-inset-deep:
     inset 6px 6px 14px rgb(var(--nm-dark) / 0.45), inset -5px -5px 10px rgb(var(--nm-light) / 1);
+
+  /* Theme media filter for 3D video animations & animated graphics */
+  --theme-media-filter: var(--arrow-filter, sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2));
 }
 
 /* ==========================================================================
@@ -104,6 +107,8 @@ html[data-accent="gold"] {
   --accent: #F5B700;
   --accent-foreground: rgb(16, 16, 16);
   --ring: #F5B700;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2);
+  --theme-build-filter: url(#tint-gold);
 }
 
 /* Color 2: Orange (#F97316) */
@@ -118,6 +123,8 @@ html[data-accent="orange"] {
   --accent: #F97316;
   --accent-foreground: rgb(16, 16, 16);
   --ring: #F97316;
+  --arrow-filter: sepia(1) saturate(6) hue-rotate(-20deg) brightness(1.15);
+  --theme-build-filter: url(#tint-orange);
 }
 
 /* Color 3: Blue (#2563EB) */
@@ -132,6 +139,8 @@ html[data-accent="blue"] {
   --accent: #2563EB;
   --accent-foreground: #ffffff;
   --ring: #2563EB;
+  --arrow-filter: sepia(1) saturate(7) hue-rotate(190deg) brightness(1.2);
+  --theme-build-filter: url(#tint-blue);
 }
 
 /* Color 4: Purple (#7C3AED) */
@@ -146,6 +155,8 @@ html[data-accent="purple"] {
   --accent: #7C3AED;
   --accent-foreground: #ffffff;
   --ring: #7C3AED;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(225deg) brightness(1.15);
+  --theme-build-filter: url(#tint-purple);
 }
 
 /* Color 5: Teal (#0D9488) */
@@ -160,6 +171,8 @@ html[data-accent="teal"] {
   --accent: #0D9488;
   --accent-foreground: #ffffff;
   --ring: #0D9488;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(130deg) brightness(1.15);
+  --theme-build-filter: url(#tint-teal);
 }
 
 /* Color 6: Mint (#00FD90) */
@@ -174,6 +187,8 @@ html[data-accent="mint"] {
   --accent: #00D679;
   --accent-foreground: rgb(16, 16, 16);
   --ring: #00FD90;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(85deg) brightness(1.15);
+  --theme-build-filter: url(#tint-mint);
 }
 
 /* ==========================================================================
@@ -229,6 +244,7 @@ html.dark[data-accent="gold"],
   --accent: #FBBF24;
   --accent-foreground: oklch(0.22 0.01 285);
   --ring: #FBBF24;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2);
 }
 
 html.dark[data-accent="orange"],
@@ -241,6 +257,7 @@ html.dark[data-accent="orange"],
   --accent: #FB923C;
   --accent-foreground: oklch(0.22 0.01 285);
   --ring: #FB923C;
+  --arrow-filter: sepia(1) saturate(6) hue-rotate(-20deg) brightness(1.15);
 }
 
 html.dark[data-accent="blue"],
@@ -253,6 +270,7 @@ html.dark[data-accent="blue"],
   --accent: #60A5FA;
   --accent-foreground: #ffffff;
   --ring: #60A5FA;
+  --arrow-filter: sepia(1) saturate(7) hue-rotate(190deg) brightness(1.2);
 }
 
 html.dark[data-accent="purple"],
@@ -265,6 +283,7 @@ html.dark[data-accent="purple"],
   --accent: #A78BFA;
   --accent-foreground: #ffffff;
   --ring: #A78BFA;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(225deg) brightness(1.15);
 }
 
 html.dark[data-accent="teal"],
@@ -277,6 +296,7 @@ html.dark[data-accent="teal"],
   --accent: #2DD4BF;
   --accent-foreground: oklch(0.22 0.01 285);
   --ring: #2DD4BF;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(130deg) brightness(1.15);
 }
 
 html.dark[data-accent="mint"],
@@ -290,6 +310,7 @@ html.dark[data-accent="mint"],
   --accent: #00FD90;
   --accent-foreground: rgb(16, 16, 16);
   --ring: #00FD90;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(85deg) brightness(1.15);
 }
 
 /* ==========================================================================
@@ -1127,4 +1148,80 @@ header {
   50% { height: 4px; }
 }
 
+/* ── Hero arrow GIF responsive styles & float animation ── */
+.hero-arrow-wrapper {
+  position: absolute;
+  z-index: 25;
+  pointer-events: none;
+  user-select: none;
+  display: block;
+}
+
+/* Mobile (<640px): Floating above CTA pointing directly to Download CV */
+@media (max-width: 639px) {
+  .hero-arrow-wrapper {
+    top: -44px;
+    right: 20px;
+    transform: rotate(28deg) scaleX(-1) scale(0.72);
+    animation: hero-arrow-float-mobile 2.4s ease-in-out infinite;
+  }
+  .hero-arrow-wrapper img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+}
+
+/* Tablet (640px to 1023px): Floating above right of buttons */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hero-arrow-wrapper {
+    top: -40px;
+    right: 28px;
+    transform: rotate(22deg) scaleX(-1) scale(0.78);
+    animation: hero-arrow-float-mobile 2.4s ease-in-out infinite;
+  }
+  .hero-arrow-wrapper img {
+    width: 78px !important;
+    height: 78px !important;
+  }
+}
+
+/* Desktop (1024px+): Pointing horizontally to CTA buttons */
+@media (min-width: 1024px) {
+  .hero-arrow-wrapper {
+    top: 50%;
+    right: -105px;
+    transform: translateY(-50%) scaleX(-1);
+    animation: hero-arrow-float 2.4s ease-in-out infinite;
+  }
+  .hero-arrow-wrapper img {
+    width: 90px !important;
+    height: 90px !important;
+  }
+}
+
+@keyframes hero-arrow-float {
+  0%, 100% { transform: translateY(-50%) scaleX(-1) translateX(0px); }
+  50%       { transform: translateY(-50%) scaleX(-1) translateX(-8px); }
+}
+
+@keyframes hero-arrow-float-mobile {
+  0%, 100% {
+    transform: rotate(28deg) scaleX(-1) scale(0.72) translateY(0px);
+  }
+  50% {
+    transform: rotate(28deg) scaleX(-1) scale(0.72) translateY(-6px);
+  }
+}
+
+/* ── 3D Stepped Architecture Video (How I Build section) ── */
+.how-build-3d-video {
+  mix-blend-mode: multiply;
+  filter: var(--theme-build-filter, url(#tint-gold));
+  transition: filter 0.3s ease;
+}
+
+.dark .how-build-3d-video {
+  mix-blend-mode: screen;
+  filter: invert(1) contrast(1.1) var(--theme-media-filter, sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2));
+}
 
