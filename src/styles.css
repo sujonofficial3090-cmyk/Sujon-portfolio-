@@ -314,6 +314,80 @@ html.dark[data-accent="mint"],
 }
 
 /* ==========================================================================
+   DEFAULT 3D CHROME ARROW MOUSE CURSOR (Dynamic Theme Sync)
+   High-precision static pointer matching the site's accent and custom colors.
+   Hotspot is calibrated at the top-left tip (2, 1) for pixel-perfect clicking.
+   ========================================================================== */
+
+:root {
+  --custom-cursor: url('/cursor-gold.png') 2 1, auto;
+  --custom-cursor-pointer: url('/cursor-gold-pointer.png') 3 0, pointer;
+}
+
+/* Preset Accent Themes */
+[data-accent="gold"], html[data-accent="gold"] {
+  --custom-cursor: url('/cursor-gold.png') 2 1, auto;
+  --custom-cursor-pointer: url('/cursor-gold-pointer.png') 3 0, pointer;
+}
+[data-accent="orange"], html[data-accent="orange"] {
+  --custom-cursor: url('/cursor-orange.png') 2 1, auto;
+  --custom-cursor-pointer: url('/cursor-orange-pointer.png') 3 0, pointer;
+}
+[data-accent="blue"], html[data-accent="blue"] {
+  --custom-cursor: url('/cursor-blue.png') 2 1, auto;
+  --custom-cursor-pointer: url('/cursor-blue-pointer.png') 3 0, pointer;
+}
+[data-accent="purple"], html[data-accent="purple"] {
+  --custom-cursor: url('/cursor-purple.png') 2 1, auto;
+  --custom-cursor-pointer: url('/cursor-purple-pointer.png') 3 0, pointer;
+}
+[data-accent="teal"], html[data-accent="teal"] {
+  --custom-cursor: url('/cursor-teal.png') 2 1, auto;
+  --custom-cursor-pointer: url('/cursor-teal-pointer.png') 3 0, pointer;
+}
+[data-accent="mint"], html[data-accent="mint"] {
+  --custom-cursor: url('/cursor-mint.png') 2 1, auto;
+  --custom-cursor-pointer: url('/cursor-mint-pointer.png') 3 0, pointer;
+}
+
+:root,
+html,
+body {
+  cursor: var(--custom-cursor, url('/cursor-gold.png') 2 1, auto);
+}
+
+/* Interactive elements: links, buttons, select, cursor-pointer */
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+label[for],
+.nm-interactive,
+[data-interactive],
+.cursor-pointer {
+  cursor: var(--custom-cursor-pointer, url('/cursor-gold-pointer.png') 3 0, pointer) !important;
+}
+
+.cursor-default {
+  cursor: var(--custom-cursor, url('/cursor-gold.png') 2 1, default) !important;
+}
+
+/* Form text editing inputs preserve standard text I-beam */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="number"],
+textarea {
+  cursor: text !important;
+}
+
+/* ==========================================================================
    NEUMORPHIC UTILITIES
    ========================================================================== */
 

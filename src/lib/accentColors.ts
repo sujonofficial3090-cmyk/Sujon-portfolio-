@@ -101,6 +101,9 @@ export function applyCustomColor(hex: string) {
 
   root.setAttribute("data-accent", "custom");
 
+  // Dynamically tint 3D arrow pointer cursor to match the custom color
+  updateCustomCursorColor(r, g, b);
+
   localStorage.setItem("accentColor", "custom");
   localStorage.setItem("customAccentHex", cleanHex);
   window.dispatchEvent(new Event("accentColorChange"));
@@ -118,6 +121,8 @@ export function clearCustomColor(colorId: string) {
   root.style.removeProperty("--arrow-filter");
   root.style.removeProperty("--theme-media-filter");
   root.style.removeProperty("--theme-build-filter");
+  root.style.removeProperty("--custom-cursor");
+  root.style.removeProperty("--custom-cursor-pointer");
   root.setAttribute("data-accent", colorId);
 
   localStorage.setItem("accentColor", colorId);
@@ -133,4 +138,116 @@ export function initAccentColor() {
   } else {
     clearCustomColor(storedAccent);
   }
+}
+
+/* ==========================================================================
+   DYNAMIC 3D ARROW CURSOR TINTING ENGINE
+   Renders custom-colored 3D chrome arrow cursor at runtime for any custom hex
+   ========================================================================== */
+
+let cachedBaseCursorImg: HTMLImageElement | null = null;
+let isCursorImgLoading = false;
+const pendingCursorCallbacks: Array<(img: HTMLImageElement) => void> = [];
+
+function getBaseCursorImg(cb: (img: HTMLImageElement) => void) {
+  if (cachedBaseCursorImg && cachedBaseCursorImg.complete && cachedBaseCursorImg.naturalWidth > 0) {
+    cb(cachedBaseCursorImg);
+    return;
+  }
+  pendingCursorCallbacks.push(cb);
+  if (!isCursorImgLoading && typeof window !== "undefined") {
+    isCursorImgLoading = true;
+    const img = new Image();
+    img.src = "/cursor-pointer.png";
+    img.onload = () => {
+      cachedBaseCursorImg = img;
+      isCursorImgLoading = false;
+      pendingCursorCallbacks.forEach((fn) => fn(img));
+      pendingCursorCallbacks.length = 0;
+    };
+    img.onerror = () => {
+      isCursorImgLoading = false;
+      pendingCursorCallbacks.length = 0;
+    };
+  }
+}
+
+function updateCustomCursorColor(targetR: number, targetG: number, targetB: number) {
+  if (typeof window === "undefined") return;
+
+  getBaseCursorImg((img) => {
+    try {
+      const c = document.createElement("canvas");
+      c.width = 32;
+      c.height = 32;
+      const ctx = c.getContext("2d");
+      if (!ctx) return;
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+
+      // Render base arrow flipped to point up-left
+      ctx.save();
+      ctx.translate(32, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(img, 4, -1, 30, 30);
+      ctx.restore();
+
+      const imgData = ctx.getImageData(0, 0, 32, 32);
+      const d = imgData.data;
+
+      for (let i = 0; i < d.length; i += 4) {
+        const a = d[i + 3];
+        if (a === 0) continue;
+
+        const r = d[i];
+        const g = d[i + 1];
+        const b = d[i + 2];
+        const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+        let finalR, finalG, finalB;
+        if (lum < 0.25) {
+          const factor = lum / 0.25;
+          finalR = Math.round(targetR * 0.35 * factor);
+          finalG = Math.round(targetG * 0.35 * factor);
+          finalB = Math.round(targetB * 0.35 * factor);
+        } else if (lum < 0.72) {
+          const factor = (lum - 0.25) / (0.72 - 0.25);
+          const baseTone = 0.55 + factor * 0.55;
+          finalR = Math.min(255, Math.round(targetR * baseTone));
+          finalG = Math.min(255, Math.round(targetG * baseTone));
+          finalB = Math.min(255, Math.round(targetB * baseTone));
+        } else {
+          const factor = (lum - 0.72) / (1.0 - 0.72);
+          finalR = Math.min(255, Math.round(targetR + (255 - targetR) * (factor * 0.85)));
+          finalG = Math.min(255, Math.round(targetG + (255 - targetG) * (factor * 0.85)));
+          finalB = Math.min(255, Math.round(targetB + (255 - targetB) * (factor * 0.85)));
+        }
+
+        d[i] = finalR;
+        d[i + 1] = finalG;
+        d[i + 2] = finalB;
+      }
+
+      ctx.putImageData(imgData, 0, 0);
+
+      // Hover variant with subtle glow matching target color
+      const cHover = document.createElement("canvas");
+      cHover.width = 32;
+      cHover.height = 32;
+      const ctxH = cHover.getContext("2d");
+      if (!ctxH) return;
+      ctxH.filter = `brightness(1.18) drop-shadow(0 0 2px rgba(${targetR},${targetG},${targetB},0.9))`;
+      ctxH.drawImage(c, 0, 0);
+
+      const cursorUrl = c.toDataURL("image/png");
+      const hoverUrl = cHover.toDataURL("image/png");
+
+      const root = document.documentElement;
+      root.style.setProperty("--custom-cursor", `url("${cursorUrl}") 2 1, auto`);
+      root.style.setProperty("--custom-cursor-pointer", `url("${hoverUrl}") 3 0, pointer`);
+    } catch (e) {
+      console.warn("Could not generate custom cursor", e);
+    }
+  });
 }

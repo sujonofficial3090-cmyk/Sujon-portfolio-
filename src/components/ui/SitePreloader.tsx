@@ -7,26 +7,26 @@ interface SitePreloaderProps {
 export function SitePreloader({ onComplete }: SitePreloaderProps) {
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
-  const [isDone, setIsDone] = useState(() => {
-    if (typeof window === "undefined") return true;
+  const [isDone, setIsDone] = useState(true);
+  const animFrameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    let shouldSkip = false;
     try {
       const navEntry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
       const isReload = navEntry?.type === "reload";
       const hasPreloaded = sessionStorage.getItem("site_preloaded_session");
-
-      // If user has already loaded in this session and this is NOT a browser reload, skip!
       if (hasPreloaded && !isReload) {
-        return true;
+        shouldSkip = true;
       }
-      return false;
-    } catch {
-      return false;
-    }
-  });
-  const animFrameRef = useRef<number | null>(null);
+    } catch {}
 
-  useEffect(() => {
-    if (isDone) return;
+    if (shouldSkip) {
+      setIsDone(true);
+      return;
+    }
+
+    setIsDone(false);
 
     // Lock scroll during preloader
     document.body.style.overflow = "hidden";
