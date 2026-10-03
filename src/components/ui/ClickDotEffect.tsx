@@ -22,6 +22,15 @@ export function ClickDotEffect() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      window.innerWidth < 1024 ||
+      "ontouchstart" in window ||
+      (window.matchMedia && window.matchMedia("(pointer: coarse)").matches)
+    ) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -228,6 +237,15 @@ export function ClickDotEffect() {
       }
     };
   }, []);
+
+  if (
+    typeof window !== "undefined" &&
+    (window.innerWidth < 1024 ||
+      "ontouchstart" in window ||
+      (window.matchMedia && window.matchMedia("(pointer: coarse)").matches))
+  ) {
+    return null;
+  }
 
   return (
     <canvas

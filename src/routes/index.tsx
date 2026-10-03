@@ -13,7 +13,6 @@ import { Services } from "@/components/site/Services";
 import { Stats } from "@/components/site/Stats";
 import { Technologies } from "@/components/site/Technologies";
 import { Testimonials } from "@/components/site/Testimonials";
-import { MobileAiAssistant } from "@/components/site/MobileAiAssistant";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,7 +54,6 @@ function Index() {
         <Contact />
       </main>
       <Footer />
-      <MobileAiAssistant />
     </div>
   );
 }

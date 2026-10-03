@@ -751,14 +751,34 @@ html.lenis body {
     transition-duration: 0.08s;
   }
 
+  /* Official Lenis Smooth Scrolling Core */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
   html {
     font-family: "Poppins", "Funnel Display", sans-serif;
-    scroll-behavior: smooth;
     /* Prevent font size inflation on mobile orientation change */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* Allow vertical pan gesture for scrolling */
-    touch-action: pan-y;
+    touch-action: manipulation;
   }
 
   body {
@@ -770,7 +790,9 @@ html.lenis body {
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: clip;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: auto;
   }
 
   h1, h2, h3, h4, h5, h6 {

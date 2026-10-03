@@ -667,6 +667,15 @@ export function MagicCursorEffect() {
 
   if (!mounted) return null;
 
+  if (
+    typeof window !== "undefined" &&
+    (window.innerWidth < 1024 ||
+      "ontouchstart" in window ||
+      (window.matchMedia && window.matchMedia("(pointer: coarse)").matches))
+  ) {
+    return null;
+  }
+
   return (
     <>
       {/* ── 1. Canvas Layer (always mounted, display toggled in loop) ── */}

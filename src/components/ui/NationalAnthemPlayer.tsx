@@ -143,9 +143,11 @@ export function NationalAnthemPlayer() {
         .play()
         .then(() => {
           setIsPlaying(true);
+          removeGestureListeners();
         })
-        .catch(() => {});
-      removeGestureListeners();
+        .catch(() => {
+          // Keep listeners active until an eligible user gesture unlocks audio
+        });
     };
 
     const addGestureListeners = () => {
@@ -153,8 +155,6 @@ export function NationalAnthemPlayer() {
       window.addEventListener("touchstart", unlockOnGesture, { capture: true, once: true });
       window.addEventListener("click", unlockOnGesture, { capture: true, once: true });
       window.addEventListener("keydown", unlockOnGesture, { capture: true, once: true });
-      window.addEventListener("scroll", unlockOnGesture, { capture: true, once: true });
-      window.addEventListener("mousemove", unlockOnGesture, { capture: true, once: true });
     };
 
     const removeGestureListeners = () => {
@@ -162,8 +162,6 @@ export function NationalAnthemPlayer() {
       window.removeEventListener("touchstart", unlockOnGesture, { capture: true });
       window.removeEventListener("click", unlockOnGesture, { capture: true });
       window.removeEventListener("keydown", unlockOnGesture, { capture: true });
-      window.removeEventListener("scroll", unlockOnGesture, { capture: true });
-      window.removeEventListener("mousemove", unlockOnGesture, { capture: true });
     };
 
     // Try starting immediately on website open

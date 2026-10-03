@@ -5,7 +5,7 @@ export function useLenisSmoothScroll() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Respect reduced motion
+    // Respect reduced motion preference
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
@@ -13,17 +13,23 @@ export function useLenisSmoothScroll() {
       typeof window !== "undefined" &&
       ("ontouchstart" in window ||
         navigator.maxTouchPoints > 0 ||
-        window.matchMedia("(pointer: coarse)").matches);
+        window.matchMedia("(pointer: coarse)").matches ||
+        window.innerWidth < 1024);
 
-    // Initialize Lenis — hardware accelerated buttery smooth momentum scrolling for desktop,
-    // while keeping mobile touch scrolling 100% native, instant and lag-free.
+    // Initialize Lenis for luxurious buttery-smooth momentum scrolling
+    // on BOTH desktop and mobile/touch devices!
     const lenis = new Lenis({
+      // Smooth touch settings for mobile:
+      // syncTouch ensures finger tracking stays responsive and syncs with momentum
+      syncTouch: isTouchDevice,
+      syncTouchLerp: 0.075,
+      touchMultiplier: 1.15,
+      touchInertiaExponent: 1.7,
+      // Desktop mouse wheel settings:
+      smoothWheel: true,
       lerp: 0.1,
       wheelMultiplier: 0.95,
-      touchMultiplier: 1.0,
-      smoothWheel: true,
-      syncTouch: false,
-      infinite: false,
+      autoResize: true,
     });
 
     let rafId: number;
@@ -46,7 +52,7 @@ export function useLenisSmoothScroll() {
         if (element) {
           e.preventDefault();
           lenis.scrollTo(element, {
-            offset: -90,
+            offset: -85,
             duration: 1.15,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
@@ -56,7 +62,7 @@ export function useLenisSmoothScroll() {
 
     document.addEventListener("click", handleAnchorClick, { passive: false });
 
-    // Expose lenis instance globally for scroll buttons
+    // Expose lenis instance globally for scroll buttons and components
     (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
     return () => {

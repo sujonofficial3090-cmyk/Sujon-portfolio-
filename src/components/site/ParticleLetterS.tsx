@@ -355,16 +355,24 @@ export function ParticleLetterS() {
       rawMouse.isHovered = true;
     };
 
+    let cachedTouchRect: DOMRect | null = null;
+    const handleTouchStart = () => {
+      cachedTouchRect = container.getBoundingClientRect();
+    };
+
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches && e.touches.length > 0) {
-        const rect = container.getBoundingClientRect();
-        rawMouse.x = e.touches[0].clientX - rect.left;
-        rawMouse.y = e.touches[0].clientY - rect.top;
+        if (!cachedTouchRect) {
+          cachedTouchRect = container.getBoundingClientRect();
+        }
+        rawMouse.x = e.touches[0].clientX - cachedTouchRect.left;
+        rawMouse.y = e.touches[0].clientY - cachedTouchRect.top;
         rawMouse.isHovered = true;
       }
     };
 
     const handlePointerLeave = () => {
+      cachedTouchRect = null;
       rawMouse.x = -9999;
       rawMouse.y = -9999;
       rawMouse.isHovered = false;
@@ -372,6 +380,7 @@ export function ParticleLetterS() {
 
     container.addEventListener("mousemove", handlePointerMove, { passive: true });
     container.addEventListener("mouseleave", handlePointerLeave);
+    container.addEventListener("touchstart", handleTouchStart, { passive: true });
     container.addEventListener("touchmove", handleTouchMove, { passive: true });
     container.addEventListener("touchend", handlePointerLeave);
 
@@ -538,6 +547,7 @@ export function ParticleLetterS() {
       cancelAnimationFrame(animationFrameId);
       container.removeEventListener("mousemove", handlePointerMove);
       container.removeEventListener("mouseleave", handlePointerLeave);
+      container.removeEventListener("touchstart", handleTouchStart);
       container.removeEventListener("touchmove", handleTouchMove);
       container.removeEventListener("touchend", handlePointerLeave);
       window.removeEventListener("hashchange", handleHashChange);

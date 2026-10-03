@@ -7,32 +7,29 @@ interface SitePreloaderProps {
 export function SitePreloader({ onComplete }: SitePreloaderProps) {
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
-  const [isDone, setIsDone] = useState(true);
+  // Start as false so SSR renders the preloader in the initial HTML for zero-delay appearance
+  const [isDone, setIsDone] = useState(false);
+
   const animFrameRef = useRef<number | null>(null);
+  const hasStartedRef = useRef(false);
 
   useEffect(() => {
-    let shouldSkip = false;
-    try {
-      const navEntry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
-      const isReload = navEntry?.type === "reload";
-      const hasPreloaded = sessionStorage.getItem("site_preloaded_session");
-      if (hasPreloaded && !isReload) {
-        shouldSkip = true;
-      }
-    } catch {}
-
-    if (shouldSkip) {
-      setIsDone(true);
-      return;
-    }
-
-    setIsDone(false);
+    if (hasStartedRef.current) return;
+    hasStartedRef.current = true;
 
     // Lock scroll during preloader
     document.body.style.overflow = "hidden";
 
+    // Absolute fallback: ensure scroll is never stuck under any circumstance (max 2.2s)
+    const safetyTimer = setTimeout(() => {
+      document.body.style.overflow = "";
+      setIsDone(true);
+      if (onComplete) onComplete();
+    }, 2200);
+
     const startTime = performance.now();
-    const duration = 1500; // Fluid count
+    // 1200ms duration gives a premium, fluid counting experience
+    const duration = 1200;
 
     const easeInOutCubic = (t: number) =>
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -49,33 +46,35 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
         animFrameRef.current = requestAnimationFrame(updateProgress);
       } else {
         setProgress(100);
+        // Instantly unlock body scroll as soon as 100% is reached
+        document.body.style.overflow = "";
+
         setTimeout(() => {
           setIsExiting(true);
           setTimeout(() => {
-            try {
-              sessionStorage.setItem("site_preloaded_session", "true");
-            } catch {}
+            clearTimeout(safetyTimer);
             setIsDone(true);
             document.body.style.overflow = "";
             if (onComplete) onComplete();
-          }, 850);
-        }, 180);
+          }, 650);
+        }, 120);
       }
     };
 
     animFrameRef.current = requestAnimationFrame(updateProgress);
 
     return () => {
+      clearTimeout(safetyTimer);
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
       document.body.style.overflow = "";
     };
-  }, [isDone, onComplete]);
+  }, [onComplete]);
 
   if (isDone) return null;
 
   // Dynamic status text corresponding to loading milestones
   const getStatusText = () => {
-    if (progress >= 100) return "WELCOME";
+    if (progress >= 100) return "READY";
     if (progress >= 80) return "POLISHING EXPERIENCE";
     if (progress >= 40) return "LOADING ASSETS";
     return "INITIALIZING STUDIO";
@@ -90,7 +89,7 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
         boxShadow: isExiting ? "0 30px 60px -15px rgba(0, 0, 0, 0.3)" : "none",
         borderBottom: isExiting ? "1px solid rgba(var(--brand), 0.2)" : "none",
         transition:
-          "transform 0.85s cubic-bezier(0.85, 0, 0.15, 1), box-shadow 0.85s ease",
+          "transform 0.75s cubic-bezier(0.85, 0, 0.15, 1), box-shadow 0.75s ease",
         pointerEvents: isExiting ? "none" : "auto",
       }}
       aria-hidden={isDone}
@@ -138,7 +137,7 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
 
         <div className="mt-1.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-[0.2em] text-muted-foreground uppercase nm-inset">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
-          <span>Creative Portfolio</span>
+          <span>WordPress Studio</span>
         </div>
 
         {/* Bold Modern Numeric Counter */}

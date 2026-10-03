@@ -270,6 +270,8 @@ export function WorldGlobeS({ className }: WorldGlobeSProps) {
         isDragging = true;
         lastMouseX = e.touches[0].clientX;
         dragVelocity = 0;
+        window.addEventListener("touchmove", onTouchMove, { passive: true });
+        window.addEventListener("touchend", onTouchEnd);
       }
     };
     const onTouchMove = (e: TouchEvent) => {
@@ -281,11 +283,11 @@ export function WorldGlobeS({ className }: WorldGlobeSProps) {
     };
     const onTouchEnd = () => {
       isDragging = false;
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
     };
 
     container.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
-    window.addEventListener("touchend", onTouchEnd);
 
     function project(x: number, y: number, z: number, radius: number, cx: number, cy: number) {
       const cosR = Math.cos(rotY);
