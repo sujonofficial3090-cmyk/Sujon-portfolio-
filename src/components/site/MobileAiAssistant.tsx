@@ -39,12 +39,12 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: "m1",
     sender: "bot",
-    text: "👋 Assalamu Alaikum & Hello! I'm Sujon's AI Assistant.\n\nI can answer any questions about Sujon's Full-Stack web development, WordPress & WooCommerce expertise, AI-assisted development, vibe coding workflows, pricing, and project timelines. How can I assist you today?",
+    text: "👋 Assalamu Alaikum & Hello! I'm Sujon's AI Assistant.\n\nI can answer any questions about Sujon's WordPress & WooCommerce development, custom functionality, Elementor Pro, AI-assisted workflows, pricing, and project timelines. How can I assist you today?",
     time: "Just now",
     options: [
       { label: "💼 Services & Skills", action: "services" },
-      { label: "⚡ AI & Vibe Coding", action: "vibe_coding" },
-      { label: "🌐 Full-Stack & Modern Web", action: "fullstack" },
+      { label: "⚡ AI-Assisted Workflows", action: "vibe_coding" },
+      { label: "🌐 WordPress & CPT", action: "fullstack" },
       { label: "💰 Pricing & Packages", action: "pricing" },
       { label: "⚡ 90+ Speed Guarantee", action: "speed" },
       { label: "💬 Chat on WhatsApp", action: "whatsapp" },
@@ -162,7 +162,7 @@ const SPECIFIC_TOPICS: KnowledgeTopic[] = [
       "⚡ **Vibe Coding & AI-Powered Development**:\n\nSujon uses AI as a development accelerator throughout the entire lifecycle:\n• **Rapid Prototyping**: Turning ideas, requirements, and designs into interactive web interfaces rapidly.\n• **AI-Assisted Coding & Debugging**: Accelerating architecture, coding, testing, and edge-case resolution.\n• **Strict Quality Control**: Human expertise leads the execution — ensuring robust architecture, security, cross-device responsiveness, and clean code.\n\n*Vibe coding is not a replacement for engineering, but a powerful modern workflow for shipping high-quality digital experiences faster!*",
     options: [
       { label: "💼 View Services", action: "services" },
-      { label: "🌐 Full-Stack Capabilities", action: "fullstack" },
+      { label: "🌐 WordPress & Dynamic Content", action: "fullstack" },
       { label: "💬 Discuss on WhatsApp", action: "whatsapp" },
     ],
     highlightAction: {
@@ -173,12 +173,12 @@ const SPECIFIC_TOPICS: KnowledgeTopic[] = [
   },
   {
     id: "fullstack",
-    keywords: ["full stack", "fullstack", "frontend", "backend", "next.js", "react", "node"],
-    patterns: [/\b(full[- ]?stack|frontend|backend|react|next\.?js|node)\b/i],
+    keywords: ["custom wordpress", "dynamic website", "cpt", "jetengine", "acf", "custom functionality"],
+    patterns: [/\b(custom wordpress|dynamic|jetengine|acf|cpt|custom functionality|custom post)\b/i],
     reply:
-      "🌐 **Full-Stack Web Development & Modern Stacks**:\n\nSujon builds modern, scalable, and responsive web applications combining:\n• **Frontend**: React, Next.js, HTML5, CSS3, Tailwind CSS, TypeScript, modern responsive UI.\n• **Backend & APIs**: Node.js, REST APIs, database integration, authentication, and secure server-side logic.\n• **WordPress & WooCommerce**: Custom themes, Elementor Pro, JetEngine, and custom post types.\n\n*Whether you need a custom web application or an enterprise WordPress platform, Sujon delivers end-to-end!*",
+      "🌐 **Custom WordPress & Dynamic Website Development**:\n\nSujon builds responsive, high-performance WordPress websites combining:\n• **Page Builders & Theming**: Elementor Pro, custom responsive layouts, and Figma/PSD conversion.\n• **Dynamic Content & Custom Fields**: JetEngine, JetFormBuilder, ACF (Advanced Custom Fields), and Custom Post Types (CPT).\n• **eCommerce & Integrations**: WooCommerce, payment gateways, booking systems, and third-party API integrations.\n\n*Whether you need a dynamic corporate portal, WooCommerce store, or custom WordPress functionality, Sujon delivers!*",
     options: [
-      { label: "⚡ Vibe Coding Workflows", action: "vibe_coding" },
+      { label: "⚡ AI-Assisted Workflows", action: "vibe_coding" },
       { label: "💰 Pricing Packages", action: "pricing" },
       { label: "💬 Chat on WhatsApp", action: "whatsapp" },
     ],
@@ -487,7 +487,7 @@ const SPECIFIC_TOPICS: KnowledgeTopic[] = [
     ],
     patterns: [/\b(who is sujon|about sujon|years of experience|who are you|sujon ke)\b/i],
     reply:
-      "🌟 **About Md. Sujon Mia**:\n\n• **5+ Years** of hands-on professional WordPress & Front-end expertise\n• **200+ Projects Completed** successfully for businesses and agencies globally\n• **150+ Happy Clients** across USA, UK, Canada, Australia, Europe & Asia\n• **99% Client Satisfaction** rating with repeat clients\n• Specializes in custom WordPress, Elementor Pro, WooCommerce, speed optimization (90+ score), and Full-stack PHP/React integrations.\n\nSujon is based in Dhaka, Bangladesh, and works seamlessly with clients in any international time zone (EST, PST, GMT, BST, AEST).",
+      "🌟 **About Sujon Mia**:\n\n• **Senior WordPress Developer** with **3+ Years** of professional experience\n• **50+ Projects Completed** for businesses and international clients\n• **100% Client Satisfaction** rating\n• Specializes in WordPress, Elementor Pro, WooCommerce, dynamic websites, JetEngine, ACF, custom functionality, and AI-assisted workflows (ChatGPT, Claude, Gemini, Antigravity).\n\nSujon is based in Banasree, Rampura, Dhaka, Bangladesh, and works seamlessly with international clients across time zones.",
     options: [
       { label: "💼 View Core Services", action: "services" },
       { label: "📁 See Portfolio Work", action: "portfolio_action" },
@@ -838,10 +838,10 @@ const SPECIFIC_TOPICS: KnowledgeTopic[] = [
   },
   {
     id: "other_cms_react",
-    keywords: ["react", "nextjs", "php", "full stack", "custom code", "javascript", "tailwind", "custom website"],
-    patterns: [/\b(react|nextjs|php developer|full stack|custom code|custom php)\b/i],
+    keywords: ["custom functionality", "custom code", "javascript", "html5", "css3", "php"],
+    patterns: [/\b(custom functionality|custom code|custom php|javascript|html5|css3)\b/i],
     reply:
-      "⚛️ **Full-Stack React & Custom PHP Expertise**:\n\nIn addition to WordPress, Sujon is a skilled Full-Stack Front-End & PHP developer:\n• **Custom PHP & MySQL**: Building bespoke WordPress plugins, custom post loops, and database queries.\n• **React.js & Next.js**: Modern interactive web apps, headless CMS integrations, and fast frontend experiences.\n• **Tailwind CSS & Modern JavaScript**: Pixel-perfect responsive styling with buttery-smooth animations.",
+      "⚙️ **Custom WordPress Functionality & Web Technologies**:\n\nSujon specializes in bespoke WordPress solutions:\n• **Custom Functionality**: Custom hooks, filters, functions, and plugin/theme extensions.\n• **Frontend Technologies**: HTML5, CSS3, JavaScript, and responsive design systems.\n• **Modern AI Workflow**: Using ChatGPT, Claude, Gemini, and Google Antigravity to speed up development and debugging.",
     options: [
       { label: "💼 View Core Services", action: "services" },
       { label: "💬 Chat on WhatsApp", action: "whatsapp" },
@@ -1315,7 +1315,7 @@ export function MobileAiAssistant() {
                     </span>
                   </div>
                   <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-                    Always Online • Full-Stack & WordPress Expert
+                    Always Online • Senior WordPress Developer
                   </p>
                 </div>
               </div>
@@ -1363,7 +1363,7 @@ export function MobileAiAssistant() {
                 onClick={() => handleAction("services")}
                 className="nm-raised-sm whitespace-nowrap rounded-full px-3 py-1 font-bold text-foreground/80 hover:text-brand-deep transition-colors shrink-0"
               >
-                💼 Full-Stack & WP
+                💼 WordPress Services
               </button>
               <button
                 type="button"

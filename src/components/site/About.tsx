@@ -7,20 +7,20 @@ export function About() {
 
   const skillPillars = [
     {
-      title: t("svc_2_title", "WordPress Development"),
-      desc: t("svc_2_desc", "Advanced website development, Elementor Pro, WooCommerce, dynamic content, custom post types, theme/plugin customization."),
+      title: t("svc_1_title", "WordPress Website Development"),
+      desc: t("svc_1_desc", "Professional and responsive WordPress websites built around real business requirements."),
     },
     {
-      title: t("svc_1_title", "Full-Stack Development"),
-      desc: t("svc_1_desc", "Modern frontend interfaces, backend functionality, APIs, databases, authentication, and custom web applications."),
+      title: t("svc_2_title", "Elementor Pro & WooCommerce"),
+      desc: t("svc_2_desc", "Responsive layouts, landing pages, and full eCommerce functionality with custom styling."),
     },
     {
-      title: t("svc_3_title", "AI-Assisted Development"),
-      desc: t("svc_3_desc", "AI-powered planning, coding, debugging, testing, optimization, prototyping, and rapid implementation."),
+      title: t("svc_3_title", "Dynamic WordPress & CPT"),
+      desc: t("svc_3_desc", "Dynamic websites using Custom Post Types, ACF, JetEngine, JetFormBuilder, and dynamic content."),
     },
     {
-      title: t("svc_4_title", "Vibe Coding"),
-      desc: t("svc_4_desc", "Rapid development of websites, interfaces, prototypes, and web applications using AI-assisted coding workflows."),
+      title: t("svc_4_title", "AI-Assisted Development"),
+      desc: t("svc_4_desc", "Using modern AI tools to accelerate coding, debugging, research, and development workflows."),
     },
   ];
 

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/projects/$projectId")({
     const project = PROJECTS.find((p) => p.id === params.projectId);
     return {
       meta: [
-        { title: project ? `${project.title} — Full-Stack Web Developer & WordPress Expert` : "Project Not Found" },
+        { title: project ? `${project.title} — Senior WordPress Developer` : "Project Not Found" },
         {
           name: "description",
           content: project ? project.description : "Project details page.",

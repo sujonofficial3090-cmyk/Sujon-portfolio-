@@ -2,9 +2,10 @@ import { useState } from "react";
 import type * as React from "react";
 import { NeumorphicCard } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
+
 // Standalone Vector SVG / Official Brand Logos with Authentic Colors
 const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> = {
-  // --- WORDPRESS & ECOSYSTEM ---
+  // --- WORDPRESS ECOSYSTEM ---
   WordPress: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="64" cy="64" r="60" fill="#21759B" />
@@ -81,7 +82,7 @@ const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> 
     </svg>
   ),
 
-  "ACF Pro": ({ className = "h-10 w-10" }) => (
+  "Advanced Custom Fields (ACF)": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#0E1E25" />
       <rect x="18" y="18" width="92" height="92" rx="18" fill="#00EA90" />
@@ -100,50 +101,37 @@ const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> 
     </svg>
   ),
 
-  PHP: ({ className = "h-10 w-10" }) => (
+  "Custom Post Types (CPT)": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#777BB4" />
-      <ellipse cx="64" cy="64" rx="48" ry="28" fill="#4F5B93" stroke="white" strokeWidth="2.5" />
-      <text
-        x="64"
-        y="73"
-        fontFamily="'Funnel Display', sans-serif, system-ui"
-        fontSize="28"
-        fontWeight="900"
-        textAnchor="middle"
-        fill="white"
-        fontStyle="italic"
-      >
-        php
-      </text>
+      <rect width="128" height="128" rx="28" fill="#1E293B" />
+      <rect x="28" y="30" width="32" height="30" rx="6" fill="#38BDF8" />
+      <rect x="68" y="30" width="32" height="30" rx="6" fill="#818CF8" />
+      <rect x="28" y="68" width="32" height="30" rx="6" fill="#34D399" />
+      <rect x="68" y="68" width="32" height="30" rx="6" fill="#FBBF24" />
+      <path d="M38 45H50M78 45H90M38 83H50M78 83H90" stroke="white" strokeWidth="3" strokeLinecap="round" />
     </svg>
   ),
 
-  MySQL: ({ className = "h-10 w-10" }) => (
+  "Dynamic Content": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#00618A" />
-      <path
-        d="M32 78C32 78 44 42 66 42C80 42 88 52 88 64C88 80 62 88 62 88L96 88"
-        stroke="#E48E00"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <text
-        x="64"
-        y="78"
-        fontFamily="'Funnel Display', sans-serif, system-ui"
-        fontSize="22"
-        fontWeight="900"
-        textAnchor="middle"
-        fill="white"
-      >
-        SQL
-      </text>
+      <rect width="128" height="128" rx="28" fill="#0F172A" />
+      <ellipse cx="64" cy="38" rx="36" ry="14" fill="#38BDF8" />
+      <path d="M28 38V64C28 71.7 44.1 78 64 78C83.9 78 100 71.7 100 64V38" stroke="#38BDF8" strokeWidth="6" fill="none" />
+      <path d="M28 64V90C28 97.7 44.1 104 64 104C83.9 104 100 97.7 100 90V64" stroke="#0EA5E9" strokeWidth="6" fill="none" />
+      <path d="M72 52L52 74H64L60 92L80 70H68L72 52Z" fill="#FACC15" />
     </svg>
   ),
 
-  // --- FRONTEND ---
+  "Custom WordPress Functionality": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#0073AA" />
+      <circle cx="64" cy="64" r="32" stroke="white" strokeWidth="6" strokeDasharray="10 6" />
+      <circle cx="64" cy="64" r="16" fill="white" />
+      <path d="M32 64L44 54M96 64L84 74M64 32L74 44M64 96L54 84" stroke="white" strokeWidth="6" strokeLinecap="round" />
+    </svg>
+  ),
+
+  // --- FRONTEND & DESIGN ---
   HTML5: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#E34F26" />
@@ -168,194 +156,142 @@ const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> 
     </svg>
   ),
 
-  TypeScript: ({ className = "h-10 w-10" }) => (
+  "Responsive Design": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#3178C6" />
+      <rect width="128" height="128" rx="28" fill="#2563EB" />
+      {/* Desktop monitor */}
+      <rect x="22" y="28" width="60" height="42" rx="4" stroke="white" strokeWidth="4" fill="none" />
+      <path d="M52 70V82H40M52 82H64" stroke="white" strokeWidth="4" strokeLinecap="round" />
+      {/* Mobile phone overlapping */}
+      <rect x="66" y="50" width="38" height="54" rx="6" fill="#1E40AF" stroke="white" strokeWidth="4" />
+      <circle cx="85" cy="94" r="3" fill="white" />
+      <line x1="78" y1="58" x2="92" y2="58" stroke="white" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  ),
+
+  Figma: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#1E1E1E" />
+      <path d="M42 42C42 33.16 49.16 26 58 26H70V58H58C49.16 58 42 50.84 42 42Z" fill="#F24E1E" />
+      <path d="M70 26H82C90.84 26 98 33.16 98 42C98 50.84 90.84 58 82 58H70V26Z" fill="#FF7262" />
+      <path d="M42 74C42 65.16 49.16 58 58 58H70V90H58C49.16 90 42 82.84 42 74Z" fill="#0ACF83" />
+      <circle cx="82" cy="74" r="16" fill="#1ABCFE" />
+      <path d="M42 106C42 97.16 49.16 90 58 90H70V106C70 114.84 62.84 122 54 122C45.16 122 42 114.84 42 106Z" fill="#A259FF" />
+    </svg>
+  ),
+
+  Photoshop: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#001E36" />
+      <rect x="14" y="14" width="100" height="100" rx="20" stroke="#31A8FF" strokeWidth="4" fill="none" />
       <text
         x="64"
-        y="82"
+        y="78"
         fontFamily="'Funnel Display', sans-serif, system-ui"
-        fontSize="54"
-        fontWeight="800"
-        textAnchor="middle"
-        fill="white"
-        letterSpacing="-1"
-      >
-        TS
-      </text>
-    </svg>
-  ),
-
-  React: ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#20232A" />
-      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" />
-      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" transform="rotate(60 64 64)" />
-      <ellipse cx="64" cy="64" rx="44" ry="16" fill="none" stroke="#61DAFB" strokeWidth="4" transform="rotate(120 64 64)" />
-      <circle cx="64" cy="64" r="8" fill="#61DAFB" />
-    </svg>
-  ),
-
-  "Next.js": ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#000000" />
-      <circle cx="64" cy="64" r="42" fill="black" stroke="white" strokeWidth="4" />
-      <path d="M48 44V84H56V58L84 94H92V44H84V70L56 44H48Z" fill="white" />
-    </svg>
-  ),
-
-  "Tailwind CSS": ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#0F172A" />
-      <path
-        d="M64 45c-8.8 0-14.3 4.4-16.5 13.2 3.3-4.4 7.2-6 11.6-4.9 2.5.6 4.3 2.5 6.3 4.5 3.3 3.3 7.1 7.2 15.1 7.2 8.8 0 14.3-4.4 16.5-13.2-3.3 4.4-7.2 6-11.6 4.9-2.5-.6-4.3-2.5-6.3-4.5-3.3-3.3-7.1-7.2-15.1-7.2zm-16.5 19.5c-8.8 0-14.3 4.4-16.5 13.2 3.3-4.4 7.2-6 11.6-4.9 2.5.6 4.3 2.5 6.3 4.5 3.3 3.3 7.1 7.2 15.1 7.2 8.8 0 14.3-4.4 16.5-13.2-3.3 4.4-7.2 6-11.6 4.9-2.5-.6-4.3-2.5-6.3-4.5-3.3-3.3-7.1-7.2-15.1-7.2z"
-        fill="#38BDF8"
-      />
-    </svg>
-  ),
-
-  Vite: ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#1B1B1F" />
-      <path
-        d="M93.3 24.5L66.7 101.5C65.5 104.8 60.9 104.8 59.7 101.5L34.7 24.5C33.4 20.6 37.1 16.9 40.8 18.2L64 26.5L87.2 18.2C90.9 16.9 94.6 20.6 93.3 24.5Z"
-        fill="url(#vite-grad)"
-      />
-      <path d="M72 18L46 64H62L56 102L86 52H70L72 18Z" fill="#FFD62E" />
-      <defs>
-        <linearGradient id="vite-grad" x1="34" y1="18" x2="94" y2="104" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#41D1FF" />
-          <stop offset="1" stopColor="#BD34FE" />
-        </linearGradient>
-      </defs>
-    </svg>
-  ),
-
-  // --- BACKEND ---
-  "Node.js": ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#333333" />
-      <path d="M64 26L98 46V84L64 104L30 84V46L64 26Z" fill="#5FA04E" />
-      <text
-        x="64"
-        y="72"
-        fontFamily="'Funnel Display', sans-serif, system-ui"
-        fontSize="22"
+        fontSize="44"
         fontWeight="900"
         textAnchor="middle"
-        fill="white"
+        fill="#31A8FF"
+        letterSpacing="-1"
       >
-        NODE
+        Ps
       </text>
     </svg>
   ),
 
-  "Express.js": ({ className = "h-10 w-10" }) => (
+  // --- HOSTING, CMS & INFRASTRUCTURE ---
+  cPanel: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#000000" />
+      <rect width="128" height="128" rx="28" fill="#FF6C2C" />
       <text
         x="64"
         y="76"
         fontFamily="'Funnel Display', sans-serif, system-ui"
-        fontSize="46"
-        fontWeight="800"
-        textAnchor="middle"
-        fill="white"
-      >
-        ex
-      </text>
-    </svg>
-  ),
-
-  PostgreSQL: ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#336791" />
-      <path
-        d="M64 28C48 28 36 40 36 56C36 68 44 76 44 86C44 94 48 100 56 100H72C80 100 84 94 84 86C84 76 92 68 92 56C92 40 80 28 64 28Z"
-        fill="white"
-      />
-      <circle cx="52" cy="50" r="4" fill="#336791" />
-      <circle cx="76" cy="50" r="4" fill="#336791" />
-      <path d="M60 62C60 68 68 68 68 62" stroke="#336791" strokeWidth="3" strokeLinecap="round" />
-    </svg>
-  ),
-
-  MongoDB: ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#001E2B" />
-      <path
-        d="M64 20C64 20 40 48 40 74C40 92 52 104 62 108C62.8 108.3 64 107.5 64 106.6V20Z"
-        fill="#00ED64"
-      />
-      <path
-        d="M64 20C64 20 88 48 88 74C88 92 76 104 66 108C65.2 108.3 64 107.5 64 106.6V20Z"
-        fill="#00684A"
-      />
-      <path d="M64 104V112" stroke="#13AA52" strokeWidth="4" strokeLinecap="round" />
-    </svg>
-  ),
-
-  "REST APIs": ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#FF6C37" />
-      <circle cx="64" cy="64" r="38" stroke="white" strokeWidth="5" />
-      <path d="M46 64H82M64 46V82" stroke="white" strokeWidth="5" strokeLinecap="round" />
-      <text
-        x="64"
-        y="110"
-        fontFamily="'Funnel Display', sans-serif, system-ui"
-        fontSize="14"
+        fontSize="40"
         fontWeight="900"
         textAnchor="middle"
         fill="white"
+        letterSpacing="-2"
       >
-        REST API
+        cP
       </text>
     </svg>
   ),
 
-  Git: ({ className = "h-10 w-10" }) => (
+  DNS: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#F05032" />
-      <g transform="rotate(45 64 64)">
-        <rect x="44" y="44" width="40" height="40" rx="8" fill="white" />
-        <circle cx="56" cy="56" r="6" fill="#F05032" />
-        <circle cx="72" cy="72" r="6" fill="#F05032" />
-        <circle cx="72" cy="56" r="6" fill="#F05032" />
-        <path d="M56 56H72V72" stroke="#F05032" strokeWidth="4" />
-      </g>
+      <rect width="128" height="128" rx="28" fill="#059669" />
+      <circle cx="64" cy="64" r="36" stroke="white" strokeWidth="5" fill="none" />
+      <ellipse cx="64" cy="64" rx="16" ry="36" stroke="white" strokeWidth="5" fill="none" />
+      <line x1="28" y1="64" x2="100" y2="64" stroke="white" strokeWidth="5" strokeLinecap="round" />
     </svg>
   ),
 
-  GitHub: ({ className = "h-10 w-10" }) => (
+  SSL: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#181717" />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M64 24C41.9 24 24 41.9 24 64C24 81.7 35.5 96.7 51.4 102C53.4 102.4 54.1 101.1 54.1 100.1C54.1 99.2 54.1 96.7 54.1 93.6C43 96 40.6 88.3 40.6 88.3C38.8 83.7 36.2 82.5 36.2 82.5C32.6 80 36.5 80.1 36.5 80.1C40.5 80.4 42.6 84.2 42.6 84.2C46.1 90.3 51.9 88.5 54.2 87.5C54.6 85 55.6 83.2 56.7 82.2C47.8 81.2 38.5 77.8 38.5 62.4C38.5 58 40.1 54.4 42.7 51.6C42.3 50.6 40.9 46.5 43.1 41C43.1 41 46.5 39.9 54.2 45.1C57.4 44.2 60.8 43.8 64.2 43.8C67.6 43.8 71 44.2 74.2 45.1C81.9 39.9 85.3 41 85.3 41C87.5 46.5 86.1 50.6 85.7 51.6C88.3 54.4 89.9 58 89.9 62.4C89.9 77.9 80.5 81.2 71.6 82.2C73.1 83.5 74.4 86 74.4 89.8C74.4 95.3 74.3 99.7 74.3 100.1C74.3 101.1 75 102.4 77 102C92.9 96.7 104.4 81.7 104.4 64C104.4 41.9 86.5 24 64 24Z"
-        fill="white"
-      />
+      <rect width="128" height="128" rx="28" fill="#10B981" />
+      <rect x="36" y="54" width="56" height="44" rx="8" fill="white" />
+      <path d="M48 54V42C48 33.16 55.16 26 64 26C72.84 26 80 33.16 80 42V54" stroke="white" strokeWidth="8" strokeLinecap="round" fill="none" />
+      <circle cx="64" cy="74" r="5" fill="#10B981" />
+      <path d="M64 78V84" stroke="#10B981" strokeWidth="3" strokeLinecap="round" />
     </svg>
   ),
 
-  Firebase: ({ className = "h-10 w-10" }) => (
+  SMTP: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#1A1D20" />
-      <path d="M36 88L49 26L63 52L36 88Z" fill="#FFA000" />
-      <path d="M92 88L79 46L63 52L92 88Z" fill="#F57C00" />
-      <path d="M36 88L64 104L92 88L63 52L36 88Z" fill="#FFCA28" />
+      <rect width="128" height="128" rx="28" fill="#6366F1" />
+      <rect x="28" y="38" width="72" height="52" rx="8" stroke="white" strokeWidth="6" fill="none" />
+      <path d="M30 42L64 68L98 42" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   ),
 
-  // --- AI & MODERN WORKFLOW ---
-  "Cursor AI": ({ className = "h-10 w-10" }) => (
+  "Booking & Payment Systems": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#000000" />
-      {/* 3D Isometric Cube of Cursor */}
-      <path d="M64 28L98 47V85L64 104L30 85V47L64 28Z" stroke="#00E5FF" strokeWidth="4" fill="none" />
-      <path d="M64 28V66L98 85M64 66L30 85" stroke="#00E5FF" strokeWidth="4" />
-      <circle cx="64" cy="66" r="6" fill="#00E5FF" />
+      <rect width="128" height="128" rx="28" fill="#8B5CF6" />
+      <rect x="28" y="34" width="72" height="48" rx="8" stroke="white" strokeWidth="5" fill="none" />
+      <line x1="28" y1="48" x2="100" y2="48" stroke="white" strokeWidth="5" />
+      <rect x="38" y="62" width="20" height="10" rx="3" fill="white" />
+      <path d="M78 84L86 92L102 76" stroke="#4ADE80" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+
+  "Third-Party Integrations": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#EC4899" />
+      <circle cx="44" cy="44" r="14" fill="white" />
+      <circle cx="84" cy="44" r="14" fill="white" />
+      <circle cx="64" cy="84" r="14" fill="white" />
+      <path d="M44 44L64 84L84 44" stroke="white" strokeWidth="5" strokeLinecap="round" />
+    </svg>
+  ),
+
+  "Website Performance Optimization": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#0D9488" />
+      <circle cx="64" cy="64" r="40" stroke="white" strokeWidth="6" strokeDasharray="180 60" transform="rotate(135 64 64)" fill="none" />
+      <path d="M64 64L82 46" stroke="#FDE047" strokeWidth="6" strokeLinecap="round" />
+      <circle cx="64" cy="64" r="6" fill="#FDE047" />
+      <text x="64" y="96" fontFamily="'Funnel Display', sans-serif" fontSize="18" fontWeight="900" textAnchor="middle" fill="white">
+        100
+      </text>
+    </svg>
+  ),
+
+  "On-Page SEO": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#1D4ED8" />
+      <circle cx="56" cy="56" r="24" stroke="white" strokeWidth="6" fill="none" />
+      <line x1="74" y1="74" x2="98" y2="98" stroke="white" strokeWidth="8" strokeLinecap="round" />
+      <path d="M46 56L54 64L68 50" stroke="#60A5FA" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+
+  // --- AI ASSISTED DEVELOPMENT ---
+  "AI-Assisted Development": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#0891B2" />
+      <path d="M64 26L72 50L96 58L72 66L64 90L56 66L32 58L56 50L64 26Z" fill="white" />
+      <path d="M88 80L92 90L102 94L92 98L88 108L84 98L74 94L84 90L88 80Z" fill="#FDE047" />
     </svg>
   ),
 
@@ -372,10 +308,9 @@ const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> 
     </svg>
   ),
 
-  "Claude AI": ({ className = "h-10 w-10" }) => (
+  Claude: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#D97757" />
-      {/* Anthropic Claude Starburst */}
       <path
         d="M64 24L70 48L94 42L78 60L96 74L72 76L76 100L64 82L52 100L56 76L32 74L50 60L34 42L58 48L64 24Z"
         fill="white"
@@ -383,41 +318,30 @@ const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> 
     </svg>
   ),
 
-  "GitHub Copilot": ({ className = "h-10 w-10" }) => (
+  "Google Gemini": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#6E40C9" />
+      <rect width="128" height="128" rx="28" fill="#1B1F23" />
+      <defs>
+        <linearGradient id="gemini-grad" x1="28" y1="28" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#4E82EE" />
+          <stop offset="0.5" stopColor="#9B72CB" />
+          <stop offset="1" stopColor="#D96570" />
+        </linearGradient>
+      </defs>
       <path
-        d="M44 48C44 41.37 49.37 36 56 36H72C78.63 36 84 41.37 84 48V72C84 78.63 78.63 84 72 84H56C49.37 84 44 78.63 44 72V48Z"
-        fill="white"
+        d="M64 24C64 46.09 46.09 64 24 64C46.09 64 64 81.91 64 104C64 81.91 81.91 64 104 64C81.91 64 64 46.09 64 24Z"
+        fill="url(#gemini-grad)"
       />
-      <circle cx="56" cy="58" r="5" fill="#6E40C9" />
-      <circle cx="72" cy="58" r="5" fill="#6E40C9" />
-      <path d="M54 70C57 73 71 73 74 70" stroke="#6E40C9" strokeWidth="3" strokeLinecap="round" />
     </svg>
   ),
 
-  "v0 (Vercel)": ({ className = "h-10 w-10" }) => (
+  "Google Antigravity": ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#000000" />
-      <text
-        x="64"
-        y="78"
-        fontFamily="'Funnel Display', sans-serif, system-ui"
-        fontSize="44"
-        fontWeight="900"
-        textAnchor="middle"
-        fill="white"
-        letterSpacing="-2"
-      >
-        v0
-      </text>
-    </svg>
-  ),
-
-  "Vibe Coding": ({ className = "h-10 w-10" }) => (
-    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="128" height="128" rx="28" fill="#10B981" />
-      <path d="M70 28L40 70H62L58 100L88 58H66L70 28Z" fill="white" />
+      <rect width="128" height="128" rx="28" fill="#18181B" />
+      <circle cx="64" cy="64" r="38" stroke="#38BDF8" strokeWidth="4" strokeDasharray="6 4" fill="none" />
+      <circle cx="64" cy="64" r="22" fill="#0284C7" />
+      <path d="M64 36L72 54H56L64 36Z" fill="#F59E0B" />
+      <path d="M64 92L56 74H72L64 92Z" fill="#38BDF8" />
     </svg>
   ),
 };
@@ -428,43 +352,41 @@ interface TechItem {
 }
 
 const ALL_TECH: TechItem[] = [
-  // WordPress (8 items)
+  // WordPress (9 items)
   { name: "WordPress", category: "wordpress" },
   { name: "Elementor Pro", category: "wordpress" },
   { name: "WooCommerce", category: "wordpress" },
   { name: "JetEngine", category: "wordpress" },
   { name: "JetFormBuilder", category: "wordpress" },
-  { name: "ACF Pro", category: "wordpress" },
-  { name: "PHP", category: "wordpress" },
-  { name: "MySQL", category: "wordpress" },
+  { name: "Advanced Custom Fields (ACF)", category: "wordpress" },
+  { name: "Custom Post Types (CPT)", category: "wordpress" },
+  { name: "Dynamic Content", category: "wordpress" },
+  { name: "Custom WordPress Functionality", category: "wordpress" },
 
-  // Frontend (8 items)
+  // Frontend & Design (6 items)
   { name: "HTML5", category: "frontend" },
   { name: "CSS3", category: "frontend" },
   { name: "JavaScript", category: "frontend" },
-  { name: "TypeScript", category: "frontend" },
-  { name: "React", category: "frontend" },
-  { name: "Next.js", category: "frontend" },
-  { name: "Tailwind CSS", category: "frontend" },
-  { name: "Vite", category: "frontend" },
+  { name: "Responsive Design", category: "frontend" },
+  { name: "Figma", category: "frontend" },
+  { name: "Photoshop", category: "frontend" },
 
-  // Backend (7 items)
-  { name: "Node.js", category: "backend" },
-  { name: "Express.js", category: "backend" },
-  { name: "PostgreSQL", category: "backend" },
-  { name: "MongoDB", category: "backend" },
-  { name: "REST APIs", category: "backend" },
-  { name: "Git", category: "backend" },
-  { name: "GitHub", category: "backend" },
-  { name: "Firebase", category: "backend" },
+  // Hosting, Infrastructure & Optimization (8 items)
+  { name: "cPanel", category: "backend" },
+  { name: "DNS", category: "backend" },
+  { name: "SSL", category: "backend" },
+  { name: "SMTP", category: "backend" },
+  { name: "Booking & Payment Systems", category: "backend" },
+  { name: "Third-Party Integrations", category: "backend" },
+  { name: "Website Performance Optimization", category: "backend" },
+  { name: "On-Page SEO", category: "backend" },
 
-  // AI & Workflow (6 items)
-  { name: "Cursor AI", category: "ai" },
+  // AI & Workflow (5 items)
+  { name: "AI-Assisted Development", category: "ai" },
   { name: "ChatGPT", category: "ai" },
-  { name: "Claude AI", category: "ai" },
-  { name: "GitHub Copilot", category: "ai" },
-  { name: "v0 (Vercel)", category: "ai" },
-  { name: "Vibe Coding", category: "ai" },
+  { name: "Claude", category: "ai" },
+  { name: "Google Gemini", category: "ai" },
+  { name: "Google Antigravity", category: "ai" },
 ];
 
 export function Technologies() {
@@ -476,8 +398,8 @@ export function Technologies() {
   const availableTabs = [
     { id: "all", label: t("tab_all_tech", "All Technologies") },
     { id: "wordpress", label: t("tab_wp", "WordPress") },
-    { id: "frontend", label: t("tab_frontend", "Frontend") },
-    { id: "backend", label: t("tab_backend", "Backend") },
+    { id: "frontend", label: t("tab_frontend", "Frontend & Design") },
+    { id: "backend", label: t("tab_backend", "Hosting & Optimization") },
     { id: "ai", label: t("tab_ai", "AI & Workflow") },
   ];
 
@@ -490,7 +412,7 @@ export function Technologies() {
             {t("tech_heading")}
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[14px] sm:text-[15.5px] font-medium text-muted-foreground">
-            {t("tech_subtitle", "Grouped into core frontend, backend, WordPress architecture, and modern AI development workflows with official brand identities.")}
+            {t("tech_subtitle", "Grouped into WordPress architecture, frontend design, hosting infrastructure, and modern AI development workflows with authentic brand identities.")}
           </p>
         </div>
 
@@ -549,7 +471,13 @@ export function Technologies() {
 
                 {/* Subtle category tag */}
                 <span className="mt-1 text-[9.5px] font-bold text-muted-foreground uppercase tracking-widest">
-                  {item.category === "ai" ? "AI & Workflow" : item.category}
+                  {item.category === "ai"
+                    ? "AI & Workflow"
+                    : item.category === "wordpress"
+                    ? "WordPress"
+                    : item.category === "frontend"
+                    ? "Frontend & Design"
+                    : "Hosting & Opt"}
                 </span>
               </NeumorphicCard>
             );

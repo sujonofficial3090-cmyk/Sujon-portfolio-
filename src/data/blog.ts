@@ -358,13 +358,13 @@ Want to test whether a Neumorphic embossed UI or a minimalist glassmorphic card 
 
 ## Conclusion
 
-Vibe coding isn't replacing software engineers; it's empowering full-stack developers to build at the speed of thought. By combining human architectural vision with AI speed, we deliver higher-quality web solutions in record turnaround times.`
+Vibe coding isn't replacing software engineers; it's empowering developers to build at the speed of thought. By combining human architectural vision with AI speed, we deliver higher-quality web solutions in record turnaround times.`
   },
   {
     id: "6",
     slug: "headless-wordpress-with-nextjs-and-react",
     title: "Headless WordPress with Next.js & React: The Modern High-Performance Stack",
-    category: "Full-Stack",
+    category: "WordPress",
     date: "September 12, 2026",
     author: "Sujon",
     img: blog6,

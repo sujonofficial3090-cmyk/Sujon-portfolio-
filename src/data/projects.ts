@@ -11,14 +11,11 @@ import salvajeGroup from "@/assets/salvaje-group.webp";
 import moritzDunkel from "@/assets/moritz-dunkel.webp";
 import globalMed from "@/assets/global-med.webp";
 import emodula from "@/assets/emodula.webp";
-import juncaStudio from "@/assets/junca-studio.webp";
-import silviaMalavasi from "@/assets/silvia-malavasi.webp";
-import gmxDigital from "@/assets/gmx-digital.webp";
 
 export interface Project {
   id: string;
   title: string;
-  category: "WordPress" | "WooCommerce" | "Business Website" | "Custom Development" | "AI-Assisted Development" | "Vibe Coding" | "Web Application" | string;
+  category: "WordPress" | "WooCommerce" | "Business Website" | "Dynamic Content" | string;
   description: string;
   role: string;
   whatIBuilt: string;
@@ -35,283 +32,202 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: "appliance-world",
-    title: "Appliance World — WooCommerce E-Commerce Store",
+    title: "Appliance World",
     category: "WooCommerce",
-    role: "Lead WordPress & WooCommerce Developer",
-    whatIBuilt: "Full-scale eCommerce storefront with catalog management, quick-view modals, localized pricing, dynamic cart drawers, and checkout optimization.",
-    description: "An eCommerce WooCommerce website built for Appliance World, featuring a structured product catalog, product categories, pricing, shopping functionality, and a streamlined online shopping experience for home appliances and electronics.",
+    role: "WordPress & WooCommerce Developer",
+    whatIBuilt: "Full-scale WooCommerce online store with structured product catalog, responsive layouts, and streamlined shopping cart experience.",
+    description: "Developed a WooCommerce website with product-focused layouts, responsive design and customized WordPress functionality.",
     img: applianceWorld,
-    overview: "Appliance World LTD is a leading online store for electronics and home appliances based in Uganda. The platform provides a modern online shopping experience featuring real-time product search, categorized browsing (ACs, TVs, Washers & Dryers, Refrigerators, Microwaves, Audio), regional currency pricing (UGX), product quick-views, and streamlined shopping cart management.",
-    challenge: "Showcasing a large inventory of electronics and home appliances with detailed technical specifications, variable pricing, high-resolution imagery, and quick-view popups while maintaining fast loading speeds and effortless mobile purchasing flows.",
-    solution: "Developed a high-performance WordPress & WooCommerce storefront with customized product templates, categorized brand showcases (LG, Panasonic, etc.), interactive category navigation cards, instant search indexing, and a frictionless cart and checkout flow.",
+    overview: "Appliance World is an online store for electronics and home appliances. The website provides a modern online shopping experience featuring product categories, real-time stock indicators, and streamlined shopping cart management.",
+    challenge: "Showcasing a large inventory of electronics and home appliances with detailed specifications, variable pricing, and high-resolution imagery while maintaining fast mobile loading speeds.",
+    solution: "Developed a responsive WooCommerce store with organized product categories, quick-view modals, and a frictionless checkout flow.",
     features: [
-      "Structured product catalog & categorized browsing (ACs, TVs, Refrigerators, Audio)",
-      "Real-time product pricing (UGX) & instant stock status indicators",
-      "WooCommerce Quick View & detailed product specifications",
-      "Interactive shopping cart, mini-cart drawer & secure checkout",
-      "Multi-branch store location directory & customer service contact integration",
-      "100% responsive eCommerce design optimized for mobile & desktop shoppers"
+      "Structured product catalog and categorized browsing",
+      "Product specifications and stock availability indicators",
+      "Interactive shopping cart and secure checkout flow",
+      "Category navigation cards for electronics and home appliances",
+      "Responsive layout optimized for mobile and desktop shoppers"
     ],
-    techStack: ["WordPress", "WooCommerce", "Woo QuickView", "PHP", "CSS3", "JavaScript"],
+    techStack: ["WordPress", "WooCommerce", "PHP", "CSS3", "JavaScript"],
     screenshots: [applianceWorld, pf2, office],
     liveUrl: "https://applianceworld.co.ug/"
   },
   {
-    id: "tommys-real-estate",
-    title: "Tommy's Real Estate",
+    id: "clean-corp",
+    title: "Clean Corp Canada",
     category: "Business Website",
-    role: "WordPress & Frontend Developer",
-    whatIBuilt: "Real estate listing platform with custom post types, multi-parameter search filtering, agent profile directory, and direct property lead capture.",
-    description: "A modern real estate listing website for Wellington's market leader featuring property search filters, featured property showcases, agent directories, and client inquiry forms.",
+    role: "WordPress Developer",
+    whatIBuilt: "Corporate cleaning services website with structured service packages, client quote inquiry forms, and mobile-first responsiveness.",
+    description: "Built and customized a responsive WordPress website focused on usability, performance and business requirements.",
     img: tommysListing,
-    overview: "Tommy's Real Estate is a leading property agency website based in Wellington. The platform is designed to showcase residential and commercial property listings with multi-parameter search, featured property showcases, agent profile directories, and instant lead inquiry forms.",
-    challenge: "Presenting high-resolution property photography, diverse property categories (For Sale, Featured Properties, Property Management), and multi-criteria search filters (Location, Price, Bedrooms) while ensuring fast load times and clean responsiveness on all devices.",
-    solution: "Developed a structured WordPress real estate solution with custom post types for property listings, dynamic filter queries, responsive layout grids, and direct call-to-actions for property inquiries and agent contact.",
+    overview: "Clean Corp Canada is a commercial and residential cleaning services company. The website was developed to provide prospective clients with an easy-to-navigate overview of cleaning packages, service coverage, and direct quote requests.",
+    challenge: "Designing a clear, trustworthy layout that highlights different commercial and residential cleaning packages with quick inquiry access for busy business clients.",
+    solution: "Built and customized a responsive WordPress website with structured service cards, clear call-to-actions, and an interactive quote estimation form.",
     features: [
-      "Multi-parameter property search (Location, Price Range, Bedrooms)",
-      "Featured property showcase with dynamic listing status badges",
-      "Agent directory with direct contact and consultation booking",
-      "Interactive property galleries and full-width media presentation",
-      "Newsletter subscription for new listing alerts",
-      "100% responsive design optimized for mobile, tablet, and desktop"
+      "Commercial and residential cleaning service showcases",
+      "Transparent service breakdown and package comparisons",
+      "Online quote estimation and consultation intake form",
+      "Customer testimonials and trust signals",
+      "Fully responsive design optimized for mobile and desktop"
     ],
-    techStack: ["WordPress", "Elementor", "Custom Post Types", "PHP", "CSS3", "JavaScript"],
-    screenshots: [tommysListing, pf3, office],
-    liveUrl: "https://www.tommys.co.nz/"
+    techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
+    screenshots: [tommysListing, pf1, office],
+    liveUrl: "https://sujon-portfolio.vercel.app/"
   },
   {
     id: "montgomery-inn",
-    title: "Montgomery Inn at Ingleside — Boutique Luxury Inn & Suites",
+    title: "Montgomery Inn at Ingleside",
     category: "Business Website",
-    role: "Lead WordPress & UI Developer",
-    whatIBuilt: "Story-driven hospitality website with room and cottage rate showcases, booking inquiry funnels, interactive amenities guides, and local tourism integrations.",
-    description: "A picturesque boutique inn and cottage destination website located in Prince Edward Island, Canada, featuring Anne of Green Gables heritage, guest room & suite showcases, local tourism guides, and online booking workflows.",
+    role: "WordPress Developer",
+    whatIBuilt: "Story-driven boutique inn and cottage website with room and suite displays, amenities highlights, and online booking inquiries.",
+    description: "Built and customized a responsive WordPress website focused on usability, performance and business requirements.",
     img: montgomeryInn,
-    overview: "Montgomery Inn at Ingleside is a historic boutique inn and luxury cottage experience nestled in Prince Edward Island (Anne's Land). The website offers travelers and vacationers an immersive glimpse into boutique guest rooms, tranquil coastal landscapes, heritage dining, and streamlined reservation scheduling.",
-    challenge: "Creating an elegant, story-driven hospitality website that honors the historic Anne of Green Gables legacy while providing clear room rate comparisons, amenities highlights, and smooth direct reservation booking.",
-    solution: "Developed an aesthetically rich, responsive boutique hotel website with high-resolution visual storytelling, interactive suite & cottage galleries, area attraction guides, and direct reservation funnels.",
+    overview: "Montgomery Inn at Ingleside is a boutique luxury inn and cottage destination located in Prince Edward Island, Canada. The website gives travelers an immersive overview of guest accommodations, local attractions, and direct reservation inquiries.",
+    challenge: "Balancing heritage storytelling with modern hospitality booking requirements, ensuring guests can easily view room amenities, seasonal rates, and submit booking requests.",
+    solution: "Developed a responsive boutique hotel website with high-resolution visual layouts, detailed suite amenities guides, and direct reservation workflows.",
     features: [
-      "Historic boutique inn & coastal cottage experience showcase",
-      "Interactive guest suites, room amenities & rates breakdown",
-      "Anne of Green Gables heritage storytelling & local PEI attractions guide",
-      "Direct online booking & reservation inquiry workflow",
-      "Guest reviews, verified testimonials & high-res visual photography galleries",
-      "100% mobile-responsive layout optimized for travelers booking on mobile & desktop"
+      "Boutique guest room and cottage accommodation showcases",
+      "Detailed room amenities, layout specifications, and rate information",
+      "Online booking inquiry and reservation scheduling workflows",
+      "Local attraction guides and heritage storytelling presentation",
+      "Mobile-first responsive architecture ensuring smooth mobile booking"
     ],
-    techStack: ["WordPress", "Elementor Pro", "Hotel Booking System", "PHP", "CSS3 Animations", "Responsive Design"],
+    techStack: ["WordPress", "Elementor Pro", "Booking System", "Responsive Design", "PHP"],
     screenshots: [montgomeryInn, pf1, office],
     liveUrl: "https://montgomeryinnatingleside.com/"
   },
   {
     id: "cater-psychiatry",
-    title: "Cater Psychiatry — Healthcare & Telepsychiatry Services",
+    title: "Cater Psychiatry",
     category: "Business Website",
-    role: "Full-Stack WordPress Developer",
-    whatIBuilt: "HIPAA-aligned medical practice portal with telepsychiatry scheduling, condition guides, transparent pricing tables, and verified patient reviews.",
-    description: "A premium medical practice website built for Cater Psychiatry (Dr. Sammy Khader, MD) in St. Charles, IL, featuring adult psychiatric care, telepsychiatry scheduling, insurance/pricing transparency, and HIPAA-compliant patient intake.",
+    role: "WordPress Developer",
+    whatIBuilt: "Professional healthcare and psychiatric services portal featuring doctor credentials, service guides, and appointment booking.",
+    description: "Built and customized a responsive WordPress website focused on usability, performance and business requirements.",
     img: caterPsychiatry,
-    overview: "Cater Psychiatry provides personalized adult psychiatric care in Illinois, founded by Dr. Sammy Khader, MD. The platform is designed to provide thoughtful, personalized psychiatric treatment for ADHD, anxiety, depression, bipolar disorder, OCD, and insomnia, offering both in-person appointments in St. Charles and telepsychiatry across Illinois.",
-    challenge: "Designing a warm, high-trust healthcare portal that balances clinical authority with patient comfort, providing transparent self-pay and insurance pricing ($279 initial evaluation / $175 follow-up), interactive FAQ accordions, and frictionless consultation booking.",
-    solution: "Developed a high-performance WordPress & Elementor medical platform featuring doctor credentials, interactive symptom guides, patient testimonials, transparent pricing calculators, interactive clinic location mapping, and HIPAA-compliant appointment booking workflows.",
+    overview: "Cater Psychiatry provides specialized psychiatric and telepsychiatry care. The platform is designed to provide clear treatment guides, transparent pricing information, and convenient appointment scheduling for patients.",
+    challenge: "Creating a professional, accessible healthcare web presence that conveys clinical authority while allowing patients to navigate treatment options and book consultations easily.",
+    solution: "Built and customized a responsive WordPress healthcare website with structured condition treatment pages, patient FAQ accordions, and online booking integration.",
     features: [
-      "Personalized psychiatric care & telepsychiatry booking throughout Illinois",
-      "Transparent pricing display ($279 Initial Evaluation / $175 Follow-up)",
-      "Comprehensive condition treatment guides (ADHD, Anxiety, Depression, OCD, Insomnia)",
-      "Verified patient experience reviews & FAQ accordion answering key concerns",
-      "Interactive St. Charles clinic location map & direct appointment scheduling",
-      "100% responsive, accessible healthcare design optimized for mobile & desktop"
+      "Detailed psychiatric condition and treatment guides",
+      "Telepsychiatry and in-person consultation booking workflows",
+      "Transparent pricing breakdown and patient resources",
+      "Patient FAQ accordion answering common clinical questions",
+      "Accessible, mobile-responsive layout meeting healthcare usability standards"
     ],
-    techStack: ["WordPress", "Elementor Pro", "Telehealth Booking", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
     screenshots: [caterPsychiatry, pf2, office],
     liveUrl: "https://caterpsychiatry.com/"
   },
   {
     id: "diesel-repair",
-    title: "205 Diesel Repair — Automotive & Truck Repair Services",
+    title: "205 Diesel",
     category: "Business Website",
-    role: "WordPress Developer & Conversion Specialist",
-    whatIBuilt: "Service business website with emergency call-to-action triggers, structured diagnostic catalogs, embedded Google Maps, and quote estimation forms.",
-    description: "A heavy-duty automotive and diesel truck repair service website built for 205 Diesel Repair in Rockwall, TX, featuring semi-truck repairs, A/C & brake diagnostics, mobile roadside service booking, and Google review highlights.",
+    role: "WordPress Developer",
+    whatIBuilt: "Automotive and heavy-duty truck repair service website with service catalog, emergency call triggers, and quote request forms.",
+    description: "Built and customized a responsive WordPress website focused on usability, performance and business requirements.",
     img: dieselRepair,
-    overview: "205 Diesel Repair is a premier automotive and commercial truck repair facility located in Rockwall, Texas. The website is engineered to attract fleet managers, semi-truck drivers, and local vehicle owners with detailed service catalogs (Truck A/C, Brakes, Heavy Equipment, Diesel Pickup & Semi-Truck Repair), customer review showcases, and streamlined appointment scheduling.",
-    challenge: "Organizing diverse mechanical services (heavy machinery, semi-trucks, pickup diesels, paint & bodywork) into an intuitive, conversion-focused mobile interface with emergency dispatch call buttons and interactive shop location mapping.",
-    solution: "Developed a high-performance WordPress & Elementor service storefront with prominent emergency call triggers, structured repair service cards, embedded Google Maps, 5-star customer testimonial carousels, and an instant quote request intake form.",
+    overview: "205 Diesel is an automotive and commercial diesel truck repair facility. The website is engineered to help fleet managers and truck drivers find repair services, get emergency assistance, and schedule diagnostic appointments.",
+    challenge: "Organizing a wide range of heavy-duty mechanical services into an intuitive mobile layout with prominent emergency contact triggers for drivers on the road.",
+    solution: "Developed a high-performance WordPress website featuring structured repair service cards, emergency call buttons, shop location directions, and quick quote requests.",
     features: [
-      "Comprehensive automotive & diesel truck repair showcase (Semi-Truck, Brakes, A/C, Paint & Body)",
-      "Instant emergency call-to-action & roadside service request triggers",
-      "Customer trust badges & 5-star verified Google Reviews integration",
-      "Interactive Google Maps location embed for easy garage navigation in Rockwall, TX",
-      "Custom service intake & quote estimation booking form",
-      "100% mobile-responsive layout optimized for truck drivers on the go"
+      "Complete diesel repair and automotive service directory",
+      "Prominent emergency call and roadside assistance triggers",
+      "Embedded map location and shop hours for easy garage navigation",
+      "Service estimate intake form for quick customer inquiries",
+      "Mobile-optimized layout designed for on-the-go commercial drivers"
     ],
-    techStack: ["WordPress", "Elementor Pro", "Google Maps API", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
     screenshots: [dieselRepair, pf1, office],
     liveUrl: "https://205diesel.com/"
   },
   {
-    id: "salvaje-group",
-    title: "AMOR — Downtown Dubai Speakeasy & Nightclub",
-    category: "Custom Development",
-    role: "Senior Web Developer & UI Engineer",
-    whatIBuilt: "Dark luxury entertainment platform with interactive weekly event programming, mixology showcases, WhatsApp VIP table booking, and multimedia galleries.",
-    description: "Exclusive luxury speakeasy nightclub website in Downtown Dubai, featuring world-class mixology, international DJ headliners, weekly night events, and online reservation workflows.",
+    id: "digital-dropify",
+    title: "Digital Dropify",
+    category: "WooCommerce",
+    role: "WordPress & WooCommerce Developer",
+    whatIBuilt: "Digital product and eCommerce platform with seamless checkout, payment integration, and responsive catalog browsing.",
+    description: "Developed a WooCommerce website with product-focused layouts, responsive design and customized WordPress functionality.",
     img: salvajeGroup,
-    overview: "AMOR is a premier speakeasy nightclub situated in the heart of Downtown Dubai right next to Dubai Opera & Burj Khalifa. Developed for Salvaje Group Dubai, the platform showcases bespoke nightlife events, curated mixology, house-driven DJ vibes, interactive event galleries, and instant table booking integrations.",
-    challenge: "Capturing the dark, sensual luxury atmosphere of Downtown Dubai's elite nightlife while building a fast, responsive event management and reservation intake portal for high-profile international guests.",
-    solution: "Designed and engineered a high-impact, dark-themed luxury web application with immersive event showcases, cocktail mixology highlights, interactive Google Maps location widgets, and instant WhatsApp / online table booking funnels.",
+    overview: "Digital Dropify is an eCommerce platform built for digital products and online services. The website provides streamlined product discovery, instant digital downloads, and secure checkout processing.",
+    challenge: "Building an automated digital delivery storefront with frictionless payment workflows, clean product cards, and instant post-purchase access.",
+    solution: "Developed a custom WooCommerce setup with product-focused layouts, automated payment gateway integration, and responsive design across all devices.",
     features: [
-      "Dark luxury speakeasy branding with high-contrast typography & vibrant red accent aesthetics",
-      "Interactive weekly event showcase ('Prohibido', 'Midnight by Amor', 'Favela Disco')",
-      "Instant table booking & VIP reservation intake via direct WhatsApp and booking forms",
-      "Integrated location map & operating schedule widget for Downtown Dubai Opera location",
-      "Dynamic photo gallery showcasing venue ambiance, DJ performances, and mixology",
-      "100% mobile-responsive, fast-loading design optimized across all mobile devices"
+      "Categorized digital product listings with clear feature highlights",
+      "Frictionless WooCommerce cart drawer and secure checkout",
+      "Automated digital product delivery and account management",
+      "Payment gateway integration supporting multiple payment methods",
+      "Fully responsive design optimized for high conversion"
     ],
-    techStack: ["WordPress", "Elementor Pro", "JavaScript", "PHP", "CSS3 Animations", "Google Maps API", "Responsive Design"],
+    techStack: ["WordPress", "WooCommerce", "Elementor Pro", "Payment Systems", "PHP"],
     screenshots: [salvajeGroup, pf1, office],
-    liveUrl: "https://salvajegroupdubai.com/"
+    liveUrl: "https://sujon-portfolio.vercel.app/"
   },
   {
-    id: "moritz-dunkel",
-    title: "Moritz Dunkel — Agency & Design Portfolio Website",
-    category: "Custom Development",
-    role: "Front-End Developer & CMS Specialist",
-    whatIBuilt: "Creative agency portfolio with custom post structures, interactive case study breakdowns, dynamic typography, and strategy booking intake.",
-    description: "A high-end creative agency portfolio and brand identity website for Moritz Dunkel (Dunkel Design / DNKLDSN) in Cologne, Germany, featuring interactive case studies, design client testimonials, and strategy consultation bookings.",
+    id: "tima",
+    title: "Tima",
+    category: "Dynamic Content",
+    role: "WordPress Developer",
+    whatIBuilt: "Dynamic WordPress website with custom field architectures, relational data, and responsive layout presentation.",
+    description: "Built dynamic WordPress functionality using Custom Post Types, dynamic content and custom fields.",
     img: moritzDunkel,
-    overview: "Moritz Dunkel (Dunkel Design / DNKLDSN) is a premier branding and web design agency based in Cologne, Germany. The website is engineered to showcase high-impact visual identities, psychology-driven web design, marketing strategies, and client success stories for entrepreneurs, service providers, and brands.",
-    challenge: "Structuring an extensive portfolio of design case studies, client reviews, FAQ accordions, and design packages into a bold, high-contrast visual layout that communicates creative excellence and drives high-value client project inquiries.",
-    solution: "Developed a modern, performance-optimized WordPress agency platform with dynamic typography, dark/light contrast aesthetics, interactive project galleries, verified client video/text testimonials, and seamless consultation intake flows.",
+    overview: "Tima is a dynamic corporate web platform requiring tailored content architectures. The site leverages custom post types and relational meta fields to organize business information dynamically.",
+    challenge: "Handling complex content structures and custom post relationships without sacrificing site speed or administrative ease-of-use.",
+    solution: "Engineered dynamic WordPress functionality using Custom Post Types (CPT), JetEngine, and Advanced Custom Fields (ACF) to allow easy content management and modular display.",
     features: [
-      "Bold, modern agency branding with dark & vibrant accent aesthetics",
-      "Interactive case study portfolio & client project breakdown",
-      "Client testimonials and 5-star Trustpilot review highlights",
-      "Interactive design & branding FAQ accordion",
-      "Direct strategy consultation intake & appointment calendar booking",
-      "100% responsive, high-performance design optimized across desktop and mobile"
+      "Custom Post Types (CPT) tailored to business data models",
+      "Dynamic content templates and relational meta fields",
+      "JetEngine listing grids with custom filter queries",
+      "User-friendly WordPress backend for streamlined client editing",
+      "Fast-loading, responsive frontend presentation"
     ],
-    techStack: ["WordPress", "Elementor Pro", "ACF Pro", "PHP", "CSS3 Animations", "JavaScript", "Responsive Design"],
+    techStack: ["WordPress", "Elementor Pro", "JetEngine", "Custom Post Types", "ACF"],
     screenshots: [moritzDunkel, pf2, office],
-    liveUrl: "https://www.moritzdunkel.de/"
+    liveUrl: "https://sujon-portfolio.vercel.app/"
   },
   {
     id: "global-med",
-    title: "Global Med — US Healthcare & Medical Services Website",
-    category: "WordPress",
-    role: "Lead WordPress Developer",
-    whatIBuilt: "Structured healthcare directory with doctor profiles, insurance portals, primary care/specialist listings, and telehealth virtual booking.",
-    description: "A professional healthcare and medical services website for Global Med (USA), featuring comprehensive medical service listings, patient resources, provider portals, telehealth integrations, and streamlined appointment booking.",
+    title: "Global Medus",
+    category: "Business Website",
+    role: "WordPress Developer",
+    whatIBuilt: "Comprehensive medical and healthcare services platform with structured service pages, provider directory, and appointment inquiry.",
+    description: "Built and customized a responsive WordPress website focused on usability, performance and business requirements.",
     img: globalMed,
-    overview: "Global Med is a professional USA-based healthcare and medical services platform designed to connect patients with comprehensive medical care. The website features detailed service pages for Primary Care, Specialist Consultations, Telehealth, Lab Testing, Pharmacy, and Insurance guidance — all within a clean, trust-building, HIPAA-aligned design system.",
-    challenge: "Presenting a wide range of medical services, patient resources, and insurance information in an approachable, professional layout that builds patient trust, ensures accessibility compliance, and drives appointment bookings across desktop and mobile devices.",
-    solution: "Built a high-performance WordPress healthcare website with structured service pages, a patient-first navigation architecture, telehealth integration sections, transparent service listings, and clear call-to-action flows designed to maximize appointment conversion.",
+    overview: "Global Medus is a healthcare and medical services platform designed to connect patients with comprehensive care options, specialist consultations, and healthcare resources.",
+    challenge: "Presenting a broad spectrum of medical services and patient resources in an organized, trust-building design that is easy to navigate on mobile devices.",
+    solution: "Built and customized a responsive WordPress healthcare website with structured service listings, doctor profile directories, and clear appointment booking inquiry forms.",
     features: [
-      "Comprehensive medical services showcase (Primary Care, Specialist, Telehealth, Lab Testing)",
-      "Patient resources portal with insurance guidance and coverage information",
-      "Provider directory with doctor profiles and specialty listings",
-      "Telehealth virtual appointment booking integration",
-      "HIPAA-aligned design with trust signals and patient testimonials",
-      "100% responsive, accessible healthcare design optimized for mobile & desktop"
+      "Comprehensive medical service directory and clinical descriptions",
+      "Specialist doctor profiles and practice area listings",
+      "Patient resources portal with insurance and intake guidelines",
+      "Direct appointment booking and telehealth consultation inquiry",
+      "Responsive, accessible design optimized for patients and healthcare seekers"
     ],
-    techStack: ["WordPress", "Elementor Pro", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
     screenshots: [globalMed, pf1, office],
     liveUrl: "https://globalmedus.com"
   },
   {
-    id: "emodula",
-    title: "Emodula — Permanent Modular Buildings & Construction",
+    id: "finseo",
+    title: "Finseo",
     category: "WordPress",
-    role: "Lead WordPress & Corporate Web Developer",
-    whatIBuilt: "Compliance-driven corporate portal with ISO certification showcases, volumetric modular methodology diagrams, multi-sector project navigation, and B2B inquiry funnels.",
-    description: "A high-impact corporate website for Emodula, a UK-based permanent modular buildings company delivering compliance-led construction with ISO 9001, 14001 & 45001 certifications, covering healthcare, data centres, M&E systems and EV charging sectors.",
+    role: "WordPress Developer",
+    whatIBuilt: "Financial and SEO consulting website featuring clean layouts, conversion-focused sections, and fast performance optimization.",
+    description: "Converted the provided Figma/PSD design into a responsive WordPress implementation using Elementor Pro.",
     img: emodula,
-    overview: "Emodula is a leading UK permanent modular construction company delivering high-quality, compliance-led modular buildings across healthcare, data centres, hub systems, and EV charging infrastructure. The website is engineered to communicate Emodula's unique volumetric modular delivery approach, structured governance model, and BOPAS accreditation — building buyer confidence through transparency, certifications, and clear project pathways.",
-    challenge: "Communicating complex construction compliance frameworks (BOPAS accreditation, PAS 2080, ISO 9001/14001/45001), multi-sector project capabilities, and a 5-step delivery methodology in a clean, authoritative web presence that builds buyer trust and drives project enquiries.",
-    solution: "Designed and developed a bold, dark-themed corporate website with structured sector pages (Healthcare, Data Centres, Hub Systems, EV Charging), compliance & certification showcases, a clear 'How Emodula Works' 5-step process section, and high-converting contact and project enquiry forms.",
+    overview: "Finseo is a professional financial and search engine optimization consulting agency. The website showcases advisory services, audit checklists, case results, and direct consultation scheduling.",
+    challenge: "Accurately converting detailed Figma design mockups into a responsive, pixel-perfect WordPress website with high performance and on-page SEO foundations.",
+    solution: "Converted approved Figma/PSD designs into a clean Elementor Pro implementation with optimized assets, clean semantic markup, and responsive breakpoints.",
     features: [
-      "Permanent modular buildings showcase with compliance-led approach hero section",
-      "ISO 9001:2015, ISO 14001, ISO 45001 & BOPAS certification display",
-      "Multi-sector project browser: Healthcare, Data Centres, Hub Systems, EV Charging",
-      "'How Emodula Works' 5-step delivery process walkthrough",
-      "Governance, assurance and buyer confidence section with project imagery",
-      "100% responsive dark-themed corporate design with high-impact CTAs"
+      "Pixel-perfect Figma to WordPress conversion with Elementor Pro",
+      "Structured consulting service showcases and strategy breakdowns",
+      "On-page SEO optimization with semantic HTML hierarchy",
+      "Interactive consultation booking and project inquiry forms",
+      "Cross-device responsiveness and fast load time performance"
     ],
-    techStack: ["WordPress", "Elementor Pro", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    techStack: ["WordPress", "Elementor Pro", "Figma to WordPress", "SEO Optimization", "PHP"],
     screenshots: [emodula, pf2, office],
-    liveUrl: "https://emodula.org"
-  },
-  {
-    id: "junca-studio",
-    title: "Junca Studio — Futuristic 3D & AI Web Experience",
-    category: "AI-Assisted Development",
-    role: "Lead Web Architect & 3D Interactive Developer",
-    whatIBuilt: "High-end futuristic 3D interactive web experience featuring real-time WebGL rendering, custom sound design, ambient lighting, dynamic timezones, and smooth fluid animations.",
-    description: "A premium futuristic web application built for ambitious tech companies, featuring immersive 3D robotics, interactive audio design, modern dark aesthetics, and ultra-smooth performance.",
-    img: juncaStudio,
-    overview: "Junca Studio (juncastudio.com) is an elite creative tech studio creating premium digital experiences for world-class technology companies. The website features an interactive 3D robot character ('Hello there!'), real-time sound effects, dynamic UTC clock, and cutting-edge dark-mode aesthetics.",
-    challenge: "Engineering a high-performance 3D WebGL experience with interactive audio and cinematic visual fidelity while maintaining instant initial loading times and responsive fluid interactions across all devices.",
-    solution: "Built with modern WebGL / Three.js 3D rendering pipelines, optimized asset loading, Web Audio API sound effects, and clean modular responsive component architecture.",
-    features: [
-      "Interactive 3D robot showcase with real-time WebGL rendering",
-      "Integrated ambient audio effects and sound design engine",
-      "Live UTC time synchronization and global industry services directory",
-      "Cinematic dark aesthetic with high-contrast typography and red atmospheric lighting",
-      "Fluid 60fps micro-interactions, responsive navigation, and contact funnels",
-      "100% responsive design optimized for mobile, tablet, and ultra-wide displays"
-    ],
-    techStack: ["React", "Three.js / WebGL", "Tailwind CSS", "Web Audio API", "AI-Assisted Coding", "Vibe Coding", "TypeScript"],
-    screenshots: [juncaStudio, pf1, office],
-    liveUrl: "https://juncastudio.com/"
-  },
-  {
-    id: "silvia-malavasi",
-    title: "Silvia Malavasi — Cyberpunk Creative Frontend Portfolio",
-    category: "AI-Assisted Development",
-    role: "Creative Frontend & WebGL Interaction Developer",
-    whatIBuilt: "Cyberpunk-themed interactive portfolio featuring 3D wireframe skull anatomy, GSAP timeline animations, Three.js shaders, reactive sound design, and custom cursor telemetry.",
-    description: "An avant-garde cyberpunk creative frontend portfolio engineered with Three.js, GSAP motion design, interactive WebGL skull visualization, audio synthesis, and brutalist high-contrast typography.",
-    img: silviaMalavasi,
-    overview: "Silvia Malavasi (silviamalavasi.com) is an elite creative frontend developer portfolio featuring an experimental cybernetic dissection aesthetic. The experience combines real-time 3D wireframe mesh deformation in Three.js, reactive sound synthesizers, complex GSAP physics animations, and custom classified-dossier UI styling.",
-    challenge: "Designing and orchestrating complex 3D wireframe geometry deformation synchronized with interactive audio and GSAP timeline scrub interactions while sustaining locked 60fps performance.",
-    solution: "Implemented efficient WebGL shaders with Three.js, optimized polygon rendering, throttled mouse trajectory listeners, and hardware-accelerated CSS/canvas blend layers.",
-    features: [
-      "Interactive 3D wireframe skull mesh with real-time mouse deformation",
-      "Dynamic sound synthesis engine with interactive audio triggers",
-      "Cyberpunk dossier aesthetic with barcode telemetry and classified badges",
-      "GSAP-driven scroll dissection walkthrough with micro-timelines",
-      "Live audio toggle, fluid typography, and custom interaction ribbons",
-      "100% responsive cross-platform performance across mobile and desktop"
-    ],
-    techStack: ["React", "Three.js", "GSAP", "WebGL", "Web Audio API", "CSS3 / Canvas", "TypeScript"],
-    screenshots: [silviaMalavasi, pf1, office],
-    liveUrl: "https://www.silviamalavasi.com/"
-  },
-  {
-    id: "gmx-digital",
-    title: "GMX Digital — Next-Gen Real Estate & Digital Reality Studio",
-    category: "AI-Assisted Development",
-    role: "Lead Full-Stack Web Architect & 3D Interactive Developer",
-    whatIBuilt: "High-end interactive digital reality showcase for luxury real estate and digital architecture with 3D smoke shaders, dynamic lighting, ultra-fluid animations, and multi-platform optimization.",
-    description: "A luxury digital reality and high-end real estate web platform featuring cinematic 3D visual engineering, immersive animations, bespoke lighting effects, and flawless responsive performance.",
-    img: gmxDigital,
-    overview: "GMX Digital (gmxdigital.com) is an elite digital engineering and creative technology agency crafting hyper-realistic digital reality experiences, architecture visualizations, and high-impact web platforms for luxury real estate and technology pioneers.",
-    challenge: "Harmonizing high-fidelity 3D atmospheric smoke, volumetric lighting, and luxury architectural rendering with sub-second page delivery and zero frame drops across mobile and desktop devices.",
-    solution: "Developed with Next-gen React and WebGL acceleration, shader pipeline optimization, hardware-accelerated CSS layers, and intelligent viewport rendering.",
-    features: [
-      "Cinematic 3D architectural rendering and volumetric smoke animation",
-      "High-impact luxury dark aesthetic with metallic chrome lighting accents",
-      "Dynamic property exploration and digital experience showcase",
-      "Fluid 60fps interaction models with custom cursor navigation",
-      "Optimized WebGL performance pipeline delivering instant load times",
-      "100% responsive architecture engineered for mobile, tablet, and 4K displays"
-    ],
-    techStack: ["React", "WebGL", "Three.js", "Tailwind CSS", "GSAP", "TypeScript", "AI-Assisted Coding"],
-    screenshots: [gmxDigital, pf1, office],
-    liveUrl: "https://gmxdigital.com/"
+    liveUrl: "https://sujon-portfolio.vercel.app/"
   }
 ];
 
-export const PROJECTS_CLASSIC: Project[] = PROJECTS.filter(
-  (p) => !["junca-studio", "silvia-malavasi", "gmx-digital"].includes(p.id)
-);
-
+export const PROJECTS_CLASSIC: Project[] = PROJECTS;

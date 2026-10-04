@@ -117,9 +117,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" data-cursor="crosshair">
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var t = localStorage.getItem('theme');
+                  // Only apply dark if explicitly saved as 'dark'
+                  // All first-time visitors strictly default to White / Light mode on all devices
+                  if (t === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         {children}
@@ -136,11 +154,9 @@ function RootComponent() {
   useContentProtection();
 
   useEffect(() => {
-    // Theme surface: default Light mode
+    // Theme surface: strictly default to White / Light mode on all devices for first-time visitors
     const storedTheme = localStorage.getItem("theme");
-    const isDark =
-      storedTheme === "dark" ||
-      (!storedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const isDark = storedTheme === "dark";
 
     if (isDark) {
       document.documentElement.classList.add("dark");

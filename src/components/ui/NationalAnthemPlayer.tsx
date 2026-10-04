@@ -270,58 +270,53 @@ export function NationalAnthemPlayer() {
       {isMinimized ? (
         <button
           onClick={() => setIsMinimized(false)}
-          className="group nm-raised flex items-center gap-2.5 rounded-full px-3.5 py-2.5 bg-background/95 backdrop-blur-md border border-border/60 text-foreground shadow-xl hover:nm-interactive active:scale-95 transition-all duration-200"
+          className="group nm-raised flex items-center gap-2 rounded-full px-2.5 py-1.5 bg-background/95 backdrop-blur-md border border-border/60 text-foreground shadow-xl hover:nm-interactive active:scale-95 transition-all duration-200"
           title={`${activeAnthem.countryNameBn} জাতীয় সংগীত প্লেয়ার বড় করুন | Expand National Anthem Player`}
           aria-label="Expand National Anthem Player"
         >
           {/* Country Flag Badge */}
-          <div className="relative flex h-6 w-6 items-center justify-center rounded-full text-base shrink-0 shadow-sm overflow-hidden bg-muted/60">
+          <div className="relative flex h-5 w-5 items-center justify-center rounded-full text-xs shrink-0 shadow-sm overflow-hidden bg-muted/60">
             <span>{activeAnthem.flagEmoji}</span>
           </div>
 
-          <div className="flex items-center gap-1.5">
-            <span className="text-[12px] font-bold text-foreground tracking-wide font-sans">
+          <div className="flex items-center gap-1">
+            <span className="text-[11px] font-bold text-foreground tracking-wide font-sans">
               {activeAnthem.countryName}
             </span>
 
             {/* Equalizer Bars */}
-            <div className="flex items-end gap-[2px] h-3.5 px-0.5">
+            <div className="flex items-end gap-[1.5px] h-3 px-0.5">
               <span
-                className={`w-[2.5px] rounded-full bg-brand-deep transition-all ${
+                className={`w-[2px] rounded-full bg-brand-deep transition-all ${
                   isPlaying ? "animate-[eq-wave-1_1s_ease-in-out_infinite]" : "h-1"
                 }`}
               />
               <span
-                className={`w-[2.5px] rounded-full bg-brand-deep transition-all ${
-                  isPlaying ? "animate-[eq-wave-2_0.8s_ease-in-out_infinite]" : "h-2"
+                className={`w-[2px] rounded-full bg-brand-deep transition-all ${
+                  isPlaying ? "animate-[eq-wave-2_0.8s_ease-in-out_infinite]" : "h-1.5"
                 }`}
               />
               <span
-                className={`w-[2.5px] rounded-full bg-brand-deep transition-all ${
-                  isPlaying ? "animate-[eq-wave-3_1.1s_ease-in-out_infinite]" : "h-1.5"
-                }`}
-              />
-              <span
-                className={`w-[2.5px] rounded-full bg-brand-deep transition-all ${
-                  isPlaying ? "animate-[eq-wave-4_0.9s_ease-in-out_infinite]" : "h-1"
+                className={`w-[2px] rounded-full bg-brand-deep transition-all ${
+                  isPlaying ? "animate-[eq-wave-3_1.1s_ease-in-out_infinite]" : "h-1"
                 }`}
               />
             </div>
           </div>
 
-          <ChevronUp className="h-3.5 w-3.5 text-muted-foreground group-hover:text-brand-deep transition-colors" />
+          <ChevronUp className="h-3 w-3 text-muted-foreground group-hover:text-brand-deep transition-colors" />
         </button>
       ) : (
-        /* Expanded Player Card */
-        <div className="relative nm-raised rounded-[18px] p-3 sm:p-3.5 bg-background/95 backdrop-blur-lg border border-border/70 shadow-2xl w-[310px] sm:w-[340px] transition-all duration-300">
+        /* Compact Expanded Player Card */
+        <div className="relative nm-raised rounded-[15px] p-2 sm:p-2.5 bg-background/95 backdrop-blur-lg border border-border/70 shadow-2xl w-[220px] sm:w-[245px] transition-all duration-300">
           {/* Header Bar: Flag & Song Info & Actions */}
-          <div className="flex items-center justify-between gap-2.5 mb-2.5">
+          <div className="flex items-center justify-between gap-1.5 mb-1.5">
             {/* Flag & Song Details */}
-            <div className="flex items-center gap-2.5 overflow-hidden flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 overflow-hidden flex-1 min-w-0">
               <button
                 type="button"
                 onClick={() => setShowCountrySelector(!showCountrySelector)}
-                className="relative flex h-9 w-9 items-center justify-center rounded-full shrink-0 shadow-md bg-muted/60 text-lg hover:scale-105 active:scale-95 transition-transform"
+                className="relative flex h-7 w-7 items-center justify-center rounded-full shrink-0 shadow-xs bg-muted/60 text-sm hover:scale-105 active:scale-95 transition-transform"
                 title="দেশ পরিবর্তন করুন | Change Country"
                 aria-label="Change Country"
               >
@@ -332,8 +327,8 @@ export function NationalAnthemPlayer() {
               </button>
 
               <div className="overflow-hidden flex-1 min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <h4 className="text-[13px] font-extrabold text-foreground truncate tracking-tight">
+                <div className="flex items-center gap-1">
+                  <h4 className="text-[11px] font-extrabold text-foreground truncate tracking-tight leading-tight">
                     {activeAnthem.anthemTitleBn}
                   </h4>
                   {isPlaying ? (
@@ -342,11 +337,11 @@ export function NationalAnthemPlayer() {
                     <span className="flex h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
                   )}
                 </div>
-                <div className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground truncate">
+                <div className="flex items-center gap-1 text-[9.5px] font-semibold text-muted-foreground truncate leading-tight">
                   <span className="truncate">{activeAnthem.countryNameBn}</span>
-                  <span className="text-[10px] opacity-70">({activeAnthem.code})</span>
+                  <span className="text-[8.5px] opacity-70">({activeAnthem.code})</span>
                   {isAutoDetected && (
-                    <span className="text-[9px] px-1 py-0.2 rounded bg-brand-deep/10 text-brand-deep font-bold">
+                    <span className="text-[8px] px-1 py-0 rounded bg-brand-deep/10 text-brand-deep font-bold">
                       Auto
                     </span>
                   )}
@@ -359,7 +354,7 @@ export function NationalAnthemPlayer() {
               <button
                 type="button"
                 onClick={() => setShowCountrySelector(!showCountrySelector)}
-                className={`nm-inset grid h-6 w-6 place-items-center rounded-full transition-colors ${
+                className={`nm-inset grid h-5 w-5 place-items-center rounded-full transition-colors ${
                   showCountrySelector
                     ? "text-brand-deep bg-brand-deep/15"
                     : "text-muted-foreground hover:text-foreground"
@@ -367,28 +362,28 @@ export function NationalAnthemPlayer() {
                 title="দেশ বাছাই করুন | Select Country Anthem"
                 aria-label="Select Country"
               >
-                <Globe className="h-3.5 w-3.5" />
+                <Globe className="h-3 w-3" />
               </button>
 
               <button
                 type="button"
                 onClick={() => setIsMinimized(true)}
-                className="nm-inset text-muted-foreground hover:text-foreground grid h-6 w-6 place-items-center rounded-full transition-colors"
+                className="nm-inset text-muted-foreground hover:text-foreground grid h-5 w-5 place-items-center rounded-full transition-colors"
                 title="মিনিমাইজ করুন | Minimize"
                 aria-label="Minimize player"
               >
-                <ChevronDown className="h-3.5 w-3.5" />
+                <ChevronDown className="h-3 w-3" />
               </button>
             </div>
           </div>
 
           {/* Interactive Country Selector Popover */}
           {showCountrySelector && (
-            <div className="mb-2.5 rounded-[14px] p-2.5 bg-background border border-border/80 shadow-inner animate-in fade-in zoom-in-95 duration-150">
-              <div className="flex items-center justify-between gap-1 mb-2 px-1">
-                <span className="text-[11px] font-bold text-foreground flex items-center gap-1">
-                  <Globe className="h-3 w-3 text-brand-deep" />
-                  দেশ নির্বাচন করুন (National Anthem)
+            <div className="mb-2 rounded-[12px] p-2 bg-background border border-border/80 shadow-inner animate-in fade-in zoom-in-95 duration-150">
+              <div className="flex items-center justify-between gap-1 mb-1.5 px-0.5">
+                <span className="text-[10px] font-bold text-foreground flex items-center gap-1">
+                  <Globe className="h-2.5 w-2.5 text-brand-deep" />
+                  দেশ নির্বাচন (Anthem)
                 </span>
                 {detectedCountryCode && (
                   <button
@@ -401,29 +396,29 @@ export function NationalAnthemPlayer() {
                         true
                       )
                     }
-                    className="text-[10px] font-bold text-brand-deep hover:underline flex items-center gap-0.5"
+                    className="text-[9px] font-bold text-brand-deep hover:underline flex items-center gap-0.5"
                     title="আইপি অনুযায়ী স্বয়ংক্রিয় সনাক্ত করুন"
                   >
-                    <Sparkles className="h-2.5 w-2.5" />
+                    <Sparkles className="h-2 w-2" />
                     Auto: {detectedCountryCode}
                   </button>
                 )}
               </div>
 
               {/* Search box */}
-              <div className="relative mb-2">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
+              <div className="relative mb-1.5">
+                <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-2.5 w-2.5 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="দেশ খুঁজুন (Search country)..."
+                  placeholder="দেশ খুঁজুন (Search)..."
                   value={countrySearch}
                   onChange={(e) => setCountrySearch(e.target.value)}
-                  className="w-full pl-7 pr-2.5 py-1 text-xs rounded-lg bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-brand-deep"
+                  className="w-full pl-6 pr-2 py-0.5 text-[10.5px] rounded-md bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-brand-deep"
                 />
               </div>
 
               {/* Country List */}
-              <div className="max-h-36 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+              <div className="max-h-32 overflow-y-auto space-y-0.5 pr-0.5 custom-scrollbar">
                 {filteredAnthems.map((anthem) => {
                   const isSelected = anthem.code === selectedCountryCode;
                   return (
@@ -463,22 +458,22 @@ export function NationalAnthemPlayer() {
           )}
 
           {/* Controls Bar */}
-          <div className="nm-inset flex items-center justify-between rounded-[12px] px-3 py-2 bg-muted/40">
+          <div className="nm-inset flex items-center justify-between rounded-[9px] px-2 py-1 bg-muted/40">
             {/* Play/Pause Button */}
             <button
               onClick={togglePlay}
-              className="nm-raised-sm nm-interactive flex items-center gap-1.5 rounded-[9px] px-2.5 py-1 text-xs font-bold text-brand-deep transition-all active:scale-95"
+              className="nm-raised-sm nm-interactive flex items-center gap-1 rounded-[7px] px-2 py-0.5 text-[10.5px] font-bold text-brand-deep transition-all active:scale-95"
               title={isPlaying ? "বিরতি দিন (Pause)" : "চালান (Play)"}
               aria-label={isPlaying ? "Pause Anthem" : "Play Anthem"}
             >
               {isPlaying ? (
                 <>
-                  <Pause className="h-3.5 w-3.5 fill-current" />
+                  <Pause className="h-3 w-3 fill-current" />
                   <span>Pause</span>
                 </>
               ) : (
                 <>
-                  <Play className="h-3.5 w-3.5 fill-current" />
+                  <Play className="h-3 w-3 fill-current" />
                   <span>Play</span>
                 </>
               )}
@@ -486,44 +481,44 @@ export function NationalAnthemPlayer() {
 
             {/* Equalizer Animation Display */}
             <div
-              className="flex items-end gap-[3px] h-4 px-2"
+              className="flex items-end gap-[2px] h-3 px-1.5"
               title={isPlaying ? "বাজছে (Playing)" : "বন্ধ (Paused)"}
             >
               <span
-                className={`w-[2.5px] rounded-full bg-brand-deep transition-all duration-150 ${
-                  isPlaying ? "animate-[eq-wave-1_0.9s_ease-in-out_infinite]" : "h-1.5 opacity-40"
+                className={`w-[2px] rounded-full bg-brand-deep transition-all duration-150 ${
+                  isPlaying ? "animate-[eq-wave-1_0.9s_ease-in-out_infinite]" : "h-1 opacity-40"
                 }`}
               />
               <span
-                className={`w-[2.5px] rounded-full bg-brand-deep transition-all duration-150 ${
-                  isPlaying ? "animate-[eq-wave-2_0.75s_ease-in-out_infinite]" : "h-2.5 opacity-40"
+                className={`w-[2px] rounded-full bg-brand-deep transition-all duration-150 ${
+                  isPlaying ? "animate-[eq-wave-2_0.75s_ease-in-out_infinite]" : "h-2 opacity-40"
                 }`}
               />
               <span
-                className={`w-[2.5px] rounded-full bg-brand-deep transition-all duration-150 ${
+                className={`w-[2px] rounded-full bg-brand-deep transition-all duration-150 ${
                   isPlaying ? "animate-[eq-wave-3_1.05s_ease-in-out_infinite]" : "h-1.5 opacity-40"
                 }`}
               />
               <span
-                className={`w-[2.5px] rounded-full bg-brand-deep transition-all duration-150 ${
-                  isPlaying ? "animate-[eq-wave-4_0.85s_ease-in-out_infinite]" : "h-2 opacity-40"
+                className={`w-[2px] rounded-full bg-brand-deep transition-all duration-150 ${
+                  isPlaying ? "animate-[eq-wave-4_0.85s_ease-in-out_infinite]" : "h-1 opacity-40"
                 }`}
               />
             </div>
 
             {/* Volume / Mute Controls */}
-            <div className="flex items-center gap-1.5 relative">
+            <div className="flex items-center gap-1 relative">
               <button
                 onClick={toggleMute}
                 onMouseEnter={() => setShowVolumeSlider(true)}
-                className="nm-raised-sm hover:nm-interactive grid h-7 w-7 place-items-center rounded-[8px] text-muted-foreground hover:text-foreground transition-colors active:scale-95"
+                className="nm-raised-sm hover:nm-interactive grid h-5.5 w-5.5 place-items-center rounded-[6px] text-muted-foreground hover:text-foreground transition-colors active:scale-95"
                 title={isMuted ? "আনমিউট করুন | Unmute" : "মিউট করুন | Mute"}
                 aria-label={isMuted ? "Unmute" : "Mute"}
               >
                 {isMuted || volume === 0 ? (
-                  <VolumeX className="h-3.5 w-3.5 text-destructive" />
+                  <VolumeX className="h-3 w-3 text-destructive" />
                 ) : (
-                  <Volume2 className="h-3.5 w-3.5 text-brand-deep" />
+                  <Volume2 className="h-3 w-3 text-brand-deep" />
                 )}
               </button>
 
@@ -531,7 +526,7 @@ export function NationalAnthemPlayer() {
               {showVolumeSlider && (
                 <div
                   onMouseLeave={() => setShowVolumeSlider(false)}
-                  className="absolute bottom-9 right-0 nm-raised rounded-[10px] px-2.5 py-1.5 bg-background/95 backdrop-blur-md border border-border shadow-lg flex items-center gap-2 z-50 animate-in fade-in zoom-in-95 duration-150"
+                  className="absolute bottom-7 right-0 nm-raised rounded-[8px] px-2 py-1 bg-background/95 backdrop-blur-md border border-border shadow-lg flex items-center gap-1.5 z-50 animate-in fade-in zoom-in-95 duration-150"
                 >
                   <input
                     type="range"
@@ -540,10 +535,10 @@ export function NationalAnthemPlayer() {
                     step="0.05"
                     value={isMuted ? 0 : volume}
                     onChange={handleVolumeChange}
-                    className="w-16 h-1.5 accent-brand-deep cursor-pointer"
+                    className="w-14 h-1 accent-brand-deep cursor-pointer"
                     aria-label="Volume slider"
                   />
-                  <span className="text-[10px] font-bold text-muted-foreground w-6 text-right">
+                  <span className="text-[9px] font-bold text-muted-foreground w-5 text-right">
                     {Math.round((isMuted ? 0 : volume) * 100)}%
                   </span>
                 </div>

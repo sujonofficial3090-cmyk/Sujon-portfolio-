@@ -171,7 +171,7 @@ export function Header() {
   const [dark, setDark] = useState(false);
   const [accent, setAccent] = useState("gold");
   const [customHex, setCustomHex] = useState("#EC4899");
-  const [cursorMode, setCursorMode] = useState<CursorMode>("circle");
+  const [cursorMode, setCursorMode] = useState<CursorMode>("crosshair");
   const [soundMode, setSoundModeState] = useState<SoundMode>("pop");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const paletteRef = useRef<HTMLDivElement>(null);
@@ -224,7 +224,7 @@ export function Header() {
     setCustomHex(savedCustomHex);
 
     const currentCursor =
-      (localStorage.getItem("magicCursor") as CursorMode) || "circle";
+      (localStorage.getItem("magicCursor") as CursorMode) || "crosshair";
     setCursorMode(currentCursor);
 
     setSoundModeState(getSoundMode());
@@ -752,7 +752,7 @@ export function Header() {
                           {t("nav_magic_cursor")}
                         </span>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-brand-deep">
-                          {CURSOR_OPTIONS.find((c) => c.id === cursorMode)?.label || "Circle"}
+                          {CURSOR_OPTIONS.find((c) => c.id === cursorMode)?.label || "Target"}
                         </span>
                       </div>
 

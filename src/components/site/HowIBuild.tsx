@@ -121,9 +121,9 @@ export function HowIBuild() {
             </p>
           </div>
 
-          {/* 3D Stepped Animation Video — 100% transparent background, theme-colored animation */}
+          {/* 3D Stepped Animation Video — 100% crystal clear quality, dynamic theme color, completely shadow-free */}
           <div className="flex items-center justify-center self-center w-full lg:w-auto">
-            {/* Mathematical SVG filters ensuring 100.0% transparent background in Light Mode */}
+            {/* Mathematical SVG filters ensuring 100.0% transparent background and theme colors */}
             <svg width="0" height="0" className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
               <defs>
                 <filter id="tint-gold">
@@ -178,7 +178,8 @@ export function HowIBuild() {
               </defs>
             </svg>
 
-            <div className="relative w-full max-w-[220px] h-[140px] sm:h-[150px] flex items-center justify-center overflow-hidden rounded-[16px] nm-inset p-2">
+            {/* Container with ZERO shadow, ZERO inset, ZERO border */}
+            <div className="relative w-full max-w-[220px] h-[140px] sm:h-[150px] flex items-center justify-center bg-transparent">
               <video
                 ref={videoRef}
                 src="/videos/about-video.mp4"

@@ -90,7 +90,7 @@ export function Hero() {
               {/* Water canvas — preserves image transparency */}
               <WaterCanvas
                 src={HERO_IMG}
-                alt="Sujon — Full-Stack Web Developer & WordPress Expert"
+                alt="Sujon — Senior WordPress Developer"
                 loading="eager"
                 className="relative z-10"
                 imgClassName="max-h-[420px] sm:max-h-[480px] w-auto object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.14)] dark:drop-shadow-[0_14px_28px_rgba(0,0,0,0.5)]"
@@ -111,7 +111,7 @@ export function Hero() {
             {/* Water canvas — z-10 so it sits above arch but below fade */}
             <WaterCanvas
               src={HERO_IMG}
-              alt="Sujon — Full-Stack Web Developer & WordPress Expert"
+              alt="Sujon — Senior WordPress Developer"
               loading="eager"
               className="relative z-10"
               imgClassName="h-full max-h-[580px] xl:max-h-[620px] w-auto object-contain object-bottom drop-shadow-[0_14px_32px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_16px_34px_rgba(0,0,0,0.5)]"

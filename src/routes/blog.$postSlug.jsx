@@ -188,10 +188,10 @@ function BlogDetail() {
               </div>
               <h3 className="mt-4 text-[18px] font-extrabold text-foreground">Sujon</h3>
               <p className="mt-1 text-[13px] font-extrabold text-brand-deep">
-                Full-Stack Web Developer & WordPress Expert
+                Senior WordPress Developer
               </p>
               <p className="mt-3 text-[14px] font-medium leading-[1.65] text-muted-foreground">
-                Building modern, scalable web applications, eCommerce stores, and AI-accelerated web experiences for international clients.
+                Building responsive, high-performance and conversion-focused WordPress websites for businesses and international clients.
               </p>
               <div className="mt-6">
                 <a

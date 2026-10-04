@@ -92,7 +92,7 @@ function refreshThemePalette() {
 }
 
 export function MagicCursorEffect() {
-  const [mode, setMode] = useState<CursorMode>("circle");
+  const [mode, setMode] = useState<CursorMode>("crosshair");
   const [mounted, setMounted] = useState(false);
 
   // References to permanently mounted DOM elements (guarantees ref is never null!)
@@ -107,7 +107,7 @@ export function MagicCursorEffect() {
   const radarDotRef = useRef<HTMLDivElement | null>(null);
 
   // Mode ref for instantaneous access inside event handlers without re-creating closures
-  const modeRef = useRef<CursorMode>("circle");
+  const modeRef = useRef<CursorMode>("crosshair");
   modeRef.current = mode;
 
   // Initialize and listen to mode changes
@@ -124,7 +124,7 @@ export function MagicCursorEffect() {
       } catch {
         // fallback
       }
-      return "circle";
+      return "crosshair";
     };
 
     const initial = getInitialMode();
@@ -134,7 +134,7 @@ export function MagicCursorEffect() {
 
     const handleCursorChange = (e?: Event) => {
       const customDetail = (e as CustomEvent)?.detail;
-      let targetMode: CursorMode = "circle";
+      let targetMode: CursorMode = "crosshair";
       if (typeof customDetail === "string" && VALID_MODES.includes(customDetail as CursorMode)) {
         targetMode = customDetail as CursorMode;
       } else {
@@ -756,31 +756,33 @@ export function MagicCursorEffect() {
           className="magic-cursor-crosshair"
           style={{ display: mode === "crosshair" ? "block" : "none" }}
         >
-          <div
-            style={{
-              position: "absolute",
-              inset: 2,
-              borderRadius: "9999px",
-              border: "1.5px solid var(--brand)",
-              opacity: 0.85,
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: 4,
-              height: 4,
-              borderRadius: "9999px",
-              backgroundColor: "var(--brand)",
-            }}
-          />
-          <div style={{ position: "absolute", top: -3, left: "50%", transform: "translateX(-50%)", width: 1.5, height: 5, backgroundColor: "var(--brand)" }} />
-          <div style={{ position: "absolute", bottom: -3, left: "50%", transform: "translateX(-50%)", width: 1.5, height: 5, backgroundColor: "var(--brand)" }} />
-          <div style={{ position: "absolute", left: -3, top: "50%", transform: "translateY(-50%)", height: 1.5, width: 5, backgroundColor: "var(--brand)" }} />
-          <div style={{ position: "absolute", right: -3, top: "50%", transform: "translateY(-50%)", height: 1.5, width: 5, backgroundColor: "var(--brand)" }} />
+          <div className="magic-cursor-crosshair-inner">
+            <div
+              style={{
+                position: "absolute",
+                inset: 2,
+                borderRadius: "9999px",
+                border: "1.5px solid var(--brand)",
+                opacity: 0.85,
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 4,
+                height: 4,
+                borderRadius: "9999px",
+                backgroundColor: "var(--brand)",
+              }}
+            />
+            <div style={{ position: "absolute", top: -3, left: "50%", transform: "translateX(-50%)", width: 1.5, height: 5, backgroundColor: "var(--brand)" }} />
+            <div style={{ position: "absolute", bottom: -3, left: "50%", transform: "translateX(-50%)", width: 1.5, height: 5, backgroundColor: "var(--brand)" }} />
+            <div style={{ position: "absolute", left: -3, top: "50%", transform: "translateY(-50%)", height: 1.5, width: 5, backgroundColor: "var(--brand)" }} />
+            <div style={{ position: "absolute", right: -3, top: "50%", transform: "translateY(-50%)", height: 1.5, width: 5, backgroundColor: "var(--brand)" }} />
+          </div>
         </div>
 
         {/* Bubble mode */}

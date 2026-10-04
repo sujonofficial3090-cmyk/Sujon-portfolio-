@@ -12,6 +12,7 @@ import {
   Briefcase,
   MapPin,
   ExternalLink,
+  Download,
 } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 import { Header } from "@/components/site/Header";
@@ -23,12 +24,12 @@ export const Route = createFileRoute("/experience")({
   head: () => ({
     meta: [
       {
-        title: "Work Experience — Sujon | Full-Stack Web Developer & WordPress Expert",
+        title: "Work Experience — Sujon | Senior WordPress Developer",
       },
       {
         name: "description",
         content:
-          "5+ years of verified professional experience building enterprise WordPress websites, dynamic architectures, WooCommerce stores, and AI-assisted web workflows.",
+          "3+ years of professional experience building responsive, high-performance, and conversion-focused WordPress websites for international clients.",
       },
     ],
   }),
@@ -53,93 +54,111 @@ const EXPERIENCES: ExperienceItem[] = [
     id: "sparktech",
     role: "Executive WordPress Developer",
     company: "SparkTech Agency",
-    period: "Jan 2025 – Oct 2026",
-    location: "On-Site (Physical)",
-    type: "Full-Time (On-Site)",
-    badge: "Latest Role",
+    period: "1 Year 8 Months",
+    location: "Mohakhali Aqua Tower, Dhaka",
+    type: "Full-Time",
+    badge: "1 Year 8 Months",
     summary:
-      "Worked on-site on international client projects, developing and maintaining professional WordPress websites, custom dynamic web solutions, and modern AI-accelerated vibe coding workflows.",
+      "Developed responsive WordPress websites using Elementor Pro, WooCommerce, dynamic content, and custom functionality for international clients.",
     highlights: [
-      "Developed responsive business websites and high-converting landing pages using WordPress and Elementor Pro.",
-      "Engineered advanced dynamic websites using JetEngine, Custom Post Types (CPT), relational meta fields, and dynamic listing grids.",
-      "Built and customized WooCommerce stores with custom product flows, payment gateways, and booking workflows.",
-      "Converted complex Figma and PSD design systems into pixel-perfect, responsive WordPress websites.",
-      "Customized WordPress themes, plugins, templates, and core website functionality to match client specifications.",
-      "Configured automated forms, booking systems, email workflows, SMTP configurations, and third-party API integrations.",
-      "Handled domain, hosting, SSL certificates, DNS configurations, database migrations, and proactive maintenance.",
-      "Applied AI-assisted coding and vibe coding workflows to dramatically accelerate prototyping, debugging, and feature delivery.",
+      "Developed responsive WordPress websites using Elementor Pro & WooCommerce.",
+      "Built dynamic solutions with JetEngine, CPTs and custom functionality.",
+      "Converted Figma/PSD designs into responsive WordPress websites.",
+      "Customized themes, plugins and website features.",
+      "Optimized websites for performance, SEO and responsiveness.",
+      "Managed troubleshooting, migration, hosting, DNS, SSL and deployment.",
     ],
     technologies: [
       "WordPress",
       "Elementor Pro",
       "WooCommerce",
       "JetEngine",
-      "JetFormBuilder",
       "Custom Post Types",
-      "JavaScript",
-      "AI-Assisted Coding",
-      "Vibe Coding",
       "Figma",
-      "cPanel / DNS",
-      "SMTP",
+      "Performance & SEO",
+      "Hosting & DNS",
+      "SSL & Migration",
     ],
   },
   {
     id: "designsilc",
     role: "WordPress Developer",
-    company: "Designsilc",
-    period: "2024 – 2024",
-    location: "Agency Client Projects",
-    type: "Contract",
-    badge: "Agency Role",
+    company: "DesignSilc Digital LTD.",
+    period: "6 Months",
+    location: "Remote",
+    type: "Remote",
+    badge: "6 Months",
     summary:
-      "Specialized in responsive WordPress website customization, user-friendly frontend layouts, and conversion-focused business web experiences.",
+      "Converted design concepts into responsive WordPress websites, managed dynamic content, and handled website maintenance.",
     highlights: [
-      "Developed and customized WordPress websites based on diverse project requirements.",
-      "Built responsive pages and targeted landing pages using Elementor with seamless cross-browser consistency.",
-      "Converted design concepts and wireframes into clean, functional WordPress websites.",
-      "Customized theme layouts, styling components, and navigation structures.",
-      "Diagnosed and resolved responsive layout bottlenecks across desktop, mobile, and tablet viewports.",
-      "Conducted site maintenance, security updates, and performance tuning for live client websites.",
+      "Converted Figma/PSD designs into responsive websites.",
+      "Worked with WooCommerce, dynamic content, and custom functionalities.",
+      "Handled bug fixing, performance optimization, and website maintenance.",
+      "Collaborated remotely with clients and team members.",
     ],
     technologies: [
       "WordPress",
-      "Elementor",
-      "HTML5",
-      "CSS3",
-      "JavaScript",
-      "Responsive Web Design",
-      "Figma",
+      "Elementor Pro",
+      "WooCommerce",
+      "Dynamic Content",
+      "Figma to WordPress",
+      "Bug Fixing & Maintenance",
     ],
   },
   {
     id: "frontier-labs",
     role: "Senior WordPress Developer",
     company: "Frontier Labs",
-    period: "2021 – 2023",
-    location: "Client Solutions",
-    type: "Senior Role",
-    badge: "Senior Technical Role",
+    period: "1 Year",
+    location: "Rampura, Banasree, Dhaka",
+    type: "Full-Time",
+    badge: "1 Year",
     summary:
-      "Spearheaded client website development, custom layout architecture, WooCommerce implementations, and search-engine-friendly performance optimization.",
+      "Developed and customized WordPress websites using Elementor Pro, worked with WooCommerce and custom WordPress functionality, and handled bug fixing and maintenance.",
     highlights: [
-      "Delivered professional WordPress websites for corporate and business clients using Elementor Pro.",
-      "Transformed Figma and PSD assets into high-performance, mobile-first WordPress websites.",
-      "Developed and tailored custom WooCommerce functionality, product catalogs, and checkout experiences.",
-      "Implemented dynamic content architectures and custom WordPress features tailored to client business models.",
-      "Optimized websites for speed, Core Web Vitals, and search-engine-friendly technical SEO structure.",
-      "Managed website migrations, deployment pipelines, and provided post-launch technical support.",
+      "Developed and customized WordPress websites using Elementor Pro.",
+      "Converted Figma/PSD designs into responsive websites.",
+      "Worked with WooCommerce and custom WordPress functionalities.",
+      "Handled bug fixing, optimization, and website maintenance.",
+      "Collaborated with clients and team members on website projects.",
     ],
     technologies: [
       "WordPress",
       "Elementor Pro",
       "WooCommerce",
-      "HTML5 / CSS3",
-      "JavaScript",
-      "Figma / PSD",
-      "Dynamic Content",
-      "Theme Customization",
-      "Plugin Customization",
+      "Custom Functionality",
+      "Figma/PSD Conversion",
+      "Performance Optimization",
+    ],
+  },
+  {
+    id: "freelance",
+    role: "Business Development & Sales Executive",
+    company: "Fiverr & Upwork",
+    period: "",
+    location: "International",
+    type: "Remote / Freelance",
+    summary:
+      "Managed international client projects through Fiverr and Upwork, handling client communications, requirement gathering, proposals, quotations, project delivery, and post-delivery support.",
+    highlights: [
+      "Managed international client projects through Fiverr and Upwork.",
+      "Handled client communication, requirements gathering, and project discussions.",
+      "Prepared proposals, quotations, project scopes, and delivery timelines.",
+      "Managed orders, milestones, revisions, and project delivery.",
+      "Handled client feedback, negotiations, and issue resolution.",
+      "Maintained client relationships and provided post-delivery support.",
+      "Experienced in platform workflows, project management, and international client communication.",
+      "Coordinated with developers, designers, and internal teams to deliver projects successfully.",
+    ],
+    technologies: [
+      "Fiverr & Upwork",
+      "Business Development",
+      "Sales Execution",
+      "Client Communication",
+      "Requirement Gathering",
+      "Proposal Preparation",
+      "Milestone Delivery",
+      "Post-Delivery Support",
     ],
   },
 ];
@@ -164,9 +183,19 @@ function ExperiencePage() {
                 <ArrowLeft className="h-4 w-4" /> {t("exp_back_home", "Back to Home")}
               </Link>
 
-              <span className="nm-inset text-brand-deep inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-widest">
-                <Briefcase className="h-3.5 w-3.5" /> {t("exp_career_journey", "Career Journey")}
-              </span>
+              <div className="flex items-center gap-2.5">
+                <a
+                  href="/SUJON.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="nm-raised-sm hover:nm-inset inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-widest text-brand-deep transition-all duration-300 cursor-pointer"
+                >
+                  <Download className="h-3.5 w-3.5" /> {t("hero_download_cv", "Download CV")}
+                </a>
+                <span className="nm-inset text-brand-deep inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-widest">
+                  <Briefcase className="h-3.5 w-3.5" /> {t("exp_career_journey", "Career Journey")}
+                </span>
+              </div>
             </div>
 
             {/* Title & Right-Side 3D Video Showcase */}
@@ -180,19 +209,19 @@ function ExperiencePage() {
                   {t("exp_page_heading", "Professional Experience")}
                 </h1>
                 <p className="mt-1 text-[15px] sm:text-[16.5px] font-normal leading-[1.7] text-muted-foreground">
-                  {t("exp_intro", "Over 5+ years of delivering high-performing WordPress solutions, custom dynamic web architectures, eCommerce platforms, and AI-accelerated workflows for agencies and international clients.")}
+                  {t("exp_intro", "3+ years of professional experience building responsive, high-performance, and conversion-focused WordPress websites for international clients.")}
                 </p>
 
                 {/* Quick Career Highlights Tags */}
                 <div className="mt-2 flex flex-wrap gap-2">
                   <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
-                    WordPress VIP & Headless
+                    WordPress & Elementor Pro
                   </span>
                   <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
-                    Next.js / React / TypeScript
+                    WooCommerce & Dynamic CPT
                   </span>
                   <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
-                    Speed Optimization (95+)
+                    Speed & SEO Optimization
                   </span>
                 </div>
               </div>
@@ -215,7 +244,7 @@ function ExperiencePage() {
             {/* Clean Minimalist Stats Strip */}
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-border/50">
               <div className="nm-inset rounded-[12px] p-3.5 text-center">
-                <div className="text-[24px] sm:text-[26px] font-extrabold text-brand-deep">5+ Years</div>
+                <div className="text-[24px] sm:text-[26px] font-extrabold text-brand-deep">3+ Years</div>
                 <div className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mt-0.5">
                   {t("exp_stat_dev", "Professional Dev")}
                 </div>
@@ -233,9 +262,9 @@ function ExperiencePage() {
                 </div>
               </div>
               <div className="nm-inset rounded-[12px] p-3.5 text-center">
-                <div className="text-[24px] sm:text-[26px] font-extrabold text-brand-deep">On-Site</div>
+                <div className="text-[24px] sm:text-[26px] font-extrabold text-brand-deep">Global</div>
                 <div className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mt-0.5">
-                  {t("exp_stat_onsite", "Physical & Global")}
+                  {t("exp_stat_onsite", "International Clients")}
                 </div>
               </div>
             </div>
@@ -246,9 +275,18 @@ function ExperiencePage() {
         <section aria-label="Career Timeline" className="relative">
           <div className="flex flex-col gap-6 sm:gap-8">
             {EXPERIENCES.map((exp) => {
-              const prefix = exp.id === "sparktech" ? "exp_sparktech" : exp.id === "designsilc" ? "exp_designsilc" : "exp_frontier";
+              const prefix =
+                exp.id === "sparktech"
+                  ? "exp_sparktech"
+                  : exp.id === "designsilc"
+                  ? "exp_designsilc"
+                  : exp.id === "frontier-labs"
+                  ? "exp_frontier"
+                  : exp.id === "freelance"
+                  ? "exp_freelance"
+                  : `exp_${exp.id}`;
               const localizedRole = t(`${prefix}_role` as any, exp.role);
-              const localizedPeriod = t(`${prefix}_period` as any, exp.period);
+              const localizedPeriod = exp.period ? t(`${prefix}_period` as any, exp.period) : "";
               const localizedLocation = t(`${prefix}_location` as any, exp.location);
               const localizedType = t(`${prefix}_type` as any, exp.type);
               const localizedBadge = exp.badge ? t(`${prefix}_badge` as any, exp.badge) : undefined;
@@ -293,12 +331,14 @@ function ExperiencePage() {
                       </div>
                     </div>
 
-                    {/* Period Badge */}
-                    <div className="shrink-0 sm:self-start">
-                      <span className="nm-raised-sm inline-flex items-center gap-1.5 rounded-[10px] px-3.5 py-2 text-[12px] font-bold text-foreground tracking-tight">
-                        <Calendar className="h-3.5 w-3.5 text-brand-deep" /> {localizedPeriod}
-                      </span>
-                    </div>
+                    {/* Period Badge - only if localizedPeriod exists */}
+                    {localizedPeriod ? (
+                      <div className="shrink-0 sm:self-start">
+                        <span className="nm-raised-sm inline-flex items-center gap-1.5 rounded-[10px] px-3.5 py-2 text-[12px] font-bold text-foreground tracking-tight">
+                          <Calendar className="h-3.5 w-3.5 text-brand-deep" /> {localizedPeriod}
+                        </span>
+                      </div>
+                    ) : null}
                   </div>
 
                   {/* Summary */}
@@ -357,10 +397,10 @@ function ExperiencePage() {
                 <ShieldCheck className="h-3.5 w-3.5" /> {t("exp_cta_tag", "Direct Collaboration")}
               </span>
               <h2 className="text-brand-gradient text-[clamp(1.6rem,3.5vw,2.3rem)] font-extrabold tracking-tight">
-                {t("exp_cta_heading", "Need an Experienced Senior Developer?")}
+                {t("exp_cta_heading", "Need an Experienced WordPress Developer?")}
               </h2>
               <p className="text-[14px] sm:text-[15px] font-normal text-muted-foreground leading-[1.7]">
-                {t("exp_cta_desc", "Available for high-stakes WordPress development, custom web solutions, and AI-accelerated projects with guaranteed delivery.")}
+                {t("exp_cta_desc", "Available for WordPress development, custom functionality, Elementor Pro, WooCommerce, and AI-assisted workflows with guaranteed delivery.")}
               </p>
               <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                 <a
@@ -370,12 +410,12 @@ function ExperiencePage() {
                   {t("exp_cta_button", "Get in Touch")} <ArrowRight className="h-3.5 w-3.5" />
                 </a>
                 <a
-                  href="https://wa.me/8801936711699"
+                  href="/SUJON.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="nm-inset text-foreground inline-flex items-center gap-2 rounded-[10px] px-5 py-3 text-[12px] font-bold uppercase tracking-wider transition-all duration-200 hover:text-brand-deep cursor-pointer"
+                  className="nm-raised-sm nm-interactive text-foreground inline-flex items-center gap-2 rounded-[10px] px-5 py-3 text-[12px] font-black uppercase tracking-wider transition-all duration-200 active:nm-inset hover:text-brand-deep cursor-pointer"
                 >
-                  <Globe2 className="h-3.5 w-3.5 text-[#25D366]" /> {t("exp_cta_whatsapp", "Chat on WhatsApp")}
+                  <Download className="h-3.5 w-3.5 text-brand-deep" /> {t("hero_download_cv", "Download CV")}
                 </a>
               </div>
             </div>

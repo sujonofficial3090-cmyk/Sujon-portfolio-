@@ -24,17 +24,14 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
 
   const projKeys: Record<string, { descKey: string; roleKey: string }> = {
     "appliance-world": { descKey: "proj_appliance_desc", roleKey: "proj_appliance_role" },
-    "tommys-real-estate": { descKey: "proj_tommys_desc", roleKey: "proj_tommys_role" },
+    "clean-corp": { descKey: "proj_cleancorp_desc", roleKey: "proj_cleancorp_role" },
     "montgomery-inn": { descKey: "proj_montgomery_desc", roleKey: "proj_montgomery_role" },
     "cater-psychiatry": { descKey: "proj_cater_desc", roleKey: "proj_cater_role" },
     "diesel-repair": { descKey: "proj_diesel_desc", roleKey: "proj_diesel_role" },
-    "salvaje-group": { descKey: "proj_salvaje_desc", roleKey: "proj_salvaje_role" },
-    "moritz-dunkel": { descKey: "proj_moritz_desc", roleKey: "proj_moritz_role" },
+    "digital-dropify": { descKey: "proj_dropify_desc", roleKey: "proj_dropify_role" },
+    "tima": { descKey: "proj_tima_desc", roleKey: "proj_tima_role" },
     "global-med": { descKey: "proj_globalmed_desc", roleKey: "proj_globalmed_role" },
-    "emodula": { descKey: "proj_emodula_desc", roleKey: "proj_emodula_role" },
-    "junca-studio": { descKey: "proj_junca_desc", roleKey: "proj_junca_role" },
-    "silvia-malavasi": { descKey: "proj_silvia_desc", roleKey: "proj_silvia_role" },
-    "gmx-digital": { descKey: "proj_gmx_desc", roleKey: "proj_gmx_role" },
+    "finseo": { descKey: "proj_finseo_desc", roleKey: "proj_finseo_role" },
   };
 
   const currentKeys = projKeys[item.id];
@@ -45,8 +42,7 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
     WordPress: t("cat_wp", "WordPress"),
     WooCommerce: t("cat_woo", "WooCommerce"),
     "Business Website": t("cat_business", "Business Website"),
-    "Custom Development": t("cat_custom", "Custom Development"),
-    "AI-Assisted Development": t("cat_ai", "AI & Web Apps"),
+    "Dynamic Content": t("cat_custom", "Dynamic Content"),
   };
 
   return (
@@ -138,8 +134,7 @@ export function Portfolio() {
     { id: "WordPress", label: t("cat_wp", "WordPress") },
     { id: "WooCommerce", label: t("cat_woo", "WooCommerce") },
     { id: "Business Website", label: t("cat_business", "Business Website") },
-    { id: "Custom Development", label: t("cat_custom", "Custom Development") },
-    { id: "AI-Assisted Development", label: t("cat_ai", "AI & Web Apps") },
+    { id: "Dynamic Content", label: t("cat_custom", "Dynamic Content") },
   ];
 
   const filteredProjects =

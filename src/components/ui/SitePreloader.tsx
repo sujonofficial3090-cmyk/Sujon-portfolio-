@@ -4,32 +4,71 @@ interface SitePreloaderProps {
   onComplete?: () => void;
 }
 
+let memoryPreloaded = false;
+
+function shouldRunPreloader(): boolean {
+  if (typeof window === "undefined") return false;
+  if (memoryPreloaded) return false;
+
+  try {
+    const navEntries = performance.getEntriesByType("navigation");
+    const isReload =
+      navEntries.length > 0 &&
+      (navEntries[0] as PerformanceNavigationTiming).type === "reload";
+    const hasSeenInSession =
+      sessionStorage.getItem("sujon_preloader_shown") === "true";
+
+    // Show ONLY if fresh reload OR first time in session
+    if (isReload || !hasSeenInSession) {
+      return true;
+    }
+    return false;
+  } catch {
+    return !memoryPreloaded;
+  }
+}
+
 export function SitePreloader({ onComplete }: SitePreloaderProps) {
+  const [shouldRun] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return shouldRunPreloader();
+  });
+
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
-  // Start as false so SSR renders the preloader in the initial HTML for zero-delay appearance
-  const [isDone, setIsDone] = useState(false);
+  const [isDone, setIsDone] = useState(!shouldRun);
 
   const animFrameRef = useRef<number | null>(null);
   const hasStartedRef = useRef(false);
 
   useEffect(() => {
+    if (!shouldRun) {
+      setIsDone(true);
+      if (onComplete) onComplete();
+      return;
+    }
+
     if (hasStartedRef.current) return;
     hasStartedRef.current = true;
+
+    try {
+      sessionStorage.setItem("sujon_preloader_shown", "true");
+    } catch {}
+    memoryPreloaded = true;
 
     // Lock scroll during preloader
     document.body.style.overflow = "hidden";
 
-    // Absolute fallback: ensure scroll is never stuck under any circumstance (max 2.2s)
+    // Absolute fallback: ensure scroll is never stuck under any circumstance (max 1.6s)
     const safetyTimer = setTimeout(() => {
       document.body.style.overflow = "";
       setIsDone(true);
       if (onComplete) onComplete();
-    }, 2200);
+    }, 1600);
 
     const startTime = performance.now();
-    // 1200ms duration gives a premium, fluid counting experience
-    const duration = 1200;
+    // 850ms duration: fast, fluid, finishes cleanly within 1-2 seconds
+    const duration = 850;
 
     const easeInOutCubic = (t: number) =>
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -56,8 +95,8 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
             setIsDone(true);
             document.body.style.overflow = "";
             if (onComplete) onComplete();
-          }, 650);
-        }, 120);
+          }, 380);
+        }, 70);
       }
     };
 
@@ -89,7 +128,7 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
         boxShadow: isExiting ? "0 30px 60px -15px rgba(0, 0, 0, 0.3)" : "none",
         borderBottom: isExiting ? "1px solid rgba(var(--brand), 0.2)" : "none",
         transition:
-          "transform 0.75s cubic-bezier(0.85, 0, 0.15, 1), box-shadow 0.75s ease",
+          "transform 0.45s cubic-bezier(0.85, 0, 0.15, 1), box-shadow 0.45s ease",
         pointerEvents: isExiting ? "none" : "auto",
       }}
       aria-hidden={isDone}
@@ -110,7 +149,7 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
           opacity: isExiting ? 0 : 1,
           filter: isExiting ? "blur(8px)" : "blur(0px)",
           transition:
-            "transform 0.65s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.5s ease-out, filter 0.5s ease-out",
+            "transform 0.4s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.35s ease-out, filter 0.35s ease-out",
         }}
       >
         {/* Embossed Monogram Emblem with Orbital Glow Ring */}

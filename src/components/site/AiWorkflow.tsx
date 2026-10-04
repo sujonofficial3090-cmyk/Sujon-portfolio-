@@ -57,7 +57,7 @@ export function AiWorkflow() {
             {t("workflow_heading", "AI-Powered Development & Vibe Coding")}
           </h2>
           <p className="mt-3 text-[15px] sm:text-[16.5px] font-medium leading-[1.75] text-foreground/85">
-            {t("workflow_subtitle", "I don’t blindly generate code — I engineer solutions. By pairing full-stack & WordPress expertise with intelligent AI coding workflows, I turn ideas into production-ready web experiences 3x faster without compromising quality.")}
+            {t("workflow_subtitle", "I don’t blindly generate code — I engineer solutions. By pairing Senior WordPress expertise with intelligent AI coding workflows, I turn ideas into production-ready web experiences faster without compromising quality.")}
           </p>
         </div>
 
