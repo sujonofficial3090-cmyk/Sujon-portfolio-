@@ -169,7 +169,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("/#home");
   const [dark, setDark] = useState(false);
-  const [accent, setAccent] = useState("gold");
+  const [accent, setAccent] = useState("orange");
   const [customHex, setCustomHex] = useState("#EC4899");
   const [cursorMode, setCursorMode] = useState<CursorMode>("crosshair");
   const [soundMode, setSoundModeState] = useState<SoundMode>("pop");
@@ -217,7 +217,7 @@ export function Header() {
     const currentAccent =
       document.documentElement.getAttribute("data-accent") ||
       localStorage.getItem("accentColor") ||
-      "gold";
+      "orange";
     setAccent(currentAccent);
 
     const savedCustomHex = localStorage.getItem("customAccentHex") || "#EC4899";

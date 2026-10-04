@@ -117,7 +117,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-cursor="crosshair">
+    <html lang="en" data-cursor="crosshair" data-accent="orange">
       <head>
         <HeadContent />
         <script
@@ -132,6 +132,20 @@ function RootShell({ children }: { children: ReactNode }) {
                     document.documentElement.classList.add('dark');
                   } else {
                     document.documentElement.classList.remove('dark');
+                  }
+
+                  var a = localStorage.getItem('accentColor');
+                  if (a) {
+                    document.documentElement.setAttribute('data-accent', a);
+                  } else {
+                    document.documentElement.setAttribute('data-accent', 'orange');
+                  }
+
+                  var c = localStorage.getItem('magicCursor');
+                  if (c) {
+                    document.documentElement.setAttribute('data-cursor', c);
+                  } else {
+                    document.documentElement.setAttribute('data-cursor', 'crosshair');
                   }
                 } catch (e) {}
               })();

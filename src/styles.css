@@ -84,34 +84,16 @@
   --shadow-nm-inset:
     inset 4px 4px 8px rgb(var(--nm-dark) / 0.38), inset -4px -4px 8px rgb(var(--nm-light) / 0.95);
   --shadow-nm-inset-deep:
-    inset 6px 6px 14px rgb(var(--nm-dark) / 0.45), inset -5px -5px 10px rgb(var(--nm-light) / 1);
-
-  /* Theme media filter for 3D video animations & animated graphics */
-  --theme-media-filter: var(--arrow-filter, sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2));
+    inset 6px 6px 14px rgb(var(--nm-dark) / 0.45), inset -5px -5px 10px rgb(var(--nm-light) / 1);  /* Theme media filter for 3D video animations & animated graphics */
+  --theme-media-filter: var(--arrow-filter, sepia(1) saturate(6) hue-rotate(-20deg) brightness(1.15));
 }
 
 /* ==========================================================================
    5 COLOR ACCENT MOODS — LIGHT MODE
-   ========================================================================= */
+   ========================================================================== */
 
-/* Color 1: Gold / Yellow (#F5B700) - Default */
+/* Color 2: Orange (#F97316) - Default */
 :root,
-[data-accent="gold"],
-html[data-accent="gold"] {
-  --brand: #F5B700;
-  --brand-deep: #D99B00;
-  --brand-light: #FEF3C7;
-  --brand-rgb: 245, 183, 0;
-  --primary: #F5B700;
-  --primary-foreground: rgb(16, 16, 16);
-  --accent: #F5B700;
-  --accent-foreground: rgb(16, 16, 16);
-  --ring: #F5B700;
-  --arrow-filter: sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2);
-  --theme-build-filter: url(#tint-gold);
-}
-
-/* Color 2: Orange (#F97316) */
 [data-accent="orange"],
 html[data-accent="orange"] {
   --brand: #F97316;
@@ -125,6 +107,22 @@ html[data-accent="orange"] {
   --ring: #F97316;
   --arrow-filter: sepia(1) saturate(6) hue-rotate(-20deg) brightness(1.15);
   --theme-build-filter: url(#tint-orange);
+}
+
+/* Color 1: Gold / Yellow (#F5B700) */
+[data-accent="gold"],
+html[data-accent="gold"] {
+  --brand: #F5B700;
+  --brand-deep: #D99B00;
+  --brand-light: #FEF3C7;
+  --brand-rgb: 245, 183, 0;
+  --primary: #F5B700;
+  --primary-foreground: rgb(16, 16, 16);
+  --accent: #F5B700;
+  --accent-foreground: rgb(16, 16, 16);
+  --ring: #F5B700;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2);
+  --theme-build-filter: url(#tint-gold);
 }
 
 /* Color 3: Blue (#2563EB) */
@@ -234,19 +232,6 @@ html.dark {
 
 /* Dark mode 5-color accent moods */
 .dark,
-html.dark[data-accent="gold"],
-.dark[data-accent="gold"] {
-  --brand: #FBBF24;
-  --brand-deep: #F5B700;
-  --brand-light: rgba(251, 191, 36, 0.15);
-  --primary: #FBBF24;
-  --primary-foreground: oklch(0.22 0.01 285);
-  --accent: #FBBF24;
-  --accent-foreground: oklch(0.22 0.01 285);
-  --ring: #FBBF24;
-  --arrow-filter: sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2);
-}
-
 html.dark[data-accent="orange"],
 .dark[data-accent="orange"] {
   --brand: #FB923C;
@@ -258,6 +243,19 @@ html.dark[data-accent="orange"],
   --accent-foreground: oklch(0.22 0.01 285);
   --ring: #FB923C;
   --arrow-filter: sepia(1) saturate(6) hue-rotate(-20deg) brightness(1.15);
+}
+
+html.dark[data-accent="gold"],
+.dark[data-accent="gold"] {
+  --brand: #FBBF24;
+  --brand-deep: #F5B700;
+  --brand-light: rgba(251, 191, 36, 0.15);
+  --primary: #FBBF24;
+  --primary-foreground: oklch(0.22 0.01 285);
+  --accent: #FBBF24;
+  --accent-foreground: oklch(0.22 0.01 285);
+  --ring: #FBBF24;
+  --arrow-filter: sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2);
 }
 
 html.dark[data-accent="blue"],
@@ -320,8 +318,8 @@ html.dark[data-accent="mint"],
    ========================================================================== */
 
 :root {
-  --custom-cursor: url('/cursor-gold.png') 2 1, auto;
-  --custom-cursor-pointer: url('/cursor-gold-pointer.png') 3 0, pointer;
+  --custom-cursor: url('/cursor-orange.png') 2 1, auto;
+  --custom-cursor-pointer: url('/cursor-orange-pointer.png') 3 0, pointer;
 }
 
 /* Preset Accent Themes */
@@ -353,7 +351,7 @@ html.dark[data-accent="mint"],
 :root,
 html,
 body {
-  cursor: var(--custom-cursor, url('/cursor-gold.png') 2 1, auto);
+  cursor: var(--custom-cursor, url('/cursor-orange.png') 2 1, auto);
 }
 
 /* Interactive elements: links, buttons, select, cursor-pointer */
@@ -368,11 +366,11 @@ label[for],
 .nm-interactive,
 [data-interactive],
 .cursor-pointer {
-  cursor: var(--custom-cursor-pointer, url('/cursor-gold-pointer.png') 3 0, pointer) !important;
+  cursor: var(--custom-cursor-pointer, url('/cursor-orange-pointer.png') 3 0, pointer) !important;
 }
 
 .cursor-default {
-  cursor: var(--custom-cursor, url('/cursor-gold.png') 2 1, default) !important;
+  cursor: var(--custom-cursor, url('/cursor-orange.png') 2 1, default) !important;
 }
 
 /* Form text editing inputs preserve standard text I-beam */
@@ -1319,13 +1317,13 @@ header {
 /* ── 3D Stepped Architecture Video (How I Build section) ── */
 .how-build-3d-video {
   mix-blend-mode: multiply;
-  filter: var(--theme-build-filter, url(#tint-gold));
+  filter: var(--theme-build-filter, url(#tint-orange));
   transition: filter 0.3s ease;
 }
 
 .dark .how-build-3d-video {
   mix-blend-mode: screen;
-  filter: invert(1) contrast(1.1) var(--theme-media-filter, sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2));
+  filter: invert(1) contrast(1.1) var(--theme-media-filter, sepia(1) saturate(6) hue-rotate(-20deg) brightness(1.15));
 }
 
 /* ── Experience Stacking Cards (Responsive: Natural Flow on Mobile to prevent shaking & cut-off, Cascading Deck on Desktop) ── */

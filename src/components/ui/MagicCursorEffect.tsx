@@ -73,17 +73,17 @@ interface RippleRing {
    Zero forced layout reflows (getComputedStyle) and zero state-driven latency.
    ========================================================================== */
 
-let globalThemePalette: string[] = ["#FEF3C7", "#F5B700", "#D97706", "#FFFFFF"];
-let globalPrimaryColor = "#F5B700";
+let globalThemePalette: string[] = ["#FFEDD5", "#F97316", "#EA580C", "#FFFFFF"];
+let globalPrimaryColor = "#F97316";
 
 function refreshThemePalette() {
   if (typeof window === "undefined") return;
   try {
     const root = document.documentElement;
     const computed = getComputedStyle(root);
-    const brand = computed.getPropertyValue("--brand").trim() || "#F5B700";
-    const brandLight = computed.getPropertyValue("--brand-light").trim() || "#FEF3C7";
-    const brandDeep = computed.getPropertyValue("--brand-deep").trim() || "#D97706";
+    const brand = computed.getPropertyValue("--brand").trim() || "#F97316";
+    const brandLight = computed.getPropertyValue("--brand-light").trim() || "#FFEDD5";
+    const brandDeep = computed.getPropertyValue("--brand-deep").trim() || "#EA580C";
     globalThemePalette = [brandLight, brand, brandDeep, "#FFFFFF"];
     globalPrimaryColor = brand;
   } catch {

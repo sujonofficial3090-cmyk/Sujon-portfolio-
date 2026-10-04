@@ -1,18 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 550" width="550" height="550">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
   <defs>
-    <linearGradient id="brandGrad" x1="10%" y1="5%" x2="90%" y2="95%">
+    <linearGradient id="gradOrange" x1="0%" y1="10%" x2="100%" y2="90%">
       <stop offset="0%" stop-color="#FFD101" />
-      <stop offset="45%" stop-color="#FF7B00" />
+      <stop offset="48%" stop-color="#FF7B00" />
       <stop offset="100%" stop-color="#FF3D00" />
     </linearGradient>
   </defs>
+  <!-- Bold Geometric S -->
   <text
-    x="275"
-    y="405"
-    font-family="'Funnel Display', 'Poppins', 'Montserrat', 'Inter', sans-serif"
+    x="250"
+    y="390"
+    font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
     font-size="440"
     font-weight="900"
     text-anchor="middle"
-    fill="url(#brandGrad)"
+    fill="url(#gradOrange)"
   >S</text>
 </svg>

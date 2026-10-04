@@ -131,7 +131,7 @@ export function clearCustomColor(colorId: string) {
 
 export function initAccentColor() {
   if (typeof window === "undefined") return;
-  const storedAccent = localStorage.getItem("accentColor") || "gold";
+  const storedAccent = localStorage.getItem("accentColor") || "orange";
   if (storedAccent === "custom") {
     const customHex = localStorage.getItem("customAccentHex") || "#EC4899";
     applyCustomColor(customHex);

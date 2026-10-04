@@ -152,16 +152,16 @@ export function WorldGlobeS({ className }: WorldGlobeSProps) {
     ];
 
     function getThemeColor() {
-      const accent = document.documentElement.getAttribute("data-accent") || "gold";
+      const accent = document.documentElement.getAttribute("data-accent") || "orange";
       switch (accent) {
-        case "orange":
+        case "gold":
           return {
-            primary: "#F97316",
-            light: "#FED7AA",
-            deep: "#EA580C",
-            rgb: "249, 115, 22",
-            atmo: "rgba(249, 115, 22, 0.25)",
-            land: "#34D399",
+            primary: "#FBBF24",
+            light: "#FEF3C7",
+            deep: "#D97706",
+            rgb: "251, 191, 36",
+            atmo: "rgba(251, 191, 36, 0.24)",
+            land: "#10B981",
           };
         case "blue":
           return {
@@ -199,15 +199,15 @@ export function WorldGlobeS({ className }: WorldGlobeSProps) {
             atmo: "rgba(0, 253, 144, 0.25)",
             land: "#34D399",
           };
-        case "gold":
+        case "orange":
         default:
           return {
-            primary: "#FBBF24",
-            light: "#FEF3C7",
-            deep: "#D97706",
-            rgb: "251, 191, 36",
-            atmo: "rgba(251, 191, 36, 0.24)",
-            land: "#10B981",
+            primary: "#F97316",
+            light: "#FED7AA",
+            deep: "#EA580C",
+            rgb: "249, 115, 22",
+            atmo: "rgba(249, 115, 22, 0.25)",
+            land: "#34D399",
           };
       }
     }

@@ -57,7 +57,7 @@ export function ClickDotEffect() {
     const getThemeColors = (): string[] => {
       const root = document.documentElement;
       const computed = getComputedStyle(root);
-      const accent = root.getAttribute("data-accent") || "gold";
+      const accent = root.getAttribute("data-accent") || "orange";
 
       const brandColor = computed.getPropertyValue("--brand").trim();
       const brandLight = computed.getPropertyValue("--brand-light").trim();
@@ -65,8 +65,8 @@ export function ClickDotEffect() {
 
       let palette: string[];
       switch (accent) {
-        case "orange":
-          palette = ["#FFEDD5", "#FDBA74", "#F97316", "#EA580C", "#C2410C"];
+        case "gold":
+          palette = ["#FEF3C7", "#FDE68A", "#F59E0B", "#D97706", "#B45309"];
           break;
         case "blue":
           palette = ["#EFF6FF", "#93C5FD", "#3B82F6", "#2563EB", "#1D4ED8"];
@@ -80,9 +80,9 @@ export function ClickDotEffect() {
         case "mint":
           palette = ["#D1FEE8", "#6EE7B7", "#00FD90", "#00D679", "#00A85F"];
           break;
-        case "gold":
+        case "orange":
         default:
-          palette = ["#FEF3C7", "#FDE68A", "#F59E0B", "#D97706", "#B45309"];
+          palette = ["#FFEDD5", "#FDBA74", "#F97316", "#EA580C", "#C2410C"];
           break;
       }
 
