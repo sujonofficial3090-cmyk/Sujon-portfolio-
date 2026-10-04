@@ -1328,3 +1328,69 @@ header {
   filter: invert(1) contrast(1.1) var(--theme-media-filter, sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2));
 }
 
+/* ── Experience Stacking Cards (Responsive: Natural Flow on Mobile to prevent shaking & cut-off, Cascading Deck on Desktop) ── */
+:root {
+  --sticky-top-base: 128px;
+  --stack-step-offset: 26px;
+}
+
+@media (max-width: 1023px) {
+  .experience-stacked-card {
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    margin-bottom: 2rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .experience-stacked-card {
+    position: sticky;
+    will-change: transform, opacity;
+    transform-origin: top center;
+    margin-bottom: clamp(90px, 16vh, 160px);
+  }
+  .experience-stacked-card:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ── Premium Soft Emboss Card Style (100% Border-Free, Deep Tactile Neumorphism) ── */
+.experience-emboss-card {
+  border: none !important;
+  border-color: transparent !important;
+  outline: none !important;
+  background-color: var(--surface) !important;
+  box-shadow:
+    -10px -10px 26px rgb(var(--nm-light) / 0.95),
+    11px 11px 26px rgb(var(--nm-dark) / 0.44),
+    inset 1px 1px 2px rgb(255 255 255 / 0.7) !important;
+  border-radius: 22px !important;
+  position: relative;
+}
+
+.dark .experience-emboss-card {
+  border: none !important;
+  border-color: transparent !important;
+  outline: none !important;
+  background-color: var(--surface) !important;
+  box-shadow:
+    -9px -9px 24px rgb(var(--nm-light) / 0.52),
+    11px 11px 28px rgb(var(--nm-dark) / 0.96),
+    inset 1px 1px 2px rgb(255 255 255 / 0.09) !important;
+}
+
+/* Debossed Groove Divider (Zero border-color, pure pressed-in soft emboss channel) */
+.nm-divider-groove {
+  height: 2px;
+  width: 100%;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-nm-inset);
+  background-color: var(--surface);
+  border: none !important;
+  outline: none !important;
+  opacity: 0.65;
+}
+
+

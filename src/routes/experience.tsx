@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
@@ -165,6 +165,86 @@ const EXPERIENCES: ExperienceItem[] = [
 
 function ExperiencePage() {
   const { t } = useTranslation();
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      // Run cascading deck animation ONLY on desktop screens (1024px+)
+      // On mobile/tablet screens, cards flow naturally with zero RAF mutations to eliminate 100% of shaking & jitter
+      if (window.innerWidth < 1024) return;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.innerWidth < 1024) {
+            ticking = false;
+            return;
+          }
+
+          const cards = cardRefs.current;
+          const total = cards.length;
+
+          for (let i = 0; i < total - 1; i++) {
+            const currentCard = cards[i];
+            const nextCard = cards[i + 1];
+
+            if (!currentCard || !nextCard) continue;
+
+            const nextRect = nextCard.getBoundingClientRect();
+            const stickyTopBase = 128;
+            const stepOffset = 26;
+            const nextStickyTop = stickyTopBase + (i + 1) * stepOffset;
+
+            const buffer = 380;
+            const distance = nextRect.top - nextStickyTop;
+
+            if (distance < buffer && distance > 0) {
+              const progress = (buffer - distance) / buffer;
+              const scale = 1 - progress * 0.035;
+              const opacity = 1 - progress * 0.12;
+
+              currentCard.style.transform = `scale(${scale.toFixed(4)})`;
+              currentCard.style.opacity = `${opacity.toFixed(4)}`;
+            } else if (distance <= 0) {
+              currentCard.style.transform = "scale(0.965)";
+              currentCard.style.opacity = "0.88";
+            } else {
+              currentCard.style.transform = "scale(1)";
+              currentCard.style.opacity = "1";
+            }
+          }
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        cardRefs.current.forEach((card) => {
+          if (card) {
+            card.style.transform = "";
+            card.style.opacity = "";
+          }
+        });
+      } else {
+        handleScroll();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
+    handleResize();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1500px] flex-col gap-6 px-3 pb-16 pt-3 sm:gap-8 sm:px-5">
@@ -174,26 +254,29 @@ function ExperiencePage() {
         {/* Simple & Realistic Hero Header */}
         <section aria-label="Experience header">
           <NeumorphicCard depth="md" radius="lg" className="p-6 sm:p-10">
-            {/* Top Navigation Row */}
-            <div className="mb-6 flex items-center justify-between">
+            {/* Top Navigation Row — Mobile Responsive & Anti-Squish */}
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-2.5 sm:gap-3">
               <Link
                 to="/"
-                className="nm-raised-sm hover:nm-inset inline-flex items-center gap-2 rounded-[10px] px-4 py-2 text-[12px] font-extrabold uppercase tracking-wider text-muted-foreground transition-all duration-300 hover:text-brand-deep cursor-pointer"
+                className="nm-raised-sm hover:nm-inset inline-flex items-center gap-1.5 sm:gap-2 rounded-[10px] px-3.5 py-2 text-[11.5px] sm:text-[12px] font-extrabold uppercase tracking-wider text-muted-foreground transition-all duration-300 hover:text-brand-deep cursor-pointer whitespace-nowrap shrink-0"
               >
-                <ArrowLeft className="h-4 w-4" /> {t("exp_back_home", "Back to Home")}
+                <ArrowLeft className="h-4 w-4 shrink-0" />
+                <span className="whitespace-nowrap">{t("exp_back_home", "Back to Home")}</span>
               </Link>
 
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
                 <a
                   href="/SUJON.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="nm-raised-sm hover:nm-inset inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-widest text-brand-deep transition-all duration-300 cursor-pointer"
+                  className="nm-raised-sm hover:nm-inset inline-flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 sm:px-3.5 sm:py-1.5 text-[10.5px] sm:text-[11px] font-extrabold uppercase tracking-widest text-brand-deep transition-all duration-300 cursor-pointer whitespace-nowrap shrink-0"
                 >
-                  <Download className="h-3.5 w-3.5" /> {t("hero_download_cv", "Download CV")}
+                  <Download className="h-3.5 w-3.5 shrink-0" />
+                  <span className="whitespace-nowrap">{t("hero_download_cv", "Download CV")}</span>
                 </a>
-                <span className="nm-inset text-brand-deep inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-widest">
-                  <Briefcase className="h-3.5 w-3.5" /> {t("exp_career_journey", "Career Journey")}
+                <span className="nm-inset text-brand-deep hidden sm:inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-widest whitespace-nowrap shrink-0">
+                  <Briefcase className="h-3.5 w-3.5 shrink-0" />
+                  <span className="whitespace-nowrap">{t("exp_career_journey", "Career Journey")}</span>
                 </span>
               </div>
             </div>
@@ -242,7 +325,8 @@ function ExperiencePage() {
             </div>
 
             {/* Clean Minimalist Stats Strip */}
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-border/50">
+            <div className="nm-divider-groove mt-8 mb-6" />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
               <div className="nm-inset rounded-[12px] p-3.5 text-center">
                 <div className="text-[24px] sm:text-[26px] font-extrabold text-brand-deep">3+ Years</div>
                 <div className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mt-0.5">
@@ -271,10 +355,10 @@ function ExperiencePage() {
           </NeumorphicCard>
         </section>
 
-        {/* Realistic Vertical Timeline of Work History */}
-        <section aria-label="Career Timeline" className="relative">
-          <div className="flex flex-col gap-6 sm:gap-8">
-            {EXPERIENCES.map((exp) => {
+        {/* Realistic Cascading Stacking Cards Timeline (Inspired by modern stacking cards UX) */}
+        <section aria-label="Career Timeline" className="relative pb-6 sm:pb-12">
+          <div className="flex flex-col">
+            {EXPERIENCES.map((exp, idx) => {
               const prefix =
                 exp.id === "sparktech"
                   ? "exp_sparktech"
@@ -293,97 +377,123 @@ function ExperiencePage() {
               const localizedSummary = t(`${prefix}_summary` as any, exp.summary);
 
               return (
-                <NeumorphicCard
+                <div
                   key={exp.id}
-                  depth="md"
-                  radius="lg"
-                  className="p-6 sm:p-9 transition-all duration-300 hover:shadow-[var(--shadow-nm-hover)]"
+                  ref={(el) => {
+                    cardRefs.current[idx] = el;
+                  }}
+                  className="experience-stacked-card sticky"
+                  style={{
+                    top: `calc(var(--sticky-top-base, 128px) + ${idx * 26}px)`,
+                    zIndex: 10 + idx,
+                    transformOrigin: "top center",
+                    marginBottom: idx < EXPERIENCES.length - 1 ? "clamp(90px, 16vh, 160px)" : "0",
+                  }}
                 >
-                  {/* Top Bar: Role, Company, Period */}
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-5 border-b border-border/60">
-                    <div className="space-y-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        {localizedBadge && (
-                          <span className="nm-inset text-brand-deep inline-flex items-center gap-1 rounded-[6px] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider">
-                            <Sparkles className="h-3 w-3" /> {localizedBadge}
+                  <div className="experience-emboss-card overflow-hidden p-6 sm:p-8 lg:p-10 border-0 outline-none">
+                    {/* Massive Display Step Watermark (Reference web style: 01, 02, 03, 04) */}
+                    <span className="pointer-events-none absolute right-4 sm:right-8 top-2 sm:top-4 font-display font-black text-[64px] sm:text-[96px] lg:text-[112px] tracking-tighter text-brand-deep/[0.07] dark:text-brand-light/[0.07] leading-none select-none">
+                      0{idx + 1}
+                    </span>
+
+                    {/* Top Bar: Step Pill, Role, Company, Period */}
+                    <div className="relative z-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-4">
+                      <div className="space-y-1.5">
+                        <div className="flex flex-wrap items-center gap-2">
+                          {/* Reference "STEP" pill badge */}
+                          <span className="nm-inset text-brand-deep inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10.5px] sm:text-[11px] font-black uppercase tracking-widest font-mono">
+                            <span className="h-1.5 w-1.5 rounded-full bg-brand-deep animate-pulse" />
+                            <span>STEP 0{idx + 1}</span>
                           </span>
-                        )}
-                        <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                          {localizedType}
-                        </span>
+
+                          {localizedBadge && (
+                            <span className="nm-raised-sm text-foreground/90 inline-flex items-center gap-1 rounded-[6px] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider">
+                              <Sparkles className="h-3 w-3 text-brand-deep" /> {localizedBadge}
+                            </span>
+                          )}
+                          <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                            {localizedType}
+                          </span>
+                        </div>
+
+                        <h2 className="text-[20px] sm:text-[25px] font-extrabold text-foreground tracking-tight pt-1">
+                          {localizedRole}
+                        </h2>
+
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 text-[14px] sm:text-[15px] font-bold text-brand-deep">
+                          <span
+                            translate="no"
+                            className="notranslate inline-flex items-center gap-1.5"
+                          >
+                            <Building2 className="h-4 w-4 shrink-0" /> {exp.company}
+                          </span>
+                          <span className="text-muted-foreground/40">•</span>
+                          <span className="inline-flex items-center gap-1 text-muted-foreground font-semibold text-[13px] sm:text-[14px]">
+                            <MapPin className="h-3.5 w-3.5 shrink-0" /> {localizedLocation}
+                          </span>
+                        </div>
                       </div>
 
-                      <h2 className="text-[20px] sm:text-[24px] font-extrabold text-foreground tracking-tight pt-0.5">
-                        {localizedRole}
-                      </h2>
-
-                      <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 text-[14px] sm:text-[15px] font-bold text-brand-deep">
-                        <span
-                          translate="no"
-                          className="notranslate inline-flex items-center gap-1.5"
-                        >
-                          <Building2 className="h-4 w-4 shrink-0" /> {exp.company}
-                        </span>
-                        <span className="text-muted-foreground/40">•</span>
-                        <span className="inline-flex items-center gap-1 text-muted-foreground font-semibold text-[13px] sm:text-[14px]">
-                          <MapPin className="h-3.5 w-3.5 shrink-0" /> {localizedLocation}
-                        </span>
-                      </div>
+                      {/* Period Badge - only if localizedPeriod exists */}
+                      {localizedPeriod ? (
+                        <div className="shrink-0 sm:self-start relative z-10">
+                          <span className="nm-raised-sm inline-flex items-center gap-1.5 rounded-[10px] px-3.5 py-2 text-[12px] font-bold text-foreground tracking-tight">
+                            <Calendar className="h-3.5 w-3.5 text-brand-deep" /> {localizedPeriod}
+                          </span>
+                        </div>
+                      ) : null}
                     </div>
 
-                    {/* Period Badge - only if localizedPeriod exists */}
-                    {localizedPeriod ? (
-                      <div className="shrink-0 sm:self-start">
-                        <span className="nm-raised-sm inline-flex items-center gap-1.5 rounded-[10px] px-3.5 py-2 text-[12px] font-bold text-foreground tracking-tight">
-                          <Calendar className="h-3.5 w-3.5 text-brand-deep" /> {localizedPeriod}
+                    {/* Soft Debossed Groove Divider (No border color) */}
+                    <div className="nm-divider-groove my-4" />
+
+                    {/* Summary */}
+                    <p className="relative z-10 mt-3 text-[14.5px] sm:text-[15.5px] font-normal leading-[1.7] text-foreground/90">
+                      {localizedSummary}
+                    </p>
+
+                    {/* Clean, Realistic Bullet Points */}
+                    <div className="relative z-10 mt-6">
+                      <h3 className="text-[11.5px] font-extrabold uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-1.5">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-brand-deep" /> {t("exp_responsibilities", "Key Responsibilities & Contributions")}
+                      </h3>
+
+                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5 pl-0.5">
+                        {exp.highlights.map((point, pIdx) => {
+                          const pointKey = `${prefix}_h${pIdx + 1}`;
+                          const localizedPoint = t(pointKey as any, point);
+                          return (
+                            <li key={pIdx} className="flex items-start gap-2.5 text-[13.5px] sm:text-[14.5px] leading-[1.65] text-muted-foreground">
+                              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-deep shrink-0 ring-4 ring-brand-deep/15" />
+                              <span>{localizedPoint}</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+
+                    {/* Soft Debossed Groove Divider (No border color) */}
+                    <div className="nm-divider-groove mt-6 mb-4" />
+
+                    {/* Technologies Pills */}
+                    <div className="relative z-10">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground mr-1">
+                          {t("exp_tech_stack", "Tech Stack:")}
                         </span>
+                        {exp.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            translate="no"
+                            className="nm-raised-sm inline-block rounded-[6px] px-2.5 py-1 text-[11px] sm:text-[11.5px] font-bold text-foreground/80 transition-colors hover:text-brand-deep notranslate"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                       </div>
-                    ) : null}
-                  </div>
-
-                  {/* Summary */}
-                  <p className="mt-4 text-[14.5px] sm:text-[15.5px] font-normal leading-[1.7] text-foreground/90">
-                    {localizedSummary}
-                  </p>
-
-                  {/* Clean, Realistic Bullet Points */}
-                  <div className="mt-6">
-                    <h3 className="text-[11.5px] font-extrabold uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-1.5">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-brand-deep" /> {t("exp_responsibilities", "Key Responsibilities & Contributions")}
-                    </h3>
-
-                    <ul className="space-y-2.5 pl-0.5">
-                      {exp.highlights.map((point, pIdx) => {
-                        const pointKey = `${prefix}_h${pIdx + 1}`;
-                        const localizedPoint = t(pointKey as any, point);
-                        return (
-                          <li key={pIdx} className="flex items-start gap-2.5 text-[13.5px] sm:text-[14.5px] leading-[1.65] text-muted-foreground">
-                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-deep shrink-0 ring-4 ring-brand-deep/15" />
-                            <span>{localizedPoint}</span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-
-                  {/* Technologies Pills */}
-                  <div className="mt-6 pt-5 border-t border-border/50">
-                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground mr-1">
-                        {t("exp_tech_stack", "Tech Stack:")}
-                      </span>
-                      {exp.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          translate="no"
-                          className="nm-raised-sm inline-block rounded-[6px] px-2.5 py-1 text-[11px] sm:text-[11.5px] font-bold text-foreground/80 transition-colors hover:text-brand-deep notranslate"
-                        >
-                          {tech}
-                        </span>
-                      ))}
                     </div>
                   </div>
-                </NeumorphicCard>
+                </div>
               );
             })}
           </div>
