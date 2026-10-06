@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { NeumorphicCard } from "@/components/nm";
 import { PROJECTS, type Project } from "@/data/projects";
 import { useTranslation } from "@/lib/i18n";
@@ -39,6 +40,9 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
   const localizedRole = currentKeys ? t(currentKeys.roleKey as any, item.role) : item.role;
 
   const categoryLabels: Record<string, string> = {
+    "Service Website": "Service Website",
+    "Landing Page": "Landing Page",
+    "Plumbing Website": "Plumbing Website",
     WordPress: t("cat_wp", "WordPress"),
     WooCommerce: t("cat_woo", "WooCommerce"),
     "Business Website": t("cat_business", "Business Website"),
@@ -127,13 +131,15 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
 export function Portfolio() {
   const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [showAll, setShowAll] = useState(false);
 
   const categories = [
     { id: "all", label: t("cat_all", "All Projects") },
-    { id: "WordPress", label: t("cat_wp", "WordPress") },
+    { id: "Service Website", label: "Service Website" },
     { id: "WooCommerce", label: t("cat_woo", "WooCommerce") },
+    { id: "Landing Page", label: "Landing Page" },
+    { id: "Plumbing Website", label: "Plumbing Website" },
     { id: "Business Website", label: t("cat_business", "Business Website") },
+    { id: "WordPress", label: t("cat_wp", "WordPress") },
     { id: "Dynamic Content", label: t("cat_custom", "Dynamic Content") },
   ];
 
@@ -142,7 +148,7 @@ export function Portfolio() {
       ? PROJECTS
       : PROJECTS.filter((p) => p.category === selectedCategory);
 
-  const visibleProjects = showAll ? filteredProjects : filteredProjects.slice(0, 6);
+  const visibleProjects = filteredProjects.slice(0, 6);
 
   return (
     <section id="portfolio" className="scroll-mt-28">
@@ -170,7 +176,6 @@ export function Portfolio() {
                 type="button"
                 onClick={() => {
                   setSelectedCategory(cat.id);
-                  setShowAll(false);
                 }}
                 className={`shrink-0 whitespace-nowrap rounded-[10px] px-3.5 sm:px-4 py-2 sm:py-2.5 text-[11px] sm:text-[12px] font-extrabold tracking-wider uppercase transition-all duration-200 cursor-pointer select-none my-1 ${
                   isSelected
@@ -190,27 +195,16 @@ export function Portfolio() {
           ))}
         </div>
 
-        {filteredProjects.length > 6 && (
-          <div className="mt-8 flex justify-center">
-            <button
-              type="button"
-              onClick={() => setShowAll((prev) => !prev)}
-              className="nm-raised-sm hover:nm-interactive text-brand-deep inline-flex items-center justify-center gap-2 rounded-[12px] px-6 sm:px-8 py-3.5 text-[12px] sm:text-[13px] font-extrabold uppercase tracking-wider transition-all duration-300 active:nm-inset select-none cursor-pointer"
-              style={{ fontFamily: '"Funnel Display", sans-serif' }}
-            >
-              {showAll ? (
-                <>
-                  {t("portfolio_show_less", "Show Less")} <ChevronUp className="h-4 w-4 text-brand-deep" />
-                </>
-              ) : (
-                <>
-                  {t("portfolio_show_more", "View All Projects")} ({filteredProjects.length}){" "}
-                  <ChevronDown className="h-4 w-4 text-brand-deep" />
-                </>
-              )}
-            </button>
-          </div>
-        )}
+        <div className="mt-8 flex justify-center">
+          <Link
+            to="/projects"
+            className="nm-raised-sm hover:nm-interactive text-brand-deep inline-flex items-center justify-center gap-2.5 rounded-[12px] px-7 sm:px-9 py-3.5 text-[12px] sm:text-[13px] font-extrabold uppercase tracking-wider transition-all duration-300 active:nm-inset select-none cursor-pointer"
+            style={{ fontFamily: '"Funnel Display", sans-serif' }}
+          >
+            {t("portfolio_show_more", "View All Projects")} ({PROJECTS.length}){" "}
+            <ArrowRight className="h-4 w-4 text-brand-deep" />
+          </Link>
+        </div>
       </NeumorphicCard>
     </section>
   );

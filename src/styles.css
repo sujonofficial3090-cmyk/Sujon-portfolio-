@@ -632,6 +632,26 @@ textarea {
   animation: heroEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
+/* Smooth Scroll-Triggered Upward Slide for Project Cards */
+@keyframes projectSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(38px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-card-entrance {
+  animation: projectSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.project-delay-0 { animation-delay: 0.05s; }
+.project-delay-1 { animation-delay: 0.18s; }
+.project-delay-2 { animation-delay: 0.3s; }
+
 /* Accessibility: Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -641,7 +661,8 @@ textarea {
   .hero-animate-1,
   .hero-animate-2,
   .hero-animate-3,
-  .hero-animate-4 {
+  .hero-animate-4,
+  .project-card-entrance {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
@@ -1333,7 +1354,9 @@ header {
 }
 
 @media (max-width: 1023px) {
-  .experience-stacked-card {
+  .experience-stacked-card,
+  .project-stacked-card,
+  .project-grid-row {
     position: relative !important;
     top: auto !important;
     transform: none !important;
@@ -1343,19 +1366,34 @@ header {
 }
 
 @media (min-width: 1024px) {
-  .experience-stacked-card {
+  .experience-stacked-card,
+  .project-stacked-card {
     position: sticky;
     will-change: transform, opacity;
     transform-origin: top center;
     margin-bottom: clamp(90px, 16vh, 160px);
   }
-  .experience-stacked-card:last-child {
+  .project-grid-row {
+    position: sticky;
+    will-change: transform, filter;
+    transform-origin: top center;
+    isolation: isolate;
+    margin-bottom: clamp(100px, 18vh, 180px);
+    filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.05));
+  }
+  .dark .project-grid-row {
+    filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.4));
+  }
+  .experience-stacked-card:last-child,
+  .project-stacked-card:last-child,
+  .project-grid-row:last-child {
     margin-bottom: 0 !important;
   }
 }
 
 /* ── Premium Soft Emboss Card Style (100% Border-Free, Deep Tactile Neumorphism) ── */
-.experience-emboss-card {
+.experience-emboss-card,
+.project-emboss-card {
   border: none !important;
   border-color: transparent !important;
   outline: none !important;
@@ -1368,7 +1406,8 @@ header {
   position: relative;
 }
 
-.dark .experience-emboss-card {
+.dark .experience-emboss-card,
+.dark .project-emboss-card {
   border: none !important;
   border-color: transparent !important;
   outline: none !important;
@@ -1377,6 +1416,46 @@ header {
     -9px -9px 24px rgb(var(--nm-light) / 0.52),
     11px 11px 28px rgb(var(--nm-dark) / 0.96),
     inset 1px 1px 2px rgb(255 255 255 / 0.09) !important;
+}
+
+/* ── Dedicated 3-Column Project Grid Card (100% Solid Opaque Surface & Anti-Ghosting Isolation) ── */
+.project-grid-card {
+  border: none !important;
+  outline: none !important;
+  background-color: var(--surface) !important;
+  isolation: isolate !important;
+  border-radius: 20px !important;
+  box-shadow:
+    -8px -8px 22px rgb(var(--nm-light) / 0.92),
+    9px 9px 24px rgb(var(--nm-dark) / 0.38),
+    inset 1px 1px 2px rgb(255 255 255 / 0.7) !important;
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.dark .project-grid-card {
+  border: none !important;
+  outline: none !important;
+  background-color: var(--surface) !important;
+  isolation: isolate !important;
+  box-shadow:
+    -8px -8px 20px rgb(var(--nm-light) / 0.45),
+    10px 10px 26px rgb(var(--nm-dark) / 0.92),
+    inset 1px 1px 2px rgb(255 255 255 / 0.08) !important;
+}
+
+.project-grid-card:hover {
+  box-shadow:
+    -10px -10px 28px rgb(var(--nm-light) / 0.98),
+    12px 12px 30px rgb(var(--nm-dark) / 0.46),
+    inset 1px 1px 2px rgb(255 255 255 / 0.85) !important;
+}
+
+.dark .project-grid-card:hover {
+  box-shadow:
+    -9px -9px 26px rgb(var(--nm-light) / 0.58),
+    12px 12px 32px rgb(var(--nm-dark) / 0.98),
+    inset 1px 1px 2px rgb(255 255 255 / 0.12) !important;
 }
 
 /* Debossed Groove Divider (Zero border-color, pure pressed-in soft emboss channel) */
@@ -1390,5 +1469,6 @@ header {
   outline: none !important;
   opacity: 0.65;
 }
+
 
 

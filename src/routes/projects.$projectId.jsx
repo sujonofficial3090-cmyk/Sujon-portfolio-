@@ -35,7 +35,7 @@ function ProjectDetail() {
     return (
       <div className="mx-auto flex min-h-screen w-full max-w-[1500px] flex-col items-center justify-center gap-6 px-4">
         <h1 className="text-2xl font-bold">Project Not Found</h1>
-        <Link to="/" className="text-brand-deep underline">Back to Home</Link>
+        <Link to="/projects" className="text-brand-deep underline">Back to Projects</Link>
       </div>
     );
   }
@@ -50,12 +50,12 @@ function ProjectDetail() {
         {/* Back navigation & Basic details */}
         <section aria-label="Project intro">
           <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
-            <a
-              href="/#portfolio"
+            <Link
+              to="/projects"
               className="nm-raised-sm hover:nm-inset inline-flex items-center gap-1.5 rounded-[8px] px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-[0.08em] text-muted-foreground transition-all duration-300 hover:text-brand-deep"
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Back To Projects
-            </a>
+            </Link>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <span className="nm-inset text-brand-deep rounded-[8px] px-3.5 py-1 text-[11px] font-extrabold tracking-[0.1em] uppercase">
@@ -220,6 +220,13 @@ function ProjectDetail() {
                 <NeumorphicLinkButton href="/#contact" tone="brand" size="md" className="w-full font-extrabold text-[12px]">
                   Order Similar Website
                 </NeumorphicLinkButton>
+
+                <Link
+                  to="/projects"
+                  className="nm-raised-sm hover:nm-inset flex items-center justify-center gap-2 rounded-[10px] w-full py-3 text-[12px] font-extrabold tracking-[0.08em] uppercase text-muted-foreground transition-all duration-300 hover:text-brand-deep"
+                >
+                  <ArrowLeft className="h-4 w-4" /> Back to All Projects
+                </Link>
               </div>
             </NeumorphicCard>
 
