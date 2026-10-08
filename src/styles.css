@@ -1588,7 +1588,8 @@ header {
 
 .dark .how-build-3d-video {
   mix-blend-mode: screen;
-  filter: none;
+  filter: invert(1) contrast(1.1) var(--arrow-filter, sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2));
+  transition: filter 0.3s ease;
 }
 
 /* ==========================================================================
