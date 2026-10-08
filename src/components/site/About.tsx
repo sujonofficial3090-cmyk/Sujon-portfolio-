@@ -1,4 +1,6 @@
 import { lazy, Suspense } from "react";
+import { Link } from "@tanstack/react-router";
+import { Sparkles, Zap, ShieldCheck, Award, ArrowRight } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
 
@@ -7,28 +9,108 @@ const ParticleLetterS = lazy(() =>
   import("@/components/site/ParticleLetterS").then((m) => ({ default: m.ParticleLetterS }))
 );
 
-// Lightweight SVG "S" fallback for mobile
-function StaticLetterS() {
+// High-impact Developer Highlights Card for Mobile (fast, zero canvas bloat, high aesthetic)
+function MobileDeveloperCard() {
+  const { t } = useTranslation();
   return (
-    <div className="relative flex h-full w-full min-h-[300px] items-center justify-center select-none">
+    <div className="relative flex flex-col items-center justify-between h-full w-full py-2 px-1 select-none">
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] rounded-full bg-brand-light/25 dark:bg-brand-light/12 blur-3xl" />
-      <span
-        className="sujon-logo text-brand-gradient relative z-10 select-none"
-        style={{
-          fontSize: "clamp(120px, 30vw, 200px)",
-          fontWeight: 900,
-          letterSpacing: "-0.04em",
-          lineHeight: 1,
-          background: "linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 60%, #FFD101 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
-          filter: "drop-shadow(0 8px 24px color-mix(in srgb, var(--brand) 35%, transparent))",
-        }}
-      >
-        S
-      </span>
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] rounded-full bg-brand-light/20 dark:bg-brand-light/10 blur-3xl" />
+
+      {/* Top Header: Branded Emblem & Availability */}
+      <div className="relative z-10 flex flex-col items-center text-center w-full">
+        {/* Embossed S Emblem */}
+        <div className="relative mb-3">
+          <div className="nm-raised flex h-16 w-16 items-center justify-center rounded-[20px] transition-transform duration-300">
+            <span
+              className="sujon-logo text-brand-gradient text-3xl font-black select-none"
+              style={{
+                lineHeight: 1,
+                background: "linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 60%, #FFD101 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                filter: "drop-shadow(0 4px 12px color-mix(in srgb, var(--brand) 30%, transparent))",
+              }}
+            >
+              S
+            </span>
+          </div>
+          {/* Subtle online indicator dot */}
+          <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-background" />
+          </span>
+        </div>
+
+        {/* Developer name & status */}
+        <h3 className="text-[18px] font-black tracking-tight text-foreground">
+          Sujon Mia
+        </h3>
+        <p className="text-[11.5px] font-extrabold text-brand-deep uppercase tracking-wider mt-0.5">
+          Senior WordPress Architect
+        </p>
+
+        <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full nm-inset px-3 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          Available for New Projects
+        </div>
+      </div>
+
+      {/* 4 Feature Highlights Grid */}
+      <div className="relative z-10 grid grid-cols-2 gap-2.5 w-full mt-4">
+        <div className="nm-inset rounded-[14px] p-3 text-left">
+          <div className="flex items-center gap-1.5 text-brand-deep">
+            <Zap className="h-3.5 w-3.5" />
+            <span className="text-[12.5px] font-black">99+</span>
+          </div>
+          <p className="text-[11px] font-bold text-foreground mt-1">Core Web Vitals</p>
+          <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">Sub-second speed</p>
+        </div>
+
+        <div className="nm-inset rounded-[14px] p-3 text-left">
+          <div className="flex items-center gap-1.5 text-brand-deep">
+            <Award className="h-3.5 w-3.5" />
+            <span className="text-[12.5px] font-black">5+ Yrs</span>
+          </div>
+          <p className="text-[11px] font-bold text-foreground mt-1">WordPress Pro</p>
+          <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">Elementor & CPT</p>
+        </div>
+
+        <div className="nm-inset rounded-[14px] p-3 text-left">
+          <div className="flex items-center gap-1.5 text-brand-deep">
+            <Sparkles className="h-3.5 w-3.5" />
+            <span className="text-[12.5px] font-black">30+</span>
+          </div>
+          <p className="text-[11px] font-bold text-foreground mt-1">Delivered</p>
+          <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">US, UK, UAE, EU</p>
+        </div>
+
+        <div className="nm-inset rounded-[14px] p-3 text-left">
+          <div className="flex items-center gap-1.5 text-brand-deep">
+            <ShieldCheck className="h-3.5 w-3.5" />
+            <span className="text-[12.5px] font-black">100%</span>
+          </div>
+          <p className="text-[11px] font-bold text-foreground mt-1">Clean & Secure</p>
+          <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">Scalable & SEO</p>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="relative z-10 flex items-center gap-2.5 w-full mt-4">
+        <a
+          href="#contact"
+          className="nm-raised-sm hover:nm-interactive text-brand-deep flex-1 py-2.5 rounded-[10px] text-center text-[11px] font-extrabold uppercase tracking-wider transition-all duration-200 active:scale-95 inline-flex items-center justify-center gap-1"
+        >
+          {t("cta_contact", "Get In Touch")} <ArrowRight className="h-3.5 w-3.5" />
+        </a>
+        <Link
+          to="/projects"
+          className="nm-inset text-foreground/85 hover:text-brand-deep flex-1 py-2.5 rounded-[10px] text-center text-[11px] font-extrabold uppercase tracking-wider transition-all duration-200 active:scale-95 inline-flex items-center justify-center gap-1"
+        >
+          {t("nav_projects", "Projects")}
+        </Link>
+      </div>
     </div>
   );
 }
@@ -107,23 +189,23 @@ export function About() {
           </div>
         </NeumorphicCard>
 
-        {/* Right Side: Particle "S" on desktop, static SVG on mobile */}
+        {/* Right Side: Interactive WebGL particle "S" on desktop, executive developer card on mobile */}
         <NeumorphicCard
           depth="md"
           radius="lg"
-          className="relative flex min-h-[300px] lg:min-h-[520px] items-center justify-center overflow-hidden p-6 reveal-on-scroll stagger-2"
+          className="relative flex min-h-[360px] lg:min-h-[520px] items-center justify-center overflow-hidden p-6 reveal-on-scroll stagger-2"
         >
           {/* Soft ambient lighting */}
           <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full bg-brand-light/20 dark:bg-brand-light/10 blur-3xl" />
 
-          {/* Mobile: lightweight static S (no WebGL, no canvas) */}
+          {/* Mobile: lightweight high-end developer card */}
           <div className="block lg:hidden w-full h-full">
-            <StaticLetterS />
+            <MobileDeveloperCard />
           </div>
 
           {/* Desktop only: interactive WebGL particle S */}
           <div className="hidden lg:block w-full h-full">
-            <Suspense fallback={<StaticLetterS />}>
+            <Suspense fallback={<MobileDeveloperCard />}>
               <ParticleLetterS />
             </Suspense>
           </div>

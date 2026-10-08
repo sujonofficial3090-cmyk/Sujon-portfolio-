@@ -5,9 +5,19 @@ import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 
+const findProject = (id) =>
+  PROJECTS.find(
+    (p) =>
+      p.id === id ||
+      (id === "clean-corp" && p.id === "tommys-real-estate") ||
+      (id === "digital-dropify" && p.id === "salvaje-group") ||
+      (id === "tima" && p.id === "moritz-dunkel") ||
+      (id === "finseo" && p.id === "emodula")
+  );
+
 export const Route = createFileRoute("/projects/$projectId")({
   head: ({ params }) => {
-    const project = PROJECTS.find((p) => p.id === params.projectId);
+    const project = findProject(params.projectId);
     return {
       meta: [
         { title: project ? `${project.title} — Senior WordPress Developer` : "Project Not Found" },
@@ -19,7 +29,7 @@ export const Route = createFileRoute("/projects/$projectId")({
     };
   },
   loader: ({ params }) => {
-    const project = PROJECTS.find((p) => p.id === params.projectId);
+    const project = findProject(params.projectId);
     if (!project) {
       throw notFound();
     }

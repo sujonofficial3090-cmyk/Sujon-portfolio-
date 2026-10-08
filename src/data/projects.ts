@@ -373,7 +373,7 @@ export const PROJECTS: Project[] = [
   {
     id: "contractors-liability",
     title: "Contractors Liability",
-    category: "Plumbing Website",
+    category: "Service Website",
     role: "Senior WordPress Developer",
     whatIBuilt: "High-volume insurance quote engine for commercial contractors and plumbing professionals across all 50 US states.",
     description: "Developed a high-converting insurance quote platform comparing 18 carriers in under 3 minutes for commercial trade contractors.",
@@ -395,7 +395,7 @@ export const PROJECTS: Project[] = [
   {
     id: "bexagro",
     title: "BEX AGRO LTD",
-    category: "Plumbing Website",
+    category: "Service Website",
     role: "WordPress Developer",
     whatIBuilt: "Agricultural technology and irrigation piping website featuring sustainable farming equipment and commercial supplies.",
     description: "Built an agro-technology corporate web platform showcasing commercial irrigation, plumbing systems, and modern farming solutions.",
@@ -417,7 +417,7 @@ export const PROJECTS: Project[] = [
   {
     id: "guideright-care",
     title: "Guide Right Care",
-    category: "Plumbing Website",
+    category: "Service Website",
     role: "WordPress Developer",
     whatIBuilt: "Community healthcare and residential assistance portal providing compassionate care navigation and family support services.",
     description: "Built a warm, accessible healthcare and residential care website with intake scheduling and family support guides.",
@@ -439,7 +439,7 @@ export const PROJECTS: Project[] = [
   {
     id: "anbgh",
     title: "A New Beginning (ANBGH)",
-    category: "Plumbing Website",
+    category: "Service Website",
     role: "WordPress Developer",
     whatIBuilt: "Specialized residential group home and healthcare portal featuring modern living accommodations and 24/7 resident support.",
     description: "Developed a residential group home website with facility showcases, resident support guides, and intake forms.",
@@ -461,7 +461,7 @@ export const PROJECTS: Project[] = [
   {
     id: "olali-suites",
     title: "Olali Suites Migori",
-    category: "Plumbing Website",
+    category: "Service Website",
     role: "WordPress Developer",
     whatIBuilt: "Hospitality and luxury suite website with room galleries, event hosting spaces, amenities guides, and reservation inquiries.",
     description: "Built a luxury hotel & executive suites destination website with room amenities, dining guides, and reservation booking.",
@@ -483,7 +483,7 @@ export const PROJECTS: Project[] = [
   {
     id: "teutsch-tech",
     title: "Teutschtech EV Solutions",
-    category: "Plumbing Website",
+    category: "Service Website",
     role: "WordPress Developer",
     whatIBuilt: "German smart electric vehicle charging and high-performance charging cable portal with interactive vehicle compatibility finder.",
     description: "Developed an EV charging technology portal featuring vehicle compatibility selector and high-performance cable catalog.",
@@ -527,7 +527,7 @@ export const PROJECTS: Project[] = [
   {
     id: "viknordisk",
     title: "Viknordisk",
-    category: "Plumbing Website",
+    category: "Service Website",
     role: "WordPress & Elementor Developer",
     whatIBuilt: "Full-scale corporate website for a Danish commercial cleaning, post-construction cleanup, and staffing recruitment company.",
     description: "Built a responsive WordPress website for a Danish cleaning and workforce recruitment firm with service catalogs and inquiry workflows.",
@@ -590,29 +590,29 @@ export const PROJECTS: Project[] = [
     ],
     techStack: ["WordPress", "WooCommerce", "Car Rental Booking", "Responsive Design", "PHP", "CSS3"],
     screenshots: [pesaCarRental, pf2, office],
-    liveUrl: "https://viknordisk.nu/"
+    liveUrl: "https://www.pesacarrental.com/"
   },
   {
-    id: "clean-corp",
-    title: "Clean Corp Canada",
+    id: "tommys-real-estate",
+    title: "Tommy's Real Estate Listing",
     category: "Business Website",
     role: "WordPress Developer",
-    whatIBuilt: "Corporate cleaning services website with structured service packages, client quote inquiry forms, and mobile-first responsiveness.",
+    whatIBuilt: "Premier real estate listing platform featuring advanced property search filters, interactive virtual tours, and agent inquiry automation.",
     description: "Built and customized a responsive WordPress website focused on usability, performance and business requirements.",
     img: tommysListing,
-    overview: "Clean Corp Canada is a commercial and residential cleaning services company. The website was developed to provide prospective clients with an easy-to-navigate overview of cleaning packages, service coverage, and direct quote requests.",
-    challenge: "Designing a clear, trustworthy layout that highlights different commercial and residential cleaning packages with quick inquiry access for busy business clients.",
-    solution: "Built and customized a responsive WordPress website with structured service cards, clear call-to-actions, and an interactive quote estimation form.",
+    overview: "Tommy's Real Estate is a leading property listing platform designed to showcase residential and commercial properties with rich multimedia, advanced parameter-based filtering, and instant inquiry workflows.",
+    challenge: "Handling large catalogs of property listings with high-resolution photography, instant filter queries (by location, price range, bedrooms), and ensuring seamless mobile responsiveness.",
+    solution: "Engineered a custom WordPress listing architecture utilizing Custom Post Types and ACF Pro, paired with AJAX facet filtering and optimized WebP media delivery for lightning-fast speeds.",
     features: [
-      "Commercial and residential cleaning service showcases",
-      "Transparent service breakdown and package comparisons",
-      "Online quote estimation and consultation intake form",
-      "Customer testimonials and trust signals",
-      "Fully responsive design optimized for mobile and desktop"
+      "Advanced property search with multi-parameter filter",
+      "High-resolution interactive property gallery and virtual tour",
+      "Agent profile directory and direct contact triggers",
+      "Dynamic listing status badges (For Sale, Under Offer, Sold)",
+      "Fully responsive layout optimized for mobile property seekers"
     ],
-    techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
+    techStack: ["WordPress", "Elementor Pro", "Custom Post Types", "ACF Pro", "AJAX Filtering", "PHP", "CSS3"],
     screenshots: [tommysListing, pf1, office],
-    liveUrl: "https://sujon-portfolio.vercel.app/"
+    liveUrl: "https://www.tommys.co.nz/"
   },
   {
     id: "montgomery-inn",
@@ -681,48 +681,50 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://205diesel.com/"
   },
   {
-    id: "digital-dropify",
-    title: "Digital Dropify",
-    category: "WooCommerce",
-    role: "WordPress & WooCommerce Developer",
-    whatIBuilt: "Digital product and eCommerce platform with seamless checkout, payment integration, and responsive catalog browsing.",
-    description: "Developed a WooCommerce website with product-focused layouts, responsive design and customized WordPress functionality.",
+    id: "salvaje-group",
+    title: "AMOR — Downtown Dubai Speakeasy",
+    category: "Business Website",
+    role: "WordPress & Frontend Developer",
+    whatIBuilt: "Exclusive luxury speakeasy nightclub website in Downtown Dubai, featuring world-class mixology, international DJ headliners, and online reservation workflows.",
+    description: "Designed and engineered a high-impact luxury nightlife web application with event showcases, cocktail mixology highlights, and VIP booking funnels.",
     img: salvajeGroup,
-    overview: "Digital Dropify is an eCommerce platform built for digital products and online services. The website provides streamlined product discovery, instant digital downloads, and secure checkout processing.",
-    challenge: "Building an automated digital delivery storefront with frictionless payment workflows, clean product cards, and instant post-purchase access.",
-    solution: "Developed a custom WooCommerce setup with product-focused layouts, automated payment gateway integration, and responsive design across all devices.",
+    overview: "AMOR is a premier speakeasy nightclub situated in the heart of Downtown Dubai right next to Dubai Opera & Burj Khalifa. Developed for Salvaje Group Dubai, the platform showcases bespoke nightlife events, curated mixology, house-driven DJ vibes, interactive event galleries, and instant table booking integrations.",
+    challenge: "Capturing the dark, sensual luxury atmosphere of Downtown Dubai's elite nightlife while building a fast, responsive event management and reservation intake portal for high-profile international guests.",
+    solution: "Designed and engineered a high-impact, dark-themed luxury web application with immersive event showcases, cocktail mixology highlights, interactive Google Maps location widgets, and instant WhatsApp / online table booking funnels.",
     features: [
-      "Categorized digital product listings with clear feature highlights",
-      "Frictionless WooCommerce cart drawer and secure checkout",
-      "Automated digital product delivery and account management",
-      "Payment gateway integration supporting multiple payment methods",
-      "Fully responsive design optimized for high conversion"
+      "Dark luxury speakeasy branding with high-contrast typography & vibrant red accent aesthetics",
+      "Interactive weekly event showcase ('Prohibido', 'Midnight by Amor', 'Favela Disco')",
+      "Instant table booking & VIP reservation intake via direct WhatsApp and booking forms",
+      "Integrated location map & operating schedule widget for Downtown Dubai Opera location",
+      "Dynamic photo gallery showcasing venue ambiance, DJ performances, and mixology",
+      "100% mobile-responsive, fast-loading design optimized across all mobile devices"
     ],
-    techStack: ["WordPress", "WooCommerce", "Elementor Pro", "Payment Systems", "PHP"],
+    techStack: ["WordPress", "Elementor Pro", "JavaScript", "PHP", "CSS3 Animations", "Google Maps API", "Responsive Design"],
     screenshots: [salvajeGroup, pf1, office],
-    liveUrl: "https://sujon-portfolio.vercel.app/"
+    liveUrl: "https://salvajegroupdubai.com/"
   },
   {
-    id: "tima",
-    title: "Tima",
+    id: "moritz-dunkel",
+    title: "Moritz Dunkel Portfolio",
     category: "Dynamic Content",
-    role: "WordPress Developer",
-    whatIBuilt: "Dynamic WordPress website with custom field architectures, relational data, and responsive layout presentation.",
-    description: "Built dynamic WordPress functionality using Custom Post Types, dynamic content and custom fields.",
+    role: "WordPress & Elementor Developer",
+    whatIBuilt: "High-end creative agency portfolio and brand identity website for Moritz Dunkel in Cologne, Germany, featuring interactive case studies, design client testimonials, and strategy consultation bookings.",
+    description: "Developed a modern, performance-optimized WordPress agency platform with dynamic typography, dark/light contrast aesthetics, interactive project galleries, and verified client testimonials.",
     img: moritzDunkel,
-    overview: "Tima is a dynamic corporate web platform requiring tailored content architectures. The site leverages custom post types and relational meta fields to organize business information dynamically.",
-    challenge: "Handling complex content structures and custom post relationships without sacrificing site speed or administrative ease-of-use.",
-    solution: "Engineered dynamic WordPress functionality using Custom Post Types (CPT), JetEngine, and Advanced Custom Fields (ACF) to allow easy content management and modular display.",
+    overview: "Moritz Dunkel (Dunkel Design / DNKLDSN) is a premier branding and web design agency based in Cologne, Germany. The website is engineered to showcase high-impact visual identities, psychology-driven web design, marketing strategies, and client success stories for entrepreneurs, service providers, and brands.",
+    challenge: "Structuring an extensive portfolio of design case studies, client reviews, FAQ accordions, and design packages into a bold, high-contrast visual layout that communicates creative excellence and drives high-value client project inquiries.",
+    solution: "Developed a modern, performance-optimized WordPress agency platform with dynamic typography, dark/light contrast aesthetics, interactive project galleries, verified client video/text testimonials, and seamless consultation intake flows.",
     features: [
-      "Custom Post Types (CPT) tailored to business data models",
-      "Dynamic content templates and relational meta fields",
-      "JetEngine listing grids with custom filter queries",
-      "User-friendly WordPress backend for streamlined client editing",
-      "Fast-loading, responsive frontend presentation"
+      "Bold, modern agency branding with dark & vibrant accent aesthetics",
+      "Interactive case study portfolio & client project breakdown",
+      "Client testimonials and 5-star Trustpilot review highlights",
+      "Interactive design & branding FAQ accordion",
+      "Direct strategy consultation intake & appointment calendar booking",
+      "100% responsive, high-performance design optimized across desktop and mobile"
     ],
-    techStack: ["WordPress", "Elementor Pro", "JetEngine", "Custom Post Types", "ACF"],
+    techStack: ["WordPress", "Elementor Pro", "ACF Pro", "PHP", "CSS3 Animations", "JavaScript", "Responsive Design"],
     screenshots: [moritzDunkel, pf2, office],
-    liveUrl: "https://sujon-portfolio.vercel.app/"
+    liveUrl: "https://www.moritzdunkel.de/"
   },
   {
     id: "global-med",
@@ -747,26 +749,27 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://globalmedus.com"
   },
   {
-    id: "finseo",
-    title: "Finseo",
+    id: "emodula",
+    title: "Emodula — Modular Buildings",
     category: "WordPress",
-    role: "WordPress Developer",
-    whatIBuilt: "Financial and SEO consulting website featuring clean layouts, conversion-focused sections, and fast performance optimization.",
-    description: "Converted the provided Figma/PSD design into a responsive WordPress implementation using Elementor Pro.",
+    role: "WordPress & Elementor Developer",
+    whatIBuilt: "Corporate modular construction and sustainable architecture portal showcasing modern healthcare, data center, and educational building systems.",
+    description: "Built a responsive, compliance-led corporate WordPress website showcasing permanent modular buildings, certifications, and technical delivery.",
     img: emodula,
-    overview: "Finseo is a professional financial and search engine optimization consulting agency. The website showcases advisory services, audit checklists, case results, and direct consultation scheduling.",
-    challenge: "Accurately converting detailed Figma design mockups into a responsive, pixel-perfect WordPress website with high performance and on-page SEO foundations.",
-    solution: "Converted approved Figma/PSD designs into a clean Elementor Pro implementation with optimized assets, clean semantic markup, and responsive breakpoints.",
+    overview: "Emodula is a modern modular construction specialist delivering high-performance permanent modular buildings across healthcare, data centers, and commercial hubs. The platform highlights sustainable building standards, ISO certifications, and end-to-end turnkey project delivery.",
+    challenge: "Communicating heavy-duty industrial compliance, ISO quality certifications, and multi-sector building solutions within an authoritative, easily digestible corporate layout.",
+    solution: "Engineered a sleek, responsive WordPress website with structured sector cards, delivery timeline walkthroughs, technical case studies, and enterprise inquiry funnels.",
     features: [
-      "Pixel-perfect Figma to WordPress conversion with Elementor Pro",
-      "Structured consulting service showcases and strategy breakdowns",
-      "On-page SEO optimization with semantic HTML hierarchy",
-      "Interactive consultation booking and project inquiry forms",
-      "Cross-device responsiveness and fast load time performance"
+      "Permanent modular buildings showcase with compliance-led approach hero section",
+      "ISO 9001:2015, ISO 14001, ISO 45001 & BOPAS certification display",
+      "Multi-sector project browser: Healthcare, Data Centres, Hub Systems, EV Charging",
+      "'How Emodula Works' 5-step delivery process walkthrough",
+      "Governance, assurance and buyer confidence section with project imagery",
+      "100% responsive dark-themed corporate design with high-impact CTAs"
     ],
-    techStack: ["WordPress", "Elementor Pro", "Figma to WordPress", "SEO Optimization", "PHP"],
+    techStack: ["WordPress", "Elementor Pro", "PHP", "CSS3", "JavaScript", "Responsive Design"],
     screenshots: [emodula, pf2, office],
-    liveUrl: "https://sujon-portfolio.vercel.app/"
+    liveUrl: "https://emodula.org"
   }
 ];
 

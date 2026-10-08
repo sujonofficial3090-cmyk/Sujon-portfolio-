@@ -26,13 +26,17 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
   const projKeys: Record<string, { descKey: string; roleKey: string }> = {
     "appliance-world": { descKey: "proj_appliance_desc", roleKey: "proj_appliance_role" },
     "clean-corp": { descKey: "proj_cleancorp_desc", roleKey: "proj_cleancorp_role" },
+    "tommys-real-estate": { descKey: "proj_cleancorp_desc", roleKey: "proj_cleancorp_role" },
     "montgomery-inn": { descKey: "proj_montgomery_desc", roleKey: "proj_montgomery_role" },
     "cater-psychiatry": { descKey: "proj_cater_desc", roleKey: "proj_cater_role" },
     "diesel-repair": { descKey: "proj_diesel_desc", roleKey: "proj_diesel_role" },
     "digital-dropify": { descKey: "proj_dropify_desc", roleKey: "proj_dropify_role" },
+    "salvaje-group": { descKey: "proj_dropify_desc", roleKey: "proj_dropify_role" },
     "tima": { descKey: "proj_tima_desc", roleKey: "proj_tima_role" },
+    "moritz-dunkel": { descKey: "proj_tima_desc", roleKey: "proj_tima_role" },
     "global-med": { descKey: "proj_globalmed_desc", roleKey: "proj_globalmed_role" },
     "finseo": { descKey: "proj_finseo_desc", roleKey: "proj_finseo_role" },
+    "emodula": { descKey: "proj_finseo_desc", roleKey: "proj_finseo_role" },
   };
 
   const currentKeys = projKeys[item.id];

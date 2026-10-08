@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+// @ts-expect-error nextparticle is a plain JS vendor file
 import NextParticle from "@/lib/nextparticle";
 
 function getLetterSDataUrl(size: number, theme: string): string {

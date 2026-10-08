@@ -315,20 +315,20 @@ export function InteractiveFooterSkills() {
       mouse.element.addEventListener(
         "touchstart",
         (e: TouchEvent) => {
-          mouse.mousedown(e);
+          (mouse as any).mousedown(e);
         },
         { passive: true }
       );
 
       mouse.element.addEventListener("touchmove", (e) => {
         if (mouseConstraint.body) {
-          mouse.mousemove(e);
+          (mouse as any).mousemove(e);
         }
       });
 
       mouse.element.addEventListener("touchend", (e) => {
         if (mouseConstraint.body) {
-          mouse.mouseup(e);
+          (mouse as any).mouseup(e);
         }
       });
     }
