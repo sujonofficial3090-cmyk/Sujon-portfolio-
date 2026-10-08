@@ -9,23 +9,36 @@ export function useLenisSmoothScroll() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
-    const isTouchDevice =
-      typeof window !== "undefined" &&
-      ("ontouchstart" in window ||
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia("(pointer: coarse)").matches ||
-        window.innerWidth < 1024);
+    // Disable Lenis on touch/mobile devices — native scroll is faster & smoother
+    const isMobileOrTouch =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.innerWidth < 1024;
 
-    // Initialize Lenis for luxurious buttery-smooth momentum scrolling
-    // on BOTH desktop and mobile/touch devices!
+    if (isMobileOrTouch) {
+      // On mobile, just handle anchor smooth scrolling natively without Lenis overhead
+      const handleAnchorClick = (e: MouseEvent) => {
+        const target = (e.target as HTMLElement).closest("a");
+        if (!target) return;
+        const href = target.getAttribute("href");
+        if (href && (href.startsWith("/#") || href.startsWith("#"))) {
+          const id = href.replace("/#", "").replace("#", "");
+          const element = document.getElementById(id);
+          if (element) {
+            e.preventDefault();
+            const top = element.getBoundingClientRect().top + window.scrollY - 85;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+        }
+      };
+      document.addEventListener("click", handleAnchorClick, { passive: false });
+      return () => document.removeEventListener("click", handleAnchorClick);
+    }
+
+    // Desktop only: Lenis luxurious smooth scroll
     const lenis = new Lenis({
-      // Smooth touch settings for mobile:
-      // syncTouch ensures finger tracking stays responsive and syncs with momentum
-      syncTouch: isTouchDevice,
-      syncTouchLerp: 0.075,
-      touchMultiplier: 1.15,
-      touchInertiaExponent: 1.7,
-      // Desktop mouse wheel settings:
+      syncTouch: false,
       smoothWheel: true,
       lerp: 0.1,
       wheelMultiplier: 0.95,
@@ -40,7 +53,7 @@ export function useLenisSmoothScroll() {
 
     rafId = requestAnimationFrame(raf);
 
-    // Smooth scroll for in-page anchors on both mobile and desktop
+    // Smooth scroll for in-page anchors on desktop
     const handleAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("a");
       if (!target) return;

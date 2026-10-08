@@ -1470,5 +1470,153 @@ header {
   opacity: 0.65;
 }
 
+/* ==========================================================================
+   Asctro Interactive Optical Glass Spheres — Exact Specular Glass Formula
+   ========================================================================== */
+.asctro-glass-ball {
+  border-radius: 500px;
+  backdrop-filter: blur(10px) saturate(135%);
+  -webkit-backdrop-filter: blur(10px) saturate(135%);
+  background-color: rgb(0 0 0 / 14%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.45),
+    inset 1.8px 3px 0px -2px rgba(255, 255, 255, 0.95),
+    inset -2px -2px 0px -2px rgba(255, 255, 255, 0.85),
+    inset -3px -8px 1px -6px rgba(255, 255, 255, 0.70),
+    inset -0.3px -1px 4px 0px rgba(0, 0, 0, 0.18),
+    inset -1.5px 2.5px 0px -2px rgba(0, 0, 0, 0.25),
+    inset 0px 3px 4px -2px rgba(0, 0, 0, 0.25),
+    inset 2px -6.5px 1px -4px rgba(0, 0, 0, 0.15),
+    0px 2px 8px 0px rgba(0, 0, 0, 0.18),
+    0px 6px 18px 0px rgba(0, 0, 0, 0.14);
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+}
+
+.asctro-glass-ball:hover {
+  background-color: rgb(0 0 0 / 22%);
+  box-shadow:
+    inset 0 0 0 1.5px rgb(var(--brand-rgb) / 70%),
+    inset 2px 3px 0px -1px rgba(255, 255, 255, 1),
+    inset -2px -2px 0px -1px rgba(255, 255, 255, 0.9),
+    0px 8px 24px -2px rgb(var(--brand-rgb) / 35%),
+    0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.dark .asctro-glass-ball {
+  background-color: rgb(0 0 0 / 25%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    inset 1.8px 3px 0px -2px rgba(255, 255, 255, 0.90),
+    inset -2px -2px 0px -2px rgba(255, 255, 255, 0.75),
+    inset -3px -8px 1px -6px rgba(255, 255, 255, 0.60),
+    inset 0px 3px 4px -2px rgba(0, 0, 0, 0.45),
+    0px 6px 20px 0px rgba(0, 0, 0, 0.45),
+    0px 2px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* ==========================================================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   Disable/reduce expensive effects on touch devices for maximum speed
+   ========================================================================== */
+
+@media (pointer: coarse), (max-width: 767px) {
+  /* Disable all CSS animations on mobile for performance */
+  .hero-animate-1,
+  .hero-animate-2,
+  .hero-animate-3,
+  .hero-animate-4 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Simplify neumorphic shadows on mobile — use simpler single-layer shadows */
+  .nm-raised {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  .nm-inset {
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.10) !important;
+  }
+
+  .nm-raised-sm {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10) !important;
+  }
+
+  /* Disable blur-heavy effects on mobile */
+  .blur-2xl,
+  .blur-3xl {
+    display: none !important;
+  }
+
+  /* Remove hover transforms on touch devices — no hover state on mobile */
+  .hover\:scale-\[1\.01\]:hover,
+  .hover\:-translate-y-1:hover,
+  .group-hover\:scale-105 {
+    transform: none !important;
+  }
+
+  /* Disable scroll reveal animation overhead on mobile */
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Improve touch target sizing */
+  button, a, [role="button"] {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Prevent iOS font scaling */
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Optimize scroll performance */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* GPU compositing for frequently animated elements */
+  .nm-raised, .nm-inset, .nm-raised-sm {
+    transform: translateZ(0);
+    will-change: auto;
+  }
+}
+
+/* Disable animate-pulse on mobile (saves repaints) */
+@media (pointer: coarse) {
+  .animate-pulse {
+    animation: none !important;
+  }
+
+  /* Disable spinning dashed ring in preloader on mobile */
+  .animate-\[spin_8s_linear_infinite\] {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   GLOBAL PERFORMANCE: contain layout for major sections
+   ========================================================================== */
+section {
+  contain: layout style;
+}
+
+/* Image rendering optimization */
+img {
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Preload hint for LCP image */
+img[fetchpriority="high"] {
+  content-visibility: auto;
+}
 
 

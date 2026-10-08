@@ -2,6 +2,7 @@ import { Facebook, Github, Instagram, MessageCircle, Mail, Phone, MapPin, Layout
 import { NeumorphicCard } from "@/components/nm";
 import { useAuth } from "@/lib/auth";
 import { useTranslation } from "@/lib/i18n";
+import { InteractiveFooterSkills } from "@/components/site/InteractiveFooterSkills";
 
 const SOCIALS = [
   { Icon: Github, href: "https://github.com/sujonofficial3090-cmyk", label: "GitHub" },
@@ -146,6 +147,9 @@ export function Footer() {
             </ul>
           </div>
         </div>
+
+        {/* Interactive Skills Physics Strip */}
+        <InteractiveFooterSkills />
 
         <div className="mt-6 grid grid-cols-1 items-center gap-4 border-t border-border pt-6 sm:grid-cols-2">
           <p className="text-[13px] font-medium text-muted-foreground text-center sm:text-left">

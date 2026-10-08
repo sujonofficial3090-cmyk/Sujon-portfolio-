@@ -1,6 +1,37 @@
+import { lazy, Suspense } from "react";
 import { NeumorphicCard } from "@/components/nm";
-import { ParticleLetterS } from "@/components/site/ParticleLetterS";
 import { useTranslation } from "@/lib/i18n";
+
+// Lazy load heavy particle component — only on desktop
+const ParticleLetterS = lazy(() =>
+  import("@/components/site/ParticleLetterS").then((m) => ({ default: m.ParticleLetterS }))
+);
+
+// Lightweight SVG "S" fallback for mobile
+function StaticLetterS() {
+  return (
+    <div className="relative flex h-full w-full min-h-[300px] items-center justify-center select-none">
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] rounded-full bg-brand-light/25 dark:bg-brand-light/12 blur-3xl" />
+      <span
+        className="sujon-logo text-brand-gradient relative z-10 select-none"
+        style={{
+          fontSize: "clamp(120px, 30vw, 200px)",
+          fontWeight: 900,
+          letterSpacing: "-0.04em",
+          lineHeight: 1,
+          background: "linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 60%, #FFD101 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          filter: "drop-shadow(0 8px 24px color-mix(in srgb, var(--brand) 35%, transparent))",
+        }}
+      >
+        S
+      </span>
+    </div>
+  );
+}
 
 export function About() {
   const { t } = useTranslation();
@@ -76,15 +107,26 @@ export function About() {
           </div>
         </NeumorphicCard>
 
-        {/* Right Side: Pure, clean & centered interactive particle "S" showcase */}
+        {/* Right Side: Particle "S" on desktop, static SVG on mobile */}
         <NeumorphicCard
           depth="md"
           radius="lg"
-          className="relative flex min-h-[460px] lg:min-h-[520px] items-center justify-center overflow-hidden p-6 reveal-on-scroll stagger-2"
+          className="relative flex min-h-[300px] lg:min-h-[520px] items-center justify-center overflow-hidden p-6 reveal-on-scroll stagger-2"
         >
           {/* Soft ambient lighting */}
           <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full bg-brand-light/20 dark:bg-brand-light/10 blur-3xl" />
-          <ParticleLetterS />
+
+          {/* Mobile: lightweight static S (no WebGL, no canvas) */}
+          <div className="block lg:hidden w-full h-full">
+            <StaticLetterS />
+          </div>
+
+          {/* Desktop only: interactive WebGL particle S */}
+          <div className="hidden lg:block w-full h-full">
+            <Suspense fallback={<StaticLetterS />}>
+              <ParticleLetterS />
+            </Suspense>
+          </div>
         </NeumorphicCard>
       </div>
     </section>

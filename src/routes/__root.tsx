@@ -7,7 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, lazy, Suspense, type ReactNode } from "react";
 
 import { AuthProvider } from "../lib/auth";
 import { Toaster } from "sonner";
@@ -17,15 +17,35 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { useScrollReveal } from "../lib/useScrollReveal";
 import { useLenisSmoothScroll } from "../lib/useLenisSmoothScroll";
 import { useContentProtection } from "../lib/useContentProtection";
-import { ClickDotEffect } from "../components/ui/ClickDotEffect";
-import { MagicCursorEffect } from "../components/ui/MagicCursorEffect";
 import { SitePreloader } from "../components/ui/SitePreloader";
-import { NationalAnthemPlayer } from "../components/ui/NationalAnthemPlayer";
-import { ClickSoundEffect } from "../components/ui/ClickSoundEffect";
 import { initAccentColor } from "../lib/accentColors";
 import { LanguageProvider } from "../lib/i18n";
 import { WhatsAppFloat } from "../components/site/WhatsAppFloat";
 import { ScrollButton } from "../components/site/ScrollButton";
+
+// Lazy load heavy desktop-only effects
+const ClickDotEffect = lazy(() =>
+  import("../components/ui/ClickDotEffect").then((m) => ({ default: m.ClickDotEffect }))
+);
+const ClickSoundEffect = lazy(() =>
+  import("../components/ui/ClickSoundEffect").then((m) => ({ default: m.ClickSoundEffect }))
+);
+const MagicCursorEffect = lazy(() =>
+  import("../components/ui/MagicCursorEffect").then((m) => ({ default: m.MagicCursorEffect }))
+);
+const NationalAnthemPlayer = lazy(() =>
+  import("../components/ui/NationalAnthemPlayer").then((m) => ({ default: m.NationalAnthemPlayer }))
+);
+
+// Detect touch/mobile once
+function isTouchDevice() {
+  if (typeof window === "undefined") return false;
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia("(pointer: coarse)").matches
+  );
+}
 
 function NotFoundComponent() {
   return (
@@ -167,6 +187,8 @@ function RootComponent() {
   useScrollReveal();
   useContentProtection();
 
+  const isTouch = typeof window !== "undefined" ? isTouchDevice() : false;
+
   useEffect(() => {
     // Theme surface: strictly default to White / Light mode on all devices for first-time visitors
     const storedTheme = localStorage.getItem("theme");
@@ -189,10 +211,17 @@ function RootComponent() {
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <SitePreloader />
           <Outlet />
-          <ClickDotEffect />
-          <ClickSoundEffect />
-          <MagicCursorEffect />
-          <NationalAnthemPlayer />
+
+          {/* Desktop-only heavy effects — skip entirely on touch/mobile */}
+          {!isTouch && (
+            <Suspense fallback={null}>
+              <ClickDotEffect />
+              <ClickSoundEffect />
+              <MagicCursorEffect />
+              <NationalAnthemPlayer />
+            </Suspense>
+          )}
+
           <WhatsAppFloat />
           <ScrollButton />
           <Toaster position="bottom-right" richColors />

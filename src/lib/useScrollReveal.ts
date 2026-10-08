@@ -2,18 +2,34 @@ import { useEffect } from "react";
 
 export function useScrollReveal() {
   useEffect(() => {
-    // If user prefers reduced motion, reveal everything immediately
     if (typeof window === "undefined") return;
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) {
+    // Reveal immediately on mobile/touch — no observer overhead
+    const isMobileOrTouch =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.innerWidth < 768;
+
+    const revealAll = () => {
       document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
         el.classList.add("is-revealed");
       });
+    };
+
+    if (isMobileOrTouch) {
+      revealAll();
       return;
     }
 
-    // High performance IntersectionObserver for smooth one-time scroll reveal
+    // If user prefers reduced motion, reveal everything immediately
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      revealAll();
+      return;
+    }
+
+    // High performance IntersectionObserver for smooth one-time scroll reveal on desktop
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

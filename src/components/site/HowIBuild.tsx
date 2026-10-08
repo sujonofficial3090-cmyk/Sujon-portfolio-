@@ -179,7 +179,7 @@ export function HowIBuild() {
             </svg>
 
             {/* Container with ZERO shadow, ZERO inset, ZERO border */}
-            <div className="relative w-full max-w-[220px] h-[140px] sm:h-[150px] flex items-center justify-center bg-transparent">
+            <div className="relative hidden sm:flex w-full max-w-[220px] h-[140px] sm:h-[150px] items-center justify-center bg-transparent">
               <video
                 ref={videoRef}
                 src="/videos/about-video.mp4"
@@ -187,7 +187,7 @@ export function HowIBuild() {
                 loop
                 muted
                 playsInline
-                preload="metadata"
+                preload="none"
                 className="w-full h-full object-contain select-none pointer-events-none transition-all duration-300 how-build-3d-video"
               />
             </div>
