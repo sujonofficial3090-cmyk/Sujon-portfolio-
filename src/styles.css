@@ -1514,7 +1514,82 @@ header {
     0px 2px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
+/* ── Hero arrow GIF responsive styles & float animation ── */
+.hero-arrow-wrapper {
+  position: absolute;
+  z-index: 25;
+  pointer-events: none;
+  user-select: none;
+  display: block;
+}
 
+/* Mobile (<640px): Floating above CTA pointing directly to Download CV */
+@media (max-width: 639px) {
+  .hero-arrow-wrapper {
+    top: -44px;
+    right: 20px;
+    transform: rotate(28deg) scaleX(-1) scale(0.72);
+    animation: hero-arrow-float-mobile 2.4s ease-in-out infinite;
+  }
+  .hero-arrow-wrapper img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+}
+
+/* Tablet (640px to 1023px): Floating above right of buttons */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hero-arrow-wrapper {
+    top: -40px;
+    right: 28px;
+    transform: rotate(22deg) scaleX(-1) scale(0.78);
+    animation: hero-arrow-float-mobile 2.4s ease-in-out infinite;
+  }
+  .hero-arrow-wrapper img {
+    width: 78px !important;
+    height: 78px !important;
+  }
+}
+
+/* Desktop (1024px+): Pointing horizontally to CTA buttons */
+@media (min-width: 1024px) {
+  .hero-arrow-wrapper {
+    top: 50%;
+    right: -105px;
+    transform: translateY(-50%) scaleX(-1);
+    animation: hero-arrow-float 2.4s ease-in-out infinite;
+  }
+  .hero-arrow-wrapper img {
+    width: 90px !important;
+    height: 90px !important;
+  }
+}
+
+@keyframes hero-arrow-float {
+  0%, 100% { transform: translateY(-50%) scaleX(-1) translateX(0px); }
+  50%       { transform: translateY(-50%) scaleX(-1) translateX(-8px); }
+}
+
+@keyframes hero-arrow-float-mobile {
+  0%, 100% {
+    transform: rotate(28deg) scaleX(-1) scale(0.72) translateY(0px);
+  }
+  50% {
+    transform: rotate(28deg) scaleX(-1) scale(0.72) translateY(-6px);
+  }
+}
+
+/* ── 3D Stepped Architecture Video (How I Build section) ── */
+.how-build-3d-video {
+  mix-blend-mode: multiply;
+  filter: var(--theme-build-filter, url(#tint-gold));
+  transition: filter 0.3s ease;
+}
+
+.dark .how-build-3d-video {
+  mix-blend-mode: screen;
+  filter: none;
+}
 
 /* ==========================================================================
    MOBILE PERFORMANCE OPTIMIZATIONS

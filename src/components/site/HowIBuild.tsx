@@ -178,8 +178,8 @@ export function HowIBuild() {
               </defs>
             </svg>
 
-            {/* Container with ZERO shadow, ZERO inset, ZERO border */}
-            <div className="relative hidden sm:flex w-full max-w-[220px] h-[140px] sm:h-[150px] items-center justify-center bg-transparent">
+            {/* 3D Stepped Architecture Video — visible on all devices (mobile, tablet, desktop) */}
+            <div className="relative flex w-full max-w-[220px] h-[135px] sm:h-[150px] items-center justify-center bg-transparent mx-auto">
               <video
                 ref={videoRef}
                 src="/videos/about-video.mp4"
@@ -187,7 +187,7 @@ export function HowIBuild() {
                 loop
                 muted
                 playsInline
-                preload="none"
+                preload="auto"
                 className="w-full h-full object-contain select-none pointer-events-none transition-all duration-300 how-build-3d-video"
               />
             </div>

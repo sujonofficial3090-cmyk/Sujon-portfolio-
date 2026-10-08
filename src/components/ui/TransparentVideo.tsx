@@ -287,7 +287,7 @@ export function TransparentVideo({
 
   return (
     <div className={`relative flex items-center justify-center select-none ${className}`}>
-      {/* Hidden source video */}
+      {/* Source video — kept in DOM with opacity 0 so mobile browsers decode frames */}
       <video
         ref={videoRef}
         src={src}
@@ -295,8 +295,15 @@ export function TransparentVideo({
         loop
         muted
         playsInline
-        crossOrigin="anonymous"
-        style={{ display: "none" }}
+        preload="auto"
+        style={{
+          position: "absolute",
+          opacity: 0,
+          pointerEvents: "none",
+          width: "1px",
+          height: "1px",
+          zIndex: -10,
+        }}
       />
 
       {/* Visible transparent canvas */}

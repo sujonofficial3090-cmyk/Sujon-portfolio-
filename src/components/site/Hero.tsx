@@ -1,7 +1,10 @@
 import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
+import { WaterCanvas } from "@/components/ui/WaterCanvas";
 
 import heroProfileImg from "@/assets/hero-profile.png";
+
+const HERO_IMG = heroProfileImg;
 
 export function Hero() {
   const { t } = useTranslation();
@@ -37,7 +40,7 @@ export function Hero() {
               {t("hero_bio")}
             </p>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons + floating animated arrow GIF */}
             <div className="hero-animate-3 mt-7 relative inline-flex flex-col sm:flex-row items-start gap-3 sm:gap-4 w-full sm:w-auto">
               <NeumorphicLinkButton
                 href="/SUJON.pdf"
@@ -56,22 +59,41 @@ export function Hero() {
               >
                 {t("hero_view_projects")}
               </NeumorphicLinkButton>
+
+              {/* ── Floating animated arrow GIF — points toward CTA buttons ── */}
+              <div className="hero-arrow-wrapper">
+                <img
+                  src="/title-img-2.gif"
+                  alt=""
+                  aria-hidden="true"
+                  width={360}
+                  height={360}
+                  style={{
+                    background: "transparent",
+                    backgroundColor: "transparent",
+                    imageRendering: "auto",
+                    filter:
+                      "var(--arrow-filter, sepia(1) saturate(5) hue-rotate(85deg) brightness(1.15))",
+                    opacity: 0.95,
+                  }}
+                />
+              </div>
             </div>
 
-            {/* ── Mobile / Tablet Photo ── */}
+            {/* ── Mobile / Tablet Photo with Interactive Water Ripples ── */}
             <div className="hero-animate-4 relative mt-10 flex lg:hidden w-full items-end justify-center overflow-hidden pt-6">
               {/* Ambient glow */}
               <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 w-[280px] h-[280px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-2xl" />
               {/* Arch backdrop */}
               <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[280px] sm:w-[320px] h-[340px] sm:h-[400px] rounded-t-[140px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/50 dark:border-white/10 nm-raised-sm opacity-85" />
 
-              <img
-                src={heroProfileImg}
+              {/* Interactive Water Canvas */}
+              <WaterCanvas
+                src={HERO_IMG}
                 alt="Sujon — Senior WordPress Developer"
                 loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                className="relative z-10 max-h-[420px] sm:max-h-[480px] w-auto object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.14)] dark:drop-shadow-[0_14px_28px_rgba(0,0,0,0.5)]"
+                className="relative z-10"
+                imgClassName="max-h-[420px] sm:max-h-[480px] w-auto object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.14)] dark:drop-shadow-[0_14px_28px_rgba(0,0,0,0.5)]"
               />
 
               {/* Bottom surface fade */}
@@ -79,20 +101,20 @@ export function Hero() {
             </div>
           </div>
 
-          {/* ── RIGHT — Desktop Photo ── */}
+          {/* ── RIGHT — Desktop Photo with Interactive Water Ripples ── */}
           <div className="hero-animate-4 relative hidden lg:flex h-full min-h-[560px] w-[400px] xl:w-[480px] items-end justify-center overflow-hidden">
             {/* Ambient glow */}
             <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 w-[360px] h-[360px] rounded-full bg-brand-light/25 dark:bg-brand-light/15 blur-3xl" />
             {/* Arch backdrop */}
             <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[320px] xl:w-[380px] h-[480px] xl:h-[540px] rounded-t-[160px] bg-gradient-to-b from-brand/15 via-surface/40 to-surface border-t border-x border-white/60 dark:border-white/10 nm-raised-sm opacity-85" />
 
-            <img
-              src={heroProfileImg}
+            {/* Interactive Water Canvas */}
+            <WaterCanvas
+              src={HERO_IMG}
               alt="Sujon — Senior WordPress Developer"
               loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              className="relative z-10 h-full max-h-[580px] xl:max-h-[620px] w-auto object-contain object-bottom drop-shadow-[0_14px_32px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_16px_34px_rgba(0,0,0,0.5)]"
+              className="relative z-10"
+              imgClassName="h-full max-h-[580px] xl:max-h-[620px] w-auto object-contain object-bottom drop-shadow-[0_14px_32px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_16px_34px_rgba(0,0,0,0.5)]"
             />
 
             {/* Seamless bottom gradient fade */}
