@@ -63,8 +63,11 @@ export function TransparentVideo({
             const g = data[p + 1];
             const b = data[p + 2];
             const min = Math.min(r, g, b);
-            const isNeutral = Math.abs(r - g) <= 6 && Math.abs(g - b) <= 6;
-            return min > 240 || (min > 220 && isNeutral);
+            const isNeutral =
+              Math.abs(r - g) <= 12 &&
+              Math.abs(g - b) <= 12 &&
+              Math.abs(r - b) <= 12;
+            return min > 215 || (min > 180 && isNeutral);
           };
 
           for (let x = 0; x < width; x++) {
@@ -131,13 +134,13 @@ export function TransparentVideo({
             const p = i * 4;
             if (visited[i]) {
               const min = Math.min(data[p], data[p + 1], data[p + 2]);
-              if (min > 232) {
-                data[p + 3] = 0;
+              if (min > 200) {
+                data[p + 3] = 0; // 100% pure transparent background
               } else {
-                const alpha = Math.round(((232 - min) / 22) * 255);
-                data[p + 3] = Math.max(0, Math.min(255, alpha));
+                const alpha = Math.max(0, Math.min(255, Math.round(((200 - min) / 35) * 255)));
+                data[p + 3] = alpha;
                 // Defringe so no white halo shows on dark cards
-                const f = data[p + 3] / 255;
+                const f = alpha / 255;
                 data[p] = Math.round(data[p] * f);
                 data[p + 1] = Math.round(data[p + 1] * f);
                 data[p + 2] = Math.round(data[p + 2] * f);
@@ -287,7 +290,7 @@ export function TransparentVideo({
 
   return (
     <div className={`relative flex items-center justify-center select-none ${className}`}>
-      {/* Source video — kept in DOM with opacity 0 so mobile browsers decode frames */}
+      {/* Source video — kept in DOM with opacity 0 so browsers decode frames */}
       <video
         ref={videoRef}
         src={src}
@@ -298,10 +301,12 @@ export function TransparentVideo({
         preload="auto"
         style={{
           position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
           opacity: 0,
           pointerEvents: "none",
-          width: "1px",
-          height: "1px",
           zIndex: -10,
         }}
       />

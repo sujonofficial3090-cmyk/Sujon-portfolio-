@@ -1,7 +1,8 @@
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { NeumorphicCard } from "@/components/nm";
 import { Compass, FileCode2, Hammer, ShieldAlert, SlidersHorizontal } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { TransparentVideo } from "@/components/ui/TransparentVideo";
 
 const STEPS = [
   {
@@ -48,25 +49,8 @@ const STEPS = [
 
 export function HowIBuild() {
   const { t } = useTranslation();
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(video);
-
     // Sync custom color filter values if custom color is active
     const syncCustomFilter = () => {
       const storedAccent = localStorage.getItem("accentColor") || localStorage.getItem("accent");
@@ -99,7 +83,6 @@ export function HowIBuild() {
     window.addEventListener("accentColorChange", syncCustomFilter);
 
     return () => {
-      observer.disconnect();
       window.removeEventListener("accentColorChange", syncCustomFilter);
     };
   }, []);
@@ -178,17 +161,14 @@ export function HowIBuild() {
               </defs>
             </svg>
 
-            {/* 3D Stepped Architecture Video — visible on all devices (mobile, tablet, desktop) */}
-            <div className="relative flex w-full max-w-[220px] h-[135px] sm:h-[150px] items-center justify-center bg-transparent mx-auto">
-              <video
-                ref={videoRef}
+            {/* 3D Stepped Architecture Video — 100% transparent on both light and dark mode */}
+            <div className="relative flex w-full max-w-[240px] h-[140px] sm:h-[155px] items-center justify-center bg-transparent mx-auto">
+              <TransparentVideo
                 src="/videos/about-video.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                className="w-full h-full object-contain select-none pointer-events-none transition-all duration-300 how-build-3d-video"
+                width={270}
+                height={175}
+                className="w-full h-full object-contain"
+                filterTheme={true}
               />
             </div>
           </div>

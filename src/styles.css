@@ -1335,17 +1335,7 @@ header {
   }
 }
 
-/* ── 3D Stepped Architecture Video (How I Build section) ── */
-.how-build-3d-video {
-  mix-blend-mode: multiply;
-  filter: var(--theme-build-filter, url(#tint-orange));
-  transition: filter 0.3s ease;
-}
 
-.dark .how-build-3d-video {
-  mix-blend-mode: screen;
-  filter: invert(1) contrast(1.1) var(--theme-media-filter, sepia(1) saturate(6) hue-rotate(-20deg) brightness(1.15));
-}
 
 /* ── Experience Stacking Cards (Responsive: Natural Flow on Mobile to prevent shaking & cut-off, Cascading Deck on Desktop) ── */
 :root {
@@ -1579,18 +1569,7 @@ header {
   }
 }
 
-/* ── 3D Stepped Architecture Video (How I Build section) ── */
-.how-build-3d-video {
-  mix-blend-mode: multiply;
-  filter: var(--theme-build-filter, url(#tint-gold));
-  transition: filter 0.3s ease;
-}
 
-.dark .how-build-3d-video {
-  mix-blend-mode: screen;
-  filter: invert(1) contrast(1.1) var(--arrow-filter, sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2));
-  transition: filter 0.3s ease;
-}
 
 /* ==========================================================================
    MOBILE PERFORMANCE OPTIMIZATIONS
