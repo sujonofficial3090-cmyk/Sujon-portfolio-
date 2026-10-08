@@ -165,10 +165,10 @@ export function HowIBuild() {
             <div className="relative flex w-full max-w-[240px] h-[140px] sm:h-[155px] items-center justify-center bg-transparent mx-auto">
               <TransparentVideo
                 src="/videos/about-video.mp4"
-                width={270}
-                height={175}
+                width={540}
+                height={350}
                 className="w-full h-full object-contain"
-                filterTheme={true}
+                filterTheme={false}
               />
             </div>
           </div>

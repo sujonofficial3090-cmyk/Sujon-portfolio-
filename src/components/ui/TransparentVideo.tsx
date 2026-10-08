@@ -57,17 +57,18 @@ export function TransparentVideo({
         let tail = 0;
 
         if (isWhiteBg) {
-          // Exterior White Background Removal
+          // Exterior White Background Removal — strictly isolates studio white background, protecting 100% of the 3D model & frosted glass
           const isWhiteBgPixel = (p: number) => {
             const r = data[p];
             const g = data[p + 1];
             const b = data[p + 2];
             const min = Math.min(r, g, b);
             const isNeutral =
-              Math.abs(r - g) <= 12 &&
-              Math.abs(g - b) <= 12 &&
-              Math.abs(r - b) <= 12;
-            return min > 215 || (min > 180 && isNeutral);
+              Math.abs(r - g) <= 6 &&
+              Math.abs(g - b) <= 6 &&
+              Math.abs(r - b) <= 6;
+            // Strictly the pure exterior white studio background
+            return min >= 242 || (min >= 235 && isNeutral);
           };
 
           for (let x = 0; x < width; x++) {
@@ -131,15 +132,15 @@ export function TransparentVideo({
           }
 
           for (let i = 0; i < totalPixels; i++) {
-            const p = i * 4;
             if (visited[i]) {
+              const p = i * 4;
               const min = Math.min(data[p], data[p + 1], data[p + 2]);
-              if (min > 200) {
+              if (min >= 236) {
                 data[p + 3] = 0; // 100% pure transparent background
               } else {
-                const alpha = Math.max(0, Math.min(255, Math.round(((200 - min) / 35) * 255)));
+                // Soft antialiased transition along 3D model boundary
+                const alpha = Math.max(0, Math.min(255, Math.round(((236 - min) / 10) * 255)));
                 data[p + 3] = alpha;
-                // Defringe so no white halo shows on dark cards
                 const f = alpha / 255;
                 data[p] = Math.round(data[p] * f);
                 data[p + 1] = Math.round(data[p + 1] * f);
