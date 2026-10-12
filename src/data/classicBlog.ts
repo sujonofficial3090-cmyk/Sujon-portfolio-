@@ -1,7 +1,7 @@
-﻿import blog1 from "@/assets/blog-1.jpg";
-import blog2 from "@/assets/blog-2.jpg";
-import blog3 from "@/assets/blog-3.jpg";
-import blog4 from "@/assets/blog-4.jpg";
+import blog1 from "@/assets/blog-1.webp";
+import blog2 from "@/assets/blog-2.webp";
+import blog3 from "@/assets/blog-3.webp";
+import blog4 from "@/assets/blog-4.webp";
 
 export interface BlogPost {
   id: string;

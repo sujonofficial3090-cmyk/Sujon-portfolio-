@@ -82,18 +82,18 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
       setTimeout(() => {
         setIsDone(true);
         if (onComplete) onComplete();
-      }, 300);
+      }, 180);
     };
 
-    // Absolute fail-safe hard timer: unconditionally finish within 1200ms
+    // Absolute fail-safe hard timer: unconditionally finish within 800ms
     const hardTimer = setTimeout(() => {
       setProgress(100);
       cleanupAndFinish();
-    }, 1200);
+    }, 800);
 
     const startTime = performance.now();
-    // Fast, responsive 750ms total progress duration
-    const duration = 750;
+    // Ultra-fast, responsive 450ms total progress duration
+    const duration = 450;
 
     const easeOutQuad = (t: number) => t * (2 - t);
 

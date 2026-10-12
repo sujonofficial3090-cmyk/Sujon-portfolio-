@@ -1,7 +1,3 @@
-import pf1 from "@/assets/pf-1.jpg";
-import pf2 from "@/assets/pf-2.jpg";
-import pf3 from "@/assets/pf-3.jpg";
-import office from "@/assets/office.jpg";
 import tommysListing from "@/assets/tommys-listing.webp";
 import applianceWorld from "@/assets/appliance-world.webp";
 import montgomeryInn from "@/assets/montgomery-inn.webp";
@@ -75,7 +71,7 @@ export const PROJECTS: Project[] = [
       "100% mobile-responsive layout across all devices"
     ],
     techStack: ["WordPress", "Elementor Pro", "Custom CSS", "PHP", "Performance & SEO"],
-    screenshots: [elixirmark, pf1, office],
+    screenshots: [elixirmark],
     liveUrl: "https://elixirmark.com/"
   },
   {
@@ -97,7 +93,7 @@ export const PROJECTS: Project[] = [
       "Cross-browser and cross-device verified responsiveness"
     ],
     techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [bridgewayDigital, pf2, office],
+    screenshots: [bridgewayDigital],
     liveUrl: "https://bridgewaydigital.com/"
   },
   {
@@ -119,7 +115,7 @@ export const PROJECTS: Project[] = [
       "Clean mobile-first design with fluid responsive breakpoints"
     ],
     techStack: ["WordPress", "Elementor Pro", "Custom CSS", "Responsive Design", "PHP"],
-    screenshots: [versatileGroup, pf1, office],
+    screenshots: [versatileGroup],
     liveUrl: "https://versatilegroup.ae/"
   },
   {
@@ -141,7 +137,7 @@ export const PROJECTS: Project[] = [
       "Responsive layout optimized for mobile and desktop healthcare seekers"
     ],
     techStack: ["WordPress", "Elementor Pro", "Accessibility", "PHP", "CSS3"],
-    screenshots: [truOutreach, pf2, office],
+    screenshots: [truOutreach],
     liveUrl: "https://truoutreach.org/"
   },
   {
@@ -163,7 +159,7 @@ export const PROJECTS: Project[] = [
       "High-speed performance optimized for global corporate clients"
     ],
     techStack: ["WordPress", "Elementor Pro", "Zoho Integrations", "PHP", "Responsive Design"],
-    screenshots: [crmspire, pf1, office],
+    screenshots: [crmspire],
     liveUrl: "https://crmspire.com/"
   },
   {
@@ -185,7 +181,7 @@ export const PROJECTS: Project[] = [
       "Fully responsive multi-device design with fast global CDN caching"
     ],
     techStack: ["WordPress", "Elementor Pro", "PHP", "Custom Typography", "SEO"],
-    screenshots: [samasimGroup, pf3, office],
+    screenshots: [samasimGroup],
     liveUrl: "https://samasimgroup.com/"
   },
   {
@@ -207,7 +203,7 @@ export const PROJECTS: Project[] = [
       "100% mobile-friendly responsive layout"
     ],
     techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [carryLogistics, pf1, office],
+    screenshots: [carryLogistics],
     liveUrl: "https://carrylogistics-uae.com/"
   },
   {
@@ -229,7 +225,7 @@ export const PROJECTS: Project[] = [
       "Modern animations and cross-device responsiveness"
     ],
     techStack: ["WordPress", "Elementor Pro", "Custom CSS", "PHP", "JavaScript"],
-    screenshots: [processPk, pf2, office],
+    screenshots: [processPk],
     liveUrl: "https://process.com.pk"
   },
 
@@ -253,7 +249,7 @@ export const PROJECTS: Project[] = [
       "Responsive eCommerce catalog optimized for procurement teams"
     ],
     techStack: ["WordPress", "WooCommerce", "B2B Features", "PHP", "Custom Taxonomies"],
-    screenshots: [ormSystems, pf1, office],
+    screenshots: [ormSystems],
     liveUrl: "https://ormsystems.com/"
   },
   {
@@ -275,7 +271,7 @@ export const PROJECTS: Project[] = [
       "Mobile-optimized luxury fashion boutique user experience"
     ],
     techStack: ["WordPress", "WooCommerce", "Elementor Pro", "Payment Gateways", "PHP"],
-    screenshots: [swarnDhaaga, pf2, office],
+    screenshots: [swarnDhaaga],
     liveUrl: "https://swarndhaaga.com/"
   },
   {
@@ -297,7 +293,7 @@ export const PROJECTS: Project[] = [
       "100% responsive design crafted for luxury smartphone shoppers"
     ],
     techStack: ["WordPress", "WooCommerce", "Custom Design", "PHP", "CSS3"],
-    screenshots: [mamlakat, pf1, office],
+    screenshots: [mamlakat],
     liveUrl: "https://www.mamlakat.com/"
   },
   {
@@ -319,7 +315,7 @@ export const PROJECTS: Project[] = [
       "Fast, responsive layout engineered for high mobile conversion"
     ],
     techStack: ["WordPress", "WooCommerce", "Payment Gateways", "PHP", "Responsive Design"],
-    screenshots: [dubaiCork, pf3, office],
+    screenshots: [dubaiCork],
     liveUrl: "https://dubaicork.ae/"
   },
 
@@ -343,7 +339,7 @@ export const PROJECTS: Project[] = [
       "Ultra-slick responsive performance with zero layout shift"
     ],
     techStack: ["WordPress", "Elementor Pro", "Figma to WordPress", "Custom Animations", "CSS3"],
-    screenshots: [noorulainStudio, pf1, office],
+    screenshots: [noorulainStudio],
     liveUrl: "https://www.noorulain.studio"
   },
   {
@@ -365,7 +361,7 @@ export const PROJECTS: Project[] = [
       "Smooth micro-interactions and mobile-first responsive layout"
     ],
     techStack: ["WordPress", "Elementor Pro", "Glassmorphism UI", "PHP", "CSS3 Animations"],
-    screenshots: [fastlearnerAi, pf2, office],
+    screenshots: [fastlearnerAi],
     liveUrl: "https://fastlearner.ai/"
   },
 
@@ -389,7 +385,7 @@ export const PROJECTS: Project[] = [
       "100% secure, accessible, mobile-responsive layout"
     ],
     techStack: ["WordPress", "Custom Multi-Step Forms", "Elementor Pro", "PHP", "Speed Optimization"],
-    screenshots: [contractorsLiability, pf1, office],
+    screenshots: [contractorsLiability],
     liveUrl: "https://contractorsliability.com/"
   },
   {
@@ -411,7 +407,7 @@ export const PROJECTS: Project[] = [
       "Mobile-optimized responsive design across all smartphones"
     ],
     techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [bexagro, pf2, office],
+    screenshots: [bexagro],
     liveUrl: "https://bexagroltd.com/"
   },
   {
@@ -433,7 +429,7 @@ export const PROJECTS: Project[] = [
       "Accessible, mobile-friendly design meeting healthcare standards"
     ],
     techStack: ["WordPress", "Elementor Pro", "Healthcare Accessibility", "PHP", "CSS3"],
-    screenshots: [guiderightCare, pf1, office],
+    screenshots: [guiderightCare],
     liveUrl: "https://www.guideright.care/"
   },
   {
@@ -455,7 +451,7 @@ export const PROJECTS: Project[] = [
       "100% responsive design tested across all screen resolutions"
     ],
     techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [anbgh, pf3, office],
+    screenshots: [anbgh],
     liveUrl: "https://anbgh.org/"
   },
   {
@@ -477,7 +473,7 @@ export const PROJECTS: Project[] = [
       "Mobile-first responsive architecture ensuring effortless booking"
     ],
     techStack: ["WordPress", "Elementor Pro", "Hotel Booking System", "PHP", "CSS3"],
-    screenshots: [olaliSuites, pf1, office],
+    screenshots: [olaliSuites],
     liveUrl: "https://olalisuitesmigori.org/"
   },
   {
@@ -499,7 +495,7 @@ export const PROJECTS: Project[] = [
       "High-performance responsive design optimized for desktop and mobile"
     ],
     techStack: ["WordPress", "Elementor Pro", "Custom Selector Tool", "PHP", "CSS3"],
-    screenshots: [teutschTech, pf2, office],
+    screenshots: [teutschTech],
     liveUrl: "https://teutschtech.com/"
   },
   {
@@ -521,7 +517,7 @@ export const PROJECTS: Project[] = [
       "100% mobile-responsive layout tailored for Danish property owners"
     ],
     techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [skjoldService, pf1, office],
+    screenshots: [skjoldService],
     liveUrl: "https://skjoldservice.nu"
   },
   {
@@ -543,7 +539,7 @@ export const PROJECTS: Project[] = [
       "Fully responsive, accessible design optimized for mobile and desktop"
     ],
     techStack: ["WordPress", "Elementor Pro", "ElementsKit", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [viknordisk, pf1, office],
+    screenshots: [viknordisk],
     liveUrl: "https://viknordisk.nu"
   },
 
@@ -567,7 +563,7 @@ export const PROJECTS: Project[] = [
       "Responsive layout optimized for mobile and desktop shoppers"
     ],
     techStack: ["WordPress", "WooCommerce", "PHP", "CSS3", "JavaScript"],
-    screenshots: [applianceWorld, pf2, office],
+    screenshots: [applianceWorld],
     liveUrl: "https://applianceworld.co.ug/"
   },
   {
@@ -589,7 +585,7 @@ export const PROJECTS: Project[] = [
       "Mobile-optimized responsive booking flow for travelers on the go"
     ],
     techStack: ["WordPress", "WooCommerce", "Car Rental Booking", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [pesaCarRental, pf2, office],
+    screenshots: [pesaCarRental],
     liveUrl: "https://www.pesacarrental.com/"
   },
   {
@@ -611,7 +607,7 @@ export const PROJECTS: Project[] = [
       "Fully responsive layout optimized for mobile property seekers"
     ],
     techStack: ["WordPress", "Elementor Pro", "Custom Post Types", "ACF Pro", "AJAX Filtering", "PHP", "CSS3"],
-    screenshots: [tommysListing, pf1, office],
+    screenshots: [tommysListing],
     liveUrl: "https://www.tommys.co.nz/"
   },
   {
@@ -633,7 +629,7 @@ export const PROJECTS: Project[] = [
       "Mobile-first responsive architecture ensuring smooth mobile booking"
     ],
     techStack: ["WordPress", "Elementor Pro", "Booking System", "Responsive Design", "PHP"],
-    screenshots: [montgomeryInn, pf1, office],
+    screenshots: [montgomeryInn],
     liveUrl: "https://montgomeryinnatingleside.com/"
   },
   {
@@ -655,7 +651,7 @@ export const PROJECTS: Project[] = [
       "Accessible, mobile-responsive layout meeting healthcare usability standards"
     ],
     techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [caterPsychiatry, pf2, office],
+    screenshots: [caterPsychiatry],
     liveUrl: "https://caterpsychiatry.com/"
   },
   {
@@ -677,7 +673,7 @@ export const PROJECTS: Project[] = [
       "Mobile-optimized layout designed for on-the-go commercial drivers"
     ],
     techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [dieselRepair, pf1, office],
+    screenshots: [dieselRepair],
     liveUrl: "https://205diesel.com/"
   },
   {
@@ -700,7 +696,7 @@ export const PROJECTS: Project[] = [
       "100% mobile-responsive, fast-loading design optimized across all mobile devices"
     ],
     techStack: ["WordPress", "Elementor Pro", "JavaScript", "PHP", "CSS3 Animations", "Google Maps API", "Responsive Design"],
-    screenshots: [salvajeGroup, pf1, office],
+    screenshots: [salvajeGroup],
     liveUrl: "https://salvajegroupdubai.com/"
   },
   {
@@ -723,7 +719,7 @@ export const PROJECTS: Project[] = [
       "100% responsive, high-performance design optimized across desktop and mobile"
     ],
     techStack: ["WordPress", "Elementor Pro", "ACF Pro", "PHP", "CSS3 Animations", "JavaScript", "Responsive Design"],
-    screenshots: [moritzDunkel, pf2, office],
+    screenshots: [moritzDunkel],
     liveUrl: "https://www.moritzdunkel.de/"
   },
   {
@@ -745,7 +741,7 @@ export const PROJECTS: Project[] = [
       "Responsive, accessible design optimized for patients and healthcare seekers"
     ],
     techStack: ["WordPress", "Elementor Pro", "Responsive Design", "PHP", "CSS3"],
-    screenshots: [globalMed, pf1, office],
+    screenshots: [globalMed],
     liveUrl: "https://globalmedus.com"
   },
   {
@@ -768,7 +764,7 @@ export const PROJECTS: Project[] = [
       "100% responsive dark-themed corporate design with high-impact CTAs"
     ],
     techStack: ["WordPress", "Elementor Pro", "PHP", "CSS3", "JavaScript", "Responsive Design"],
-    screenshots: [emodula, pf2, office],
+    screenshots: [emodula],
     liveUrl: "https://emodula.org"
   }
 ];

@@ -9,7 +9,7 @@ export function Blog() {
   const { t } = useTranslation();
   const [showAll, setShowAll] = useState(false);
 
-  const visiblePosts = showAll ? BLOG_POSTS : BLOG_POSTS.slice(0, 6);
+  const visiblePosts = showAll ? BLOG_POSTS : BLOG_POSTS.slice(0, 3);
 
   return (
     <section id="blog" aria-label="Latest articles" className="scroll-mt-28">
@@ -71,7 +71,7 @@ export function Blog() {
           })}
         </div>
 
-        {BLOG_POSTS.length > 6 && (
+        {BLOG_POSTS.length > 3 && (
           <div className="mt-8 flex justify-center">
             <button
               type="button"

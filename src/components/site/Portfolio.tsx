@@ -72,7 +72,7 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
           <img
             src={item.img}
             alt={`${item.title} Full Screenshot Preview`}
-            loading={idx < 2 ? "eager" : "lazy"}
+            loading="lazy"
             decoding="async"
             draggable={false}
             onLoad={handleImageLoad}

@@ -299,7 +299,7 @@ export function TransparentVideo({
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         style={{
           position: "absolute",
           top: 0,

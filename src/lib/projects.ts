@@ -1,6 +1,3 @@
-import pf1 from "@/assets/pf-1.jpg";
-import pf2 from "@/assets/pf-2.jpg";
-import pf3 from "@/assets/pf-3.jpg";
 import tommysListing from "@/assets/tommys-listing.webp";
 import applianceWorld from "@/assets/appliance-world.webp";
 import montgomeryInn from "@/assets/montgomery-inn.webp";
@@ -198,7 +195,7 @@ export const PROJECTS: Project[] = [
     category: "WooCommerce Development",
     excerpt:
       "A 1,200-product fashion store rebuilt on WooCommerce with a custom Elementor Pro theme and a two-step checkout.",
-    image: pf1,
+    image: applianceWorld,
     liveUrl: "https://example.com/aurora",
     overview:
       "Aurora sells apparel across Bangladesh and the Middle East. The brand needed a WooCommerce store that could carry a large catalogue, run frequent campaigns and stay fast on mobile data.",
@@ -221,7 +218,7 @@ export const PROJECTS: Project[] = [
     category: "Custom WordPress",
     excerpt:
       "A corporate website with a custom block library so the in-house team can build new pages without a developer.",
-    image: pf2,
+    image: montgomeryInn,
     liveUrl: "https://example.com/northbridge",
     overview:
       "Northbridge is a management consultancy that publishes case studies and insight articles every week. They wanted full editorial independence from their agency.",
@@ -244,7 +241,7 @@ export const PROJECTS: Project[] = [
     category: "Speed Optimization & Redesign",
     excerpt:
       "A marketplace redesign plus a deep performance pass that took Core Web Vitals from failing to green.",
-    image: pf3,
+    image: dieselRepair,
     liveUrl: "https://example.com/voltra",
     overview:
       "Voltra runs an electronics marketplace with thousands of daily visitors. Rankings were slipping and the design felt dated next to competitors.",

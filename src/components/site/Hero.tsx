@@ -2,7 +2,7 @@ import { NeumorphicCard, NeumorphicLinkButton } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
 import { WaterCanvas } from "@/components/ui/WaterCanvas";
 
-import heroProfileImg from "@/assets/hero-profile.png";
+import heroProfileImg from "@/assets/hero-profile.webp";
 
 const HERO_IMG = heroProfileImg;
 
@@ -62,21 +62,26 @@ export function Hero() {
 
               {/* ── Floating animated arrow GIF — points toward CTA buttons ── */}
               <div className="hero-arrow-wrapper">
-                <img
-                  src="/title-img-2.gif"
-                  alt=""
-                  aria-hidden="true"
-                  width={360}
-                  height={360}
-                  style={{
-                    background: "transparent",
-                    backgroundColor: "transparent",
-                    imageRendering: "auto",
-                    filter:
-                      "var(--arrow-filter, sepia(1) saturate(5) hue-rotate(85deg) brightness(1.15))",
-                    opacity: 0.95,
-                  }}
-                />
+                <picture>
+                  <source srcSet="/title-img-2.webp" type="image/webp" />
+                  <img
+                    src="/title-img-2.gif"
+                    alt=""
+                    aria-hidden="true"
+                    width={360}
+                    height={360}
+                    loading="lazy"
+                    decoding="async"
+                    style={{
+                      background: "transparent",
+                      backgroundColor: "transparent",
+                      imageRendering: "auto",
+                      filter:
+                        "var(--arrow-filter, sepia(1) saturate(5) hue-rotate(85deg) brightness(1.15))",
+                      opacity: 0.95,
+                    }}
+                  />
+                </picture>
               </div>
             </div>
 

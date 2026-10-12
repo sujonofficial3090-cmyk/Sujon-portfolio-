@@ -101,7 +101,7 @@ export function NationalAnthemPlayer() {
   // Initialize and manage audio playback
   useEffect(() => {
     const audio = new Audio(activeAnthem.audioSrc);
-    audio.preload = "auto";
+    audio.preload = "none";
     audio.loop = true;
     audio.volume = volume;
     audio.muted = isMuted;
