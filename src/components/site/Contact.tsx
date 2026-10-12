@@ -132,18 +132,19 @@ export function Contact() {
 
   return (
     <section id="contact" className="scroll-mt-28">
-      <NeumorphicCard depth="md" radius="lg" className="mb-6 p-5 text-center sm:p-8 reveal-on-scroll">
-        <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
-          {t("contact_heading")}
-        </h2>
-        <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.65] text-muted-foreground">
-          {t("contact_subtitle")}
-        </p>
-      </NeumorphicCard>
+      <NeumorphicCard depth="md" radius="lg" className="p-5 sm:p-8">
+        <div className="mb-8 text-center reveal-on-scroll">
+          <h2 className="text-brand-gradient text-[clamp(1.6rem,4.2vw,2.5rem)] font-extrabold tracking-tight pb-1 leading-normal inline-block">
+            {t("contact_heading")}
+          </h2>
+          <p className="mx-auto mt-2 max-w-2xl text-[15px] sm:text-[16px] font-medium leading-[1.65] text-muted-foreground">
+            {t("contact_subtitle")}
+          </p>
+        </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* LEFT — Embedded Map of Banasree, Dhaka + Direct Contact Info inside Neumorphic Container */}
-        <NeumorphicCard depth="md" radius="lg" className="flex flex-col overflow-hidden p-4 sm:p-5 reveal-on-scroll stagger-1">
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* LEFT — Embedded Map of Banasree, Dhaka + Direct Contact Info inside Neumorphic Container */}
+          <div className="nm-raised-sm flex flex-col overflow-hidden rounded-[16px] p-4 sm:p-5 reveal-on-scroll stagger-1">
           {/* Map Header */}
           <div className="mb-3.5 flex items-center justify-between px-1">
             <div className="flex items-center gap-2">
@@ -191,10 +192,10 @@ export function Contact() {
               <span className="truncate">sujonmia3090@gmail.com</span>
             </a>
           </div>
-        </NeumorphicCard>
+        </div>
 
         {/* RIGHT — Contact Request Form */}
-        <NeumorphicCard depth="md" radius="lg" className="px-5 py-7 sm:px-8 sm:py-8 reveal-on-scroll stagger-2">
+        <div className="nm-raised-sm rounded-[16px] px-5 py-7 sm:px-8 sm:py-8 reveal-on-scroll stagger-2">
           <h2 className="sr-only">{t("contact_heading")}</h2>
 
           {submitted ? (
@@ -353,8 +354,9 @@ export function Contact() {
               </div>
             </form>
           )}
-        </NeumorphicCard>
+        </div>
       </div>
+      </NeumorphicCard>
     </section>
   );
 }

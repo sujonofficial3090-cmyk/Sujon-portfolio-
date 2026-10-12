@@ -1669,18 +1669,5 @@ img {
   backface-visibility: hidden;
 }
 
-/* Preload hint for LCP image */
-img[fetchpriority="high"] {
-  content-visibility: auto;
-}
-
-/* Optimized content-visibility for below-the-fold sections */
-#portfolio,
-#testimonials,
-#blog,
-#contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
-}
 
 
