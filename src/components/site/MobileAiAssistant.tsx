@@ -304,7 +304,7 @@ const SPECIFIC_TOPICS: KnowledgeTopic[] = [
     ],
     patterns: [/\b(service|services|what can you do|skills|specialties|seba)\b/i],
     reply:
-      "🛠️ **Core Services Offered by Sujon**:\n\n1. **Custom WordPress Development**: Fast, secure and custom-coded themes & plugins.\n2. **Elementor & Elementor Pro**: Pixel-perfect responsive designs from Figma / PSD / XD.\n3. **WooCommerce eCommerce**: Full online store setup with payments, tax & shipping.\n4. **Speed Optimization**: 90+ PageSpeed guarantee on Mobile & Desktop.\n5. **Website Redesign**: Modernizing outdated websites into sleek modern experiences.\n6. **Landing Page Design**: High-converting lead generation & sales funnels.\n7. **Bug Fixing & Security**: Emergency fixes, 500 errors, malware removal.\n8. **Website Migration**: Zero-downtime server and domain transfers.",
+      "🛠️ **Core Services Offered by Sujon**:\n\n1. **WordPress & Frontend Web Development**: Modern responsive web apps & WordPress architectures.\n2. **Modern Frontend (React & Next.js)**: Component-driven UI, TypeScript, Tailwind CSS & Headless CMS.\n3. **Elementor & Elementor Pro**: Pixel-perfect responsive designs from Figma / PSD.\n4. **WooCommerce eCommerce**: Full online store setup with payments, tax & shipping.\n5. **Speed & Core Web Vitals**: 90+ PageSpeed guarantee on Mobile & Desktop.\n6. **Custom Functionality & APIs**: RESTful APIs, CPTs, JetEngine & custom integrations.\n7. **Bug Fixing & Security**: Emergency fixes, 500 errors, malware removal.\n8. **Website Migration & Hosting**: Zero-downtime server and domain transfers.",
     options: [
       { label: "💰 What are your prices?", action: "pricing" },
       { label: "🛍️ WooCommerce Stores", action: "ecommerce" },
@@ -487,7 +487,7 @@ const SPECIFIC_TOPICS: KnowledgeTopic[] = [
     ],
     patterns: [/\b(who is sujon|about sujon|years of experience|who are you|sujon ke)\b/i],
     reply:
-      "🌟 **About Sujon Mia**:\n\n• **Senior WordPress Developer** with **3+ Years** of professional experience\n• **50+ Projects Completed** for businesses and international clients\n• **100% Client Satisfaction** rating\n• Specializes in WordPress, Elementor Pro, WooCommerce, dynamic websites, JetEngine, ACF, custom functionality, and AI-assisted workflows (ChatGPT, Claude, Gemini, Antigravity).\n\nSujon is based in Banasree, Rampura, Dhaka, Bangladesh, and works seamlessly with international clients across time zones.",
+      "🌟 **About Sujon Mia**:\n\n• **Senior WordPress & Frontend Developer** with **3+ Years** of professional experience\n• **50+ Projects Completed** for businesses and international clients\n• **100% Client Satisfaction** rating\n• Dual expertise in **Senior WordPress Architecture** (Elementor Pro, WooCommerce, JetEngine, ACF, custom functionality) and **Modern Frontend Engineering** (React, Next.js, TypeScript, Tailwind CSS, REST APIs, and Headless CMS).\n• Leverages AI-assisted development workflows (ChatGPT, Claude, Gemini, Antigravity) for rapid prototyping and clean execution.\n\nSujon is based in Banasree, Rampura, Dhaka, Bangladesh, and works seamlessly with international clients across time zones.",
     options: [
       { label: "💼 View Core Services", action: "services" },
       { label: "📁 See Portfolio Work", action: "portfolio_action" },

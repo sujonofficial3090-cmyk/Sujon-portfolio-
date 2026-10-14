@@ -21,16 +21,16 @@ export const Route = createFileRoute("/projects/")({
   head: () => ({
     meta: [
       {
-        title: "All Projects & Client Work — Sujon | Senior WordPress Developer",
+        title: "All Projects & Client Work — Sujon | Senior WordPress & Frontend Developer",
       },
       {
         name: "description",
         content:
-          "Browse all production WordPress websites, WooCommerce stores, dynamic content architectures, and custom client solutions built by Sujon.",
+          "Browse all production web applications, WordPress websites, modern frontend interfaces, WooCommerce stores, and custom client solutions built by Sujon.",
       },
       {
         property: "og:title",
-        content: "All Projects — Sujon | Senior WordPress Developer",
+        content: "All Projects — Sujon | Senior WordPress & Frontend Developer",
       },
       {
         property: "og:description",

@@ -24,12 +24,12 @@ export const Route = createFileRoute("/experience")({
   head: () => ({
     meta: [
       {
-        title: "Work Experience — Sujon | Senior WordPress Developer",
+        title: "Work Experience — Sujon | Frontend & WordPress Developer",
       },
       {
         name: "description",
         content:
-          "3+ years of professional experience building responsive, high-performance, and conversion-focused WordPress websites for international clients.",
+          "Professional experience building modern web applications, responsive frontend interfaces, and high-performance WordPress websites for international clients.",
       },
     ],
   }),
@@ -159,6 +159,41 @@ const EXPERIENCES: ExperienceItem[] = [
       "Proposal Preparation",
       "Milestone Delivery",
       "Post-Delivery Support",
+    ],
+  },
+  {
+    id: "canadian",
+    role: "Frontend Developer",
+    company: "Canadian Web Designs",
+    period: "6 Months",
+    location: "Remote",
+    type: "Full-Time · Remote",
+    badge: "6 Months",
+    summary:
+      "Engineering modern, high-performance web applications and interactive user interfaces for Canadian and international clients. Specializing in React, Next.js, TypeScript, Tailwind CSS, component architecture, and seamless API integration with pixel-perfect design execution.",
+    highlights: [
+      "Engineered high-performance, responsive web applications using React, Next.js, and TypeScript.",
+      "Converted Figma and UX prototypes into modular, accessible, and pixel-perfect UI components.",
+      "Developed scalable component libraries with Tailwind CSS, ensuring visual consistency across products.",
+      "Integrated RESTful APIs, third-party microservices, and headless CMS platforms with robust error handling.",
+      "Optimized Core Web Vitals, page load speeds, and client-side rendering for optimal user experience and SEO.",
+      "Ensured cross-browser compatibility, mobile responsiveness, and high accessibility standards across all platforms.",
+      "Collaborated remotely with international engineering teams, UI/UX designers, and stakeholders in agile sprints.",
+      "Maintained version control with Git/GitHub, enforcing clean code architecture and automated CI/CD workflows.",
+    ],
+    technologies: [
+      "Frontend Development",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "JavaScript (ES6+)",
+      "Tailwind CSS",
+      "HTML5 / CSS3",
+      "REST APIs",
+      "Headless CMS",
+      "Figma to Code",
+      "Core Web Vitals",
+      "Git & GitHub",
     ],
   },
 ];
@@ -298,6 +333,9 @@ function ExperiencePage() {
                 {/* Quick Career Highlights Tags */}
                 <div className="mt-2 flex flex-wrap gap-2">
                   <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
+                    Frontend & Modern Web
+                  </span>
+                  <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
                     WordPress & Elementor Pro
                   </span>
                   <span className="nm-inset text-[11px] font-extrabold px-3 py-1.5 rounded-[8px] text-foreground/85">
@@ -360,7 +398,9 @@ function ExperiencePage() {
           <div className="flex flex-col">
             {EXPERIENCES.map((exp, idx) => {
               const prefix =
-                exp.id === "sparktech"
+                exp.id === "canadian"
+                  ? "exp_canadian"
+                  : exp.id === "sparktech"
                   ? "exp_sparktech"
                   : exp.id === "designsilc"
                   ? "exp_designsilc"

@@ -48,7 +48,7 @@ function MobileDeveloperCard() {
           Sujon Mia
         </h3>
         <p className="text-[11.5px] font-extrabold text-brand-deep uppercase tracking-wider mt-0.5">
-          Senior WordPress Architect
+          Senior WordPress & Frontend Developer
         </p>
 
         <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full nm-inset px-3 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
@@ -71,10 +71,10 @@ function MobileDeveloperCard() {
         <div className="nm-inset rounded-[14px] p-3 text-left">
           <div className="flex items-center gap-1.5 text-brand-deep">
             <Award className="h-3.5 w-3.5" />
-            <span className="text-[12.5px] font-black">5+ Yrs</span>
+            <span className="text-[12.5px] font-black">3+ Yrs</span>
           </div>
-          <p className="text-[11px] font-bold text-foreground mt-1">WordPress Pro</p>
-          <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">Elementor & CPT</p>
+          <p className="text-[11px] font-bold text-foreground mt-1">Dual Expertise</p>
+          <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">WordPress & Frontend</p>
         </div>
 
         <div className="nm-inset rounded-[14px] p-3 text-left">
@@ -120,20 +120,20 @@ export function About() {
 
   const capabilities = [
     {
-      title: t("svc_1_title", "WordPress Website Development"),
-      desc: t("svc_1_desc", "Professional and responsive WordPress websites built around real business requirements."),
+      title: t("svc_1_title", "WordPress & Frontend Development"),
+      desc: t("svc_1_desc", "High-performance WordPress websites and modern frontend interfaces built around business needs."),
     },
     {
-      title: t("svc_2_title", "Elementor Pro Development"),
-      desc: t("svc_2_desc", "Responsive websites and landing pages using Elementor Pro with clean and flexible layouts."),
+      title: t("svc_2_title", "Modern Frontend (React & Next.js)"),
+      desc: t("svc_2_desc", "Component-driven user interfaces, React/Next.js apps, TypeScript, and Tailwind CSS."),
     },
     {
-      title: t("svc_4_title", "WooCommerce Development"),
-      desc: t("svc_4_desc", "WooCommerce websites, product layouts, customization and eCommerce functionality."),
+      title: t("svc_4_title", "WooCommerce & E-Commerce"),
+      desc: t("svc_4_desc", "High-converting WooCommerce stores, product layouts, customization and checkout flows."),
     },
     {
-      title: t("svc_3_title", "Custom WordPress Functionality"),
-      desc: t("svc_3_desc", "Custom features and functionality developed according to specific website requirements."),
+      title: t("svc_3_title", "Custom Functionality & APIs"),
+      desc: t("svc_3_desc", "Custom WordPress plugins, RESTful APIs, dynamic CPTs, and headless solutions."),
     },
   ];
 
@@ -149,7 +149,7 @@ export function About() {
           <div>
             {/* Title */}
             <h2 className="text-brand-gradient text-[clamp(1.9rem,4vw,2.8rem)] font-extrabold tracking-tight pb-1 leading-[1.25] inline-block">
-              {t("about_heading", "Senior WordPress Developer")}
+              {t("about_heading", "Senior WordPress & Frontend Developer")}
             </h2>
 
             {/* Clean, readable bio */}
@@ -163,7 +163,7 @@ export function About() {
             {/* Core Capabilities */}
             <div className="mt-8 border-t border-border/80 pt-6">
               <h3 className="text-[13px] sm:text-[13.5px] font-extrabold text-foreground mb-4 uppercase tracking-wider">
-                {t("about_skills_title", "Core WordPress Capabilities")}
+                {t("about_skills_title", "Core WordPress & Frontend Capabilities")}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {capabilities.map((item) => (

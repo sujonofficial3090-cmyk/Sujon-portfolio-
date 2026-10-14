@@ -17,17 +17,17 @@ import { Testimonials } from "@/components/site/Testimonials";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sujon — Senior WordPress Developer" },
+      { title: "Sujon — Senior WordPress & Frontend Developer" },
       {
         name: "description",
         content:
-          "Senior WordPress Developer specializing in WordPress, Elementor Pro, WooCommerce, dynamic websites, custom functionality, and AI-assisted development.",
+          "Senior WordPress & Frontend Developer specializing in WordPress architecture, modern Frontend engineering (React, Next.js, TypeScript), Elementor Pro, WooCommerce, and AI-accelerated workflows.",
       },
-      { property: "og:title", content: "Sujon — Senior WordPress Developer" },
+      { property: "og:title", content: "Sujon — Senior WordPress & Frontend Developer" },
       {
         property: "og:description",
         content:
-          "I build responsive, high-performance and conversion-focused WordPress websites for businesses and international clients.",
+          "I build responsive, high-performance web applications and conversion-focused WordPress websites for businesses and international clients.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

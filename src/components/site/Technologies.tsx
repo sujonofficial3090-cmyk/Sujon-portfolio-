@@ -132,6 +132,51 @@ const ICONS: Record<string, (props: { className?: string }) => React.ReactNode> 
   ),
 
   // --- FRONTEND & DESIGN ---
+  React: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#20232A" />
+      <circle cx="64" cy="64" r="10" fill="#61DAFB" />
+      <ellipse cx="64" cy="64" rx="38" ry="14" stroke="#61DAFB" strokeWidth="4.5" fill="none" transform="rotate(30 64 64)" />
+      <ellipse cx="64" cy="64" rx="38" ry="14" stroke="#61DAFB" strokeWidth="4.5" fill="none" transform="rotate(90 64 64)" />
+      <ellipse cx="64" cy="64" rx="38" ry="14" stroke="#61DAFB" strokeWidth="4.5" fill="none" transform="rotate(150 64 64)" />
+    </svg>
+  ),
+
+  "Next.js": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#000000" />
+      <circle cx="64" cy="64" r="44" stroke="#333" strokeWidth="2" fill="none" />
+      <path d="M46 44V84M82 44V84M46 44L82 84" stroke="white" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+
+  TypeScript: ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#3178C6" />
+      <text
+        x="64"
+        y="78"
+        fontFamily="'Funnel Display', sans-serif, system-ui"
+        fontSize="40"
+        fontWeight="900"
+        textAnchor="middle"
+        fill="white"
+      >
+        TS
+      </text>
+    </svg>
+  ),
+
+  "Tailwind CSS": ({ className = "h-10 w-10" }) => (
+    <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="128" height="128" rx="28" fill="#0F172A" />
+      <path
+        d="M40 58C42 50 48 46 58 46C70 46 72 54 78 56C82 57.3 85 55.3 88 50C86 58 80 62 70 62C58 62 56 54 50 52C46 50.7 43 52.7 40 58ZM55 74C57 66 63 62 73 62C85 62 87 70 93 72C97 73.3 100 71.3 103 66C101 74 95 78 85 78C73 78 71 70 65 68C61 66.7 58 68.7 55 74Z"
+        fill="#38BDF8"
+      />
+    </svg>
+  ),
+
   HTML5: ({ className = "h-10 w-10" }) => (
     <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="128" height="128" rx="28" fill="#E34F26" />
@@ -363,10 +408,14 @@ const ALL_TECH: TechItem[] = [
   { name: "Dynamic Content", category: "wordpress" },
   { name: "Custom WordPress Functionality", category: "wordpress" },
 
-  // Frontend & Design (6 items)
+  // Frontend & Design (10 items)
+  { name: "React", category: "frontend" },
+  { name: "Next.js", category: "frontend" },
+  { name: "TypeScript", category: "frontend" },
+  { name: "Tailwind CSS", category: "frontend" },
+  { name: "JavaScript", category: "frontend" },
   { name: "HTML5", category: "frontend" },
   { name: "CSS3", category: "frontend" },
-  { name: "JavaScript", category: "frontend" },
   { name: "Responsive Design", category: "frontend" },
   { name: "Figma", category: "frontend" },
   { name: "Photoshop", category: "frontend" },
