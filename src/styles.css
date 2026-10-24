@@ -584,25 +584,28 @@ textarea {
    SMOOTH SCROLL REVEAL ANIMATION SYSTEM
    ========================================================================== */
 
-/* Clean, Butter-Smooth Scroll Reveal for Sections & Cards (Pure Opacity - No Layout Shift) */
+/* Clean, Butter-Smooth Scroll Reveal for Sections & Cards */
 .reveal-on-scroll {
   opacity: 0;
-  transition: opacity 0.4s ease-out;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-on-scroll.is-revealed {
   opacity: 1;
+  transform: translateY(0);
 }
 
 /* Subtle Staggered Delays for Grid Cards */
-.stagger-1 { transition-delay: 30ms; }
-.stagger-2 { transition-delay: 60ms; }
-.stagger-3 { transition-delay: 90ms; }
-.stagger-4 { transition-delay: 120ms; }
-.stagger-5 { transition-delay: 150ms; }
-.stagger-6 { transition-delay: 180ms; }
-.stagger-7 { transition-delay: 210ms; }
-.stagger-8 { transition-delay: 240ms; }
+.stagger-1 { transition-delay: 40ms; }
+.stagger-2 { transition-delay: 85ms; }
+.stagger-3 { transition-delay: 130ms; }
+.stagger-4 { transition-delay: 175ms; }
+.stagger-5 { transition-delay: 220ms; }
+.stagger-6 { transition-delay: 265ms; }
+.stagger-7 { transition-delay: 310ms; }
+.stagger-8 { transition-delay: 355ms; }
 
 /* Instant Smooth Entrance for Tab Switching (No Blank Delays) */
 @keyframes tabFadeIn {
@@ -809,6 +812,7 @@ html.lenis body {
   }
 
   html {
+    scroll-behavior: smooth;
     font-family: "Poppins", "Funnel Display", sans-serif;
     /* Prevent font size inflation on mobile orientation change */
     -webkit-text-size-adjust: 100%;
@@ -1627,13 +1631,6 @@ header {
   .hover\:-translate-y-1:hover,
   .group-hover\:scale-105 {
     transform: none !important;
-  }
-
-  /* Disable scroll reveal animation overhead on mobile */
-  .reveal-on-scroll {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
   }
 
   /* Improve touch target sizing */

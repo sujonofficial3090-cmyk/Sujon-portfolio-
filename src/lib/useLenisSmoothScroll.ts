@@ -9,39 +9,14 @@ export function useLenisSmoothScroll() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
-    // Disable Lenis on touch/mobile devices — native scroll is faster & smoother
-    const isMobileOrTouch =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      window.matchMedia("(pointer: coarse)").matches ||
-      window.innerWidth < 1024;
-
-    if (isMobileOrTouch) {
-      // On mobile, just handle anchor smooth scrolling natively without Lenis overhead
-      const handleAnchorClick = (e: MouseEvent) => {
-        const target = (e.target as HTMLElement).closest("a");
-        if (!target) return;
-        const href = target.getAttribute("href");
-        if (href && (href.startsWith("/#") || href.startsWith("#"))) {
-          const id = href.replace("/#", "").replace("#", "");
-          const element = document.getElementById(id);
-          if (element) {
-            e.preventDefault();
-            const top = element.getBoundingClientRect().top + window.scrollY - 85;
-            window.scrollTo({ top, behavior: "smooth" });
-          }
-        }
-      };
-      document.addEventListener("click", handleAnchorClick, { passive: false });
-      return () => document.removeEventListener("click", handleAnchorClick);
-    }
-
-    // Desktop only: Lenis luxurious smooth scroll
+    // Luxurious Lenis smooth momentum scroll
     const lenis = new Lenis({
-      syncTouch: false,
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      lerp: 0.1,
-      wheelMultiplier: 0.95,
+      syncTouch: false,
+      wheelMultiplier: 1.05,
+      touchMultiplier: 1.0,
       autoResize: true,
     });
 
@@ -53,7 +28,7 @@ export function useLenisSmoothScroll() {
 
     rafId = requestAnimationFrame(raf);
 
-    // Smooth scroll for in-page anchors on desktop
+    // Smooth scroll for in-page anchors
     const handleAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("a");
       if (!target) return;
@@ -66,7 +41,7 @@ export function useLenisSmoothScroll() {
           e.preventDefault();
           lenis.scrollTo(element, {
             offset: -85,
-            duration: 1.15,
+            duration: 1.2,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
         }

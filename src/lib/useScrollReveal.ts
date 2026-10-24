@@ -4,12 +4,6 @@ export function useScrollReveal() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const isMobileOrTouch =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      window.matchMedia("(pointer: coarse)").matches ||
-      window.innerWidth < 768;
-
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const revealAll = () => {
@@ -18,17 +12,12 @@ export function useScrollReveal() {
       });
     };
 
-    if (isMobileOrTouch || prefersReducedMotion) {
+    if (prefersReducedMotion) {
       revealAll();
-      // Keep lightweight observer on touch to ensure dynamic tab-switching never leaves elements invisible
-      const mobileObserver = new MutationObserver(() => {
-        revealAll();
-      });
-      mobileObserver.observe(document.body, { childList: true, subtree: true });
-      return () => mobileObserver.disconnect();
+      return;
     }
 
-    // High performance IntersectionObserver for smooth one-time scroll reveal on desktop
+    // High performance IntersectionObserver for buttery smooth scroll reveal
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -39,8 +28,8 @@ export function useScrollReveal() {
         });
       },
       {
-        threshold: 0.04,
-        rootMargin: "0px 0px 50px 0px",
+        threshold: 0.05,
+        rootMargin: "0px 0px -25px 0px",
       },
     );
 
@@ -49,8 +38,8 @@ export function useScrollReveal() {
       const elements = document.querySelectorAll(".reveal-on-scroll:not(.is-revealed)");
       elements.forEach((el) => {
         const rect = el.getBoundingClientRect();
-        // If element is already inside or above viewport (e.g. from tab filter), reveal immediately
-        if (rect.top <= windowHeight + 50) {
+        // If element is already in the viewport or above it, reveal it immediately
+        if (rect.top < windowHeight * 0.92 && rect.bottom > 0) {
           el.classList.add("is-revealed");
         } else {
           observer.observe(el);
@@ -60,7 +49,7 @@ export function useScrollReveal() {
 
     // Initial check
     checkAndObserve();
-    const timer = setTimeout(checkAndObserve, 50);
+    const timer = setTimeout(checkAndObserve, 60);
 
     // Watch for DOM mutations (route changes and dynamic tab filtering)
     let animId: number;
