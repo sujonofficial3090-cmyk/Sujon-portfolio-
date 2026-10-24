@@ -9,6 +9,15 @@ import { useEffect } from "react";
  */
 export function useContentProtection() {
   useEffect(() => {
+    // Disable in local development so developer can inspect and test normally
+    if (
+      typeof window !== "undefined" &&
+      (window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1")
+    ) {
+      return;
+    }
+
     // 1. Disable Right Click Context Menu
     const handleContextMenu = (e: MouseEvent) => {
       // Allow right-click only if user is actively editing a text input

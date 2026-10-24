@@ -12,15 +12,11 @@ function shouldRunPreloader(): boolean {
   if (memoryPreloaded) return false;
 
   try {
-    const navEntries = performance.getEntriesByType("navigation");
-    const isReload =
-      navEntries.length > 0 &&
-      (navEntries[0] as PerformanceNavigationTiming).type === "reload";
     const hasSeenInSession =
       sessionStorage.getItem("sujon_preloader_shown") === "true";
 
-    // Show ONLY if fresh reload OR first time in session
-    if (isReload || !hasSeenInSession) {
+    // Show ONLY the first time the user visits in the session
+    if (!hasSeenInSession) {
       return true;
     }
     return false;
@@ -85,15 +81,15 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
       }, 180);
     };
 
-    // Absolute fail-safe hard timer: unconditionally finish within 800ms
+    // Absolute fail-safe hard timer: unconditionally finish within 550ms
     const hardTimer = setTimeout(() => {
       setProgress(100);
       cleanupAndFinish();
-    }, 800);
+    }, 550);
 
     const startTime = performance.now();
-    // Ultra-fast, responsive 450ms total progress duration
-    const duration = 450;
+    // Ultra-fast, responsive 320ms total progress duration
+    const duration = 320;
 
     const easeOutQuad = (t: number) => t * (2 - t);
 

@@ -102,7 +102,8 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
 
   return (
     <figure
-      className="project-grid-card group flex h-full flex-col justify-between overflow-hidden rounded-[20px] p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1.5"
+      style={{ animationDelay: `${(idx % 6) * 40}ms` }}
+      className="project-grid-card group flex h-full flex-col justify-between overflow-hidden rounded-[20px] p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1.5 animate-tab-fade"
     >
       <div className="flex flex-col flex-1">
         {/* Browser Mockup Window with Screenshot Preview */}

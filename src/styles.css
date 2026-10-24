@@ -587,7 +587,7 @@ textarea {
 /* Clean, Butter-Smooth Scroll Reveal for Sections & Cards (Pure Opacity - No Layout Shift) */
 .reveal-on-scroll {
   opacity: 0;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.4s ease-out;
 }
 
 .reveal-on-scroll.is-revealed {
@@ -595,14 +595,30 @@ textarea {
 }
 
 /* Subtle Staggered Delays for Grid Cards */
-.stagger-1 { transition-delay: 40ms; }
-.stagger-2 { transition-delay: 80ms; }
-.stagger-3 { transition-delay: 120ms; }
-.stagger-4 { transition-delay: 160ms; }
-.stagger-5 { transition-delay: 200ms; }
-.stagger-6 { transition-delay: 240ms; }
-.stagger-7 { transition-delay: 280ms; }
-.stagger-8 { transition-delay: 320ms; }
+.stagger-1 { transition-delay: 30ms; }
+.stagger-2 { transition-delay: 60ms; }
+.stagger-3 { transition-delay: 90ms; }
+.stagger-4 { transition-delay: 120ms; }
+.stagger-5 { transition-delay: 150ms; }
+.stagger-6 { transition-delay: 180ms; }
+.stagger-7 { transition-delay: 210ms; }
+.stagger-8 { transition-delay: 240ms; }
+
+/* Instant Smooth Entrance for Tab Switching (No Blank Delays) */
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-tab-fade {
+  animation: tabFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
 /* Gentle Hero Entrance on Initial Load */
 @keyframes heroEntrance {

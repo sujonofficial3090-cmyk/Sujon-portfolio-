@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { NeumorphicCard } from "@/components/nm";
@@ -10,7 +10,6 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobileActive, setIsMobileActive] = useState(false);
   const [canScroll, setCanScroll] = useState(true);
-  const projectUrl = `/projects/${item.id}`;
 
   const isActive = (isHovered || isMobileActive) && canScroll;
 
@@ -55,7 +54,8 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
 
   return (
     <figure
-      className={`group nm-raised-sm flex flex-col justify-between overflow-hidden rounded-[16px] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-nm-hover)] reveal-on-scroll stagger-${(idx % 3) + 1}`}
+      style={{ animationDelay: `${(idx % 6) * 45}ms` }}
+      className="group nm-raised-sm flex flex-col justify-between overflow-hidden rounded-[16px] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-nm-hover)] animate-tab-fade"
     >
       <div>
         {/* Fixed Viewport Container for Static Screenshot with Overflow Hidden */}
@@ -67,12 +67,12 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
             setIsMobileActive((prev) => !prev);
           }}
           className="relative h-[230px] sm:h-[240px] w-full overflow-hidden rounded-[12px] bg-muted/20 nm-inset cursor-pointer select-none [contain:paint]"
-          title="Hover to preview full website"
+          title="Tap / Hover to preview full website"
         >
           <img
             src={item.img}
             alt={`${item.title} Full Screenshot Preview`}
-            loading="lazy"
+            loading={idx < 3 ? "eager" : "lazy"}
             decoding="async"
             draggable={false}
             onLoad={handleImageLoad}
@@ -108,11 +108,15 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
           </div>
           <h3
             translate="no"
-            className="notranslate mt-2.5 text-[16px] sm:text-[17px] font-extrabold tracking-tight text-foreground"
+            className="notranslate mt-2.5 text-[16px] sm:text-[17px] font-extrabold tracking-tight text-foreground hover:text-brand-deep transition-colors"
           >
-            <a href={projectUrl} className="hover:text-brand-deep transition-colors">
+            <Link
+              to="/projects/$projectId"
+              params={{ projectId: item.id }}
+              className="hover:text-brand-deep transition-colors"
+            >
               {item.title}
-            </a>
+            </Link>
           </h3>
           <p className="mt-2 text-[13.5px] sm:text-[14px] leading-[1.65] font-normal text-muted-foreground line-clamp-3">
             {localizedDesc}
@@ -121,12 +125,13 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
       </div>
 
       <div className="mt-6 px-2 pb-1.5">
-        <a
-          href={projectUrl}
+        <Link
+          to="/projects/$projectId"
+          params={{ projectId: item.id }}
           className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center justify-center gap-2 rounded-[10px] w-full py-3.5 text-[12px] font-extrabold tracking-[0.1em] uppercase transition-all duration-300 active:nm-inset"
         >
           {t("portfolio_view_project")} <ArrowUpRight className="h-4 w-4" />
-        </a>
+        </Link>
       </div>
     </figure>
   );
@@ -136,23 +141,53 @@ export function Portfolio() {
   const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const categories = [
-    { id: "all", label: t("cat_all", "All Projects") },
-    { id: "Service Website", label: "Service Website" },
-    { id: "WooCommerce", label: t("cat_woo", "WooCommerce") },
-    { id: "Landing Page", label: "Landing Page" },
-    { id: "Plumbing Website", label: "Plumbing Website" },
-    { id: "Business Website", label: t("cat_business", "Business Website") },
-    { id: "WordPress", label: t("cat_wp", "WordPress") },
-    { id: "Dynamic Content", label: t("cat_custom", "Dynamic Content") },
-  ];
+  // Dynamic category counts
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: PROJECTS.length };
+    PROJECTS.forEach((p) => {
+      counts[p.category] = (counts[p.category] || 0) + 1;
+    });
+    return counts;
+  }, []);
 
-  const filteredProjects =
-    selectedCategory === "all"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.category === selectedCategory);
+  const categories = useMemo(() => {
+    return [
+      { id: "all", label: t("cat_all", "All Projects"), count: categoryCounts["all"] },
+      { id: "Service Website", label: "Service Website", count: categoryCounts["Service Website"] || 0 },
+      { id: "WooCommerce", label: t("cat_woo", "WooCommerce"), count: categoryCounts["WooCommerce"] || 0 },
+      { id: "Business Website", label: t("cat_business", "Business Website"), count: categoryCounts["Business Website"] || 0 },
+      { id: "Landing Page", label: "Landing Page", count: categoryCounts["Landing Page"] || 0 },
+      { id: "WordPress", label: t("cat_wp", "WordPress"), count: categoryCounts["WordPress"] || 0 },
+      { id: "Dynamic Content", label: t("cat_custom", "Dynamic Content"), count: categoryCounts["Dynamic Content"] || 0 },
+      { id: "Plumbing Website", label: "Plumbing Website", count: categoryCounts["Plumbing Website"] || 0 },
+    ].filter((c) => c.count > 0 || c.id === "all");
+  }, [categoryCounts, t]);
 
-  const visibleProjects = filteredProjects.slice(0, 6);
+  // Curated diverse showcase for "all", and exact filtered list for specific categories
+  const visibleProjects = useMemo(() => {
+    if (selectedCategory === "all") {
+      // Pick a diverse mix across different categories for the homepage preview
+      const diverseIds = [
+        "elixirmark", // Service
+        "pesa-car-rental", // WooCommerce
+        "salvaje-group", // Business / Nightlife
+        "moritz-dunkel", // Dynamic Content
+        "bridgeway-digital", // Service
+        "viknordisk", // WooCommerce
+      ];
+      const featured = diverseIds
+        .map((id) => PROJECTS.find((p) => p.id === id))
+        .filter((p): p is Project => Boolean(p));
+
+      // Fallback in case any id is missing
+      if (featured.length < 6) {
+        return PROJECTS.slice(0, 6);
+      }
+      return featured;
+    }
+
+    return PROJECTS.filter((p) => p.category === selectedCategory).slice(0, 6);
+  }, [selectedCategory]);
 
   return (
     <section id="portfolio" className="scroll-mt-28">
@@ -170,34 +205,48 @@ export function Portfolio() {
           </p>
         </div>
 
-        {/* Category Filter Pills — Smooth Horizontal Swipeable on Mobile, Centered with zero clipping on Desktop */}
-        <div className="flex items-center gap-2.5 sm:gap-3 mb-8 overflow-x-auto sm:overflow-visible no-scrollbar py-3.5 px-3 sm:px-0 sm:py-2.5 sm:flex-wrap sm:justify-center touch-pan-x">
+        {/* Category Filter Pills — Smooth Horizontal Swipeable on Mobile, Centered on Desktop */}
+        <div className="flex items-center gap-2 sm:gap-2.5 mb-8 overflow-x-auto sm:overflow-visible no-scrollbar py-3 px-2 sm:px-0 sm:py-2.5 sm:flex-wrap sm:justify-center touch-pan-x [contain:paint]">
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat.id;
             return (
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => {
-                  setSelectedCategory(cat.id);
-                }}
-                className={`shrink-0 whitespace-nowrap rounded-[10px] px-3.5 sm:px-4 py-2 sm:py-2.5 text-[11px] sm:text-[12px] font-extrabold tracking-wider uppercase transition-all duration-200 cursor-pointer select-none my-1 ${
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`shrink-0 whitespace-nowrap rounded-[10px] px-3.5 sm:px-4 py-2 sm:py-2.5 text-[11px] sm:text-[12px] font-extrabold tracking-wider uppercase transition-all duration-200 cursor-pointer select-none my-1 flex items-center gap-1.5 ${
                   isSelected
                     ? "nm-inset text-brand-deep shadow-inner"
                     : "nm-raised-sm hover:nm-interactive text-foreground/80 hover:text-brand-deep active:scale-95"
                 }`}
               >
-                {cat.label}
+                <span>{cat.label}</span>
+                <span
+                  className={`rounded-full px-1.5 py-0.2 text-[9.5px] font-black transition-colors ${
+                    isSelected
+                      ? "bg-brand text-white dark:text-black"
+                      : "bg-muted text-muted-foreground"
+                  }`}
+                >
+                  {cat.count}
+                </span>
               </button>
             );
           })}
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleProjects.map((item, idx) => (
-            <ProjectCard key={item.id} item={item} idx={idx} />
-          ))}
-        </div>
+        {/* Dynamic Project Grid with Smooth Transition */}
+        {visibleProjects.length > 0 ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {visibleProjects.map((item, idx) => (
+              <ProjectCard key={`${selectedCategory}-${item.id}`} item={item} idx={idx} />
+            ))}
+          </div>
+        ) : (
+          <div className="nm-inset rounded-[16px] py-12 text-center text-muted-foreground">
+            <p className="text-sm font-semibold">No projects found in this category.</p>
+          </div>
+        )}
 
         <div className="mt-8 flex justify-center">
           <Link

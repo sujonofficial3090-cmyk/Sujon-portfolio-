@@ -189,7 +189,8 @@ export function ClassicTechnologies() {
                 depth="sm"
                 radius="lg"
                 interactive
-                className={`flex flex-col items-center justify-center p-3.5 sm:p-4 text-center group transition-transform duration-300 hover:-translate-y-1 reveal-on-scroll stagger-${(idx % 6) + 1}`}
+                style={{ animationDelay: `${(idx % 6) * 35}ms` }}
+                className="flex flex-col items-center justify-center p-3.5 sm:p-4 text-center group transition-transform duration-300 hover:-translate-y-1 animate-tab-fade"
               >
                 {/* Soft Neumorphic Inset Square Pill Container */}
                 <div className="nm-inset flex h-[62px] w-[62px] sm:h-[68px] sm:w-[68px] shrink-0 items-center justify-center rounded-[14px] sm:rounded-[16px] p-2.5 mb-2.5 transition-transform duration-300 group-hover:scale-105">

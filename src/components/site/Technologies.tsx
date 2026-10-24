@@ -444,12 +444,20 @@ export function Technologies() {
 
   const filtered = activeTab === "all" ? ALL_TECH : ALL_TECH.filter((item) => item.category === activeTab);
 
+  const counts = {
+    all: ALL_TECH.length,
+    wordpress: ALL_TECH.filter((item) => item.category === "wordpress").length,
+    frontend: ALL_TECH.filter((item) => item.category === "frontend").length,
+    backend: ALL_TECH.filter((item) => item.category === "backend").length,
+    ai: ALL_TECH.filter((item) => item.category === "ai").length,
+  };
+
   const availableTabs = [
-    { id: "all", label: t("tab_all_tech", "All Technologies") },
-    { id: "wordpress", label: t("tab_wp", "WordPress") },
-    { id: "frontend", label: t("tab_frontend", "Frontend & Design") },
-    { id: "backend", label: t("tab_backend", "Hosting & Optimization") },
-    { id: "ai", label: t("tab_ai", "AI & Workflow") },
+    { id: "all", label: t("tab_all_tech", "All Technologies"), count: counts.all },
+    { id: "wordpress", label: t("tab_wp", "WordPress"), count: counts.wordpress },
+    { id: "frontend", label: t("tab_frontend", "Frontend & Design"), count: counts.frontend },
+    { id: "backend", label: t("tab_backend", "Hosting & Optimization"), count: counts.backend },
+    { id: "ai", label: t("tab_ai", "AI & Workflow"), count: counts.ai },
   ];
 
   return (
@@ -466,7 +474,7 @@ export function Technologies() {
         </div>
 
         {/* Category Tabs — Smooth Horizontal Swipeable on Mobile, Centered with zero clipping on Desktop */}
-        <div className="flex items-center gap-2.5 sm:gap-3 mb-8 overflow-x-auto sm:overflow-visible no-scrollbar py-3.5 px-3 sm:px-0 sm:py-2.5 sm:flex-wrap sm:justify-center touch-pan-x">
+        <div className="flex items-center gap-2 sm:gap-2.5 mb-8 overflow-x-auto sm:overflow-visible no-scrollbar py-3 px-2 sm:px-0 sm:py-2.5 sm:flex-wrap sm:justify-center touch-pan-x [contain:paint]">
           {availableTabs.map((tab) => {
             const isSelected = activeTab === tab.id;
             return (
@@ -474,13 +482,22 @@ export function Technologies() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={`shrink-0 whitespace-nowrap rounded-[10px] px-4 py-2 sm:py-2.5 text-[11.5px] sm:text-[12.5px] font-extrabold tracking-wider uppercase transition-all duration-200 cursor-pointer select-none my-1 ${
+                className={`shrink-0 whitespace-nowrap rounded-[10px] px-3.5 sm:px-4 py-2 sm:py-2.5 text-[11px] sm:text-[12px] font-extrabold tracking-wider uppercase transition-all duration-200 cursor-pointer select-none my-1 flex items-center gap-1.5 ${
                   isSelected
                     ? "nm-inset text-brand-deep shadow-inner"
                     : "nm-raised-sm hover:nm-interactive text-foreground/80 hover:text-brand-deep active:scale-95"
                 }`}
               >
-                {tab.label}
+                <span>{tab.label}</span>
+                <span
+                  className={`rounded-full px-1.5 py-0.2 text-[9.5px] font-black transition-colors ${
+                    isSelected
+                      ? "bg-brand text-white dark:text-black"
+                      : "bg-muted text-muted-foreground"
+                  }`}
+                >
+                  {tab.count}
+                </span>
               </button>
             );
           })}
@@ -493,11 +510,12 @@ export function Technologies() {
 
             return (
               <NeumorphicCard
-                key={item.name}
+                key={`${activeTab}-${item.name}`}
                 depth="sm"
                 radius="lg"
                 interactive
-                className={`flex flex-col items-center justify-center p-3.5 sm:p-4 text-center group transition-transform duration-300 hover:-translate-y-1 reveal-on-scroll stagger-${(idx % 6) + 1}`}
+                style={{ animationDelay: `${(idx % 12) * 30}ms` }}
+                className="flex flex-col items-center justify-center p-3.5 sm:p-4 text-center group transition-transform duration-300 hover:-translate-y-1 animate-tab-fade"
               >
                 {/* Neumorphic Inset Square Container for Official Logo */}
                 <div className="nm-inset flex h-[62px] w-[62px] sm:h-[68px] sm:w-[68px] shrink-0 items-center justify-center rounded-[14px] sm:rounded-[16px] p-2 mb-2.5 transition-transform duration-300 group-hover:scale-105">

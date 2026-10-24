@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 import { PROJECTS, type Project } from "@/data/projects";
@@ -24,7 +24,8 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
 
   return (
     <figure
-      className={`group nm-raised-sm flex flex-col justify-between overflow-hidden rounded-[16px] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-nm-hover)] reveal-on-scroll stagger-${(idx % 3) + 1}`}
+      style={{ animationDelay: `${(idx % 6) * 45}ms` }}
+      className="group nm-raised-sm flex flex-col justify-between overflow-hidden rounded-[16px] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-nm-hover)] animate-tab-fade"
     >
       <div>
         {/* Fixed Viewport Container for Static Screenshot with Overflow Hidden */}
@@ -36,7 +37,7 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
             setIsMobileActive((prev) => !prev);
           }}
           className="relative h-[230px] sm:h-[240px] w-full overflow-hidden rounded-[12px] bg-muted/20 nm-inset cursor-pointer select-none [contain:paint]"
-          title="Hover to preview full website"
+          title="Tap / Hover to preview full website"
         >
           <img
             src={item.img}
@@ -69,9 +70,13 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
             {item.category}
           </span>
           <h3 className="mt-3 text-[16px] sm:text-[17px] font-extrabold tracking-tight text-foreground">
-            <a href={projectUrl} className="hover:text-brand-deep transition-colors">
+            <Link
+              to="/projects/$projectId"
+              params={{ projectId: item.id }}
+              className="hover:text-brand-deep transition-colors"
+            >
               {item.title}
-            </a>
+            </Link>
           </h3>
           <p className="mt-2 text-[14px] leading-[1.65] font-normal text-muted-foreground line-clamp-3">
             {item.description}
@@ -80,12 +85,13 @@ function ProjectCard({ item, idx }: { item: Project; idx: number }) {
       </div>
 
       <div className="mt-6 px-2 pb-1.5">
-        <a
-          href={projectUrl}
+        <Link
+          to="/projects/$projectId"
+          params={{ projectId: item.id }}
           className="nm-raised-sm nm-interactive text-brand-deep inline-flex items-center justify-center gap-2 rounded-[10px] w-full py-3.5 text-[12px] font-extrabold tracking-[0.1em] uppercase transition-all duration-300 active:nm-inset"
         >
           {t("portfolio_view_project")} <ArrowUpRight className="h-4 w-4" />
-        </a>
+        </Link>
       </div>
     </figure>
   );

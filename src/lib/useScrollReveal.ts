@@ -4,29 +4,28 @@ export function useScrollReveal() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Reveal immediately on mobile/touch — no observer overhead
     const isMobileOrTouch =
       "ontouchstart" in window ||
       navigator.maxTouchPoints > 0 ||
       window.matchMedia("(pointer: coarse)").matches ||
       window.innerWidth < 768;
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const revealAll = () => {
-      document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+      document.querySelectorAll(".reveal-on-scroll:not(.is-revealed)").forEach((el) => {
         el.classList.add("is-revealed");
       });
     };
 
-    if (isMobileOrTouch) {
+    if (isMobileOrTouch || prefersReducedMotion) {
       revealAll();
-      return;
-    }
-
-    // If user prefers reduced motion, reveal everything immediately
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) {
-      revealAll();
-      return;
+      // Keep lightweight observer on touch to ensure dynamic tab-switching never leaves elements invisible
+      const mobileObserver = new MutationObserver(() => {
+        revealAll();
+      });
+      mobileObserver.observe(document.body, { childList: true, subtree: true });
+      return () => mobileObserver.disconnect();
     }
 
     // High performance IntersectionObserver for smooth one-time scroll reveal on desktop
@@ -35,39 +34,45 @@ export function useScrollReveal() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-revealed");
-            // One-time only: immediately stop observing once revealed
             observer.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.06,
-        rootMargin: "0px 0px -25px 0px",
+        threshold: 0.04,
+        rootMargin: "0px 0px 50px 0px",
       },
     );
 
-    const observeAll = () => {
+    const checkAndObserve = () => {
+      const windowHeight = window.innerHeight;
       const elements = document.querySelectorAll(".reveal-on-scroll:not(.is-revealed)");
-      elements.forEach((el) => observer.observe(el));
+      elements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        // If element is already inside or above viewport (e.g. from tab filter), reveal immediately
+        if (rect.top <= windowHeight + 50) {
+          el.classList.add("is-revealed");
+        } else {
+          observer.observe(el);
+        }
+      });
     };
 
-    // Initial observation
-    observeAll();
+    // Initial check
+    checkAndObserve();
+    const timer = setTimeout(checkAndObserve, 50);
 
-    // Check after render transitions settle
-    const timer = setTimeout(observeAll, 200);
-
-    let mutationTimer: ReturnType<typeof setTimeout>;
-    // Watch for DOM mutations (route changes in SPA) with debounce
+    // Watch for DOM mutations (route changes and dynamic tab filtering)
+    let animId: number;
     const mutationObserver = new MutationObserver(() => {
-      clearTimeout(mutationTimer);
-      mutationTimer = setTimeout(observeAll, 150);
+      cancelAnimationFrame(animId);
+      animId = requestAnimationFrame(checkAndObserve);
     });
     mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       clearTimeout(timer);
-      clearTimeout(mutationTimer);
+      cancelAnimationFrame(animId);
       observer.disconnect();
       mutationObserver.disconnect();
     };

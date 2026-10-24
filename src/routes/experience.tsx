@@ -135,9 +135,10 @@ const EXPERIENCES: ExperienceItem[] = [
     id: "freelance",
     role: "Business Development & Sales Executive",
     company: "Fiverr & Upwork",
-    period: "",
+    period: "2+ Years (Ongoing)",
     location: "International",
     type: "Remote / Freelance",
+    badge: "2+ Years",
     summary:
       "Managed international client projects through Fiverr and Upwork, handling client communications, requirement gathering, proposals, quotations, project delivery, and post-delivery support.",
     highlights: [
