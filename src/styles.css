@@ -1597,29 +1597,6 @@ header {
    ========================================================================== */
 
 @media (pointer: coarse), (max-width: 767px) {
-  /* Disable all CSS animations on mobile for performance */
-  .hero-animate-1,
-  .hero-animate-2,
-  .hero-animate-3,
-  .hero-animate-4 {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  /* Simplify neumorphic shadows on mobile — use simpler single-layer shadows */
-  .nm-raised {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
-  }
-
-  .nm-inset {
-    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.10) !important;
-  }
-
-  .nm-raised-sm {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10) !important;
-  }
-
   /* Disable blur-heavy effects on mobile */
   .blur-2xl,
   .blur-3xl {
