@@ -385,6 +385,37 @@ textarea {
   cursor: text !important;
 }
 
+/* When "Default" cursor mode is selected, restore 100% native system cursor across whole site */
+html[data-cursor="default"],
+html[data-cursor="default"] body {
+  cursor: auto !important;
+}
+
+html[data-cursor="default"] a,
+html[data-cursor="default"] button,
+html[data-cursor="default"] [role="button"],
+html[data-cursor="default"] input[type="submit"],
+html[data-cursor="default"] input[type="button"],
+html[data-cursor="default"] input[type="reset"],
+html[data-cursor="default"] select,
+html[data-cursor="default"] label,
+html[data-cursor="default"] .nm-interactive,
+html[data-cursor="default"] [data-interactive],
+html[data-cursor="default"] .cursor-pointer {
+  cursor: pointer !important;
+}
+
+html[data-cursor="default"] input[type="text"],
+html[data-cursor="default"] input[type="email"],
+html[data-cursor="default"] input[type="password"],
+html[data-cursor="default"] input[type="search"],
+html[data-cursor="default"] input[type="tel"],
+html[data-cursor="default"] input[type="url"],
+html[data-cursor="default"] input[type="number"],
+html[data-cursor="default"] textarea {
+  cursor: text !important;
+}
+
 /* ==========================================================================
    NEUMORPHIC UTILITIES
    ========================================================================== */
@@ -584,28 +615,26 @@ textarea {
    SMOOTH SCROLL REVEAL ANIMATION SYSTEM
    ========================================================================== */
 
-/* Clean, Butter-Smooth Scroll Reveal for Sections & Cards */
+/* Instant, Butter-Smooth Appearance for Sections & Cards (Zero late-loading delay) */
 .reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  opacity: 1;
+  transform: none;
 }
 
 .reveal-on-scroll.is-revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* Subtle Staggered Delays for Grid Cards */
-.stagger-1 { transition-delay: 40ms; }
-.stagger-2 { transition-delay: 85ms; }
-.stagger-3 { transition-delay: 130ms; }
-.stagger-4 { transition-delay: 175ms; }
-.stagger-5 { transition-delay: 220ms; }
-.stagger-6 { transition-delay: 265ms; }
-.stagger-7 { transition-delay: 310ms; }
-.stagger-8 { transition-delay: 355ms; }
+.stagger-1 { transition-delay: 20ms; }
+.stagger-2 { transition-delay: 40ms; }
+.stagger-3 { transition-delay: 60ms; }
+.stagger-4 { transition-delay: 80ms; }
+.stagger-5 { transition-delay: 100ms; }
+.stagger-6 { transition-delay: 120ms; }
+.stagger-7 { transition-delay: 140ms; }
+.stagger-8 { transition-delay: 160ms; }
 
 /* Instant Smooth Entrance for Tab Switching (No Blank Delays) */
 @keyframes tabFadeIn {
@@ -795,6 +824,10 @@ html.lenis body {
     height: auto;
   }
 
+  html.lenis {
+    scroll-behavior: auto !important;
+  }
+
   .lenis.lenis-smooth {
     scroll-behavior: auto !important;
   }
@@ -812,7 +845,7 @@ html.lenis body {
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     font-family: "Poppins", "Funnel Display", sans-serif;
     /* Prevent font size inflation on mobile orientation change */
     -webkit-text-size-adjust: 100%;

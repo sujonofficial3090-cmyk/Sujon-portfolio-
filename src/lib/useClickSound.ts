@@ -7,14 +7,20 @@ let audioCtx: AudioContext | null = null;
 
 function getCtx(): AudioContext | null {
   if (typeof window === "undefined") return null;
-  if (!audioCtx) {
-    const Klass =
-      window.AudioContext ||
-      (window as unknown as { webkitAudioContext: typeof AudioContext })
-        .webkitAudioContext;
-    if (Klass) audioCtx = new Klass();
+  try {
+    if (!audioCtx) {
+      const Klass =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext })
+          .webkitAudioContext;
+      if (Klass) audioCtx = new Klass();
+    }
+    if (audioCtx && audioCtx.state === "suspended") {
+      audioCtx.resume().catch(() => {});
+    }
+  } catch {
+    // AudioContext permission policy
   }
-  if (audioCtx?.state === "suspended") audioCtx.resume().catch(() => {});
   return audioCtx;
 }
 

@@ -22,12 +22,7 @@ export function ClickDotEffect() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    if (
-      typeof window === "undefined" ||
-      window.innerWidth < 1024 ||
-      "ontouchstart" in window ||
-      (window.matchMedia && window.matchMedia("(pointer: coarse)").matches)
-    ) {
+    if (typeof window === "undefined") {
       return;
     }
 

@@ -1,112 +1,94 @@
-import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 import { Sparkles, Zap, ShieldCheck, Award, ArrowRight } from "lucide-react";
 import { NeumorphicCard } from "@/components/nm";
 import { useTranslation } from "@/lib/i18n";
+import { ParticleLetterS } from "@/components/site/ParticleLetterS";
 
-// Lazy load heavy particle component — only on desktop
-const ParticleLetterS = lazy(() =>
-  import("@/components/site/ParticleLetterS").then((m) => ({ default: m.ParticleLetterS }))
-);
-
-// High-impact Developer Highlights Card for Mobile (fast, zero canvas bloat, high aesthetic)
-function MobileDeveloperCard() {
+function DeveloperHighlightCard() {
   const { t } = useTranslation();
   return (
-    <div className="relative flex flex-col items-center justify-between h-full w-full py-2 px-1 select-none">
+    <div className="relative flex flex-col items-center justify-between h-full w-full py-4 px-2 select-none">
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] rounded-full bg-brand-light/20 dark:bg-brand-light/10 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] rounded-full bg-brand-light/20 dark:bg-brand-light/10 blur-3xl" />
 
       {/* Top Header: Branded Emblem & Availability */}
       <div className="relative z-10 flex flex-col items-center text-center w-full">
-        {/* Embossed S Emblem */}
-        <div className="relative mb-3">
-          <div className="nm-raised flex h-16 w-16 items-center justify-center rounded-[20px] transition-transform duration-300">
-            <span
-              className="sujon-logo text-brand-gradient text-3xl font-black select-none"
-              style={{
-                lineHeight: 1,
-                background: "linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 60%, #FFD101 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                filter: "drop-shadow(0 4px 12px color-mix(in srgb, var(--brand) 30%, transparent))",
-              }}
-            >
-              S
-            </span>
+        {/* Embossed S Emblem with Interactive Particle S */}
+        <div className="relative mb-3.5">
+          <div className="nm-raised relative flex h-28 w-28 sm:h-32 sm:w-32 items-center justify-center rounded-[24px] sm:rounded-[28px] overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer">
+            <ParticleLetterS className="w-full h-full pointer-events-auto" />
           </div>
           {/* Subtle online indicator dot */}
-          <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5">
+          <span className="absolute -bottom-1 -right-1 flex h-4 w-4 pointer-events-none">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-background" />
+            <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-background" />
           </span>
         </div>
 
         {/* Developer name & status */}
-        <h3 className="text-[18px] font-black tracking-tight text-foreground">
+        <h3 className="text-[20px] sm:text-[22px] font-black tracking-tight text-foreground">
           Sujon Mia
         </h3>
-        <p className="text-[11.5px] font-extrabold text-brand-deep uppercase tracking-wider mt-0.5">
+        <p className="text-[12px] sm:text-[13px] font-extrabold text-brand-deep uppercase tracking-wider mt-0.5">
           Senior WordPress & Frontend Developer
         </p>
 
-        <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full nm-inset px-3 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="mt-3 inline-flex items-center gap-2 rounded-full nm-inset px-3.5 py-1 text-[11.5px] font-bold text-emerald-600 dark:text-emerald-400">
+          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
           Available for New Projects
         </div>
       </div>
 
       {/* 4 Feature Highlights Grid */}
-      <div className="relative z-10 grid grid-cols-2 gap-2.5 w-full mt-4">
-        <div className="nm-inset rounded-[14px] p-3 text-left">
+      <div className="relative z-10 grid grid-cols-2 gap-3 w-full mt-5">
+        <div className="nm-inset rounded-[14px] p-3.5 text-left transition-transform hover:scale-[1.02]">
           <div className="flex items-center gap-1.5 text-brand-deep">
-            <Zap className="h-3.5 w-3.5" />
-            <span className="text-[12.5px] font-black">99+</span>
+            <Zap className="h-4 w-4" />
+            <span className="text-[13px] font-black">99+</span>
           </div>
-          <p className="text-[11px] font-bold text-foreground mt-1">Core Web Vitals</p>
+          <p className="text-[11.5px] font-bold text-foreground mt-1">Core Web Vitals</p>
           <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">Sub-second speed</p>
         </div>
 
-        <div className="nm-inset rounded-[14px] p-3 text-left">
+        <div className="nm-inset rounded-[14px] p-3.5 text-left transition-transform hover:scale-[1.02]">
           <div className="flex items-center gap-1.5 text-brand-deep">
-            <Award className="h-3.5 w-3.5" />
-            <span className="text-[12.5px] font-black">3+ Yrs</span>
+            <Award className="h-4 w-4" />
+            <span className="text-[13px] font-black">3+ Yrs</span>
           </div>
-          <p className="text-[11px] font-bold text-foreground mt-1">Dual Expertise</p>
+          <p className="text-[11.5px] font-bold text-foreground mt-1">Dual Expertise</p>
           <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">WordPress & Frontend</p>
         </div>
 
-        <div className="nm-inset rounded-[14px] p-3 text-left">
+        <div className="nm-inset rounded-[14px] p-3.5 text-left transition-transform hover:scale-[1.02]">
           <div className="flex items-center gap-1.5 text-brand-deep">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span className="text-[12.5px] font-black">30+</span>
+            <Sparkles className="h-4 w-4" />
+            <span className="text-[13px] font-black">30+</span>
           </div>
-          <p className="text-[11px] font-bold text-foreground mt-1">Delivered</p>
+          <p className="text-[11.5px] font-bold text-foreground mt-1">Delivered</p>
           <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">US, UK, UAE, EU</p>
         </div>
 
-        <div className="nm-inset rounded-[14px] p-3 text-left">
+        <div className="nm-inset rounded-[14px] p-3.5 text-left transition-transform hover:scale-[1.02]">
           <div className="flex items-center gap-1.5 text-brand-deep">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            <span className="text-[12.5px] font-black">100%</span>
+            <ShieldCheck className="h-4 w-4" />
+            <span className="text-[13px] font-black">100%</span>
           </div>
-          <p className="text-[11px] font-bold text-foreground mt-1">Clean & Secure</p>
+          <p className="text-[11.5px] font-bold text-foreground mt-1">Clean & Secure</p>
           <p className="text-[10px] text-muted-foreground font-medium leading-tight mt-0.5">Scalable & SEO</p>
         </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="relative z-10 flex items-center gap-2.5 w-full mt-4">
+      <div className="relative z-10 flex items-center gap-3 w-full mt-5">
         <a
           href="#contact"
-          className="nm-raised-sm hover:nm-interactive text-brand-deep flex-1 py-2.5 rounded-[10px] text-center text-[11px] font-extrabold uppercase tracking-wider transition-all duration-200 active:scale-95 inline-flex items-center justify-center gap-1"
+          className="nm-raised-sm hover:nm-interactive text-brand-deep flex-1 py-3 rounded-[12px] text-center text-[12px] font-extrabold uppercase tracking-wider transition-all duration-200 active:scale-95 inline-flex items-center justify-center gap-1.5"
         >
-          {t("cta_contact", "Get In Touch")} <ArrowRight className="h-3.5 w-3.5" />
+          {t("cta_contact", "Get In Touch")} <ArrowRight className="h-4 w-4" />
         </a>
         <Link
           to="/projects"
-          className="nm-inset text-foreground/85 hover:text-brand-deep flex-1 py-2.5 rounded-[10px] text-center text-[11px] font-extrabold uppercase tracking-wider transition-all duration-200 active:scale-95 inline-flex items-center justify-center gap-1"
+          className="nm-inset text-foreground/85 hover:text-brand-deep flex-1 py-3 rounded-[12px] text-center text-[12px] font-extrabold uppercase tracking-wider transition-all duration-200 active:scale-95 inline-flex items-center justify-center gap-1.5"
         >
           {t("nav_projects", "Projects")}
         </Link>
@@ -189,26 +171,16 @@ export function About() {
           </div>
         </NeumorphicCard>
 
-        {/* Right Side: Interactive WebGL particle "S" on desktop, executive developer card on mobile */}
+        {/* Right Side: Professional Developer Profile & Performance Metrics with Particle S */}
         <NeumorphicCard
           depth="md"
           radius="lg"
-          className="relative flex min-h-[360px] lg:min-h-[520px] items-center justify-center overflow-hidden p-6 reveal-on-scroll stagger-2"
+          className="relative flex min-h-[460px] lg:min-h-[520px] items-center justify-center overflow-hidden p-6 sm:p-8 reveal-on-scroll stagger-2"
         >
           {/* Soft ambient lighting */}
           <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full bg-brand-light/20 dark:bg-brand-light/10 blur-3xl" />
 
-          {/* Mobile: lightweight high-end developer card */}
-          <div className="block lg:hidden w-full h-full">
-            <MobileDeveloperCard />
-          </div>
-
-          {/* Desktop only: interactive WebGL particle S */}
-          <div className="hidden lg:block w-full h-full">
-            <Suspense fallback={<MobileDeveloperCard />}>
-              <ParticleLetterS />
-            </Suspense>
-          </div>
+          <DeveloperHighlightCard />
         </NeumorphicCard>
       </div>
     </section>

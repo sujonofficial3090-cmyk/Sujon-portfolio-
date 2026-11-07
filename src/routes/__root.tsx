@@ -23,29 +23,10 @@ import { LanguageProvider } from "../lib/i18n";
 import { WhatsAppFloat } from "../components/site/WhatsAppFloat";
 import { ScrollButton } from "../components/site/ScrollButton";
 
-// Lazy load heavy desktop-only effects
-const ClickDotEffect = lazy(() =>
-  import("../components/ui/ClickDotEffect").then((m) => ({ default: m.ClickDotEffect }))
-);
-const ClickSoundEffect = lazy(() =>
-  import("../components/ui/ClickSoundEffect").then((m) => ({ default: m.ClickSoundEffect }))
-);
-const MagicCursorEffect = lazy(() =>
-  import("../components/ui/MagicCursorEffect").then((m) => ({ default: m.MagicCursorEffect }))
-);
-const NationalAnthemPlayer = lazy(() =>
-  import("../components/ui/NationalAnthemPlayer").then((m) => ({ default: m.NationalAnthemPlayer }))
-);
-
-// Detect touch/mobile once
-function isTouchDevice() {
-  if (typeof window === "undefined") return false;
-  return (
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    window.matchMedia("(pointer: coarse)").matches
-  );
-}
+import { ClickDotEffect } from "../components/ui/ClickDotEffect";
+import { ClickSoundEffect } from "../components/ui/ClickSoundEffect";
+import { MagicCursorEffect } from "../components/ui/MagicCursorEffect";
+import { NationalAnthemPlayer } from "../components/ui/NationalAnthemPlayer";
 
 function NotFoundComponent() {
   return (
@@ -195,8 +176,6 @@ function RootComponent() {
   useScrollReveal();
   useContentProtection();
 
-  const isTouch = typeof window !== "undefined" ? isTouchDevice() : false;
-
   useEffect(() => {
     // Theme surface: strictly default to White / Light mode on all devices for first-time visitors
     const storedTheme = localStorage.getItem("theme");
@@ -220,15 +199,13 @@ function RootComponent() {
           <SitePreloader />
           <Outlet />
 
-          {/* Desktop-only heavy effects — skip entirely on touch/mobile */}
-          {!isTouch && (
-            <Suspense fallback={null}>
-              <ClickDotEffect />
-              <ClickSoundEffect />
-              <MagicCursorEffect />
-              <NationalAnthemPlayer />
-            </Suspense>
-          )}
+          {/* Interactive UI Audio, Cursor & National Anthem Effects */}
+          <ClickSoundEffect />
+          <NationalAnthemPlayer />
+
+          {/* Desktop pointer & click burst effects */}
+          <ClickDotEffect />
+          <MagicCursorEffect />
 
           <WhatsAppFloat />
           <ScrollButton />

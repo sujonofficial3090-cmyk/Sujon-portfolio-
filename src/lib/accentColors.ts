@@ -5,12 +5,12 @@ export interface ColorMood {
 }
 
 export const COLOR_MOODS: ColorMood[] = [
-  { id: "gold", label: "Gold", hex: "#F5B700" },
+  { id: "gold", label: "Yellow", hex: "#F5B700" },
   { id: "orange", label: "Orange", hex: "#F97316" },
   { id: "blue", label: "Blue", hex: "#2563EB" },
   { id: "purple", label: "Purple", hex: "#7C3AED" },
   { id: "teal", label: "Teal", hex: "#0D9488" },
-  { id: "mint", label: "Mint", hex: "#00FD90" },
+  { id: "mint", label: "Green", hex: "#00FD90" },
 ];
 
 export function hexToRgb(hex: string): { r: number; g: number; b: number } | null {

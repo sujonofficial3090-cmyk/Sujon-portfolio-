@@ -15,7 +15,7 @@ import {
   clearCustomColor,
 } from "@/lib/accentColors";
 import type { CursorMode } from "@/components/ui/MagicCursorEffect";
-import { SOUND_OPTIONS, getSoundMode, setSoundMode, type SoundMode } from "@/lib/useClickSound";
+import { SOUND_OPTIONS, getSoundMode, setSoundMode, playClickSound, type SoundMode } from "@/lib/useClickSound";
 
 const NAV = [
   { label: "Home", href: "/#home" },
@@ -273,6 +273,8 @@ export function Header() {
   const selectSound = (mode: SoundMode) => {
     setSoundModeState(mode);
     setSoundMode(mode);
+    // Preview the sound immediately upon selection
+    playClickSound(1.0, mode);
   };
 
   const selectAccent = (colorId: string) => {
@@ -625,8 +627,8 @@ export function Header() {
                             className={cn(
                               "relative flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full transition-transform duration-200",
                               isSelected
-                                ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
-                                : "nm-raised-sm hover:scale-105",
+                                ? "scale-105 ring-2 ring-[#ea580c] ring-offset-2 ring-offset-surface"
+                                : "hover:scale-105",
                             )}
                           >
                             <span
@@ -637,7 +639,7 @@ export function Header() {
                                 <Check
                                   className={cn(
                                     "h-3 w-3 stroke-[3px] drop-shadow-xs",
-                                    c.id === "mint" ? "text-zinc-950" : "text-white",
+                                    c.id === "mint" || c.id === "gold" ? "text-zinc-950" : "text-white",
                                   )}
                                 />
                               )}
@@ -653,8 +655,8 @@ export function Header() {
                         className={cn(
                           "relative flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 cursor-pointer items-center justify-center rounded-full transition-transform duration-200",
                           accent === "custom"
-                            ? "nm-inset scale-105 ring-2 ring-brand-deep ring-offset-2 ring-offset-surface"
-                            : "nm-raised-sm hover:scale-105",
+                            ? "scale-105 ring-2 ring-[#ea580c] ring-offset-2 ring-offset-surface"
+                            : "hover:scale-105",
                         )}
                       >
                         <input
@@ -767,7 +769,7 @@ export function Header() {
                             className={cn(
                               "flex flex-col items-center justify-center gap-1 py-1.5 px-0.5 rounded-[10px] text-[10px] font-bold transition-all duration-200",
                               cursorMode === opt.id
-                                ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                                ? "nm-inset text-[#ea580c] ring-1 ring-[#ea580c]/50 border border-[#ea580c]/30"
                                 : "nm-raised-sm hover:nm-interactive text-foreground/80",
                             )}
                           >
@@ -802,7 +804,7 @@ export function Header() {
                             className={cn(
                               "flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-[10px] text-[10px] font-bold transition-all duration-200",
                               soundMode === opt.id
-                                ? "nm-inset text-brand-deep ring-1 ring-brand-deep/30"
+                                ? "nm-inset text-[#ea580c] ring-1 ring-[#ea580c]/50 border border-[#ea580c]/30"
                                 : "nm-raised-sm hover:nm-interactive text-foreground/80",
                             )}
                           >

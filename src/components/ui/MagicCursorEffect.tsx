@@ -162,11 +162,6 @@ export function MagicCursorEffect() {
   useEffect(() => {
     if (!mounted || typeof window === "undefined") return;
 
-    // Disable if touch-only screen
-    if (window.matchMedia("(pointer: coarse) and (hover: none)").matches) {
-      return;
-    }
-
     let mouseX = -100;
     let mouseY = -100;
     let currX = -100;
@@ -379,8 +374,14 @@ export function MagicCursorEffect() {
         domContainerRef.current.style.display = isDomMode ? "block" : "none";
       }
 
-      if (isDomMode && mouseX > -50 && mouseY > -50) {
-        const lerpFactor = currentMode === "crosshair" ? 0.4 : currentMode === "glow-dot" ? 0.35 : 0.3;
+      if (ringRef.current) ringRef.current.style.display = currentMode === "circle" ? "block" : "none";
+      if (dotRef.current) dotRef.current.style.display = "none";
+      if (glowDotRef.current) glowDotRef.current.style.display = currentMode === "glow-dot" ? "block" : "none";
+      if (crosshairRef.current) crosshairRef.current.style.display = currentMode === "crosshair" ? "block" : "none";
+      if (bubbleRef.current) bubbleRef.current.style.display = currentMode === "bubble" ? "block" : "none";
+
+      if (mouseX > -50 && mouseY > -50) {
+        const lerpFactor = currentMode === "crosshair" ? 0.45 : currentMode === "glow-dot" ? 0.35 : 0.3;
         currX += (mouseX - currX) * lerpFactor;
         currY += (mouseY - currY) * lerpFactor;
 
@@ -419,8 +420,8 @@ export function MagicCursorEffect() {
       if (radarContainerRef.current) {
         radarContainerRef.current.style.display = isRadarMode ? "block" : "none";
         if (isRadarMode && mouseX > -50 && mouseY > -50) {
-          radarX += (mouseX - 20 - radarX) * 0.4;
-          radarY += (mouseY - 20 - radarY) * 0.4;
+          radarX += (mouseX - 20 - radarX) * 0.45;
+          radarY += (mouseY - 20 - radarY) * 0.45;
           radarContainerRef.current.style.transform = `translate3d(${radarX}px, ${radarY}px, 0)`;
         }
       }
@@ -439,6 +440,12 @@ export function MagicCursorEffect() {
           canvas.style.display = "none";
         } else {
           canvas.style.display = "block";
+          if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.height = `${window.innerHeight}px`;
+          }
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
           const palette = globalThemePalette;
@@ -473,14 +480,6 @@ export function MagicCursorEffect() {
               }
               return sp.life < sp.maxLife;
             });
-
-            if (mouseX > -50 && mouseY > -50) {
-              ctx.beginPath();
-              ctx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
-              ctx.fillStyle = "#FFFFFF";
-              ctx.globalAlpha = 0.95;
-              ctx.fill();
-            }
           }
 
           // TRAIL (Comet)
@@ -503,19 +502,6 @@ export function MagicCursorEffect() {
                 ctx.globalAlpha = progress * 0.7;
                 ctx.stroke();
               }
-
-              const tip = trailPoints[trailPoints.length - 1];
-              ctx.beginPath();
-              ctx.arc(tip.x, tip.y, 4, 0, Math.PI * 2);
-              ctx.fillStyle = "#FFFFFF";
-              ctx.globalAlpha = 0.95;
-              ctx.fill();
-            } else if (mouseX > -50 && mouseY > -50) {
-              ctx.beginPath();
-              ctx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
-              ctx.fillStyle = "#FFFFFF";
-              ctx.globalAlpha = 0.9;
-              ctx.fill();
             }
           }
 
@@ -576,14 +562,6 @@ export function MagicCursorEffect() {
               ctx.fill();
               return p.life < p.maxLife;
             });
-
-            if (mouseX > -50 && mouseY > -50) {
-              ctx.beginPath();
-              ctx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
-              ctx.fillStyle = "#FFF3A8";
-              ctx.globalAlpha = 0.95;
-              ctx.fill();
-            }
           }
 
           // RIPPLE
@@ -601,14 +579,6 @@ export function MagicCursorEffect() {
               ctx.stroke();
               return true;
             });
-
-            if (mouseX > -50 && mouseY > -50) {
-              ctx.beginPath();
-              ctx.arc(mouseX, mouseY, 4, 0, Math.PI * 2);
-              ctx.fillStyle = primaryColor;
-              ctx.globalAlpha = 0.9;
-              ctx.fill();
-            }
           }
 
           // GALAXY
@@ -649,8 +619,11 @@ export function MagicCursorEffect() {
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("pointermove", handleMouseMove, { passive: true });
     window.addEventListener("mousedown", handleMouseDown, { passive: true });
+    window.addEventListener("pointerdown", handleMouseDown, { passive: true });
     window.addEventListener("mouseup", handleMouseUp, { passive: true });
+    window.addEventListener("pointerup", handleMouseUp, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     animId = requestAnimationFrame(renderLoop);
@@ -658,23 +631,18 @@ export function MagicCursorEffect() {
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("pointermove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("pointerdown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("pointerup", handleMouseUp);
       document.removeEventListener("mouseleave", handleMouseLeave);
       if (animId) cancelAnimationFrame(animId);
     };
   }, [mounted]);
 
+  // Always mount so ref attachments are never lost; visibility handled in renderLoop
   if (!mounted) return null;
-
-  if (
-    typeof window !== "undefined" &&
-    (window.innerWidth < 1024 ||
-      "ontouchstart" in window ||
-      (window.matchMedia && window.matchMedia("(pointer: coarse)").matches))
-  ) {
-    return null;
-  }
 
   return (
     <>

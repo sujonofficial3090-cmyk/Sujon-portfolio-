@@ -24,7 +24,7 @@ export function ScrollButton() {
 
     if (scrolled) {
       if (lenis) {
-        lenis.scrollTo(0, { duration: 1.2 });
+        lenis.scrollTo(0, { duration: 0.7 });
       } else {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
@@ -32,13 +32,13 @@ export function ScrollButton() {
       const servicesSection = document.getElementById("services");
       if (servicesSection) {
         if (lenis) {
-          lenis.scrollTo(servicesSection, { offset: -25, duration: 1.2 });
+          lenis.scrollTo(servicesSection, { offset: -25, duration: 0.7 });
         } else {
           servicesSection.scrollIntoView({ behavior: "smooth" });
         }
       } else {
         if (lenis) {
-          lenis.scrollTo(window.innerHeight * 0.85, { duration: 1.2 });
+          lenis.scrollTo(window.innerHeight * 0.85, { duration: 0.7 });
         } else {
           window.scrollBy({ top: window.innerHeight * 0.85, behavior: "smooth" });
         }
