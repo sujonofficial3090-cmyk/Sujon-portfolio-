@@ -27,6 +27,7 @@ import { ClickDotEffect } from "../components/ui/ClickDotEffect";
 import { ClickSoundEffect } from "../components/ui/ClickSoundEffect";
 import { MagicCursorEffect } from "../components/ui/MagicCursorEffect";
 import { NationalAnthemPlayer } from "../components/ui/NationalAnthemPlayer";
+import { SwarmRebuildTransition } from "../components/ui/SwarmRebuildTransition";
 
 function NotFoundComponent() {
   return (
@@ -206,6 +207,9 @@ function RootComponent() {
           {/* Desktop pointer & click burst effects */}
           <ClickDotEffect />
           <MagicCursorEffect />
+
+          {/* Collaborative Figma Swarm Rebuild Transition */}
+          <SwarmRebuildTransition />
 
           <WhatsAppFloat />
           <ScrollButton />

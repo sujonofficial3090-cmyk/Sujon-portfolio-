@@ -195,6 +195,8 @@ export function ParticleLetterS({ className }: ParticleLetterSProps) {
             np.canvas.style.transform = "scale(1.14)";
             np.canvas.style.transformOrigin = "center center";
             np.canvas.style.pointerEvents = "none";
+            np.canvas.setAttribute("data-img-src", dataUrl);
+            container.setAttribute("data-img-src", dataUrl);
           }
         };
 
