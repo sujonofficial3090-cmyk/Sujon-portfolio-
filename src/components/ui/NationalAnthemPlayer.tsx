@@ -102,29 +102,49 @@ export function NationalAnthemPlayer() {
   useEffect(() => {
     const audio = new Audio(activeAnthem.audioSrc);
     audio.preload = "none";
-    audio.loop = true;
+    audio.loop = false; // Plays through once, subsequent plays require manual turn on
     audio.volume = volume;
     audio.muted = isMuted;
     audioRef.current = audio;
 
     const onPlay = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
-    const onEnded = () => setIsPlaying(false);
+    const onEnded = () => {
+      setIsPlaying(false);
+      try {
+        sessionStorage.setItem("anthem_has_auto_played", "true");
+      } catch {}
+    };
 
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
     audio.addEventListener("ended", onEnded);
 
-    // Function to start playback
-    const startAudio = () => {
-      // If user paused it, or navigating between pages in same session, DO NOT autoplay!
-      if (isUserManuallyPaused.current || isInternalNav.current) return;
+    const isSwarmRebuildRunning = () => {
+      if (typeof window === "undefined") return false;
+      return Boolean(window.__swarmRebuild?.app || (window as any).__swarmRebuildActive);
+    };
 
+    // Trigger first-time auto-play (after Swarm Rebuild completes or is skipped)
+    const triggerFirstTimeAutoPlay = () => {
+      // 1. If user manually paused it, never force play
+      if (isUserManuallyPaused.current) return;
+
+      // 2. Only auto-play the FIRST time!
+      const hasAutoPlayed = sessionStorage.getItem("anthem_has_auto_played") === "true";
+      if (hasAutoPlayed) return;
+
+      // 3. While Swarm Rebuild is running, national anthem MUST NOT play!
+      if (isSwarmRebuildRunning()) return;
+
+      // Mark that first-time auto-play has been consumed
       try {
+        sessionStorage.setItem("anthem_has_auto_played", "true");
         sessionStorage.setItem("anthem_initialized_session", "true");
       } catch {}
 
-      const playPromise = audio.play();
+      if (!audioRef.current) return;
+      const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
@@ -139,6 +159,7 @@ export function NationalAnthemPlayer() {
 
     const unlockOnGesture = () => {
       if (isUserManuallyPaused.current) return;
+      if (isSwarmRebuildRunning()) return;
       audio
         .play()
         .then(() => {
@@ -164,14 +185,39 @@ export function NationalAnthemPlayer() {
       window.removeEventListener("keydown", unlockOnGesture, { capture: true });
     };
 
-    // Try starting immediately on website open
-    startAudio();
+    // Swarm Rebuild coordination:
+    // - While Swarm Rebuild is active: national anthem must NOT play!
+    // - When Swarm Rebuild finishes or is skipped: auto-play for the FIRST time!
+    const handleSwarmStart = () => {
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+      removeGestureListeners();
+    };
+
+    const handleSwarmEnd = () => {
+      triggerFirstTimeAutoPlay();
+    };
+
+    window.addEventListener("swarm-rebuild:start", handleSwarmStart);
+    window.addEventListener("swarm-rebuild:end", handleSwarmEnd);
+
+    // Initial check: if Swarm Rebuild is not active and anthem hasn't played yet
+    const initTimer = setTimeout(() => {
+      if (!isSwarmRebuildRunning() && sessionStorage.getItem("anthem_has_auto_played") !== "true") {
+        triggerFirstTimeAutoPlay();
+      }
+    }, 800);
 
     // Listen for custom global toggle if needed
     const handleGlobalToggle = () => {
       if (!audioRef.current) return;
       if (audioRef.current.paused) {
         isUserManuallyPaused.current = false;
+        try {
+          sessionStorage.setItem("anthem_has_auto_played", "true");
+        } catch {}
         audioRef.current.play().catch(() => {});
       } else {
         isUserManuallyPaused.current = true;
@@ -181,11 +227,14 @@ export function NationalAnthemPlayer() {
     window.addEventListener("toggle-national-anthem", handleGlobalToggle);
 
     return () => {
+      clearTimeout(initTimer);
       removeGestureListeners();
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("ended", onEnded);
       window.removeEventListener("toggle-national-anthem", handleGlobalToggle);
+      window.removeEventListener("swarm-rebuild:start", handleSwarmStart);
+      window.removeEventListener("swarm-rebuild:end", handleSwarmEnd);
       audio.pause();
       audio.src = "";
     };

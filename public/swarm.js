@@ -12,6 +12,10 @@
   "use strict";
 
   const KEY = "__swarmRebuild";
+  window.__swarmRebuildActive = true;
+  try {
+    window.dispatchEvent(new CustomEvent("swarm-rebuild:start"));
+  } catch (_) {}
   if (window[KEY]) {
     window[KEY].toggle();
     return;
@@ -3830,6 +3834,10 @@
 
     onComplete() {
       this.complete = true;
+      window.__swarmRebuildActive = false;
+      try {
+        window.dispatchEvent(new CustomEvent("swarm-rebuild:end", { detail: { reason: "complete" } }));
+      } catch (_) {}
       if (this.sfx) this.sfx.finale();
       const E = this.engine;
       const v = this.view;
@@ -3903,14 +3911,28 @@
 
   function start() {
     if (app) return;
+    window.__swarmRebuildActive = true;
+    try {
+      window.dispatchEvent(new CustomEvent("swarm-rebuild:start"));
+    } catch (_) {}
     app = new App();
-    app.run().catch((err) => console.error("[swarm-rebuild]", err));
+    app.run().catch((err) => {
+      window.__swarmRebuildActive = false;
+      try {
+        window.dispatchEvent(new CustomEvent("swarm-rebuild:end", { detail: { reason: "error" } }));
+      } catch (_) {}
+      console.error("[swarm-rebuild]", err);
+    });
   }
 
   function stop(reveal) {
     if (!app) return;
     const a = app;
     app = null;
+    window.__swarmRebuildActive = false;
+    try {
+      window.dispatchEvent(new CustomEvent("swarm-rebuild:end", { detail: { reason: reveal ? "skip" : "close" } }));
+    } catch (_) {}
     a.destroy(reveal);
   }
 
@@ -3926,6 +3948,10 @@
       // rebuild from where the first run started so screenshot crops line up again
       if (lastShot) a.env.scrollTo(lastShot.at.sy, lastShot.at.sx);
     }
+    window.__swarmRebuildActive = true;
+    try {
+      window.dispatchEvent(new CustomEvent("swarm-rebuild:start"));
+    } catch (_) {}
     start();
   }
 
