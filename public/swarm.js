@@ -67,6 +67,24 @@
     return 1;
   }
 
+  function toRgb(c) {
+    if (!c || c === "transparent") return [240, 239, 244];
+    const m = c.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+    if (m) return [Math.round(parseFloat(m[1])), Math.round(parseFloat(m[2])), Math.round(parseFloat(m[3]))];
+    try {
+      if (typeof document !== "undefined") {
+        const probe = document.createElement("div");
+        probe.style.color = c;
+        document.head.appendChild(probe);
+        const computed = getComputedStyle(probe).color;
+        probe.remove();
+        const cm = computed.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+        if (cm) return [Math.round(parseFloat(cm[1])), Math.round(parseFloat(cm[2])), Math.round(parseFloat(cm[3]))];
+      }
+    } catch (_) {}
+    return [240, 239, 244];
+  }
+
   function intersect(a, b) {
     if (!a || !b) return null;
     const l = Math.max(a.l, b.l);
@@ -1449,7 +1467,12 @@
       for (const b of bars) {
         const area = b.r.width * b.r.height;
         const covered = items.some(
-          (it) => it.id >= b.start && it.layer === "over" && it.kind === "rect" && it.w * it.h >= area * 0.85 && /rgba?\(/.test(it.css) && !/background-color:\s*rgba\([^)]*,\s*0(\.\d+)?\)/.test(it.css),
+          (it) =>
+            it.id >= b.start &&
+            it.layer === "over" &&
+            it.kind === "rect" &&
+            it.w * it.h >= area * 0.85 &&
+            !/background-color:\s*(transparent|rgba\([^)]*,\s*0(\.\d+)?\))/.test(it.css),
         );
         if (!covered) backdrops.push({ x: b.r.left, y: b.r.top, w: b.r.width, h: b.r.height, key: b.key, color: pageBg.color });
       }
@@ -1830,7 +1853,7 @@
 
       const pb = env.pageBg;
       this.bg.style.backgroundColor = pb.color;
-      const rgb = (pb.color.match(/[\d.]+/g) || [255, 255, 255]).map(Number);
+      const rgb = toRgb(pb.color);
       const lum = (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]) / 255;
       if (lum < 0.4) this.host.style.setProperty("--ph", "#3B3D42");
       if (pb.image && pb.image !== "none") {
@@ -1921,7 +1944,7 @@
       this.backdrops = (model.backdrops || []).map((b) => {
         const d = document.createElement("div");
         d.className = "bd";
-        const rgb = (b.color.match(/[\d.]+/g) || [255, 255, 255]).slice(0, 3).join(",");
+        const rgb = toRgb(b.color).join(",");
         d.setAttribute("style", `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;background:rgba(${rgb},.82);`);
         this.over.insertBefore(d, this.over.firstChild);
         return d;
