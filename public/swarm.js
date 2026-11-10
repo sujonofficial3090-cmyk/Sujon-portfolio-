@@ -488,7 +488,8 @@
 
   function boxyStyle(st) {
     if (alphaOf(st.backgroundColor) > 0.02) return true;
-    if (st.backgroundImage && st.backgroundImage !== "none") return true;
+    const clipText = st.webkitBackgroundClip === "text" || st.backgroundClip === "text" || st.getPropertyValue("-webkit-background-clip") === "text";
+    if (!clipText && st.backgroundImage && st.backgroundImage !== "none") return true;
     if (st.boxShadow && st.boxShadow !== "none") return true;
     for (const s of ["Top", "Right", "Bottom", "Left"]) {
       if (parseFloat(st["border" + s + "Width"]) > 0 && st["border" + s + "Style"] !== "none" && alphaOf(st["border" + s + "Color"]) > 0.02) return true;
@@ -757,7 +758,9 @@
       if (el === html) return null;
       const tag = el.localName;
       const bgc = cs.backgroundColor;
-      const bgi = cs.backgroundImage;
+      let bgi = cs.backgroundImage;
+      const clipText = cs.webkitBackgroundClip === "text" || cs.backgroundClip === "text" || cs.getPropertyValue("-webkit-background-clip") === "text";
+      if (clipText) bgi = "none"; // Text gradient background belongs to text, not box container
       const bgVisible = (alphaOf(bgc) > 0.01 && !sameColor(bgc, pageBg.color)) || bgi !== "none";
       if (el === body && pageBg.from === body) return null;
       const sides = ["top", "right", "bottom", "left"].map((s) => {
@@ -795,7 +798,10 @@
         }
       }
       if (sameAsPage && nb === 0 && !shadow && !backdrop && !forceRect) return null;
-      const cssText = styleString(cs, RECT_PROPS);
+      let cssText = styleString(cs, RECT_PROPS);
+      if (clipText) {
+        cssText = cssText.replace(/background-image:[^;]+;/gi, "background-image:none;");
+      }
       return add({
         kind: "rect",
         blend: cs.mixBlendMode !== "normal" ? cs.mixBlendMode : ctx.blend || "",
@@ -1542,7 +1548,8 @@
   // ------------------------------------------------------------------ styles
 
   const STYLE = `
-:host{all:initial;--brand:#10b981;--brand-deep:#059669;--brand-light:#d1fae5;font-family:"Funnel Display","Poppins",system-ui,sans-serif}
+:host{all:initial;--brand:#10b981;--brand-deep:#059669;--brand-light:#d1fae5;--surface:#f0eff4;--foreground:#18181b;--muted-foreground:#71717a;--nm-l:rgba(255,255,255,0.95);--nm-d:rgba(180,178,188,0.38);--nm-border:rgba(255,255,255,0.7);--nm-inset-l:rgba(255,255,255,0.95);--nm-inset-d:rgba(180,178,188,0.38);--shadow-nm-inset:inset 4px 4px 8px rgba(180,178,188,0.38),inset -4px -4px 8px rgba(255,255,255,0.95);font-family:"Funnel Display","Poppins",system-ui,sans-serif}
+:host(.dark){--surface:#201f27;--foreground:#f4f4f5;--muted-foreground:#a1a1aa;--nm-l:rgba(72,70,82,0.45);--nm-d:rgba(8,7,12,0.85);--nm-border:rgba(255,255,255,0.08);--nm-inset-l:rgba(72,70,82,0.38);--nm-inset-d:rgba(8,7,12,0.95);--shadow-nm-inset:inset 4px 4px 9px rgba(8,7,12,0.95),inset -3px -3px 8px rgba(72,70,82,0.38)}
 .sujon-logo{font-family:"Funnel Display",sans-serif!important;font-weight:900!important;background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand) 50%,var(--brand-deep) 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}
 *{box-sizing:border-box}
 .bg{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
@@ -1588,70 +1595,75 @@
 .intro.gone{opacity:0;transform:translate(-50%,-50%) scale(.9)}
 .intro img{display:block;width:60px;height:60px;object-fit:contain;filter:grayscale(1);opacity:.42;border-radius:14px}
 .intro .mono{width:60px;height:60px;border-radius:16px;background:#D7DADE;color:#fff;font:700 30px/60px Inter,system-ui,sans-serif;text-align:center}
-.hud{position:absolute;left:50%;bottom:20px;transform:translate(-50%,18px);opacity:0;display:flex;align-items:center;gap:10px;padding:6px 6px 6px 10px;background:rgba(30,30,30,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.07);font:500 12px/1 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;pointer-events:auto;transition:opacity .45s ease,transform .45s cubic-bezier(.2,.8,.2,1);white-space:nowrap;user-select:none;z-index:5}
+.hud{position:absolute;left:50%;bottom:24px;transform:translate(-50%,18px);opacity:0;display:flex;align-items:center;gap:10px;padding:7px 14px 7px 16px;background:var(--surface);color:var(--foreground);border-radius:12px;border:none;box-shadow:var(--shadow-nm-inset);font:600 12.5px/1 "Funnel Display","Poppins",system-ui,sans-serif;pointer-events:auto;transition:opacity .45s ease,transform .45s cubic-bezier(.2,.8,.2,1);white-space:nowrap;user-select:none;z-index:5}
 .hud.on{opacity:1;transform:translate(-50%,0)}
-.hud .dots{display:flex;padding-left:5px}
-.hud .dots i{display:block;width:18px;height:18px;margin-left:-5px;border-radius:50%;border:2px solid #1e1e1e;font:700 9px/14px Inter,system-ui,sans-serif;font-style:normal;text-align:center;color:#fff;transition:background .3s}
-.hud .txt,.hud .status{display:flex;align-items:center;gap:7px;color:#cfcfcf;font-variant-numeric:tabular-nums}
-.hud .txt b{color:#fff;font-weight:600}
-.hud .sep{width:1px;height:12px;background:#444}
-.hud .bar{width:64px;height:3px;border-radius:2px;background:#3a3a3a;overflow:hidden}
-.hud .bar i{display:block;height:100%;width:0;background:#0D99FF;transition:width .35s ease}
-.hud button{all:unset;cursor:pointer;padding:7px 10px;border-radius:8px;background:#2c2c2c;color:#fff;font:500 12px/1 Inter,system-ui,-apple-system,sans-serif;transition:background .15s}
-.hud button:hover{background:#3a3a3a}
-.hud button.pri{background:#0D99FF}
-.hud button.pri:hover{background:#2aa6ff}
-.hud button.skip-btn{background:#0D99FF;color:#fff;font-weight:700}
-.hud button.skip-btn:hover{background:#2aa6ff}
-.hud button.on{background:rgba(13,153,255,.22);color:#8fd0ff}
+.hud .dots{display:flex;padding-left:2px}
+.hud .dots i{display:block;width:20px;height:20px;margin-left:-6px;border-radius:50%;border:2px solid var(--surface);box-shadow:-2px -2px 5px var(--nm-l),2px 2px 5px var(--nm-d);font:800 10px/16px "Funnel Display",system-ui,sans-serif;font-style:normal;text-align:center;color:#fff;transition:transform .2s ease}
+.hud .dots i:hover{transform:scale(1.15);z-index:2}
+.hud .txt,.hud .status{display:flex;align-items:center;gap:8px;color:var(--foreground);font-variant-numeric:tabular-nums;font-weight:700}
+.hud .txt b{color:var(--brand-deep);font-weight:900}
+.hud .sep{width:1.5px;height:14px;background:var(--nm-d);opacity:.4;border-radius:1px}
+.hud .bar{width:68px;height:6px;border-radius:9999px;background:var(--surface);box-shadow:inset 2px 2px 4px var(--nm-inset-d),inset -2px -2px 4px var(--nm-inset-l);overflow:hidden;position:relative}
+.hud .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand-deep),var(--brand));border-radius:9999px;box-shadow:0 1px 4px rgba(16,185,129,.35);transition:width .35s ease}
+.hud button{all:unset;cursor:pointer;padding:6px 12px;border-radius:10px;background:var(--surface);color:var(--foreground);font:700 12px/1 "Funnel Display","Poppins",system-ui,sans-serif;box-shadow:-3px -3px 7px var(--nm-l),3px 3px 7px var(--nm-d);border:none;transition:all .18s cubic-bezier(.4,0,.2,1);display:inline-flex;align-items:center;justify-content:center}
+.hud button:hover{box-shadow:var(--shadow-nm-inset);color:var(--brand-deep);transform:none}
+.hud button:active{transform:scale(.97);box-shadow:var(--shadow-nm-inset)}
+.hud button.on{box-shadow:var(--shadow-nm-inset);color:var(--brand-deep)}
+.hud button.pri,.hud button.skip-btn{background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand) 100%);color:#fff!important;font-weight:800;padding:6px 14px;border-radius:10px;box-shadow:0 4px 14px rgba(249,115,22,.4),inset 0 1px 1px rgba(255,255,255,.4);border:none;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+.hud button.pri:hover,.hud button.skip-btn:hover{transform:scale(1.04);box-shadow:0 6px 18px rgba(249,115,22,.5),inset 0 1px 1px rgba(255,255,255,.5);color:#fff!important}
+.hud button.pri:active,.hud button.skip-btn:active{transform:scale(.96);box-shadow:0 2px 8px rgba(249,115,22,.3)}
 .hud button[hidden]{display:none}
-.hud .x{padding:7px 9px;color:#aaa}
-.hud button.snd{display:flex;align-items:center;gap:6px;padding:6px 8px}
-.hud button.snd.off{color:#8a8a8a}
-.hud button.snd.tap{background:#0D99FF;animation:hudpulse 1.6s ease-in-out infinite}
-@keyframes hudpulse{50%{box-shadow:0 0 0 4px rgba(13,153,255,.28)}}
+.hud .x{width:24px;height:24px;padding:0;border-radius:8px;display:grid;place-items:center;color:var(--muted-foreground);box-shadow:-2px -2px 5px var(--nm-l),2px 2px 5px var(--nm-d);border:none}
+.hud .x:hover{box-shadow:var(--shadow-nm-inset);color:var(--foreground)}
+.hud button.snd{display:flex;align-items:center;gap:5px;padding:6px 9px}
+.hud button.snd.off{color:var(--muted-foreground);opacity:.7}
+.hud button.snd.tap{color:var(--brand-deep);box-shadow:var(--shadow-nm-inset)}
 @media (max-width: 640px) {
   .hud {
     bottom: 12px;
-    gap: 6px;
-    padding: 5px 8px;
-    font-size: 11px;
+    gap: 8px;
+    padding: 6px 10px 6px 14px;
+    font-size: 11.5px;
     border-radius: 12px;
+    border: none;
+    box-shadow: var(--shadow-nm-inset);
     max-width: calc(100vw - 16px);
   }
   .hud .dots { display: none; }
   .hud .sep { display: none; }
-  .hud .bar { width: 40px; height: 3px; }
+  .hud .bar { width: 36px; height: 5px; }
   .hud button {
-    padding: 5px 8px;
+    padding: 5px 10px;
     font-size: 11px;
-    border-radius: 6px;
+    border-radius: 10px;
   }
   .hud button[data-a="tour"], .hud button[data-a="speed"] {
     display: none;
   }
-  .hud button.skip-btn {
-    padding: 5px 9px;
-    font-weight: 700;
+  .hud button.skip-btn, .hud button.pri {
+    padding: 6px 12px;
+    font-weight: 800;
   }
   .hud .txt {
-    max-width: 130px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: none;
+    flex-shrink: 1;
+    min-width: 0;
     white-space: nowrap;
-    font-size: 11px;
+    font-size: 11.5px;
   }
 }
 @media (max-width: 380px) {
   .hud {
-    gap: 4px;
-    padding: 4px 6px;
-    font-size: 10px;
+    gap: 5px;
+    padding: 5px 8px 5px 10px;
+    font-size: 10.5px;
     bottom: 8px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-nm-inset);
   }
-  .hud .txt { max-width: 95px; font-size: 10px; }
+  .hud .txt { font-size: 10px; }
   .hud .bar { display: none; }
-  .hud button { padding: 4px 6px; font-size: 10px; }
+  .hud button { padding: 4px 8px; font-size: 10.5px; }
 }
 `;
 
@@ -1741,9 +1753,36 @@
         const bColor = csDoc.getPropertyValue("--brand").trim();
         const bDeep = csDoc.getPropertyValue("--brand-deep").trim();
         const bLight = csDoc.getPropertyValue("--brand-light").trim();
+        const isDark = document.documentElement.classList.contains("dark");
+        host.classList.toggle("dark", isDark);
         if (bColor) host.style.setProperty("--brand", bColor);
         if (bDeep) host.style.setProperty("--brand-deep", bDeep);
         if (bLight) host.style.setProperty("--brand-light", bLight);
+        const surfaceVal = csDoc.getPropertyValue("--surface").trim();
+        if (surfaceVal) host.style.setProperty("--surface", surfaceVal);
+        const fgVal = csDoc.getPropertyValue("--foreground").trim();
+        if (fgVal) host.style.setProperty("--foreground", fgVal);
+        const mfgVal = csDoc.getPropertyValue("--muted-foreground").trim();
+        if (mfgVal) host.style.setProperty("--muted-foreground", mfgVal);
+        const bRgb = csDoc.getPropertyValue("--brand-rgb").trim();
+        if (bRgb) host.style.setProperty("--brand-rgb", bRgb);
+        const nmInset = csDoc.getPropertyValue("--shadow-nm-inset").trim();
+        if (nmInset) host.style.setProperty("--shadow-nm-inset", nmInset);
+        const nmL = csDoc.getPropertyValue("--nm-light").trim();
+        const nmD = csDoc.getPropertyValue("--nm-dark").trim();
+        if (nmL && nmD) {
+          if (!isDark) {
+            host.style.setProperty("--nm-l", `rgb(${nmL} / 0.95)`);
+            host.style.setProperty("--nm-d", `rgb(${nmD} / 0.38)`);
+            host.style.setProperty("--nm-inset-l", `rgb(${nmL} / 0.95)`);
+            host.style.setProperty("--nm-inset-d", `rgb(${nmD} / 0.38)`);
+          } else {
+            host.style.setProperty("--nm-l", `rgb(${nmL} / 0.45)`);
+            host.style.setProperty("--nm-d", `rgb(${nmD} / 0.85)`);
+            host.style.setProperty("--nm-inset-l", `rgb(${nmL} / 0.38)`);
+            host.style.setProperty("--nm-inset-d", `rgb(${nmD} / 0.95)`);
+          }
+        }
       } catch (_) {}
       const root = host.attachShadow({ mode: "open" });
       this.root = root;
@@ -3185,6 +3224,18 @@
   let soundPref = true;
   const SPK_ICON = '<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6v4h2.5l3.5 3V3L5 6z" fill="currentColor"/>';
 
+  // Authentic Cherry MX Blue Gaming Keyboard keystroke offsets (seconds) & durations:
+  const MECH_KEYS = [
+    [24.33, 0.098], [31.475, 0.098], [30.761, 0.0945], [25.071, 0.097],
+    [18.054, 0.0935], [25.444, 0.103], [25.803, 0.094], [26.159, 0.0925],
+    [19.876, 0.087], [26.534, 0.084], [26.928, 0.095], [27.347, 0.09],
+    [32.333, 0.0875], [31.891, 0.0845], [20.238, 0.085], [20.605, 0.079],
+    [17.316, 0.0995], [18.4, 0.092], [24.7, 0.101], [18.761, 0.088],
+    [19.495, 0.093], [31.123, 0.0955], [17.7, 0.086], [30.385, 0.0885],
+    [19.116, 0.094], [30.046, 0.0875],
+  ];
+  const MECH_SPACES = [[36.804, 0.12], [36.924, 0.12]];
+
   class Sound {
     constructor() {
       this.on = soundPref;
@@ -3196,6 +3247,8 @@
       this.pressTimes = [];
       this.ends = []; // when each sounding piano voice dies out
       this.fakeNow = null; // offline renders drive the clock explicitly
+      this.lastGlobalKey = 0;
+      this.mechAudioBuffer = null;
     }
 
     init(offline) {
@@ -3207,6 +3260,15 @@
         return false;
       }
       const ctx = this.ctx;
+      if (typeof fetch !== "undefined") {
+        fetch("/audio/mech-keyboard/sound.ogg")
+          .then((r) => r.arrayBuffer())
+          .then((ab) => ctx.decodeAudioData(ab))
+          .then((buf) => {
+            this.mechAudioBuffer = buf;
+          })
+          .catch(() => {});
+      }
       const out = ctx.createGain();
       out.gain.value = this.on ? 1 : 0;
       const comp = ctx.createDynamicsCompressor();
@@ -3397,28 +3459,51 @@
 
     // ---- events (screen coords in; all plain numbers so a log can be replayed)
 
-    // one mechanical key: a sharp click on top of a short "thock" (deeper for space)
+    // Authentic Cherry MX Blue Mechanical Gaming Keyboard Sound:
     clack(when, pan, space, vel = 1) {
-      this.tick(when, pan, rand(3600, 5600), 2.2, rand(0.2, 0.3) * vel, rand(0.006, 0.011));
-      this.tick(when + rand(0.001, 0.005), pan, space ? rand(380, 560) : rand(850, 1500), 1.6, (space ? 0.26 : rand(0.13, 0.2)) * vel, space ? 0.065 : rand(0.025, 0.042));
+      if (!this.ready()) return;
+      const ctx = this.ctx;
+
+      // 1. Play genuine studio-recorded Cherry MX Blue mechanical switch:
+      if (this.mechAudioBuffer) {
+        try {
+          const list = space ? MECH_SPACES : MECH_KEYS;
+          const [startSec, durSec] = list[Math.floor(Math.random() * list.length)];
+          const src = ctx.createBufferSource();
+          src.buffer = this.mechAudioBuffer;
+          // Organic micro-pitch humanization (+- 2.5%)
+          src.playbackRate.value = rand(0.975, 1.025);
+          const g = this.bus(when, pan, 0.05);
+          g.gain.setValueAtTime((space ? 0.95 : 0.85) * vel, when);
+          src.connect(g);
+          src.start(when, startSec, durSec);
+          src.onended = () => {
+            try { g.disconnect(); } catch (_) {}
+          };
+          return;
+        } catch (_) {}
+      }
+
+      // 2. Crisp mechanical click fallback if audio buffer is still decoding:
+      this.tick(when, pan, space ? rand(2400, 3200) : rand(3200, 4800), 2.8, (space ? 0.35 : 0.28) * vel, space ? 0.015 : 0.009);
+      this.tick(when + 0.002, pan, space ? rand(400, 600) : rand(800, 1200), 1.6, (space ? 0.3 : 0.2) * vel, space ? 0.04 : 0.025);
     }
 
     key(x, vw, id, n = 1, space = 0) {
       this.log("key", [x, vw, id, n, space]);
       if (!this.ready()) return;
       const t = this.now();
-      if (t - (this.lastKey.get(id) || -1) < 0.024) return;
-      this.keyTimes = this.keyTimes.filter((k) => t - k < 1);
-      if (this.keyTimes.length > 80) return;
+
+      // Enforce realistic human gaming typing cadence across the entire swarm:
+      // Minimum spacing of ~75ms between consecutive clicks (~11-13 keys/sec),
+      // creating that crisp, addictive mechanical keyboard ASMR rhythm!
+      if (this.lastGlobalKey && t - this.lastGlobalKey < 0.075) return;
+      if (t - (this.lastKey.get(id) || -1) < 0.09) return;
+
+      this.lastGlobalKey = t;
       this.lastKey.set(id, t);
       const pan = this.pan(x, vw);
-      // a burst of characters in one frame becomes a quick roll of keys
-      let at = t + 0.004;
-      for (let k = 0; k < Math.min(n, 3) && this.keyTimes.length <= 80; k++) {
-        this.keyTimes.push(t);
-        this.clack(at, pan, space && k === 0, rand(0.75, 1));
-        at += rand(0.018, 0.032);
-      }
+      this.clack(t + 0.002, pan, space ? 1 : 0, rand(0.9, 1.05));
     }
 
     // a mouse button: press click, then a lighter release
@@ -3716,6 +3801,35 @@
       }, true);
       // browsers only let audio start after a click/keypress on the page
       on(window, "pointerdown", () => this.unlockSound(), true);
+      // Mobile touch support: enables finger scrolling and cursor tracking during swarm rebuild
+      let touchStartY = 0;
+      let touchStartX = 0;
+      on(this.view.host, "touchstart", (e) => {
+        if (e.touches && e.touches[0]) {
+          touchStartY = e.touches[0].clientY;
+          touchStartX = e.touches[0].clientX;
+          this.engine.mouse = { x: touchStartX, y: touchStartY };
+          if (this.engine.ready) this.engine.start();
+        }
+        this.unlockSound();
+      }, { passive: true });
+      on(this.view.host, "touchmove", (e) => {
+        if (e.touches && e.touches[0]) {
+          const cy = e.touches[0].clientY;
+          const cx = e.touches[0].clientX;
+          const dy = touchStartY - cy;
+          touchStartY = cy;
+          touchStartX = cx;
+          this.engine.mouse = { x: cx, y: cy };
+          if (Math.abs(dy) > 0.5) {
+            this.env.scrollBy(dy);
+            if (!this.view.frozen) this.view.syncWorld();
+          }
+        }
+      }, { passive: true });
+      on(this.view.host, "touchend", () => {
+        this.engine.mouse = null;
+      }, { passive: true });
       if (!this.env.isRoot) {
         on(this.view.host, "wheel", (e) => {
           e.preventDefault();
@@ -3747,6 +3861,9 @@
     }
 
     unlockSound() {
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        try { window.speechSynthesis.getVoices(); } catch (_) {}
+      }
       if (this.dead || !this.sfx || !this.sfx.blocked) return;
       this.sfx.resume();
       setTimeout(() => this.renderSoundBtn(), 80);
@@ -3815,13 +3932,19 @@
       const total = E.tasks.length;
       const done = E.doneCount;
       if (this.complete) return;
-      if (!E.started) v.status.innerHTML = `<b>${E.cursors.length}</b> agents ready<span class="sep"></span>${total.toLocaleString()} layers`;
-      else {
+      if (!E.started) {
+        v.status.innerHTML =
+          window.innerWidth <= 640
+            ? `<b>${E.cursors.length}</b> agents · ready`
+            : `<b>${E.cursors.length}</b> agents ready<span class="sep"></span>${total.toLocaleString()} layers`;
+      } else {
         const pend = E.tasks.length - done;
         const below = E.tasks.some((t) => t.state === "wait" && t.layer === "world" && t.gate > E.frontier);
         v.status.innerHTML =
-          `<b>${workers}</b> agents<span class="sep"></span><b>${done.toLocaleString()}</b> / ${total.toLocaleString()} layers` +
-          (below && pend && !this.tour && E.backlog() === 0 ? `<span class="sep"></span>scroll to keep building` : "");
+          window.innerWidth <= 640
+            ? `<b>${workers}</b> agents · <b>${done.toLocaleString()}</b>/${total.toLocaleString()}`
+            : `<b>${workers}</b> agents<span class="sep"></span><b>${done.toLocaleString()}</b> / ${total.toLocaleString()} layers` +
+              (below && pend && !this.tour && E.backlog() === 0 ? `<span class="sep"></span>scroll to keep building` : "");
       }
       v.barFill.style.width = total ? `${(done / total) * 100}%` : "0%";
       const busy = E.cursors.filter((c) => c.task).slice(-5);
@@ -3839,6 +3962,7 @@
         window.dispatchEvent(new CustomEvent("swarm-rebuild:end", { detail: { reason: "complete" } }));
       } catch (_) {}
       if (this.sfx) this.sfx.finale();
+      this.announceCompletion();
       const E = this.engine;
       const v = this.view;
       const workers = E.cursors.filter((c) => c.worked).length + E.retired;
@@ -3853,6 +3977,44 @@
       v.root.querySelector('[data-a="tour"]').hidden = true;
       v.root.querySelector('[data-a="speed"]').hidden = true;
       this.tour = false;
+    }
+
+    announceCompletion() {
+      if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+      if (this.sfx && !this.sfx.on) return;
+      try {
+        window.speechSynthesis.cancel();
+        const text = "Build completed successfully. Welcome to Sujon's Portfolio.";
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 0.92;
+        utter.pitch = 1.0;
+        utter.volume = 1.0;
+        utter.lang = "en-US";
+
+        const setBestVoice = () => {
+          try {
+            const voices = window.speechSynthesis.getVoices();
+            if (!voices || !voices.length) return;
+            const preferred =
+              voices.find((v) => v.lang.startsWith("en") && /natural|aria|jenny|google us english|samantha|karen|female|zira/i.test(v.name)) ||
+              voices.find((v) => v.lang.startsWith("en-US")) ||
+              voices.find((v) => v.lang.startsWith("en"));
+            if (preferred) utter.voice = preferred;
+          } catch (_) {}
+        };
+
+        setBestVoice();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+          window.speechSynthesis.onvoiceschanged = setBestVoice;
+        }
+
+        setTimeout(() => {
+          try {
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utter);
+          } catch (_) {}
+        }, 550);
+      } catch (_) {}
     }
 
     destroy(reveal) {

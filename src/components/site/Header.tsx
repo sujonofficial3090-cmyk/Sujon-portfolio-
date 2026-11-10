@@ -316,10 +316,10 @@ export function Header() {
           <NeumorphicCard depth="md" radius="lg" className="px-3.5 py-3 sm:px-6 sm:py-3.5 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between gap-2.5 sm:gap-4 lg:grid lg:grid-cols-[auto_1fr_auto]">
           {/* SUJON — Clean Bold Text Logo */}
-          <a href="/#home" className="flex min-w-0 shrink items-center group">
+          <a href="/#home" className="flex shrink-0 items-center group">
             <span
               translate="no"
-              className="sujon-logo notranslate text-[22px] min-[380px]:text-[26px] sm:text-[30px] lg:text-[34px] font-black tracking-[0.06em] select-none uppercase truncate"
+              className="sujon-logo notranslate text-[20px] min-[360px]:text-[22px] min-[400px]:text-[26px] sm:text-[30px] lg:text-[34px] font-black tracking-[0.06em] select-none uppercase whitespace-nowrap"
             >
               Sujon
             </span>
